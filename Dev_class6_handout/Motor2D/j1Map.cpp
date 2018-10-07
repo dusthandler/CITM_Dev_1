@@ -30,21 +30,31 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-
-	// TODO 5(old): Prepare the loop to draw all tilesets + Blit
-	MapLayer* layer = data.layers.start->data; // for now we just use the first layer and tileset
+	
+	MapLayer* layer = data.layers.start->data; 
 	TileSet* tileset = data.tilesets.start->data;
 
-	// TODO 10(old): Complete the draw function
+	for (uint x = 0; x < data.width; x++)
+	{
+		for (uint y = 0; y < data.height; y++)
+		{
+			iPoint coordenates = MapToWorld(x, y);
+			SDL_Rect rect = tileset->GetTileRect(layer->Get(x, y));
+			App->render->Blit(tileset->texture, coordenates.x, coordenates.y, &rect);
+		}
+	}
+
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret(0,0);
-	// TODO 8(old): Create a method that translates x,y coordinates from map positions to world positions
 
-	ret.x = x * data.tile_width;
-	ret.y = y * data.tile_height;
+	if (data.type == MapTypes::MAPTYPE_ORTHOGONAL)
+	{
+		ret.x = x * data.tile_width;
+		ret.y = y * data.tile_height;
+	}
 
 
 	// TODO 1: Add isometric map to world coordinates
@@ -55,12 +65,12 @@ iPoint j1Map::MapToWorld(int x, int y) const
 iPoint j1Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0,0);
-	// TODO 2: Add orthographic world to map coordinates
-
-
-	ret.x = x / data.tile_width; 
-	ret.y = y / data.tile_height; 
-
+	
+	if (data.type == MapTypes::MAPTYPE_ORTHOGONAL)
+	{
+		ret.x = x / data.tile_width;
+		ret.y = y / data.tile_height;
+	}
 
 	// TODO 3: Add the case for isometric maps to WorldToMap
 	return ret;
@@ -69,10 +79,8 @@ iPoint j1Map::WorldToMap(int x, int y) const
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	SDL_Rect rect = {0, 0, 0, 0};
-	// TODO 7(old): Create a method that receives a tile id and returns it's Rect
 
 	int relative_id = id - firstgid;
-	SDL_Rect rect;
 	rect.w = tile_width;
 	rect.h = tile_height;
 	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
@@ -122,7 +130,7 @@ bool j1Map::Load(const char* file_name)
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
-	pugi::xml_parse_result result = map_file.load_file(file_name);
+	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
 	if(result == NULL)
 	{

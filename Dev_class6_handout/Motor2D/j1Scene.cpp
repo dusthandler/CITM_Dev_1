@@ -30,11 +30,10 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-<<<<<<< HEAD
-	App->map->Load("MadeInAbyss.tmx");
-=======
-	App->map->Load("Hello2.tmx");
->>>>>>> 11dc5919f02b0a36be3a4d8a30aba0c41ad88fcf
+
+	App->map->Load("MaidInAbyss.tmx");
+	
+
 	//App->map->Load("iso.tmx");
 	
 	return true;
