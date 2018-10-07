@@ -31,12 +31,10 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
-<<<<<<< HEAD
+
 	App->map->Load("MaidInAbyss.tmx");
-=======
-	App->map->Load("hello2.tmx");
 	LOG("---------------------------CANCER");
->>>>>>> a3755bba327c01f7d55d839a64044e7aba92c825
+
 	
 
 	//App->map->Load("iso.tmx");

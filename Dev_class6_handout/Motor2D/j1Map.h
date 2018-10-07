@@ -26,10 +26,6 @@ struct MapLayer
 	inline uint Get(int x, int y) const
 	{
 		return data[y*width + x];
-<<<<<<< HEAD
-=======
-
->>>>>>> a3755bba327c01f7d55d839a64044e7aba92c825
 	}
 
 };
