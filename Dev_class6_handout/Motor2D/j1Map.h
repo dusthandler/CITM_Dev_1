@@ -6,17 +6,32 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-// TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
+struct MapLayer
+{
+	p2SString	name;
+	int			width;
+	int			height;
+	uint*		data;
 
-	// TODO 6: Short function to get the value of x,y
+	MapLayer() : data(NULL)
+	{}
 
+	~MapLayer()
+	{
+		RELEASE(data);
+	}
 
+	// TODO 6 (old): Short function to get the value of x,y
+	inline uint Get(int x, int y) const
+	{
+		return 0;
+	}
+};
 
 // ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -51,7 +66,7 @@ struct MapData
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
-	// TODO 2: Add a list/array of layers to the map!
+	p2List<MapLayer*>	layers;
 };
 
 // ----------------------------------------------------
@@ -76,16 +91,16 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
-	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
+	// Coordinate translation methods
 	iPoint MapToWorld(int x, int y) const;
+	iPoint WorldToMap(int x, int y) const;
 
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	// TODO 3: Create a method that loads a single laye
-	// bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 
 public:
 
