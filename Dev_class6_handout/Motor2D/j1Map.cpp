@@ -45,7 +45,7 @@ void j1Map::Draw()
 	}*/
 
 
-	for (uint x = 0; x < data.width; x++)
+	/*for (uint x = 0; x < data.width; x++)
 	{
 		for (uint y = 0; y < data.height; y++)
 		{
@@ -53,8 +53,60 @@ void j1Map::Draw()
 			SDL_Rect rect = tileset->GetTileRect(layer->Get(x, y));
 			App->render->Blit(tileset->texture, coordenates.x, coordenates.y, &rect);
 		}
-	}
+	}*/
 
+	p2List_item<TileSet*>* tileset_item = data.tilesets.end;//to print bg first and blit platforms on top of it
+	p2List_item<MapLayer*>* layers_item = data.layers.start;
+
+
+	while (tileset_item != NULL) {
+
+		layers_item = data.layers.start;
+
+		while (layers_item != NULL) {
+
+			for (uint x = 0; x < layers_item->data->width; x++) {
+
+				for (uint y = 0; y < layers_item->data->height; y++) {
+
+					SDL_Rect rect = tileset_item->data->GetTileRect(layers_item->data->Get(x, y));
+					iPoint world_coords = MapToWorld(x, y);
+
+					if (layers_item->data->type1 == LAYER_MAIN) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.1f);
+
+					}
+					else if (layers_item->data->type1 == LAYER_DW) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
+					}
+					else if (layers_item->data->type1 == LAYER_BG_1) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.8f);
+					}
+					else if (layers_item->data->type1 == LAYER_BG_2) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.7f);
+					}
+					else if (layers_item->data->type1 == LAYER_PARA_1) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.6f);
+					}
+					else if (layers_item->data->type1 == LAYER_PARA_2) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.4f);
+					}
+					else if (layers_item->data->type1 == LAYER_PARA_3) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.4f);
+					}
+					else if (layers_item->data->type1 == LAYER_PARA_4) {
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.2f);
+					}
+					
+
+
+				}
+
+			}
+			layers_item = layers_item->next;
+		}
+		tileset_item = tileset_item->prev;
+	}
 
 
 
@@ -361,6 +413,25 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	bool ret = true;
 
 	layer->name = node.attribute("name").as_string();
+
+	if (layer->name == "Parallax4")
+		layer->type1 = LAYER_PARA_4;
+	else if (layer->name == "Parallax3")
+		layer->type1 = LAYER_PARA_3;
+	else if (layer->name == "Parallax2")
+		layer->type1 = LAYER_PARA_2;
+	else if (layer->name == "Parallax1")
+		layer->type1 = LAYER_PARA_1;
+	else if (layer->name == "MainGround")
+		layer->type1 = LAYER_MAIN;
+	else if (layer->name == "Background1")
+		layer->type1 = LAYER_BG_1;
+	else if (layer->name == "Background2")
+		layer->type1 = LAYER_BG_2;
+	else if (layer->name == "DeepestWall")
+		layer->type1 = LAYER_DW;
+	
+
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
 	pugi::xml_node layer_data = node.child("data");

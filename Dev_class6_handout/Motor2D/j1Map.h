@@ -6,6 +6,19 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+
+enum LayerType {
+	LAYER_NONE = -1,
+	LAYER_MAIN,
+	LAYER_DW,
+	LAYER_PARA_1,
+	LAYER_PARA_2,
+	LAYER_PARA_3,
+	LAYER_PARA_4,
+	LAYER_BG_1,
+	LAYER_BG_2,
+
+};
 // ----------------------------------------------------
 struct MapLayer
 {
@@ -13,6 +26,7 @@ struct MapLayer
 	int			width;
 	int			height;
 	uint*		data;
+	LayerType	type1 = LAYER_NONE;
 
 	MapLayer() : data(NULL)
 	{}
@@ -57,6 +71,8 @@ enum MapTypes
 	MAPTYPE_ISOMETRIC,
 	MAPTYPE_STAGGERED
 };
+
+
 // ----------------------------------------------------
 struct MapData
 {
