@@ -34,6 +34,18 @@ void j1Map::Draw()
 	MapLayer* layer = data.layers.start->data; 
 	TileSet* tileset = data.tilesets.start->data;
 
+<<<<<<< HEAD
+=======
+	/*for (int i = 0; i < layer->width; i++) {
+		for (int j = 0; j < layer->height; j++) {
+			uint id = layer->data[(layer->width*i) + j];
+			SDL_Rect rect = tileset->GetTileRect[id];
+
+			App->render->Blit(tileset->texture, j*tileset->tex_width, i*tileset->tile_height, &rect);
+		}
+	}*/
+
+>>>>>>> a3755bba327c01f7d55d839a64044e7aba92c825
 	for (uint x = 0; x < data.width; x++)
 	{
 		for (uint y = 0; y < data.height; y++)
@@ -44,6 +56,11 @@ void j1Map::Draw()
 		}
 	}
 
+<<<<<<< HEAD
+=======
+
+	// TODO 10(old): Complete the draw function
+>>>>>>> a3755bba327c01f7d55d839a64044e7aba92c825
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const
@@ -65,12 +82,23 @@ iPoint j1Map::MapToWorld(int x, int y) const
 iPoint j1Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0,0);
+<<<<<<< HEAD
 	
 	if (data.type == MapTypes::MAPTYPE_ORTHOGONAL)
 	{
 		ret.x = x / data.tile_width;
 		ret.y = y / data.tile_height;
 	}
+=======
+	// TODO 2: Add orthographic world to map coordinates
+
+	if (data.type == MapTypes::MAPTYPE_ORTHOGONAL) {
+		ret.x = x / data.tile_width;
+		ret.y = y / data.tile_height;
+	};
+	
+
+>>>>>>> a3755bba327c01f7d55d839a64044e7aba92c825
 
 	// TODO 3: Add the case for isometric maps to WorldToMap
 	return ret;
@@ -81,6 +109,10 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	SDL_Rect rect = {0, 0, 0, 0};
 
 	int relative_id = id - firstgid;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a3755bba327c01f7d55d839a64044e7aba92c825
 	rect.w = tile_width;
 	rect.h = tile_height;
 	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
