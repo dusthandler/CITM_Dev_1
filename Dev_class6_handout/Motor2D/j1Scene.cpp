@@ -30,11 +30,11 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-<<<<<<< HEAD
-	App->map->Load("MadeInAbyss.tmx");
-=======
-	App->map->Load("Hello2.tmx");
->>>>>>> 11dc5919f02b0a36be3a4d8a30aba0c41ad88fcf
+
+	App->map->Load("hello2.tmx");
+	LOG("---------------------------CANCER");
+	
+
 	//App->map->Load("iso.tmx");
 	
 	return true;
@@ -71,14 +71,14 @@ bool j1Scene::Update(float dt)
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
+	//iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+	/*p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.count(),
-					map_coordinates.x, map_coordinates.y);
+					map_coordinates.x, map_coordinates.y);*/
 
-	App->win->SetTitle(title.GetString());
+	/*App->win->SetTitle(title.GetString());*/
 	return true;
 }
 
