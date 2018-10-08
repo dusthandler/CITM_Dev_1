@@ -25,24 +25,26 @@ public:
 
 	// Called each loop iteration
 	bool PreUpdate();
-	bool Update();
+	bool Update(float dt);
 	bool PostUpdate();
+	bool Draw(); 
+	void Jump_Calculator(uint speed); 
 
 	// Called before quitting
 	bool CleanUp();
 
-
 	/*void SwitchToDown(Animation*);     // switch animation functions, they should recieve the "idle" animation
 	void SwitchToUp(Animation*);*/
-public:
+private:
 
 	SDL_Texture* Player_Texture = nullptr;
-	SDL_Rect* Player_Rect = nullptr; 
 	Animation* Player_Animation = nullptr; 
-	Animation idle;
-	iPoint Position;
+	Animation Idle;
+	Animation None; 
+	fPoint Position;
 	uint Gravity; 
-	iPoint Speed;
+	fPoint Speed;
+	bool Is_Jumping = false; 
 	 
 };
 
