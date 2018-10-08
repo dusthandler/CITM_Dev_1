@@ -73,29 +73,29 @@ void j1Map::Draw()
 					iPoint world_coords = MapToWorld(x, y);
 
 					if (layers_item->data->type1 == LAYER_MAIN) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect,layers_item->data->Parallaxspeed);
 
 					}
 					else if (layers_item->data->type1 == LAYER_DW) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
 					}
 					else if (layers_item->data->type1 == LAYER_BG_1) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
 					}
 					else if (layers_item->data->type1 == LAYER_BG_2) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_1) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.8f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_2) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.6f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_3) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.3f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_4) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.0f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
 					}
 					
 
@@ -434,6 +434,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
+	layer->Parallaxspeed = node.child("properties").child("property").attribute("value").as_float();
 	pugi::xml_node layer_data = node.child("data");
 
 	if(layer_data == NULL)

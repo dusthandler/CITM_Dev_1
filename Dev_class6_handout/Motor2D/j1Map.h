@@ -25,6 +25,7 @@ struct MapLayer
 	p2SString	name;
 	int			width;
 	int			height;
+	float		Parallaxspeed;
 	uint*		data;
 	LayerType	type1 = LAYER_NONE;
 
