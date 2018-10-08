@@ -31,7 +31,7 @@ bool j1FB::Update(float dt)
 	bool ret = true;
 	if (current_step == fade_step::none) {
 		return ret;
-		LOG("INIT FUCK");
+		
 	}
 		
 
@@ -47,7 +47,7 @@ bool j1FB::Update(float dt)
 			// TODO 3: enable / disable the modules received when FadeToBlacks() gets called
 			ModuleOff->Disable();
 			ModuleOn->Enable();
-			LOG("INIT FADE2");
+			LOG("FADING_1");
 			// ---
 			total_time += total_time;
 			start_time = SDL_GetTicks();
@@ -58,7 +58,7 @@ bool j1FB::Update(float dt)
 	case fade_step::fade_from_black:
 	{
 		normalized = 1.0f - normalized;
-		LOG("INIT FADE3");
+		LOG("FADING_2");
 		if (now >= total_time)
 			current_step = fade_step::none;
 	} break;

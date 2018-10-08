@@ -55,47 +55,47 @@ void j1Map::Draw()
 		}
 	}*/
 
-	p2List_item<TileSet*>* tileset_item = data.tilesets.end;//to print bg first and blit platforms on top of it
-	p2List_item<MapLayer*>* layers_item = data.layers.start;
+	p2List_item<TileSet*>* item_tile = data.tilesets.end;//Painters rule application.
+	p2List_item<MapLayer*>* layers_lay = data.layers.start;
 
 
-	while (tileset_item != NULL) {
+	while (item_tile != NULL) {
 
-		layers_item = data.layers.start;
+		layers_lay = data.layers.start;
 
-		while (layers_item != NULL) {
+		while (layers_lay != NULL) {
 
-			for (uint x = 0; x < layers_item->data->width; x++) {
+			for (uint x = 0; x < layers_lay->data->width; x++) {
 
-				for (uint y = 0; y < layers_item->data->height; y++) {
+				for (uint y = 0; y < layers_lay->data->height; y++) {
 
-					SDL_Rect rect = tileset_item->data->GetTileRect(layers_item->data->Get(x, y));
+					SDL_Rect rect = item_tile->data->GetTileRect(layers_lay->data->Get(x, y));
 					iPoint world_coords = MapToWorld(x, y);
 
-					if (layers_item->data->type1 == LAYER_MAIN) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect,layers_item->data->Parallaxspeed);
+					if (layers_lay->data->type1 == LAYER_MAIN) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 
 					}
-					else if (layers_item->data->type1 == LAYER_DW) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
+					else if (layers_lay->data->type1 == LAYER_DW) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 					}
-					else if (layers_item->data->type1 == LAYER_BG_1) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
+					else if (layers_lay->data->type1 == LAYER_BG_1) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 					}
-					else if (layers_item->data->type1 == LAYER_BG_2) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
+					else if (layers_lay->data->type1 == LAYER_BG_2) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 					}
-					else if (layers_item->data->type1 == LAYER_PARA_1) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
+					else if (layers_lay->data->type1 == LAYER_PARA_1) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 					}
-					else if (layers_item->data->type1 == LAYER_PARA_2) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
+					else if (layers_lay->data->type1 == LAYER_PARA_2) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 					}
-					else if (layers_item->data->type1 == LAYER_PARA_3) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
+					else if (layers_lay->data->type1 == LAYER_PARA_3) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 					}
-					else if (layers_item->data->type1 == LAYER_PARA_4) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, layers_item->data->Parallaxspeed);
+					else if (layers_lay->data->type1 == LAYER_PARA_4) {
+						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 					}
 					
 
@@ -103,9 +103,9 @@ void j1Map::Draw()
 				}
 
 			}
-			layers_item = layers_item->next;
+			layers_lay = layers_lay->next;
 		}
-		tileset_item = tileset_item->prev;
+		item_tile = item_tile->prev;
 	}
 
 
