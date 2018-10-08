@@ -8,11 +8,9 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-<<<<<<< HEAD
 #include "j1Player.h"
-=======
 #include "j1FadeBlack.h"
->>>>>>> 28ae0e0de569b3a5c9267380b3e37c67caa686aa
+
 
 j1Scene::j1Scene() : j1Module()
 {

@@ -12,7 +12,7 @@ j1Player::j1Player() : j1Module()
 {
 	Player_Animation = &Idle;
 	Idle.PushBack({ 11, 9, 32, 53 });
-	Gravity = 10; 
+	Gravity = 11; 
 }
 
 // Destructor
@@ -50,12 +50,13 @@ bool j1Player::Update(float dt)
 {
 	
 	uint speed = 20; 
-	
+	uint JumpSpeed = 10; 
+
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		Is_Jumping = true; 
 	}
 	if (Is_Jumping == true) {
-		Jump_Calculator(speed);
+		Jump_Calculator(JumpSpeed);
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
@@ -76,27 +77,28 @@ void j1Player::Jump_Calculator(uint speed) {
 
 	uint First_Time = 0; 
 	uint Now = SDL_GetTicks();
-	uint Delta_Time = Now - First_Time; 
+	float Delta_Time = (Now - First_Time)/1000;   // Get Ticks is in miliseconds
 	fPoint Flying_Speed; 
 	float Flying_Speed_Module; 
 
 	Flying_Speed.x = speed;                                        
-	Flying_Speed.y = speed - Gravity * Delta_Time/1000;                                       // Physics flying object speed 
+	Flying_Speed.y = speed - Gravity * Delta_Time;                                       // Physics flying object speed 
 	Flying_Speed_Module = sqrt(pow(Flying_Speed.x, 2) + pow(Flying_Speed.y, 2)); 
 
 	int Angle = asin(Flying_Speed.y / Flying_Speed_Module);
 
-	Position.x = Flying_Speed.x * cos(Angle) * Delta_Time;                               // Physics flying object position
+	Position.x += Flying_Speed.x * cos(Angle) * Delta_Time;                               // Physics flying object position
 
 	if (Is_Jumping == true) {
 		if (Position.y <= ground) {
-			Position.y = Flying_Speed.y * Delta_Time * sin(Angle) - (Gravity * (pow(Delta_Time, 2))) / 2;
+			Position.y += Flying_Speed.y * Delta_Time * sin(Angle) - (Gravity * (pow(Delta_Time, 2))) / 2;
 		}
 		else {
 			Position.y = ground; 
 			Is_Jumping = false; 
 		}
 	}
+	Now = First_Time; 
 
 	LOG("SPEED X---> %f   SPEED Y ---> %f", Flying_Speed.x, Flying_Speed.y); 
 
