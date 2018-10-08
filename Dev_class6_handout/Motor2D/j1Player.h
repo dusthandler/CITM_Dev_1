@@ -39,6 +39,7 @@ public:
 	SDL_Texture* Player_Texture = nullptr;
 	SDL_Rect* Player_Rect = nullptr; 
 	Animation* Player_Animation = nullptr; 
+	Animation idle;
 	iPoint Position;
 	uint Gravity; 
 	iPoint Speed;

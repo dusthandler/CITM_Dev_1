@@ -93,9 +93,6 @@
     <ClInclude Include="j1Player.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\CodeFighters-LastResort\Last Resort_Alpha\Animation.h">
-      <Filter>Desenvolupament  ========\Tools\Extra</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -115,9 +112,6 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Scenes">
       <UniqueIdentifier>{e07660eb-d36f-4cc9-af59-324d31c2f2f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Desenvolupament  ========\Tools\Extra">
-      <UniqueIdentifier>{02292a37-a0dc-4e91-a165-dfacee62d0c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
