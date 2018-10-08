@@ -73,29 +73,29 @@ void j1Map::Draw()
 					iPoint world_coords = MapToWorld(x, y);
 
 					if (layers_item->data->type1 == LAYER_MAIN) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.1f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
 
 					}
 					else if (layers_item->data->type1 == LAYER_DW) {
 						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
 					}
 					else if (layers_item->data->type1 == LAYER_BG_1) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.8f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
 					}
 					else if (layers_item->data->type1 == LAYER_BG_2) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.7f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 1.0f);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_1) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.6f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.8f);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_2) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.4f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.6f);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_3) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.4f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.3f);
 					}
 					else if (layers_item->data->type1 == LAYER_PARA_4) {
-						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.2f);
+						App->render->Blit(tileset_item->data->texture, world_coords.x, world_coords.y, &rect, 0.0f);
 					}
 					
 
