@@ -42,7 +42,7 @@ public:
 	bool Draw(); 
 
 	void Move(); 
-	PlayerState Get_Player_State(static PlayerState State);
+	PlayerState Get_Player_State();
 
 	// Called before quitting
 	bool CleanUp();
@@ -59,6 +59,7 @@ private:
 	uint Gravity; 
 	fPoint Speed;
 	bool Is_Flying = false; 
+	PlayerState State = IDLE; 
 
 public: 
 	float Flying_Speed_Decrease = 0.5f;

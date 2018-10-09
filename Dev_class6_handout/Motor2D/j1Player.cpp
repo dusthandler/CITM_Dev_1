@@ -48,8 +48,11 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
-	Move(); 
 	
+	Move(); 
+
+	// Get_Player_State(); 
+
 	return true; 
 }
 
@@ -99,12 +102,12 @@ void j1Player::Move() {
 
 }
 
-PlayerState j1Player::Get_Player_State(static PlayerState State) {
+PlayerState j1Player::Get_Player_State() {
 
 	
 	if (Is_Flying == true) {   // IN THE AIR
 
-		if (Speed.y > 0) {                 // GOING UP              We should consider when Speed.y = 0
+		if (Speed.y > 0) {                 // GOING UP              We should consider when Speed.y == 0
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 				State = JUMPING_LEFT;
@@ -113,6 +116,7 @@ PlayerState j1Player::Get_Player_State(static PlayerState State) {
 			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 				State = JUMPING_RIGHT;
 			}
+
 			else {
 				State = JUMPING_UP;
 			}
@@ -127,6 +131,7 @@ PlayerState j1Player::Get_Player_State(static PlayerState State) {
 			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 				State = FALLING_RIGHT;
 			}
+
 			else {
 				State = FALLING_DOWN;
 			}
