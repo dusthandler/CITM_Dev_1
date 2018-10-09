@@ -8,13 +8,8 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-<<<<<<< HEAD
 #include "j1Player.h"
-=======
-
 #include "j1Player.h"
-
->>>>>>> a8e07550f756e51cd368b1b0e9310d28f3c38747
 #include "j1FadeBlack.h"
 
 

@@ -28,7 +28,7 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool Draw(); 
-	void Jump_Calculator(uint speed); 
+	void Jump_Calculator(uint Jump_Speed, uint Speed_X, float Flying_Speed_Decrease);
 
 	// Called before quitting
 	bool CleanUp();
@@ -44,7 +44,10 @@ private:
 	fPoint Position;
 	uint Gravity; 
 	fPoint Speed;
-	bool Is_Jumping = false; 
+	bool Is_Jumping = false;
+public: 
+	float Flying_Speed_Decrease = 0.5f;
+	
 	 
 };
 

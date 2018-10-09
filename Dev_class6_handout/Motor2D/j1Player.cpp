@@ -50,31 +50,37 @@ bool j1Player::Update(float dt)
 {
 	
 	uint speed = 20; 
-	uint JumpSpeed = 10; 
+	uint JumpSpeed = 2; 
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		Is_Jumping = true; 
+		Position.y -= JumpSpeed;
 	}
 	if (Is_Jumping == true) {
-		Jump_Calculator(JumpSpeed);
+		Jump_Calculator(JumpSpeed, speed, Flying_Speed_Decrease);
+		Flying_Speed_Decrease -= 1; 
+		LOG("     speed decrease BEFORE:  %f      ", Flying_Speed_Decrease);
 	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			Position.x -= speed; 
+			App->render->camera.x += speed; 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			Position.x += speed;
+			App->render->camera.x -= speed; 
 	}
 	
 
 	return true; 
 }
 
-void j1Player::Jump_Calculator(uint speed) {
+void j1Player::Jump_Calculator(uint Jump_Speed, uint Speed_X, float Flying_Speed_Decrease) {
 
 	int ground = 300;     // WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
-
+/*
 	uint First_Time = 0; 
 	uint Now = SDL_GetTicks();
 	float Delta_Time = (Now - First_Time)/1000;   // Get Ticks is in miliseconds
@@ -98,9 +104,22 @@ void j1Player::Jump_Calculator(uint speed) {
 			Is_Jumping = false; 
 		}
 	}
-	Now = First_Time; 
+	Now = First_Time; */
+	
+	if (Is_Jumping == true) {
+		if (Position.y <= ground) {
+			Position.y -= Jump_Speed + Flying_Speed_Decrease + Gravity;
+			LOG("     speed decrease:  %f      ", Flying_Speed_Decrease); 
+		}
+		else {
+			Position.y = ground;
+			Is_Jumping = false;
+		}
+	}
+	Position.x += Speed_X; 
 
-	LOG("SPEED X---> %f   SPEED Y ---> %f", Flying_Speed.x, Flying_Speed.y); 
+
+	//LOG("SPEED X---> %f   SPEED Y ---> %f", Flying_Speed.x, Flying_Speed.y); 
 
 }
 
@@ -110,8 +129,7 @@ bool j1Player::Draw()
 	Player_Animation = &Idle;
 	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
 	App->render->Blit(Player_Texture, Position.x, Position.y, &Rect, 0);
-	LOG("POSITION.X =  %f", Position.x); 
-	LOG("POSITION.Y =  %f", Position.y);
+
 	return true; 
 }
 
