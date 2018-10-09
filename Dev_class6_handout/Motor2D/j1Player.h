@@ -9,6 +9,15 @@
 struct SDL_Texture;
 struct SDL_Rect; 
 
+enum PlayerState {
+	IDLE,
+	WALKING_RIGHT,
+	WALKING_LEFT,
+	JUMPING_UP,
+	JUMPING_RIGHT,
+	JUMPING_LEFT, 
+};
+
 class j1Player : public j1Module
 {
 public:
@@ -28,7 +37,8 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool Draw(); 
-	void Jump_Calculator(uint Jump_Speed, uint Speed_X, float Flying_Speed_Decrease);
+
+	void Move(); 
 
 	// Called before quitting
 	bool CleanUp();
@@ -47,7 +57,7 @@ private:
 	bool Is_Jumping = false;
 public: 
 	float Flying_Speed_Decrease = 0.5f;
-	
+	PlayerState State; 
 	 
 };
 
