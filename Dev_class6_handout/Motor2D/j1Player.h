@@ -16,6 +16,9 @@ enum PlayerState {
 	JUMPING_UP,
 	JUMPING_RIGHT,
 	JUMPING_LEFT, 
+	FALLING_DOWN,
+	FALLING_RIGHT,
+	FALLING_LEFT,
 };
 
 class j1Player : public j1Module
@@ -39,6 +42,7 @@ public:
 	bool Draw(); 
 
 	void Move(); 
+	PlayerState Get_Player_State(static PlayerState State);
 
 	// Called before quitting
 	bool CleanUp();
@@ -54,10 +58,11 @@ private:
 	fPoint Position;
 	uint Gravity; 
 	fPoint Speed;
-	bool Is_Jumping = false;
+	bool Is_Flying = false; 
+
 public: 
 	float Flying_Speed_Decrease = 0.5f;
-	PlayerState State; 
+	
 	 
 };
 
