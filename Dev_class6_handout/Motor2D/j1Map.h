@@ -71,10 +71,10 @@ struct MapObject {
 
 	p2SString			name;
 	uint			    id; 
-	uint				X_Pos; 
-	uint				Y_Pos; 
-	uint				width;
-	uint				height;
+	int				X_Pos; 
+	int				Y_Pos; 
+	int				width;
+	int				height;
 	
 };
 
@@ -128,6 +128,7 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
+	bool Load_Object(pugi::xml_node& node, MapObject* MapObject); 
 	bool Set_Colliders(pugi::xml_node& node, MapObject* MapObject);
 
 private:

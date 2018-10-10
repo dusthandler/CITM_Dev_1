@@ -441,9 +441,10 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-bool j1Map::Set_Colliders(pugi::xml_node& node, MapObject* MapObject) {
+bool j1Map::Load_Object(pugi::xml_node& node, MapObject* MapObject) {
 
 	// LOADING
+	bool ret = true; 
 
 	MapObject->name = node.attribute("name").as_string();
 	MapObject->id = node.attribute("id").as_uint();
@@ -452,24 +453,26 @@ bool j1Map::Set_Colliders(pugi::xml_node& node, MapObject* MapObject) {
 	MapObject->width = node.attribute("width").as_uint();
 	MapObject->height = node.attribute("height").as_uint();
 
+	Set_Colliders(node, MapObject);
+
+	return ret; 
+}
+
+bool j1Map::Set_Colliders(pugi::xml_node& node, MapObject* MapObject) {
+
 	// COLLIDERS 
 
+	bool ret = true; 
+
+	MapObject->name = node.attribute("name").as_string();
+
+	if (MapObject->name == "Floor" || MapObject->name == "BGFloor") {
 	
-		/*Object->name = node.attribute("name").as_string();	
+	App->collision->AddCollider({ MapObject->X_Pos, MapObject->Y_Pos, MapObject->width, MapObject->height }, COLLIDER_WALL, this);
 
-			if (node.attribute("name").value == "Floor" || node.attribute("name").value == "BGFloor") {
+	}
 
-				fPoint Position;
-				fPoint Size;
-				Position.x = &node.attribute("x").value;
-				Position.y = &node.attribute("y").value;
-				Size.x = &node.attribute("width").value;
-				Size.y = &node.attribute("height").value;
-
-				App->collision->AddCollider({ Position.x, Position.y, Size.x, Size.y }, COLLIDER_WALL, this);
-		
-	}*/
-
+	return ret; 
 }
 
 
