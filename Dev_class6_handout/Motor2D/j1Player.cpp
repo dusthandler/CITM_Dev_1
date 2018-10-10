@@ -11,7 +11,7 @@
 j1Player::j1Player() : j1Module() 
 {
 	Player_Animation = &Idle;
-	Idle.PushBack({ 11, 9, 32, 53 });
+	Idle.PushBack({ 55, 2, 35, 45 });
 	Gravity = 11; 
 }
 
@@ -30,7 +30,7 @@ bool j1Player::Awake(pugi::xml_node&)
 // Called before the first frame
 bool j1Player::Start() 
 {
-	Player_Texture = App->tex->Load("textures/ninja.png"); 
+	Player_Texture = App->tex->Load("Graphics/Ninja/Ninja.png"); 
 	Position.x = 0; 
 	Position.y = 300; 
 
