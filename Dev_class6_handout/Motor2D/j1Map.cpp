@@ -72,8 +72,9 @@ void j1Map::Draw()
 
 					SDL_Rect rect = item_tile->data->GetTileRect(layers_lay->data->Get(x, y));
 					iPoint world_coords = MapToWorld(x, y);
+					App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 
-					if (layers_lay->data->type1 == LAYER_MAIN) {
+					/*if (layers_lay->data->type1 == LAYER_MAIN) {
 						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 
 					}
@@ -97,7 +98,7 @@ void j1Map::Draw()
 					}
 					else if (layers_lay->data->type1 == LAYER_PARA_4) {
 						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}
+					}*/
 					
 
 
