@@ -66,6 +66,7 @@ struct TileSet
 	int					offset_y;
 };
 
+
 struct MapObject {
 
 	p2SString			name;
@@ -98,6 +99,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
+	p2List<MapObject*>	objects;
 };
 
 // ----------------------------------------------------
@@ -126,7 +128,7 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
-	void Set_Colliders();
+	bool Set_Colliders(pugi::xml_node& node, MapObject* MapObject);
 
 private:
 

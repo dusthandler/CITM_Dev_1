@@ -175,26 +175,38 @@ bool j1Map::CleanUp()
 	LOG("Unloading map");
 
 	// Remove all tilesets
-	p2List_item<TileSet*>* item;
-	item = data.tilesets.start;
+	p2List_item<TileSet*>* Tileset_item;
+	Tileset_item = data.tilesets.start;
 
-	while(item != NULL)
+	while(Tileset_item != NULL)
 	{
-		RELEASE(item->data);
-		item = item->next;
+		RELEASE(Tileset_item->data);
+		Tileset_item = Tileset_item->next;
 	}
 	data.tilesets.clear();
 
 	// Remove all layers
-	p2List_item<MapLayer*>* item2;
-	item2 = data.layers.start;
+	p2List_item<MapLayer*>* Layer_item;
+	Layer_item = data.layers.start;
 
-	while(item2 != NULL)
+	while(Layer_item != NULL)
 	{
-		RELEASE(item2->data);
-		item2 = item2->next;
+		RELEASE(Layer_item->data);
+		Layer_item = Layer_item->next;
 	}
 	data.layers.clear();
+
+
+	// Remove all objects
+	p2List_item<MapObject*>* Object_item;
+	Object_item = data.objects.start; 
+
+	while (Object_item != NULL)
+	{
+		RELEASE(Object_item->data);
+		Object_item = Object_item->next;
+	}
+	data.objects.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -239,6 +251,22 @@ bool j1Map::Load(const char* file_name)
 		}
 
 		data.tilesets.add(set);
+	}
+
+	// Load all objects info ----------------------------------------------
+	
+	
+	for (pugi::xml_node Object_Group = map_file.child("map").child("objectgroup"); Object_Group; Object_Group = Object_Group.next_sibling("object")) {
+		for (pugi::xml_node object = Object_Group.child("object"); object;  object = object.next_sibling("object")) {
+
+			MapObject* Map_Object = new MapObject();
+
+			ret = Set_Colliders(object, Map_Object);
+
+			if (ret == true)
+				data.objects.add(Map_Object);
+
+		}
 	}
 
 	// Load layer info ----------------------------------------------
@@ -413,17 +441,21 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-/*void j1Map::Set_Colliders() {
+bool j1Map::Set_Colliders(pugi::xml_node& node, MapObject* MapObject) {
+
+	// LOADING
+
+	MapObject->name = node.attribute("name").as_string();
+	MapObject->id = node.attribute("id").as_uint();
+	MapObject->X_Pos = node.attribute("x").as_int();
+	MapObject->Y_Pos = node.attribute("y").as_int();
+	MapObject->width = node.attribute("width").as_uint();
+	MapObject->height = node.attribute("height").as_uint();
+
+	// COLLIDERS 
 
 	
-
-	for (pugi::xml_node& node = map_file.child("map").child("objectgroup").child("object"); node; node = node.next_sibling("object")) {
-		
-		/*MapObject* Object = new MapObject();
-
-		Object->name = node.attribute("name").as_string();
-
-		for (node; node; node.next_sibling("object")) {
+		/*Object->name = node.attribute("name").as_string();	
 
 			if (node.attribute("name").value == "Floor" || node.attribute("name").value == "BGFloor") {
 
@@ -435,11 +467,10 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 				Size.y = &node.attribute("height").value;
 
 				App->collision->AddCollider({ Position.x, Position.y, Size.x, Size.y }, COLLIDER_WALL, this);
-			}
-		//}
-	}
+		
+	}*/
 
-}*/
+}
 
 
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
