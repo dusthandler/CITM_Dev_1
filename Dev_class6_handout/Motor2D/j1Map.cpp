@@ -261,7 +261,7 @@ bool j1Map::Load(const char* file_name)
 
 			MapObject* Map_Object = new MapObject();
 
-			ret = Set_Colliders(object, Map_Object);
+			ret = Load_Object(object, Map_Object);
 
 			if (ret == true)
 				data.objects.add(Map_Object);
