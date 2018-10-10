@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+struct Collider;
 
 enum LayerType {
 	LAYER_NONE = -1,
@@ -65,6 +66,18 @@ struct TileSet
 	int					offset_y;
 };
 
+struct MapObject {
+
+	p2SString			name;
+	uint			    id; 
+	uint				X_Pos; 
+	uint				Y_Pos; 
+	uint				width;
+	uint				height;
+	
+};
+
+
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -113,12 +126,16 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
+	void Set_Colliders();
+
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	
+	
 
 public:
 

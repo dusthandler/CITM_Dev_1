@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collision.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -111,6 +112,10 @@ void j1Map::Draw()
 
 
 }
+
+
+
+
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {
@@ -407,6 +412,35 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 	return ret;
 }
+
+/*void j1Map::Set_Colliders() {
+
+	
+
+	for (pugi::xml_node& node = map_file.child("map").child("objectgroup").child("object"); node; node = node.next_sibling("object")) {
+		
+		/*MapObject* Object = new MapObject();
+
+		Object->name = node.attribute("name").as_string();
+
+		for (node; node; node.next_sibling("object")) {
+
+			if (node.attribute("name").value == "Floor" || node.attribute("name").value == "BGFloor") {
+
+				fPoint Position;
+				fPoint Size;
+				Position.x = &node.attribute("x").value;
+				Position.y = &node.attribute("y").value;
+				Size.x = &node.attribute("width").value;
+				Size.y = &node.attribute("height").value;
+
+				App->collision->AddCollider({ Position.x, Position.y, Size.x, Size.y }, COLLIDER_WALL, this);
+			}
+		//}
+	}
+
+}*/
+
 
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {

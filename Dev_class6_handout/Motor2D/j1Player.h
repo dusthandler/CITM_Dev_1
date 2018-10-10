@@ -5,9 +5,11 @@
 
 #include "p2Point.h"
 #include "Animation.h"  
+#include "j1Collision.h"
 
 struct SDL_Texture;
 struct SDL_Rect; 
+struct Collider; 
 
 enum PlayerState {
 	IDLE,
@@ -43,6 +45,8 @@ public:
 
 	void Move(); 
 	PlayerState Get_Player_State();
+	void OnCollision(Collider* c1, Collider* c2);
+	void Set_Player_Info(); 
 
 	// Called before quitting
 	bool CleanUp();
@@ -61,6 +65,7 @@ private:
 	bool Is_Flying = false; 
 	PlayerState State = IDLE; 
 
+	Collider* Player_Collider = nullptr; 
 public: 
 	float Flying_Speed_Decrease = 0.5f;
 	

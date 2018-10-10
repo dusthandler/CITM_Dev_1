@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "p2Log.h"
+#include "j1Collision.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
 
@@ -11,7 +12,7 @@
 j1Player::j1Player() : j1Module() 
 {
 	Player_Animation = &Idle;
-	Idle.PushBack({ 55, 2, 35, 45 });
+	Idle.PushBack({ 55, 2, 35, 45 });        // do this in tiled 
 	Gravity = 11; 
 }
 
@@ -30,11 +31,8 @@ bool j1Player::Awake(pugi::xml_node&)
 // Called before the first frame
 bool j1Player::Start() 
 {
-	Player_Texture = App->tex->Load("Graphics/Ninja/Ninja.png"); 
-	Position.x = 0; 
-	Position.y = 300; 
-
-
+	Set_Player_Info(); 
+	
 	return true; 
 }
 
@@ -53,9 +51,26 @@ bool j1Player::Update(float dt)
 
 	// Get_Player_State(); 
 
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+		App->collision->DebugDraw();
+	}
+
 	return true; 
 }
 
+void j1Player::Set_Player_Info() {
+
+	Player_Texture = App->tex->Load("Graphics/Ninja/Ninja.png");
+	Position.x = 0;                                                             // we need to load this from tiled 
+	Position.y = 300;
+	Player_Collider = App->collision->AddCollider({ (int)Position.x, (int)Position.y, 35, 45 }, COLLIDER_PLAYER, this);
+}
+
+void j1Player::OnCollision(Collider* c1, Collider* c2) {
+
+
+
+}
 
 void j1Player::Move() {
 
