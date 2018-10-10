@@ -256,7 +256,7 @@ bool j1Map::Load(const char* file_name)
 	// Load all objects info ----------------------------------------------
 	
 	
-	for (pugi::xml_node Object_Group = map_file.child("map").child("objectgroup"); Object_Group; Object_Group = Object_Group.next_sibling("object")) {
+	for (pugi::xml_node Object_Group = map_file.child("map").child("objectgroup"); Object_Group; Object_Group = Object_Group.next_sibling("objectgroup")) {
 		for (pugi::xml_node object = Object_Group.child("object"); object;  object = object.next_sibling("object")) {
 
 			MapObject* Map_Object = new MapObject();
