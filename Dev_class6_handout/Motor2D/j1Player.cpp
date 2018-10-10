@@ -50,10 +50,8 @@ bool j1Player::Update(float dt)
 	Move(); 
 
 	// Get_Player_State(); 
-
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
-		App->collision->DebugDraw();
-	}
+     
+	
 
 	return true; 
 }
@@ -68,8 +66,10 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
-
-
+	/*if (c2->type == COLLIDER_TYPE::COLLIDER_WALL)
+	{
+	 
+	}*/
 }
 
 void j1Player::Move() {
@@ -177,6 +177,7 @@ bool j1Player::Draw()
 	Player_Animation = &Idle;
 	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
 	App->render->Blit(Player_Texture, Position.x, Position.y, &Rect, 0);
+	Player_Collider->SetPos(Position.x, Position.y);
 
 	return true; 
 }

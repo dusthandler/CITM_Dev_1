@@ -8,7 +8,18 @@
 
 struct Collider;
 
+enum LayerType {
+	LAYER_NONE = -1,
+	LAYER_MAIN,
+	LAYER_DW,
+	LAYER_PARA_1,
+	LAYER_PARA_2,
+	LAYER_PARA_3,
+	LAYER_PARA_4,
+	LAYER_BG_1,
+	LAYER_BG_2,
 
+};
 // ----------------------------------------------------
 struct MapLayer
 {
@@ -17,7 +28,7 @@ struct MapLayer
 	int			height;
 	float		Parallaxspeed;
 	uint*		data;
-	
+	LayerType	type1 = LAYER_NONE;
 
 	MapLayer() : data(NULL)
 	{}
@@ -59,12 +70,12 @@ struct TileSet
 struct MapObject {
 
 	p2SString			name;
-	uint			    id; 
-	int				X_Pos; 
-	int				Y_Pos; 
+	uint			    id;
+	int				X_Pos;
+	int				Y_Pos;
 	int				width;
 	int				height;
-	
+
 };
 
 
@@ -117,7 +128,7 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
-	bool Load_Object(pugi::xml_node& node, MapObject* MapObject); 
+	bool Load_Object(pugi::xml_node& node, MapObject* MapObject);
 	bool Set_Colliders(pugi::xml_node& node, MapObject* MapObject);
 
 private:
@@ -126,8 +137,8 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-	
-	
+
+
 
 public:
 
