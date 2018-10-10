@@ -8,18 +8,7 @@
 
 struct Collider;
 
-enum LayerType {
-	LAYER_NONE = -1,
-	LAYER_MAIN,
-	LAYER_DW,
-	LAYER_PARA_1,
-	LAYER_PARA_2,
-	LAYER_PARA_3,
-	LAYER_PARA_4,
-	LAYER_BG_1,
-	LAYER_BG_2,
 
-};
 // ----------------------------------------------------
 struct MapLayer
 {
@@ -28,7 +17,7 @@ struct MapLayer
 	int			height;
 	float		Parallaxspeed;
 	uint*		data;
-	LayerType	type1 = LAYER_NONE;
+	
 
 	MapLayer() : data(NULL)
 	{}

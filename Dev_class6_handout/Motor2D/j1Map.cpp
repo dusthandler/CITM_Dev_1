@@ -456,6 +456,14 @@ bool j1Map::Load_Object(pugi::xml_node& node, MapObject* MapObject) {
 
 	Set_Colliders(node, MapObject);
 
+
+	if (node.empty())
+	{
+		LOG("Error parsing map xml file: Cannot find 'object/data' tag.");
+		ret = false;
+		RELEASE(MapObject);
+	}
+
 	return ret; 
 }
 
@@ -483,22 +491,6 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	layer->name = node.attribute("name").as_string();
 
-	if (layer->name == "Parallax4")
-		layer->type1 = LAYER_PARA_4;
-	else if (layer->name == "Parallax3")
-		layer->type1 = LAYER_PARA_3;
-	else if (layer->name == "Parallax2")
-		layer->type1 = LAYER_PARA_2;
-	else if (layer->name == "Parallax1")
-		layer->type1 = LAYER_PARA_1;
-	else if (layer->name == "MainGround")
-		layer->type1 = LAYER_MAIN;
-	else if (layer->name == "Background1")
-		layer->type1 = LAYER_BG_1;
-	else if (layer->name == "Background2")
-		layer->type1 = LAYER_BG_2;
-	else if (layer->name == "DeepestWall")
-		layer->type1 = LAYER_DW;
 	
 
 	layer->width = node.attribute("width").as_int();
