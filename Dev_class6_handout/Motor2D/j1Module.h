@@ -74,6 +74,10 @@ public:
 	}
 
 
+	// Callbacks ---
+	virtual void OnCollision(Collider*, Collider*) {}
+
+
 
 public:
 

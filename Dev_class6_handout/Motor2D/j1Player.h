@@ -46,7 +46,8 @@ public:
 	void Move(); 
 	PlayerState Get_Player_State();
 	void OnCollision(Collider* c1, Collider* c2);
-	void Set_Player_Info(); 
+	void Set_Player_Info();
+
 
 	// Called before quitting
 	bool CleanUp();
@@ -59,17 +60,18 @@ private:
 	Animation* Player_Animation = nullptr; 
 	Animation Idle;
 	Animation None; 
-	fPoint Position;
-	uint Gravity; 
+	float Gravity; 
 	fPoint Speed;
 	bool Is_Flying = false; 
 	PlayerState State = IDLE; 
-
 	Collider* Player_Collider = nullptr; 
+	
+
 public: 
 	float Flying_Speed_Decrease = 0.5f;
-	
-	 
+	fPoint Position;
+	int FloorLevel = 300;
+	bool Floor_Level_Active = false;
 };
 
 #endif // __j1PLAYER_H__

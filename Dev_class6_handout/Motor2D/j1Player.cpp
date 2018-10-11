@@ -5,6 +5,7 @@
 #include "j1Input.h"
 #include "p2Log.h"
 #include "j1Collision.h"
+#include "j1Map.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
 
@@ -68,33 +69,41 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 	/*if (c2->type == COLLIDER_TYPE::COLLIDER_WALL)
 	{
-	 
+		if (Floor_Level_Active == true) {
+			
+
+		}
+
 	}*/
+	
+
 }
 
 void j1Player::Move() {
 
 	uint speed = 20;
 	uint Impulse = 2;
-	int ground = 300;     // WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
+	     // WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
 
+	if (Floor_Level_Active == false) {
+		Position.y += Gravity; 
+	}
+	LOG("FLOOR LEVEL IS %i ", Floor_Level_Active);
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		Is_Flying = true;
 		Speed.y = Impulse; 
 		Position.y -= Speed.y;           // Initial impulse
 	}
 
 	if (Is_Flying == true) {
 
-		if (Position.y <= ground) {    
+		if (Position.y <= FloorLevel) {
 			Speed.y = Impulse + Flying_Speed_Decrease + Gravity;     	// WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
 			Position.y -= Speed.y;  
-			LOG("Speed y        %f", Speed.y); 
 		}
 
 		else {
-         	Position.y = ground;
+         	Position.y = FloorLevel;
 			Speed.y = 0; 
 			Is_Flying = false;
 			Flying_Speed_Decrease = 0.5f;
