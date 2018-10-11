@@ -91,6 +91,7 @@ bool j1Player::Update(float dt)
 	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
 	App->render->Blit(Player_Texture, pos.x, pos.y, &Rect, 1);
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
+	
 	return true;
 }
 
