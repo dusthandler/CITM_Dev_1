@@ -78,7 +78,7 @@ bool j1Player::Update(float dt)
 	Movex();
 	Movey();
 	acc.y = 13;
-	if (!onplat) acc.y = 13;
+	if (!onplat) acc.y = 4;
 	else acc.y = 0;
 
 	pos.x = pos.x + vel.x;
@@ -114,18 +114,22 @@ void j1Player::Movey() {
 	// Change variables to can get the map
 	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && !jumping) {
 		vel.y = -26;
-		cont = 0.8;
+		cont = 1.3;
 		jumping = true;
 	} 
 
-	else if (jumping || !onplat) {
+	else if (jumping) {
 		if (vel.y <= 4) {
-			vel.y = vel.y + 0.8;
+			vel.y = vel.y + 1.3;
 		}
 		else {
 			cont += 0.1;
 			vel.y = vel.y + cont;
 		}
+	}
+	else if (!onplat && !jumping) {
+		
+		vel.y = vel.y + 1.1;
 	}
 }
 
