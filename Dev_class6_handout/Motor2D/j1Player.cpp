@@ -73,12 +73,21 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	
-	if (c2->type == COLLIDER_TYPE::COLLIDER_WALL)
+	/*if (c2->type == COLLIDER_TYPE::COLLIDER_WALL)
 	{
-		Is_Flying = false;
-	}
+		
+	}*/
 
-	
+
+	if (c1->CheckCollision(c2->rect)) {
+		Floor_Level_Active = true;
+		Is_Flying = false;
+		
+	}
+	else {
+		Floor_Level_Active = false;
+		Is_Flying = true;
+	}
 
 
 }
@@ -89,6 +98,11 @@ void j1Player::Move() {
 	// WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
 	uint speed = 20;
 	uint Impulse = 2;
+
+	if (Floor_Level_Active == false && Is_Flying == true) {
+		Speed.y =  Flying_Speed_Decrease + Gravity;
+		Position.y -= Speed.y;
+	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && (!higher_jump)) {
 		Is_Flying = true;

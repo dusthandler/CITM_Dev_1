@@ -74,7 +74,7 @@ public:
 	fPoint Position;
 	uint Gravity;
 	fPoint Speed;
-	bool Is_Flying = false;
+	bool Is_Flying = true;
 	PlayerState State = IDLE;
 	uint speed;
 
