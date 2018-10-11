@@ -75,7 +75,6 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 		App->fade->FadeToBlack(App->scene, App->scene, 2.5f);
-		LOG("PLS");
 	};
 		
 

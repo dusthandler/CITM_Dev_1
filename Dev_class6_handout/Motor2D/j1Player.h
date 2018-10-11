@@ -1,3 +1,8 @@
+
+
+
+
+
 #ifndef __j1PLAYER_H__
 #define __j1PLAYER_H__
 
@@ -8,8 +13,8 @@
 #include "j1Collision.h"
 
 struct SDL_Texture;
-struct SDL_Rect; 
-struct Collider; 
+struct SDL_Rect;
+struct Collider;
 
 enum PlayerState {
 	IDLE,
@@ -17,7 +22,7 @@ enum PlayerState {
 	WALKING_LEFT,
 	JUMPING_UP,
 	JUMPING_RIGHT,
-	JUMPING_LEFT, 
+	JUMPING_LEFT,
 	FALLING_DOWN,
 	FALLING_RIGHT,
 	FALLING_LEFT,
@@ -41,12 +46,12 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
-	bool Draw(); 
+	bool Draw();
 
-	void Move(); 
+	void Move();
 	PlayerState Get_Player_State();
 	void OnCollision(Collider* c1, Collider* c2);
-	void Set_Player_Info(); 
+	void Set_Player_Info();
 
 	// Called before quitting
 	bool CleanUp();
@@ -56,20 +61,22 @@ public:
 private:
 
 	SDL_Texture* Player_Texture = nullptr;
-	Animation* Player_Animation = nullptr; 
+	Animation* Player_Animation = nullptr;
 	Animation Idle;
-	Animation None; 
+	Animation None;
 	fPoint Position;
-	uint Gravity; 
+	uint Gravity;
 	fPoint Speed;
-	bool Is_Flying = false; 
-	PlayerState State = IDLE; 
+	bool Is_Flying = false;
+	PlayerState State = IDLE;
 
-	Collider* Player_Collider = nullptr; 
-public: 
+	Collider* Player_Collider = nullptr;
+public:
 	float Flying_Speed_Decrease = 0.5f;
-	
-	 
+	bool higher_jump = false;
+	bool normal_jump = false;
+
+
 };
 
-#endif // __j1PLAYER_H__
+#endif
