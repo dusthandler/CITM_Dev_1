@@ -26,4 +26,22 @@
     <folder>maps/</folder>
   </map>
 
+  <Player>
+    <folder>Graphics/</folder>
+    <sprite_sheet value = "Ninja.png"/>
+    <initPosx value ="0"/>
+    <initPosy value ="300"/>
+    <gravity value ="11"/>
+    <speed value ="20"/>
+    <impulse value ="2"/>
+  </Player>
+  <scene>
+
+    <map_name name="MaidInAbyss.tmx"/>
+
+    <map_name name="DepthsOfTheAbyss.tmx"/>
+
+    <fade_time value="1"/>
+
+  </scene>
 </config>

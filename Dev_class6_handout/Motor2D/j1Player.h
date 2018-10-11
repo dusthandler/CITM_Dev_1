@@ -76,6 +76,10 @@ public:
 	fPoint Speed;
 	bool Is_Flying = false;
 	PlayerState State = IDLE;
+	uint speed;
+
+
+	uint Impulse;
 
 	Collider* Player_Collider = nullptr;
 public:

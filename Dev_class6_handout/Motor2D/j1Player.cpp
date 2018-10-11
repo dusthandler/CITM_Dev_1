@@ -65,7 +65,7 @@ bool j1Player::Update(float dt)
 
 void j1Player::Set_Player_Info() {
 
-	Player_Texture = App->tex->Load("Graphics/Ninja/Ninja.png");
+	Player_Texture = App->tex->Load("Graphics/Ninja.png");
 	Position.x = 0;                                                             // we need to load this from tiled 
 	Position.y = 300;
 	Player_Collider = App->collision->AddCollider({ (int)Position.x, (int)Position.y + 45, 35, 45 }, COLLIDER_PLAYER, this);
@@ -73,15 +73,10 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	
-	/*if (c2->type == COLLIDER_TYPE::COLLIDER_WALL)
+	if (c2->type == COLLIDER_TYPE::COLLIDER_WALL)
 	{
-
-		if (Floor_Level_Active == true) {
-			
-
-		}
-
-	}*/
+		Is_Flying = false;
+	}
 
 	
 
@@ -90,12 +85,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 void j1Player::Move() {
 
-	uint speed = 20;
-
-
-	uint Impulse = 2;
+	
 	// WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
-
+	uint speed = 20;
+	uint Impulse = 2;
 
 	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && (!higher_jump)) {
 		Is_Flying = true;
