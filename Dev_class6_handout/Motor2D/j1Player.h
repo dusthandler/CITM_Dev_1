@@ -43,7 +43,8 @@ public:
 	bool PostUpdate();
 	bool Draw();
 
-	void Move();
+	void Movex();
+	void Movey();
 	PlayerState Get_Player_State();
 	void OnCollision(Collider* c1, Collider* c2);
 	void Set_Player_Info();
@@ -66,27 +67,18 @@ private:
 
 public: 
 
-
-	int FloorLevel = 300;
-
-
-	Animation None;
-	fPoint Position;
-	uint Gravity;
-	fPoint Speed;
-	bool Is_Flying = true;
-	bool Alive = true; 
-
-	PlayerState State = IDLE;
-	uint speed;
-
-
-	uint Impulse;
+	PlayerState state;
+	Animation none;
+	fPoint pos;
+	fPoint vel;
+	fPoint acc;
+	float cont;
+	bool jumping = false;
+	bool onplat = false;
 
 	Collider* Player_Collider = nullptr;
 public:
-	float Flying_Speed_Decrease = 0.5f;
-	bool higher_jump = false;
+	
 
 
 

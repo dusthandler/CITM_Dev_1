@@ -29,7 +29,6 @@ bool j1Player::Awake(pugi::xml_node&)
 {
 	Player_Animation = &Idle;
 	Idle.PushBack({ 55, 2, 35, 45 });        // do this in tiled 
-	Gravity = 11;
 	return true;
 }
 
@@ -49,176 +48,103 @@ bool j1Player::PreUpdate()
 
 }
 
-bool j1Player::Update(float dt)
-{
-	
-/*	if (!Alive) {
-		App->player->Disable(); 
-		App->fade->FadeToBlack(App->scene, App->scene, 1.2f);
-	}*/
 
-		Move();
-	
-	// Get_Player_State(); 
-
-	Player_Collider->SetPos(Position.x, Position.y);
-	Player_Animation = &Idle;
-	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
-	App->render->Blit(Player_Texture, Position.x, Position.y, &Rect, 1);
-
-
-	return true;
-}
 
 void j1Player::Set_Player_Info() {
 
 	Player_Texture = App->tex->Load("Graphics/Ninja.png");
-	Position.x = 0;                                                             // we need to load this from tiled 
-	Position.y = 300;
-	Player_Collider = App->collision->AddCollider({ (int)Position.x, (int)Position.y + 45, 35, 45 }, COLLIDER_PLAYER, this);
+	pos.x = 0;                                                             // we need to load this from tiled 
+	pos.y = 300;
+	Player_Collider = App->collision->AddCollider({ (int)pos.x, (int)pos.y + 45, 35, 45 }, COLLIDER_PLAYER, this);
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	
-	
 	if (c1->type == COLLIDER_WALL || c2->type == COLLIDER_WALL) {
 
 		if (c1->CheckCollision(c2->rect)) {
-			Is_Flying = false;
-
+			onplat = true;
+			jumping = false;
+			vel.y = 0;
 		}
-		else {
-			Is_Flying = true;
-		}
+		
 	}
-
-	if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
-		Alive = false; 
-	}
+	
 
 }
 
-void j1Player::Move() {
+bool j1Player::Update(float dt)
+{
+	Movex();
+	Movey();
+	acc.y = 13;
+	if (!onplat) acc.y = 13;
+	else acc.y = 0;
 
-	
-	// WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
-	uint speed = 20;
-	uint Impulse = 2;
-
-	LOG("PLAYER IS ALIVE ---- %i", Alive); 
-	
-
-	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && (!higher_jump)) {
-		Is_Flying = true;
-		Speed.y = Impulse;
-	}
-
-	else if ((App->input->GetKey(SDL_SCANCODE_SPACE)) == KEY_REPEAT) { //
-		Is_Flying = true;
-		higher_jump = true;
-		Speed.y = Impulse * 2;
-	}
-
-	if (Is_Flying == true) {
-			if (higher_jump) Speed.y = Impulse * 2 + Flying_Speed_Decrease + Gravity;
-			else Speed.y = Impulse + Flying_Speed_Decrease + Gravity;
-			Position.y -= Speed.y;
-	}
-
-	else {
-		Speed.y = 0;
-		Flying_Speed_Decrease = 0.5f;
-		higher_jump = false;
-	}
-
-	Flying_Speed_Decrease -= 0.8f;
+	pos.x = pos.x + vel.x;
+	pos.y = pos.y + vel.y + acc.y;
 
 
+	// Draw --------------------------------------------------------------------------------------------------------------------------
+	Player_Collider->SetPos(pos.x, pos.y);
+	Player_Animation = &Idle;
+	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
+	App->render->Blit(Player_Texture, pos.x, pos.y, &Rect, 1);
+	//Draw -------------------------------------------------------------------------------------------------------------------------------
+	return true;
+}
+
+
+void j1Player::Movex() {
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		Position.x -= speed;
+		vel.x = -10;
+		// Acc? future!!
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		Position.x += speed;
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		vel.x = 10;
 	}
+	else
+		vel.x = 0;
+}
 
-
-
-
-
-	App->render->camera.x = -Position.x + 200;
-	App->render->camera.y = -Position.y + 200;
-
+void j1Player::Movey() {
+	// Change variables to can get the map
+	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && !jumping) {
+		vel.y = -26;
+		cont = 0.8;
+		jumping = true;
+	} 
+	else if (jumping) {
+		if (vel.y <= 4) {
+			vel.y = vel.y + 0.8;
+		}
+		else {
+			cont += 0.1;
+			vel.y = vel.y + cont;
+		}
+	}
 }
 
 PlayerState j1Player::Get_Player_State() {
 
 
-	if (Is_Flying == true) {   // IN THE AIR
+	
 
-		if (Speed.y > 0) {                 // GOING UP              We should consider when Speed.y == 0
-
-			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-				State = JUMPING_LEFT;
-			}
-
-			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-				State = JUMPING_RIGHT;
-			}
-
-			else {
-				State = JUMPING_UP;
-			}
-		}
-
-		else {                            // GOING DOWN
-
-			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-				State = FALLING_LEFT;
-			}
-
-			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-				State = FALLING_RIGHT;
-			}
-
-			else {
-				State = FALLING_DOWN;
-			}
-		}
-	}
-
-	else {    // IN THE GROUND
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			State = WALKING_LEFT;
-		}
-
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			State = WALKING_RIGHT;
-		}
-
-		else {
-			State = IDLE;
-		}
-	}
-
-
-	return State;
+	return state;
 }
 
 bool j1Player::Draw()
 {
-	/*Player_Animation = &Idle;
-	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
-	App->render->Blit(Player_Texture, Position.x, Position.y, &Rect, 1);*/ // Marc antes tenias un zero lo que significa que hacias que el player(solo el sprite) se moviese con la camara : D
-	/*Player_Collider->SetPos(Position.x, Position.y);*/
+	
 
-		return true;
+	return true;
 }
 
 bool j1Player::PostUpdate()
 {
+	onplat = false;
 	return true;
 }
 
@@ -226,7 +152,7 @@ bool j1Player::PostUpdate()
 bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(Player_Texture);
-	Player_Animation = &None;
+	Player_Animation = &none;
 
 	return true;
 }
