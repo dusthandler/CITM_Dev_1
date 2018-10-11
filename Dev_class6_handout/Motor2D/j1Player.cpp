@@ -14,9 +14,7 @@ j1Player::j1Player() : j1Module()
 
 {
 	name.create("player"); // aun no se poruqe
-	Player_Animation = &Idle;
-	Idle.PushBack({ 55, 2, 35, 45 });        // do this in tiled 
-	Gravity = 11;
+	
 }
 
 // Destructor
@@ -27,7 +25,9 @@ j1Player::~j1Player()
 // Called before render is available
 bool j1Player::Awake(pugi::xml_node&)
 {
-
+	Player_Animation = &Idle;
+	Idle.PushBack({ 55, 2, 35, 45 });        // do this in tiled 
+	Gravity = 11;
 	return true;
 }
 
@@ -94,18 +94,6 @@ void j1Player::Move() {
 
 
 	uint Impulse = 2;
-
-	     // WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
-
-	if (Floor_Level_Active == false) {
-		Position.y += Gravity; 
-	}
-	LOG("FLOOR LEVEL IS %i ", Floor_Level_Active);
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		Speed.y = Impulse; 
-		Position.y -= Speed.y;           // Initial impulse
-
 	// WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
 
 
@@ -120,7 +108,6 @@ void j1Player::Move() {
 		higher_jump = true;
 		Speed.y = Impulse * 2;
 		/*Position.y -= Speed.y;*/
-
 	}
 
 	if (Is_Flying == true) {
@@ -130,31 +117,15 @@ void j1Player::Move() {
 		Position.y -= Speed.y;
 	}
 
-
-		if (Position.y <= FloorLevel) {
-			Speed.y = Impulse + Flying_Speed_Decrease + Gravity;     	// WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
-			Position.y -= Speed.y;  
-		}
-
-		else {
-         	Position.y = FloorLevel;
-			Speed.y = 0; 
-			Is_Flying = false;
-			Flying_Speed_Decrease = 0.5f;
-		}
-		
-			Flying_Speed_Decrease -= 1.5f;
-
 	else {
 
 		Speed.y = 0;
 		Flying_Speed_Decrease = 0.5f;
 		higher_jump = false;
-
 	}
 
 	Flying_Speed_Decrease -= 0.8f;
-	
+
 
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
@@ -171,7 +142,6 @@ void j1Player::Move() {
 
 	App->render->camera.x = -Position.x + 200;
 	App->render->camera.y = -Position.y + 200;
-
 
 }
 

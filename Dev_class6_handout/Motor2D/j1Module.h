@@ -105,6 +105,6 @@ public:
 	}
 
 
-	virtual void OnCollision(Collider*, Collider*) {}
+	
 };
 #endif // __j1MODULE_H__
