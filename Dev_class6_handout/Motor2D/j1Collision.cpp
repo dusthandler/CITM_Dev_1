@@ -11,10 +11,15 @@ j1Collision::j1Collision()
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true; 
+	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 
+	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
 }
 
 // Destructor
@@ -56,15 +61,11 @@ bool j1Collision::PreUpdate()
 
 			if (c1->CheckCollision(c2->rect) == true)
 			{
-				/*	if (c1->type == COLLIDER_BALL && c2->type == COLLIDER_WALL || c1->type == COLLIDER_WALL && c2->type == COLLIDER_BALL) {
-				App->ball->FollowingBg = true; /*LOG("BALL FOLLOWS BG //////////////////////////////////////////////////////////////");
-				}
-				else {*/
 				if (matrix[c1->type][c2->type] && c1->callback)
 					c1->callback->OnCollision(c1, c2);
 				if (matrix[c2->type][c1->type] && c2->callback)
 					c2->callback->OnCollision(c2, c1);
-				//}
+
 			}
 		}
 	}
@@ -110,13 +111,15 @@ void j1Collision::DebugDraw()
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
-		case COLLIDER_WALL: // blue
+		case COLLIDER_WALL: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
-		
+		case COLLIDER_DEATH: // blue
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
 		}
 	}
 }

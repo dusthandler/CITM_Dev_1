@@ -6,8 +6,10 @@
 #include "p2Log.h"
 #include "j1Collision.h"
 #include "j1Map.h"
+#include "j1Scene.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
+#include "j1FadeBlack.h"
 
 
 j1Player::j1Player() : j1Module()
@@ -49,9 +51,14 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
+	
+/*	if (!Alive) {
+		App->player->Disable(); 
+		App->fade->FadeToBlack(App->scene, App->scene, 1.2f);
+	}*/
 
-	Move();
-
+		Move();
+	
 	// Get_Player_State(); 
 
 	Player_Collider->SetPos(Position.x, Position.y);
@@ -73,22 +80,21 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	
-	/*if (c2->type == COLLIDER_TYPE::COLLIDER_WALL)
-	{
-		
-	}*/
+	
+	if (c1->type == COLLIDER_WALL || c2->type == COLLIDER_WALL) {
 
+		if (c1->CheckCollision(c2->rect)) {
+			Is_Flying = false;
 
-	if (c1->CheckCollision(c2->rect)) {
-		Floor_Level_Active = true;
-		Is_Flying = false;
-		
-	}
-	else {
-		Floor_Level_Active = false;
-		Is_Flying = true;
+		}
+		else {
+			Is_Flying = true;
+		}
 	}
 
+	if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
+		Alive = false; 
+	}
 
 }
 
@@ -99,33 +105,27 @@ void j1Player::Move() {
 	uint speed = 20;
 	uint Impulse = 2;
 
-	if (Floor_Level_Active == false && Is_Flying == true) {
-		Speed.y =  Flying_Speed_Decrease + Gravity;
-		Position.y -= Speed.y;
-	}
+	LOG("PLAYER IS ALIVE ---- %i", Alive); 
+	
 
 	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && (!higher_jump)) {
 		Is_Flying = true;
 		Speed.y = Impulse;
-		/*Position.y -= Speed.y; */          // Initial impulse
 	}
 
 	else if ((App->input->GetKey(SDL_SCANCODE_SPACE)) == KEY_REPEAT) { //
 		Is_Flying = true;
 		higher_jump = true;
 		Speed.y = Impulse * 2;
-		/*Position.y -= Speed.y;*/
 	}
 
 	if (Is_Flying == true) {
-		if (higher_jump) Speed.y = Impulse * 2 + Flying_Speed_Decrease + Gravity;
-		else Speed.y = Impulse + Flying_Speed_Decrease + Gravity;
-		// WE HAVE TO CHANGE THIS WITH FLOOR LEVEL 
-		Position.y -= Speed.y;
+			if (higher_jump) Speed.y = Impulse * 2 + Flying_Speed_Decrease + Gravity;
+			else Speed.y = Impulse + Flying_Speed_Decrease + Gravity;
+			Position.y -= Speed.y;
 	}
 
 	else {
-
 		Speed.y = 0;
 		Flying_Speed_Decrease = 0.5f;
 		higher_jump = false;

@@ -480,6 +480,9 @@ bool j1Map::Set_Colliders(pugi::xml_node& node, MapObject* MapObject) {
 	App->collision->AddCollider({ MapObject->X_Pos, MapObject->Y_Pos, MapObject->width, MapObject->height }, COLLIDER_WALL, this);
 
 	}
+	else if(MapObject->name == "Dead"){
+		App->collision->AddCollider({ MapObject->X_Pos, MapObject->Y_Pos, MapObject->width, MapObject->height }, COLLIDER_DEATH, this); 
+	}
 
 	return ret; 
 }

@@ -68,13 +68,15 @@ public:
 
 
 	int FloorLevel = 300;
-	bool Floor_Level_Active = false;
+
 
 	Animation None;
 	fPoint Position;
 	uint Gravity;
 	fPoint Speed;
 	bool Is_Flying = true;
+	bool Alive = true; 
+
 	PlayerState State = IDLE;
 	uint speed;
 
