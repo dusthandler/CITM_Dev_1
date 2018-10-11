@@ -117,7 +117,8 @@ void j1Player::Movey() {
 		cont = 0.8;
 		jumping = true;
 	} 
-	else if (jumping) {
+
+	else if (jumping || !onplat) {
 		if (vel.y <= 4) {
 			vel.y = vel.y + 0.8;
 		}
