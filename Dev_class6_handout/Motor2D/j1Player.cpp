@@ -71,7 +71,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Onplat = true;
 			Jumping = false;
 			Vel.y = 0;
-			Pos.y = c2->rect.y - 45;
+			Pos.y = c2->rect.y - PLAYER_HEIGHT;
 		}
 
 	}
@@ -84,7 +84,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Onplat = true;
 			Jumping = false;
 			Vel.y = 0;
-			Pos.y = c2->rect.y - 45;
+			Pos.y = c2->rect.y - PLAYER_HEIGHT;
 		}
 		
 	}
