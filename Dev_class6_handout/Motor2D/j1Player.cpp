@@ -66,29 +66,38 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL) {
 
-		if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x && c1->rect.y <= c2->rect.y) {  // player goes right and on top (Landing) 
-			 
+		if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
+
 			Onplat = true;
 			Jumping = false;
 			Vel.y = 0;
 			Pos.y = c2->rect.y - PLAYER_HEIGHT;
 		}
-		else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)/* && c1->rect.y > c2->rect.y*/) {
-			if (Vel.x > 0) {
-				Pos.x = c2->rect.x - PLAYER_WIDTH;
+
+		else {
+			if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x) {         // tries to go right
+
+				if (Vel.x > 0) {
+					Pos.x = c2->rect.x - PLAYER_WIDTH;
+				}
+
 			}
-			else {
-				Pos.x = c2->rect.x + c2->rect.w;
+
+			else if (c1->rect.x >= (c2->rect.x + c2->rect.w)) {    // tries to go left
+
+				if (Vel.x < 0) {
+					Pos.x = c2->rect.x + c2->rect.w;
+				}
 			}
-			//Inside_Collider = true; 
-			LOG("PLAYER IS INSIDE COLLIDER WHOAAAAA"); 
 		}
-		
+
+		                                  
+			
 
 	}
 
 
-	else if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER) {
+	/*else if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER) {
 
 		if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x && c2->rect.y <= c1->rect.y) {            // player goes right and on top (Landing) 
 
@@ -111,9 +120,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		/*else if (c2->rect.x >= (c1->rect.x + c1->rect.w)) {
 			Pos.x = c1->rect.x + c1->rect.w;
 
-		}*/
+		}
 		
-	}
+	}*/
 
 
 	else if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
