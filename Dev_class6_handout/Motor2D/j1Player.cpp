@@ -74,10 +74,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
 
-				Onplat = true;
-				Jumping = false;
-				Vel.y = 0;
-				Pos.y = c2->rect.y - PLAYER_HEIGHT;
+				if (Vel.y >= 0) {
+					Onplat = true;
+					Jumping = false;
+					Vel.y = 0;
+					Pos.y = c2->rect.y - PLAYER_HEIGHT;
+				}
+				
 			}
 
 			else {
@@ -175,6 +178,7 @@ bool j1Player::Update(float dt)
 		
 		
 	}
+
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
 
 	return true;
