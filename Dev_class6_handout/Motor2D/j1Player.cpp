@@ -35,7 +35,9 @@ bool j1Player::Awake(pugi::xml_node&)
 	Falling.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
 	Walking_Right.PushBack({ 3, 96, 42, 45 });
 	Walking_Left.PushBack({ 345, 95, 42, 45 });
-	                                                                               
+	Walking_Right2.PushBack({ 55, 96, 34, 45 });
+	Walking_Left2.PushBack({ 298, 95, 42, 45 });
+
 	return true;
 }
 
@@ -153,6 +155,8 @@ bool j1Player::Update(float dt)
 {
 
 	Get_Player_State();
+
+	
 
 	if (!Alive) {
 		App->player->Disable(); 
@@ -272,16 +276,31 @@ PlayerState j1Player::Get_Player_State() {
 	}
 
 	else {    // IN THE GROUND
+		int Switch_Anim_Time = 10; 
+		int count = 1; 
 
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
+
+			Player_Animation = &Walking_Left;
+
+		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
 			State = WALKING_LEFT;
-			Player_Animation = &Walking_Left; 
+			Switch_Animation(&Walking_Left);
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			State = WALKING_RIGHT;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
+
 			Player_Animation = &Walking_Right; 
 		}
+
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
+				State = WALKING_RIGHT;
+				Switch_Animation(&Walking_Right);       LOG("SWITCHING ANIMATIONS WHOA"); 
+		}
+		
 
 		else {
 			State = IDLE;
@@ -293,6 +312,27 @@ PlayerState j1Player::Get_Player_State() {
 	return State;
 }
 
+
+void j1Player::Switch_Animation(Animation* Animation) {
+
+	uint Switch_Time = 4; 
+
+	if (Animation == &Walking_Right || Animation == &Walking_Right2) {
+	
+		if (Walking_Right.GetCurrentFrameNum() >= Switch_Time) {
+
+			Player_Animation = &Walking_Right2;          LOG("ANIMATION 1"); 
+		}
+
+		if (Walking_Right2.GetCurrentFrameNum() >= Switch_Time) {
+
+			Player_Animation = &Walking_Right;    LOG("ANIMATION 2"); 
+		}
+
+	}
+
+	
+}
 
 bool j1Player::Draw()
 {

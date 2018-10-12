@@ -51,7 +51,7 @@ public:
 	PlayerState Get_Player_State();
 	void OnCollision(Collider* c1, Collider* c2);
 	void Set_Player_Info();
-
+	void Switch_Animation(Animation* Animation); 
 
 
 
@@ -68,8 +68,9 @@ private:
 	Animation None;
 	Animation Falling; 
 	Animation Walking_Right; 
+	Animation Walking_Right2; 
 	Animation Walking_Left;
-
+	Animation Walking_Left2;
 	
 
 public: 
