@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Audio.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
 #include "j1FadeBlack.h"
@@ -17,7 +18,8 @@ j1Player::j1Player() : j1Module()
 
 {
 	name.create("player"); // aun no se poruqe
-	
+
+
 }
 
 // Destructor
@@ -29,7 +31,7 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node&)
 {
 	Player_Animation = &Idle;
-	Idle.PushBack({ 55, 2, 35, 45 });        // do this in tiled 
+	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });        // do this in tiled 
 	return true;
 }
 
@@ -62,9 +64,23 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	
-	if (c1->type == COLLIDER_WALL || c2->type == COLLIDER_WALL) {
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL) {
 
-		if (c1->CheckCollision(c2->rect)) {
+		if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x && c1->rect.y <= c2->rect.y) {  // player goes right and on top (Landing) 
+			 
+			Onplat = true;
+			Jumping = false;
+			Vel.y = 0;
+			Pos.y = c2->rect.y - 45;
+		}
+
+	}
+
+
+	else if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER) {
+
+		if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x && c2->rect.y <= c1->rect.y) {            // player goes right and on top (Landing) 
+
 			Onplat = true;
 			Jumping = false;
 			Vel.y = 0;
@@ -72,16 +88,23 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}
 		
 	}
-	
+
+
 	else if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
 		Alive = false; 
 	}
+
+
+
+	LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y); 
+
 	
 }
 
 bool j1Player::Update(float dt)
 {
 
+	Get_Player_State();
 
 	if (!Alive) {
 		App->player->Disable(); 
@@ -150,6 +173,7 @@ void j1Player::Movey() {
 		
 		Vel.y += 1.1;
 	}
+	
 }
 
 PlayerState j1Player::Get_Player_State() {
@@ -204,6 +228,7 @@ PlayerState j1Player::Get_Player_State() {
 
 	return State;
 }
+
 
 bool j1Player::Draw()
 {
