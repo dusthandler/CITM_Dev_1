@@ -49,7 +49,7 @@ bool j1Collision::PreUpdate()
 			continue;
 
 		c1 = colliders[i];
-
+		
 		// avoid checking collisions already checked
 		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
 		{

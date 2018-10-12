@@ -7,9 +7,13 @@
 #include "Animation.h"  
 #include "j1Collision.h"
 
+#define PLAYER_WIDTH 35
+#define PLAYER_HEIGHT 45
+
 struct SDL_Texture;
 struct SDL_Rect;
 struct Collider;
+
 
 enum PlayerState {
 	IDLE,
@@ -77,8 +81,9 @@ public:
 	bool Onplat = false;
 	bool Alive = true; 
 	Collider* Player_Collider = nullptr;
+
 public:
-	
+
 
 
 

@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "SDL/include/SDL.h"
+#include "p2Point.h"
 
 #define MAX_COLLIDERS 150
 
@@ -34,6 +35,7 @@ struct Collider
 		rect.x = x;
 		rect.y = y;
 	}
+
 
 	bool CheckCollision(const SDL_Rect& r) const;
 };
