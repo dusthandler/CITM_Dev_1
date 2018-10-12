@@ -58,7 +58,7 @@ void j1Player::Set_Player_Info() {
 	Alive = true; 
 	Player_Texture = App->tex->Load("Graphics/Ninja.png");
 	Pos.x = 0;                                                             // we need to load this from tiled 
-	Pos.y = 300;
+	Pos.y = 0;
 	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y, 35, 45 }, COLLIDER_PLAYER, this);
 }
 
