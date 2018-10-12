@@ -10,6 +10,7 @@
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
 #include "j1FadeBlack.h"
+#include "j1Window.h"
 
 
 j1Player::j1Player() : j1Module()
@@ -43,7 +44,7 @@ bool j1Player::Start()
 // Called each loop iteration
 bool j1Player::PreUpdate()
 {
-
+	Player_Collider->SetPos(Pos.x, Pos.y + 10);
 	return true;
 
 }
@@ -56,7 +57,7 @@ void j1Player::Set_Player_Info() {
 	Player_Texture = App->tex->Load("Graphics/Ninja.png");
 	Pos.x = 0;                                                             // we need to load this from tiled 
 	Pos.y = 300;
-	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y + 45, 35, 45 }, COLLIDER_PLAYER, this);
+	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y, 35, 45 }, COLLIDER_PLAYER, this);
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
@@ -67,6 +68,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Onplat = true;
 			Jumping = false;
 			Vel.y = 0;
+			Pos.y = c2->rect.y - 45;
 		}
 		
 	}
@@ -74,7 +76,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	else if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
 		Alive = false; 
 	}
-
+	
 }
 
 bool j1Player::Update(float dt)
@@ -99,14 +101,11 @@ bool j1Player::Update(float dt)
 
 
 		// Draw --------------------------------------------------------------------------------------------------------------------------
-
-		Player_Collider->SetPos(Pos.x, Pos.y);
-		Player_Animation = &Idle;
-		SDL_Rect Rect = Player_Animation->GetCurrentFrame();
-		App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
+		
+		
 	}
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
-	
+
 	return true;
 }
 
@@ -209,6 +208,9 @@ PlayerState j1Player::Get_Player_State() {
 bool j1Player::Draw()
 {
 	
+	Player_Animation = &Idle;
+	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
+	App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
 
 	return true;
 }
