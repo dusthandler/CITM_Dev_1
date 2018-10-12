@@ -75,20 +75,23 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 		else {
-			if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x) {         // tries to go right
+			if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)) {         // tries to go right
 
 				if (Vel.x > 0) {
 					Pos.x = c2->rect.x - PLAYER_WIDTH;
 				}
-
-			}
-
-			else if (c1->rect.x >= (c2->rect.x + c2->rect.w)) {    // tries to go left
-
-				if (Vel.x < 0) {
+				else if (Vel.x < 0) {
 					Pos.x = c2->rect.x + c2->rect.w;
 				}
+
 			}
+
+			//else if (c1->rect.x >= (c2->rect.x + c2->rect.w)) {    // tries to go left
+
+			//	
+			//		Pos.x = c2->rect.x + c2->rect.w;
+			//	
+			//}
 		}
 
 		                                  
