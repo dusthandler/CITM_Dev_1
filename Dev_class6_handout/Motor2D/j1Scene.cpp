@@ -36,7 +36,7 @@ bool j1Scene::Start()
 {
 
 	if (!Map_Loaded) {
-		App->map->Load("MaidInAbyss.tmx");
+		App->map->Load("Level_1.tmx");
 		LOG("---------------------------CANCER");
 		Map_Loaded = true; 
 	}

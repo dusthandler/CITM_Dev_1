@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="25">
  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32" tilecount="60" columns="10">
-  <image source="FreePlatformerNA/Foreground/Tileset.png" width="320" height="192"/>
+  <image source="Tileset.png" width="320" height="192"/>
   <terraintypes>
    <terrain name="air_rock" tile="-1"/>
    <terrain name="air_rock_grass" tile="-1"/>
@@ -16,19 +16,19 @@
   <tile id="29" terrain="0,,,"/>
  </tileset>
  <tileset firstgid="61" name="Trees" tilewidth="32" tileheight="32" tilecount="32" columns="8">
-  <image source="FreePlatformerNA/Foreground/Trees.png" width="256" height="128"/>
+  <image source="Trees.png" width="256" height="128"/>
  </tileset>
  <tileset firstgid="93" name="BGBack" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="FreePlatformerNA/Background/BGBack.png" width="1741" height="1088"/>
+  <image source="BGBack.png" width="1741" height="1088"/>
  </tileset>
  <tileset firstgid="1929" name="BGFront" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="FreePlatformerNA/Background/BGFront.png" width="1741" height="1088"/>
+  <image source="BGFront.png" width="1741" height="1088"/>
  </tileset>
  <tileset firstgid="3765" name="CloudsFront" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="FreePlatformerNA/Background/CloudsFront.png" width="1741" height="1088"/>
+  <image source="CloudsFront.png" width="1741" height="1088"/>
  </tileset>
  <tileset firstgid="5601" name="CloudsBack" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="FreePlatformerNA/Background/CloudsBack.png" width="1741" height="1088"/>
+  <image source="CloudsBack.png" width="1741" height="1088"/>
  </tileset>
  <layer name="Parallax4" width="170" height="34">
   <properties>
@@ -46327,28 +46327,28 @@
   </data>
  </layer>
  <objectgroup name="Colliders">
-  <object id="3" x="-8" y="577" width="147.333" height="94"/>
-  <object id="5" x="105.333" y="607.667" width="62" height="63.6667"/>
-  <object id="6" x="0.333333" y="664" width="63.6667" height="260.333"/>
-  <object id="7" x="60.6667" y="864.667" width="235.333" height="31.6667"/>
-  <object id="8" x="64" y="897" width="0.333333"/>
-  <object id="9" x="84" y="898" width="237" height="23.3333"/>
-  <object id="10" x="64.3333" y="868.333" width="20" height="57.6667"/>
-  <object id="12" x="124.25" y="584.25" width="27.5" height="34.5">
+  <object id="3" name="Floor" x="-8" y="577" width="147.333" height="94"/>
+  <object id="5" name="Floor" x="105.333" y="607.667" width="62" height="63.6667"/>
+  <object id="6" name="Floor" x="0.333333" y="664" width="63.6667" height="260.333"/>
+  <object id="7" name="Floor" x="60.6667" y="864.667" width="235.333" height="31.6667"/>
+  <object id="8" name="Floor" x="64" y="897" width="0.333333"/>
+  <object id="9" name="Floor" x="84" y="898" width="237" height="23.3333"/>
+  <object id="10" name="Floor" x="64.3333" y="868.333" width="20" height="57.6667"/>
+  <object id="12" name="Floor" x="124.25" y="584.25" width="27.5" height="34.5">
    <ellipse/>
   </object>
-  <object id="13" x="152" y="614.25" width="32.75" height="48.5">
+  <object id="13" name="Floor" x="152" y="614.25" width="32.75" height="48.5">
    <ellipse/>
   </object>
-  <object id="14" x="54.125" y="663.5" width="32.125" height="34.25">
+  <object id="14" name="Floor" x="54.125" y="663.5" width="32.125" height="34.25">
    <ellipse/>
   </object>
-  <object id="16" x="265.875" y="865" width="45.625" height="49.125">
+  <object id="16" name="Floor" x="265.875" y="865" width="45.625" height="49.125">
    <ellipse/>
   </object>
-  <object id="21" x="-1.81818" y="896.182" width="878.182" height="95.8182"/>
-  <object id="22" x="-0.363636" y="988.364" width="826.182" height="35.7273"/>
-  <object id="23" x="-13.7273" y="1022.82" width="813.364" height="69.9091"/>
-  <object id="24" x="876.13" y="896.174" width="262.957" height="23.8261"/>
+  <object id="21" name="Floor" x="-1.81818" y="896.182" width="878.182" height="95.8182"/>
+  <object id="22" name="Floor" x="-0.363636" y="988.364" width="826.182" height="35.7273"/>
+  <object id="23" name="Floor" x="-13.7273" y="1022.82" width="813.364" height="69.9091"/>
+  <object id="24" name="Floor" x="876.13" y="896.174" width="262.957" height="23.8261"/>
  </objectgroup>
 </map>
