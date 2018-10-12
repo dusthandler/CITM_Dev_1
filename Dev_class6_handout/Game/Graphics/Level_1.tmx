@@ -31,6 +31,9 @@
   <image source="FreePlatformerNA/Background/CloudsBack.png" width="1741" height="1088"/>
  </tileset>
  <layer name="Parallax4" width="170" height="34">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="0.25"/>
+  </properties>
   <data>
    <tile gid="5601"/>
    <tile gid="5602"/>
@@ -5815,6 +5818,9 @@
   </data>
  </layer>
  <layer name="Parallax3" width="170" height="34">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="0.5"/>
+  </properties>
   <data>
    <tile gid="3765"/>
    <tile gid="3766"/>
@@ -11600,7 +11606,7 @@
  </layer>
  <layer name="Parallax2" width="170" height="34">
   <properties>
-   <property name="ParallaxSpeed" type="float" value="1"/>
+   <property name="ParallaxSpeed" type="float" value="0.75"/>
   </properties>
   <data>
    <tile gid="93"/>
@@ -17386,6 +17392,9 @@
   </data>
  </layer>
  <layer name="Parallax1" width="170" height="34">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="1"/>
+  </properties>
   <data>
    <tile gid="1929"/>
    <tile gid="1930"/>
@@ -23170,6 +23179,9 @@
   </data>
  </layer>
  <layer name="Trees" width="170" height="34">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="1"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -34741,6 +34753,9 @@
   </data>
  </layer>
  <layer name="Bridges" width="170" height="34">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="1"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -40525,6 +40540,9 @@
   </data>
  </layer>
  <layer name="Grass" width="170" height="34">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="1"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
