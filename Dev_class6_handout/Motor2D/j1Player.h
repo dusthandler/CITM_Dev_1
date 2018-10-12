@@ -79,6 +79,8 @@ public:
 	bool Jumping = false;
 	bool Onplat = false;
 	bool Alive = true; 
+	bool Inside_Collider = false; 
+
 	Collider* Player_Collider = nullptr;
 
 public:

@@ -73,6 +73,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Vel.y = 0;
 			Pos.y = c2->rect.y - PLAYER_HEIGHT;
 		}
+		else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x && c1->rect.y > c2->rect.y) {  
+
+			Pos.x = c2->rect.x - PLAYER_WIDTH;
+			//Inside_Collider = true; 
+			LOG("PLAYER IS INSIDE COLLIDER WHOAAAAA"); 
+		}
 
 	}
 
@@ -84,7 +90,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Onplat = true;
 			Jumping = false;
 			Vel.y = 0;
-			Pos.y = c2->rect.y - PLAYER_HEIGHT;
+			Pos.y = c1->rect.y - PLAYER_HEIGHT;
+		}
+		else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x && c2->rect.y > c1->rect.y) {
+			Pos.x = c1->rect.x - PLAYER_WIDTH;
+			//Inside_Collider = true; 
+			LOG("PLAYER IS INSIDE COLLIDER WHOAAAAA");
 		}
 		
 	}
@@ -135,10 +146,13 @@ bool j1Player::Update(float dt)
 
 void j1Player::Movex() {
 
+
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
 		if (Pos.x <= 0) {
-			Vel.x = 0; 
+			Vel.x = 0;
 		}
+
 		else {
 			Vel.x = -10;
 		}
@@ -146,10 +160,18 @@ void j1Player::Movex() {
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		Vel.x = 10;
+
+		/*if (Inside_Collider) {
+			Vel.x = 0;
+		}*/
+		//else {
+			Vel.x = 10;
+		//}
 	}
 	else
 		Vel.x = 0;
+
+
 }
 
 void j1Player::Movey() {
