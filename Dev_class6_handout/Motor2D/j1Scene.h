@@ -33,6 +33,8 @@ public:
 	bool CleanUp();
 
 private:
+	bool Map_Loaded = false; 
+
 };
 
 #endif // __j1SCENE_H__

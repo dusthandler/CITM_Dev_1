@@ -35,11 +35,16 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
-
-	App->map->Load("MaidInAbyss.tmx");
-	LOG("---------------------------CANCER");
-
+	if (!Map_Loaded) {
+		App->map->Load("MaidInAbyss.tmx");
+		LOG("---------------------------CANCER");
+		Map_Loaded = true; 
+	}
 	
+	if (!App->player->Alive) {
+		App->player->Enable(); 
+		LOG("PLAYER RESPAWNED"); 
+	}
 
 	//App->map->Load("iso.tmx");
 	

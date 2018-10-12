@@ -75,7 +75,7 @@ public:
 	float cont;
 	bool jumping = false;
 	bool onplat = false;
-
+	bool Alive = true; 
 	Collider* Player_Collider = nullptr;
 public:
 	

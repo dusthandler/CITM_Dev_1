@@ -52,6 +52,7 @@ bool j1Player::PreUpdate()
 
 void j1Player::Set_Player_Info() {
 
+	Alive = true; 
 	Player_Texture = App->tex->Load("Graphics/Ninja.png");
 	pos.x = 0;                                                             // we need to load this from tiled 
 	pos.y = 300;
@@ -70,11 +71,25 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		
 	}
 	
+	else if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
+		Alive = false; 
+	}
 
 }
 
 bool j1Player::Update(float dt)
 {
+	/*if (pos.x > 50) {
+		Alive = false;
+	}*/
+
+	if (!Alive) {
+		App->player->Disable(); 
+		App->fade->FadeToBlack(App->scene, App->scene, 2);  // get time from Tiled
+	}
+
+	LOG("ALIVE =              %i", Alive); 
+
 	Movex();
 	Movey();
 	acc.y = 13;
@@ -86,10 +101,12 @@ bool j1Player::Update(float dt)
 
 
 	// Draw --------------------------------------------------------------------------------------------------------------------------
-	Player_Collider->SetPos(pos.x, pos.y);
-	Player_Animation = &Idle;
-	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
-	App->render->Blit(Player_Texture, pos.x, pos.y, &Rect, 1);
+	if (Alive) {
+		Player_Collider->SetPos(pos.x, pos.y);
+		Player_Animation = &Idle;
+		SDL_Rect Rect = Player_Animation->GetCurrentFrame();
+		App->render->Blit(Player_Texture, pos.x, pos.y, &Rect, 1);
+	}
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
 	
 	return true;
@@ -159,6 +176,8 @@ bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(Player_Texture);
 	Player_Animation = &none;
+	Player_Collider->to_delete = true;   // CLEAN COLLIDERS
+
 
 	return true;
 }
