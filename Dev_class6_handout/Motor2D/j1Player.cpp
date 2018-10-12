@@ -54,9 +54,9 @@ void j1Player::Set_Player_Info() {
 
 	Alive = true; 
 	Player_Texture = App->tex->Load("Graphics/Ninja.png");
-	pos.x = 0;                                                             // we need to load this from tiled 
-	pos.y = 300;
-	Player_Collider = App->collision->AddCollider({ (int)pos.x, (int)pos.y + 45, 35, 45 }, COLLIDER_PLAYER, this);
+	Pos.x = 0;                                                             // we need to load this from tiled 
+	Pos.y = 300;
+	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y + 45, 35, 45 }, COLLIDER_PLAYER, this);
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
@@ -64,9 +64,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (c1->type == COLLIDER_WALL || c2->type == COLLIDER_WALL) {
 
 		if (c1->CheckCollision(c2->rect)) {
-			onplat = true;
-			jumping = false;
-			vel.y = 0;
+			Onplat = true;
+			Jumping = false;
+			Vel.y = 0;
 		}
 		
 	}
@@ -79,33 +79,31 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 bool j1Player::Update(float dt)
 {
-	/*if (pos.x > 50) {
-		Alive = false;
-	}*/
+
 
 	if (!Alive) {
 		App->player->Disable(); 
 		App->fade->FadeToBlack(App->scene, App->scene, 2);  // get time from Tiled
 	}
 
-	LOG("ALIVE =              %i", Alive); 
+	else {
 
-	Movex();
-	Movey();
-	acc.y = 13;
-	if (!onplat) acc.y = 4;
-	else acc.y = 0;
+		Movex();
+		Movey();
+		Acc.y = 13;
+		if (!Onplat) Acc.y = 4;
+		else Acc.y = 0;
 
-	pos.x = pos.x + vel.x;
-	pos.y = pos.y + vel.y + acc.y;
+		Pos.x += Vel.x;
+		Pos.y += Vel.y + Acc.y;
 
 
-	// Draw --------------------------------------------------------------------------------------------------------------------------
-	if (Alive) {
-		Player_Collider->SetPos(pos.x, pos.y);
+		// Draw --------------------------------------------------------------------------------------------------------------------------
+
+		Player_Collider->SetPos(Pos.x, Pos.y);
 		Player_Animation = &Idle;
 		SDL_Rect Rect = Player_Animation->GetCurrentFrame();
-		App->render->Blit(Player_Texture, pos.x, pos.y, &Rect, 1);
+		App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
 	}
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
 	
@@ -116,37 +114,41 @@ bool j1Player::Update(float dt)
 void j1Player::Movex() {
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		vel.x = -10;
-		// Acc? future!!
+		if (Pos.x <= 0) {
+			Vel.x = 0; 
+		}
+		else {
+			Vel.x = -10;
+		}
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		vel.x = 10;
+		Vel.x = 10;
 	}
 	else
-		vel.x = 0;
+		Vel.x = 0;
 }
 
 void j1Player::Movey() {
 	// Change variables to can get the map
-	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && !jumping) {
-		vel.y = -26;
-		cont = 1.3;
-		jumping = true;
-	} 
+	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && !Jumping) {
+		Vel.y = -26;
+		Cont = 1.3;
+		Jumping = true;
+	}
 
-	else if (jumping) {
-		if (vel.y <= 4) {
-			vel.y = vel.y + 1.3;
+	else if (Jumping) {
+		if (Vel.y <= 4) {
+			Vel.y += 1.3; 
 		}
 		else {
-			cont += 0.1;
-			vel.y = vel.y + cont;
+			Cont += 0.1;
+			Vel.y += Cont;
 		}
 	}
-	else if (!onplat && !jumping) {
+	else if (!Onplat && !Jumping) {
 		
-		vel.y = vel.y + 1.1;
+		Vel.y += 1.1;
 	}
 }
 
@@ -155,7 +157,7 @@ PlayerState j1Player::Get_Player_State() {
 
 	
 
-	return state;
+	return State;
 }
 
 bool j1Player::Draw()
@@ -167,7 +169,7 @@ bool j1Player::Draw()
 
 bool j1Player::PostUpdate()
 {
-	onplat = false;
+	Onplat = false;
 	return true;
 }
 
@@ -175,7 +177,7 @@ bool j1Player::PostUpdate()
 bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(Player_Texture);
-	Player_Animation = &none;
+	Player_Animation = &None;
 	Player_Collider->to_delete = true;   // CLEAN COLLIDERS
 
 

@@ -80,8 +80,8 @@ bool j1Scene::Update(float dt)
 
 
 	else {
-		App->render->camera.x = (int)(App->player->pos.x - 300) * (-1) * App->win->GetScale();
-		App->render->camera.y = (int)(App->player->pos.y - 300) * (-1) * App->win->GetScale();
+		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();
+		App->render->camera.y = (int)(App->player->Pos.y - 300) * (-1) * App->win->GetScale();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 		App->fade->FadeToBlack(App->scene, App->scene, 2.5f);

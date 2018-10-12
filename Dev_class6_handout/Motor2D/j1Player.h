@@ -67,14 +67,14 @@ private:
 
 public: 
 
-	PlayerState state;
-	Animation none;
-	fPoint pos;
-	fPoint vel;
-	fPoint acc;
-	float cont;
-	bool jumping = false;
-	bool onplat = false;
+	PlayerState State;
+	Animation None;
+	fPoint Pos;
+	fPoint Vel;
+	fPoint Acc;
+	float Cont;
+	bool Jumping = false;
+	bool Onplat = false;
 	bool Alive = true; 
 	Collider* Player_Collider = nullptr;
 public:
