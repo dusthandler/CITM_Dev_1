@@ -31,7 +31,11 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node&)
 {
 	Player_Animation = &Idle;
-	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });        // do this in tiled 
+	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });       // do this in tiled 
+	Falling.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
+	Walking_Right.PushBack({ 3, 96, 42, 45 });
+	Walking_Left.PushBack({ 345, 95, 42, 45 });
+	                                                                               
 	return true;
 }
 
@@ -67,7 +71,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL) {
 
 		if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
-
 			Onplat = true;
 			Jumping = false;
 			Vel.y = 0;
@@ -80,12 +83,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				if (Vel.x > 0) {
 					Pos.x = c2->rect.x - PLAYER_WIDTH;
 				}
-
+				
 			}
 
-			else if (c1->rect.x >= (c2->rect.x + c2->rect.w)) {    // tries to go left
+			else if (c1->rect.x > (c2->rect.x + c2->rect.w)) {    // tries to go left
 
-				if (Vel.x < 0) {
+				if (Vel.x <= 0) {
 					Pos.x = c2->rect.x + c2->rect.w;
 				}
 			}
@@ -129,7 +132,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		Alive = false; 
 	}
 
-
+	
 
 	LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y); 
 
@@ -254,20 +257,25 @@ PlayerState j1Player::Get_Player_State() {
 				State = FALLING_DOWN;
 			}
 		}
+
+		Player_Animation = &Falling;
 	}
 
 	else {    // IN THE GROUND
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			State = WALKING_LEFT;
+			Player_Animation = &Walking_Left; 
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			State = WALKING_RIGHT;
+			Player_Animation = &Walking_Right; 
 		}
 
 		else {
 			State = IDLE;
+			Player_Animation = &Idle; 
 		}
 	}
 
@@ -279,7 +287,7 @@ PlayerState j1Player::Get_Player_State() {
 bool j1Player::Draw()
 {
 	
-	Player_Animation = &Idle;
+	
 	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
 	App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
 

@@ -65,13 +65,17 @@ private:
 	SDL_Texture* Player_Texture = nullptr;
 	Animation* Player_Animation = nullptr;
 	Animation Idle;
+	Animation None;
+	Animation Falling; 
+	Animation Walking_Right; 
+	Animation Walking_Left;
 
 	
 
 public: 
 
 	PlayerState State;
-	Animation None;
+	
 	fPoint Pos;
 	fPoint Vel;
 	fPoint Acc;
