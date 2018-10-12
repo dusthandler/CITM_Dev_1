@@ -73,12 +73,17 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Vel.y = 0;
 			Pos.y = c2->rect.y - PLAYER_HEIGHT;
 		}
-		else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x && c1->rect.y > c2->rect.y) {  
-
-			Pos.x = c2->rect.x - PLAYER_WIDTH;
+		else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)/* && c1->rect.y > c2->rect.y*/) {
+			if (Vel.x > 0) {
+				Pos.x = c2->rect.x - PLAYER_WIDTH;
+			}
+			else {
+				Pos.x = c2->rect.x + c2->rect.w;
+			}
 			//Inside_Collider = true; 
 			LOG("PLAYER IS INSIDE COLLIDER WHOAAAAA"); 
 		}
+		
 
 	}
 
@@ -92,11 +97,21 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Vel.y = 0;
 			Pos.y = c1->rect.y - PLAYER_HEIGHT;
 		}
-		else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x && c2->rect.y > c1->rect.y) {
-			Pos.x = c1->rect.x - PLAYER_WIDTH;
+		else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x && c2->rect.x >= (c1->rect.x + c1->rect.w)) {
+			
+			if(Vel.x > 0){
+				Pos.x = c1->rect.x - PLAYER_WIDTH;
+			}
+			else {
+				Pos.x = c1->rect.x + c1->rect.w;
+			}
 			//Inside_Collider = true; 
 			LOG("PLAYER IS INSIDE COLLIDER WHOAAAAA");
 		}
+		/*else if (c2->rect.x >= (c1->rect.x + c1->rect.w)) {
+			Pos.x = c1->rect.x + c1->rect.w;
+
+		}*/
 		
 	}
 
