@@ -120,6 +120,7 @@ void j1Player::Movex() {
 		else {
 			Vel.x = -10;
 		}
+
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
@@ -155,7 +156,52 @@ void j1Player::Movey() {
 PlayerState j1Player::Get_Player_State() {
 
 
-	
+	if (!Onplat) {   // IN THE AIR
+
+		if (Vel.y < 0) {                 // GOING UP              
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+				State = JUMPING_LEFT;
+			}
+
+			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				State = JUMPING_RIGHT;
+			}
+			else {
+				State = JUMPING_UP;
+			}
+		}
+
+		else {                            // GOING DOWN
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+				State = FALLING_LEFT;
+			}
+
+			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+				State = FALLING_RIGHT;
+			}
+			else {
+				State = FALLING_DOWN;
+			}
+		}
+	}
+
+	else {    // IN THE GROUND
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			State = WALKING_LEFT;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			State = WALKING_RIGHT;
+		}
+
+		else {
+			State = IDLE;
+		}
+	}
+
 
 	return State;
 }
