@@ -17,7 +17,7 @@ j1Particles::j1Particles()
 		active[i] = nullptr;
 
 	for (uint i = 0; i < MAX_CHUNKS; ++i)
-		chunks[i] = nullptr; 
+		chunks[i] = NULL; 
 
 	for (uint i = 0; i < MAX_TEXTURES; ++i)
 		textures[i] = nullptr;
@@ -32,7 +32,7 @@ j1Particles::~j1Particles()
 bool j1Particles::Start()
 {
 	LOG("Loading particles");
-	chunks[0] = App->audio->LoadFx("assets/SFX/shot.wav");							
+	chunks[0] = App->audio->LoadChunk("assets/SFX/shot.wav");							
 	
 
 	return true; 
@@ -54,9 +54,9 @@ bool j1Particles::CleanUp()
 
 	for (uint i = 0; i < MAX_CHUNKS; ++i)
 	{
-		if (chunks[i] != nullptr) {
+		if (chunks[i] != NULL) {
 			App->audio->UnloadFx(chunks[i]);
-			chunks[i] = nullptr; 
+			chunks[i] = NULL; 
 		}
 			
 	}
@@ -96,7 +96,7 @@ bool j1Particles::Update(float dt)
 			{
 				p->fx_played = true;
 				// Play particle fx here				
-				App->audio->PlayFx(App->audio->fx[p->fx], 1);
+				App->audio->PlayChunk(App->audio->fx[p->fx], 1);
 			}
 		}
 	}

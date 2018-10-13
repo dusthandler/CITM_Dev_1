@@ -12,7 +12,7 @@
 #include <math.h>
 #include "j1FadeBlack.h"
 #include "j1Window.h"
-
+// #include "j1Scene2.h"
 
 j1Player::j1Player() : j1Module()
 
@@ -185,13 +185,7 @@ bool j1Player::Update(float dt)
 	Get_Player_State();
 	Debug_Keys(); 
 	
-
-	if (!Alive) {
-		App->player->Disable(); 
-		App->fade->FadeToBlack(App->scene, App->scene, 2);  // get time from Tiled
-	}
-
-	else {
+	
 		if (God_Mode) {
 			Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD; 
 		}
@@ -209,7 +203,7 @@ bool j1Player::Update(float dt)
 		// Draw --------------------------------------------------------------------------------------------------------------------------
 		
 		
-	}
+	
 
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
 
@@ -218,7 +212,7 @@ bool j1Player::Update(float dt)
 
 void j1Player::Debug_Keys() {
 
-	
+	//Switch_Level_Logic(); 
 	
 	
 	
@@ -230,8 +224,28 @@ void j1Player::Debug_Keys() {
 	
 	// F9 located in collision module 
 }
+/*
+void j1Player::Switch_Level_Logic() {
 
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {      // change this with the win collider
+		Arrived_Lvl2 = true;  
+	}
 
+	if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
+		App->player->Disable();
+		App->fade->FadeToBlack(App->scene, App->scene, 2);  
+	}
+	else if (Alive && Arrived_Lvl2) {                                // is in level 1 and exits level   
+		App->fade->FadeToBlack(App->scene, App->scene2, 2);
+	}
+	else if (!Alive && Arrived_Lvl2) {
+		App->player->Disable();
+		App->fade->FadeToBlack(App->scene2, App->scene2, 2);           // Dies in level 2
+	}
+
+	LOG("ALIVE %i ARRIVED LVL 2    %i", Alive, Arrived_Lvl2); 
+
+}*/
 
 
 

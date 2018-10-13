@@ -54,7 +54,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	void Set_Player_Info();
 	void Debug_Keys(); 
-	
+	// void Switch_Level_Logic(); 
 
 
 	// Called before quitting
@@ -93,7 +93,7 @@ public:
 	bool Alive = true; 
 	bool Inside_Collider = false; 
 	bool God_Mode = false; 
-
+	bool Arrived_Lvl2 = false; 
 	Collider* Player_Collider = nullptr;
 
 

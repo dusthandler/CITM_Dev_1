@@ -44,7 +44,7 @@ bool j1FB::Update(float dt)
 	{
 		if (now >= total_time)
 		{
-			// TODO 3: enable / disable the modules received when FadeToBlacks() gets called
+			
 			ModuleOff->Disable();
 			ModuleOn->Enable();
 			LOG("FADING_1");

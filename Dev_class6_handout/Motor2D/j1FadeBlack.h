@@ -1,5 +1,5 @@
-#ifndef __MODULEFADETOBLACK_H__
-#define __MODULEFADETOBLACK_H__
+#ifndef __j1FADETOBLACK_H__
+#define __j1FADETOBLACK_H__
 
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
@@ -32,4 +32,4 @@ private:
 
 };
 
-#endif //__MODULEFADETOBLACK_H__
+#endif //__j1FADETOBLACK_H__
