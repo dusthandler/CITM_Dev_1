@@ -76,7 +76,11 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
+	Onplat = true; 
+	
 		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL) {
+
+			LOG("WE ARE HAVING A COLISION"); 
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
 
@@ -85,12 +89,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					Jumping = false;
 					Vel.y = 0;
 					Pos.y = c2->rect.y - PLAYER_HEIGHT;
+
 				}
 				
 			}
 
-			else {
-				if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)) {         // tries to go right
+			else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)) {         // tries to go right
 
 					if (Vel.x > 0) {
 						Pos.x = c2->rect.x - PLAYER_WIDTH;
@@ -99,48 +103,44 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 						Pos.x = c2->rect.x + c2->rect.w;
 					}
 
+					
+			 }
+			
+            
+		}
+
+	
+
+
+		else if (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_WALL) {
+
+			if (c2->rect.y <= c1->rect.y) {     // player on top (Landing) 
+
+				if (Vel.y >= 0) {
+					Onplat = true;
+					Jumping = false;
+					Vel.y = 0;
+					Pos.y = c1->rect.y - PLAYER_HEIGHT;
+
 				}
-				/*//else if (c1->rect.x >= (c2->rect.x + c2->rect.w)) {    // tries to go left
 
-				//	
-				//		Pos.x = c2->rect.x + c2->rect.w;
-				//	
-				//}*/
+			}
+
+			else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x || c2->rect.x >= (c1->rect.x + c1->rect.w)) {         // tries to go right
+
+				if (Vel.x > 0) {
+					Pos.x = c1->rect.x - PLAYER_WIDTH;
+				}
+				else if (Vel.x < 0) {
+					Pos.x = c1->rect.x + c2->rect.w;
+				}
 
 
-            }
+			}
+
 
 		}
 
-
-
-
-		/*else if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER) {
-
-			if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x && c2->rect.y <= c1->rect.y) {            // player goes right and on top (Landing)
-
-				Onplat = true;
-				Jumping = false;
-				Vel.y = 0;
-				Pos.y = c1->rect.y - PLAYER_HEIGHT;
-			}
-			else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x && c2->rect.x >= (c1->rect.x + c1->rect.w)) {
-
-				if(Vel.x > 0){
-					Pos.x = c1->rect.x - PLAYER_WIDTH;
-				}
-				else {
-					Pos.x = c1->rect.x + c1->rect.w;
-				}
-				//Inside_Collider = true;
-				LOG("PLAYER IS INSIDE COLLIDER WHOAAAAA");
-			}
-			/*else if (c2->rect.x >= (c1->rect.x + c1->rect.w)) {
-				Pos.x = c1->rect.x + c1->rect.w;
-
-			}
-
-		}*/
 
 
 				 if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
@@ -192,6 +192,15 @@ bool j1Player::Update(float dt)
 	return true;
 }
 
+void j1Player::Get_Keys() {
+
+	
+	
+
+
+
+
+}
 
 void j1Player::Movex() {
 
@@ -263,6 +272,7 @@ void j1Player::Movey() {
 		
 		Vel.y += 1.1;
 	}
+	
 	
 }
 
@@ -363,7 +373,9 @@ bool j1Player::Draw()
 
 bool j1Player::PostUpdate()
 {
+	
 	Onplat = false;
+	
 	return true;
 }
 
