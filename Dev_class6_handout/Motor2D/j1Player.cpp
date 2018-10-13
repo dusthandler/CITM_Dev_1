@@ -33,9 +33,9 @@ bool j1Player::Awake(pugi::xml_node&)
 	Player_Animation = &Idle;
 	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });       // do this in tiled 
 	Falling.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
-	Walking_Right.PushBack({ 3, 96, 42, 45 });
-	Walking_Left.PushBack({ 345, 95, 42, 45 });
-	Walking_Right2.PushBack({ 55, 96, 34, 45 });
+	Walking_Right.PushBack({ 3, 96, 44, 45 });
+	Walking_Left.PushBack({ 341, 95, 44, 45 });
+	Walking_Right2.PushBack({ 55, 96, 42, 45 });
 	Walking_Left2.PushBack({ 298, 95, 42, 45 });
 
 	return true;
@@ -197,21 +197,40 @@ void j1Player::Movex() {
 		if (Pos.x <= 0) {
 			Vel.x = 0;
 		}
-
 		else {
-			Vel.x = -10;
-		}
 
+			if (Vel.x == 0) {
+				Cont_X = 0;
+			}
+
+			if (Vel.x > -MAX_SPEED_X) {
+
+				Vel.x = -10 + Cont_X;
+				Cont_X -= 1.0f;
+			}
+
+			else {
+				Vel.x = -MAX_SPEED_X;
+			}
+		}
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
-		/*if (Inside_Collider) {
-			Vel.x = 0;
-		}*/
-		//else {
-			Vel.x = 10;
-		//}
+		    if (Vel.x == 0) {
+			Cont_X = 0; 
+			}
+
+			if (Vel.x < MAX_SPEED_X) {
+
+				Vel.x = 10 + Cont_X; 
+				Cont_X += 1.0f;
+			}
+
+			else {
+				Vel.x = MAX_SPEED_X; 
+			}
+		
 	}
 	else
 		Vel.x = 0;
@@ -245,13 +264,24 @@ void j1Player::Movey() {
 
 PlayerState j1Player::Get_Player_State() {
 
+	uint last = 0; 
+	uint now = SDL_GetTicks(); 
+	uint Switch_Time = 500; 
 
 	if (!Onplat) {   // IN THE AIR
 
-		if (Vel.y < 0) {                 // GOING UP              
+		if (Vel.y < 0) {                 // GOING UP 
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 				State = JUMPING_LEFT;
+				/*if()
+
+				else if (now > last + Switch_Time) {
+
+				}
+				else if(now > last + Switch_Time) {
+
+				}*/
 			}
 
 			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
@@ -273,36 +303,41 @@ PlayerState j1Player::Get_Player_State() {
 			}
 			else {
 				State = FALLING_DOWN;
+				Player_Animation = &Falling;
 			}
 		}
 
-		Player_Animation = &Falling;
+		last = now; 
 	}
 
 	else {    // IN THE GROUND
-		int Switch_Anim_Time = 10; 
-		int count = 1; 
+		
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) {
-
-			Player_Animation = &Walking_Left;
-
-		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
 			State = WALKING_LEFT;
-			Switch_Animation(&Walking_Left);
+			if (Vel.x > -MAX_SPEED_X) {
+
+				Player_Animation = &Walking_Left2;   
+			}
+
+			else {
+				Player_Animation = &Walking_Left;    
+			}
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) {
 
-			Player_Animation = &Walking_Right; 
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
 				State = WALKING_RIGHT;
-				Switch_Animation(&Walking_Right);       LOG("SWITCHING ANIMATIONS WHOA"); 
+
+				if (Vel.x < MAX_SPEED_X) {
+
+					Player_Animation = &Walking_Right2;
+				}
+				else {
+					Player_Animation = &Walking_Right; 
+				}
 		}
 		
 
@@ -317,26 +352,7 @@ PlayerState j1Player::Get_Player_State() {
 }
 
 
-void j1Player::Switch_Animation(Animation* Animation) {
 
-	uint Switch_Time = 4; 
-
-	if (Animation == &Walking_Right || Animation == &Walking_Right2) {
-	
-		if (Walking_Right.GetCurrentFrameNum() >= Switch_Time) {
-
-			Player_Animation = &Walking_Right2;          LOG("ANIMATION 1"); 
-		}
-
-		if (Walking_Right2.GetCurrentFrameNum() >= Switch_Time) {
-
-			Player_Animation = &Walking_Right;    LOG("ANIMATION 2"); 
-		}
-
-	}
-
-	
-}
 
 bool j1Player::Draw()
 {

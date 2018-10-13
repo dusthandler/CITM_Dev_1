@@ -8,6 +8,7 @@
 
 #define PLAYER_WIDTH 35
 #define PLAYER_HEIGHT 45
+#define MAX_SPEED_X 20
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -51,7 +52,7 @@ public:
 	PlayerState Get_Player_State();
 	void OnCollision(Collider* c1, Collider* c2);
 	void Set_Player_Info();
-	void Switch_Animation(Animation* Animation); 
+	
 
 
 
@@ -81,6 +82,7 @@ public:
 	fPoint Vel;
 	fPoint Acc;
 	float Cont;
+	float Cont_X; 
 	bool Jumping = false;
 	bool Onplat = false;
 	bool Alive = true; 
