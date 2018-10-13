@@ -147,8 +147,25 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-				 if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
-					Alive = false;  LOG("PLAYER DEAD HAHAHAHAHAHA"); 
+
+				 if (c2->type == COLLIDER_DEATH) {
+					 if (!God_Mode) {
+						 Alive = false;
+					 }
+					 else {
+						 if (c1->rect.y <= c2->rect.y) {     // god player cant die 
+
+							 if (Vel.y >= 0) {
+								 Onplat = true;
+								 Jumping = false;
+								 Vel.y = 0;
+								 Pos.y = c2->rect.y - PLAYER_HEIGHT;
+
+							 }
+
+						 }
+
+					 }
 				}
 
 
