@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="67">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="71">
  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32" tilecount="60" columns="10">
   <image source="../maps/Tileset.png" width="320" height="192"/>
   <terraintypes>
@@ -28969,6 +28969,9 @@
   </data>
  </layer>
  <layer name="Wall_BG" width="170" height="34">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="1"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -52158,5 +52161,8 @@
   <object id="64" name="Floor" x="5218.73" y="736" width="34.7273" height="355.818"/>
   <object id="65" name="Floor" x="5222.5" y="-8.5" width="229" height="391.5"/>
   <object id="66" name="Floor" x="2530.33" y="513" width="92" height="173"/>
+  <object id="67" name="Win" x="5408" y="381.5" width="39" height="141.5"/>
+  <object id="69" name="Die" x="1412" y="1080" width="4004" height="268"/>
+  <object id="70" name="Die" x="1346.67" y="994" width="155.333" height="28.6667"/>
  </objectgroup>
 </map>
