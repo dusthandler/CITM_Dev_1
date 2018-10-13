@@ -35,7 +35,8 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	
+	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
+	App->audio->PlayMus(mus); 
 
 	if (!Map_Loaded) {
 		App->map->Load("MaidInAbyss.tmx");
@@ -89,7 +90,7 @@ bool j1Scene::Update(float dt)
 		App->fade->FadeToBlack(App->scene, App->scene, 2.5f);
 	};
 		
-
+	
 	App->map->Draw();
 	App->player->Draw();
 
@@ -121,6 +122,6 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
+	App->audio->UnloadMus(mus);                        // Clean Up Music
 	return true;
 }

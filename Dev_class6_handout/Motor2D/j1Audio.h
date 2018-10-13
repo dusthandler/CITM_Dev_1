@@ -5,6 +5,8 @@
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 
+#define MAX_MUSICS 5
+
 struct _Mix_Music;
 struct Mix_Chunk;
 
@@ -24,7 +26,9 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	_Mix_Music* LoadMus(const char* path);
+	void PlayMus(_Mix_Music* mus);
+	bool UnloadMus(_Mix_Music* mus);
 
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
@@ -34,7 +38,7 @@ public:
 
 private:
 
-	_Mix_Music*			music = NULL;
+	_Mix_Music*			musics[MAX_MUSICS];
 	p2List<Mix_Chunk*>	fx;
 };
 

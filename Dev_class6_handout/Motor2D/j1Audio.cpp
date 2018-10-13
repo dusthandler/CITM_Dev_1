@@ -9,7 +9,9 @@
 
 j1Audio::j1Audio() : j1Module()
 {
-	music = NULL;
+	for (int i = 0; i < MAX_MUSICS; ++i) {
+		musics[i] = nullptr;
+	}
 	name.create("audio");
 }
 
@@ -61,10 +63,14 @@ bool j1Audio::CleanUp()
 
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	if(music != NULL)
+	for (int i = 0; i < MAX_MUSICS; ++i)
 	{
-		Mix_FreeMusic(music);
+		if (musics[i] != nullptr) {
+			Mix_FreeMusic(musics[i]);
+			musics[i] = nullptr;
+		}
 	}
+
 
 	p2List_item<Mix_Chunk*>* item;
 	for(item = fx.start; item != NULL; item = item->next)
@@ -80,58 +86,61 @@ bool j1Audio::CleanUp()
 }
 
 // Play a music file
-bool j1Audio::PlayMusic(const char* path, float fade_time)
+
+_Mix_Music* j1Audio::LoadMus(const char * path)
 {
-	bool ret = true;
-
-	if(!active)
-		return false;
-
-	if(music != NULL)
-	{
-		if(fade_time > 0.0f)
-		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}
-
-		// this call blocks until fade out is done
-		Mix_FreeMusic(music);
-	}
-
+	_Mix_Music* music = NULL;
 	music = Mix_LoadMUS(path);
 
-	if(music == NULL)
+	if (music == NULL)
 	{
-		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
-		ret = false;
+		LOG("Could not load music with path: %s. Mus_Load: %s", path, Mix_GetError());
 	}
 	else
 	{
-		if(fade_time > 0.0f)
+		bool room = false;
+		for (int i = 0; i < MAX_MUSICS; ++i)
 		{
-			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
+			if (musics[i] == nullptr)
 			{
-				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
+				musics[i] = music;
+				room = true;
+				break;
 			}
 		}
-		else
+		if (room == false) {
+		LOG("Music buffer overflow");
+		}
+	}
+	
+	return music;
+}
+
+void j1Audio::PlayMus(_Mix_Music* mus)
+{
+	Mix_PlayMusic(mus, -1);
+}
+
+bool j1Audio::UnloadMus(_Mix_Music* mus)
+{
+	bool ret = false;
+	if (mus != nullptr) {
+		for (int i = 0; i < MAX_MUSICS; ++i)
 		{
-			if(Mix_PlayMusic(music, -1) < 0)
+			if (musics[i] == mus)
 			{
-				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
+				Mix_FreeMusic(musics[i]);
+				musics[i] = nullptr;
+				ret = true;
+				LOG("Could unload the music properly");
+				break;
 			}
 		}
 	}
 
-	LOG("Successfully playing %s", path);
 	return ret;
 }
+
 
 // Load WAV
 unsigned int j1Audio::LoadFx(const char* path)

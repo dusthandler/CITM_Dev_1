@@ -4,6 +4,7 @@
 #include "j1Module.h"
 
 struct SDL_Texture;
+struct _Mix_Music;
 
 class j1Scene : public j1Module
 {
@@ -34,6 +35,7 @@ public:
 
 private:
 	bool Map_Loaded = false; 
+	_Mix_Music* mus = nullptr;
 
 };
 
