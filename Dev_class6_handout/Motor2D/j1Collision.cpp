@@ -12,7 +12,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_WALL][COLLIDER_GOD] = false;
+	matrix[COLLIDER_WALL][COLLIDER_GOD] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true; 
@@ -26,8 +26,8 @@ j1Collision::j1Collision()
 
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
 	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_GOD][COLLIDER_WALL] = false;
-	matrix[COLLIDER_GOD][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_GOD][COLLIDER_WALL] = true;
+	matrix[COLLIDER_GOD][COLLIDER_DEATH] = true;
 	
 }
 

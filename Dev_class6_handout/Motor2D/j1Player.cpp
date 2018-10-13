@@ -76,14 +76,14 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
-	Onplat = true; 
 	
-		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL) {
+		if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
 			LOG("WE ARE HAVING A COLISION"); 
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
 
+				
 				if (Vel.y >= 0) {
 					Onplat = true;
 					Jumping = false;
@@ -96,13 +96,17 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 			else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)) {         // tries to go right
 
+				if (c1->type == COLLIDER_PLAYER) {   // god player does not hace laterlal colliders
+
 					if (Vel.x > 0) {
+
 						Pos.x = c2->rect.x - PLAYER_WIDTH;
 					}
+
 					else if (Vel.x < 0) {
 						Pos.x = c2->rect.x + c2->rect.w;
 					}
-
+				}
 					
 			 }
 			
@@ -173,9 +177,8 @@ bool j1Player::Update(float dt)
 	else {
 		if (God_Mode) {
 			Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD; 
-			Move_God(); 
 		}
-		else {
+
 			Movex();
 			Movey();
 			Acc.y = 13;
@@ -184,7 +187,7 @@ bool j1Player::Update(float dt)
 
 			Pos.x += Vel.x;
 			Pos.y += Vel.y + Acc.y;
-		}
+	
 
 		// Draw --------------------------------------------------------------------------------------------------------------------------
 		
@@ -211,54 +214,7 @@ void j1Player::Debug_Keys() {
 	// F9 located in collision module 
 }
 
-void j1Player::Move_God() {
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-			if (Vel.x == 0) {
-				Cont_X = 0;
-			}
-
-			Vel.x = -10 + Cont_X;
-			Cont_X -= 1.0f;
-			
-
-	}
-
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-
-		if (Vel.x == 0) {
-			Cont_X = 0;
-		}
-
-
-		Vel.x = 10 + Cont_X;
-		Cont_X += 1.0f;
-	}
-
-
-
-	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && !Jumping) {
-		Vel.y = -50;
-		Cont = 1.3;
-		Jumping = true;
-	}
-
-	else if (Jumping) {
-		if (Vel.y <= 4) {
-			Vel.y += 1.3;
-		}
-		else {
-			Cont += 0.1;
-			Vel.y += Cont;
-		}
-	}
-	else if (!Onplat && !Jumping) {
-
-		Vel.y += 0;
-	}
-
-}
 
 
 
@@ -276,15 +232,18 @@ void j1Player::Movex() {
 				Cont_X = 0;
 			}
 
-			if (Vel.x > -MAX_SPEED_X) {
+		
+				if (Vel.x > -MAX_SPEED_X) {
 
-				Vel.x = -10 + Cont_X;
-				Cont_X -= 1.0f;
-			}
+					Vel.x = -10 + Cont_X;
+					Cont_X -= 1.0f;
+				}
 
-			else {
-				Vel.x = -MAX_SPEED_X;
-			}
+				else {
+					Vel.x = -MAX_SPEED_X;
+				}
+
+			
 		}
 	}
 
@@ -294,15 +253,15 @@ void j1Player::Movex() {
 			Cont_X = 0; 
 			}
 
-			if (Vel.x < MAX_SPEED_X) {
+				if (Vel.x < MAX_SPEED_X) {
 
-				Vel.x = 10 + Cont_X; 
-				Cont_X += 1.0f;
-			}
+					Vel.x = 10 + Cont_X;
+					Cont_X += 1.0f;
+				}
 
-			else {
-				Vel.x = MAX_SPEED_X; 
-			}
+				else {
+					Vel.x = MAX_SPEED_X;
+				}
 		
 	}
 	else
@@ -313,10 +272,19 @@ void j1Player::Movex() {
 
 void j1Player::Movey() {
 	// Change variables to can get the map
-	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && !Jumping) {
-		Vel.y = -26;
-		Cont = 1.3;
-		Jumping = true;
+	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)) {
+		
+		if (God_Mode) {   // god player can jump infinitely
+			Vel.y = -26;
+			Cont = 1.3;
+			Jumping = true;
+		}
+
+		else if(!Jumping && Vel.y == 0) {
+			Vel.y = -16;
+			Cont = 1.3;
+			Jumping = true;
+		}
 	}
 
 	else if (Jumping) {
