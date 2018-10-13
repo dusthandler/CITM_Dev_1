@@ -76,8 +76,6 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL) {
-
 		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL) {
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
@@ -102,17 +100,17 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					}
 
 				}
-				//else if (c1->rect.x >= (c2->rect.x + c2->rect.w)) {    // tries to go left
+				/*//else if (c1->rect.x >= (c2->rect.x + c2->rect.w)) {    // tries to go left
 
 				//	
 				//		Pos.x = c2->rect.x + c2->rect.w;
 				//	
-				//}
+				//}*/
 
 
+            }
 
-
-
+		}
 
 
 
@@ -145,8 +143,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}*/
 
 
-				else if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
-					Alive = false;
+				 if (c1->type == COLLIDER_DEATH || c2->type == COLLIDER_DEATH) {
+					Alive = false;  LOG("PLAYER DEAD HAHAHAHAHAHA"); 
 				}
 
 
@@ -154,9 +152,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);
 
 
-			}
-		}
-	}
+			
+		
+	
 }
 
 
