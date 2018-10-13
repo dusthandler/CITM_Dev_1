@@ -38,6 +38,12 @@ bool j1Player::Awake(pugi::xml_node&)
 	Walking_Right2.PushBack({ 55, 96, 42, 45 });
 	Walking_Left2.PushBack({ 298, 95, 42, 45 });
 
+	Jumping_Right.PushBack({ 8, 49, 31, 46 });
+	Jumping_Left.PushBack({ 348, 49, 31, 46 });
+
+	Falling_Right.PushBack({ 103, 49, 32, 45 });
+	Falling_Left.PushBack({ 253, 49, 32, 45 });
+
 	return true;
 }
 
@@ -264,9 +270,7 @@ void j1Player::Movey() {
 
 PlayerState j1Player::Get_Player_State() {
 
-	uint last = 0; 
-	uint now = SDL_GetTicks(); 
-	uint Switch_Time = 500; 
+
 
 	if (!Onplat) {   // IN THE AIR
 
@@ -274,18 +278,12 @@ PlayerState j1Player::Get_Player_State() {
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 				State = JUMPING_LEFT;
-				/*if()
-
-				else if (now > last + Switch_Time) {
-
-				}
-				else if(now > last + Switch_Time) {
-
-				}*/
+				Player_Animation = &Jumping_Left; 
 			}
 
 			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 				State = JUMPING_RIGHT;
+				Player_Animation = &Jumping_Right; 
 			}
 			else {
 				State = JUMPING_UP;
@@ -296,10 +294,12 @@ PlayerState j1Player::Get_Player_State() {
 
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 				State = FALLING_LEFT;
+				Player_Animation = &Falling_Left; 
 			}
 
 			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 				State = FALLING_RIGHT;
+				Player_Animation = &Falling_Right; 
 			}
 			else {
 				State = FALLING_DOWN;
@@ -307,7 +307,6 @@ PlayerState j1Player::Get_Player_State() {
 			}
 		}
 
-		last = now; 
 	}
 
 	else {    // IN THE GROUND

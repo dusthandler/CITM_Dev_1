@@ -72,7 +72,11 @@ private:
 	Animation Walking_Right2; 
 	Animation Walking_Left;
 	Animation Walking_Left2;
-	
+
+	Animation Jumping_Right;
+	Animation Jumping_Left; 
+	Animation Falling_Right;
+	Animation Falling_Left; 
 
 public: 
 
