@@ -53,8 +53,8 @@ public:
 	PlayerState Get_Player_State();
 	void OnCollision(Collider* c1, Collider* c2);
 	void Set_Player_Info();
-	void Get_Keys(); 
-
+	void Debug_Keys(); 
+	void Move_God(); 
 
 
 	// Called before quitting
@@ -92,7 +92,7 @@ public:
 	bool Onplat = false;
 	bool Alive = true; 
 	bool Inside_Collider = false; 
-
+	bool God_Mode = false; 
 
 	Collider* Player_Collider = nullptr;
 

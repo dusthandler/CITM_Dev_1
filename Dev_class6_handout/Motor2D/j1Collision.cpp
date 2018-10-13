@@ -12,14 +12,23 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_WALL][COLLIDER_GOD] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true; 
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_GOD] = false;
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_GOD] = false;
+
+	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
+	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_GOD][COLLIDER_WALL] = false;
+	matrix[COLLIDER_GOD][COLLIDER_DEATH] = false;
+	
 }
 
 // Destructor
@@ -85,7 +94,10 @@ bool j1Collision::Update(float dt)
 
 	bool ret = true;
 	
-	DebugDraw();
+	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT) {
+		DebugDraw();
+	}
+
 	return ret;
 }
 
@@ -119,6 +131,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_DEATH: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			break;
+		case COLLIDER_GOD: // violet
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
 		}
 	}

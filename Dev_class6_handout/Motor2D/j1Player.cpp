@@ -162,7 +162,7 @@ bool j1Player::Update(float dt)
 {
 
 	Get_Player_State();
-
+	Debug_Keys(); 
 	
 
 	if (!Alive) {
@@ -171,16 +171,20 @@ bool j1Player::Update(float dt)
 	}
 
 	else {
+		if (God_Mode) {
+			Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD; 
+			Move_God(); 
+		}
+		else {
+			Movex();
+			Movey();
+			Acc.y = 13;
+			if (!Onplat) Acc.y = 4;
+			else Acc.y = 0;
 
-		Movex();
-		Movey();
-		Acc.y = 13;
-		if (!Onplat) Acc.y = 4;
-		else Acc.y = 0;
-
-		Pos.x += Vel.x;
-		Pos.y += Vel.y + Acc.y;
-
+			Pos.x += Vel.x;
+			Pos.y += Vel.y + Acc.y;
+		}
 
 		// Draw --------------------------------------------------------------------------------------------------------------------------
 		
@@ -192,15 +196,71 @@ bool j1Player::Update(float dt)
 	return true;
 }
 
-void j1Player::Get_Keys() {
+void j1Player::Debug_Keys() {
 
 	
 	
+	
+	
+	
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
+		God_Mode = true; 
+		LOG("GOD MODE YEAH"); 
+	}
+	
+	// F9 located in collision module 
+}
+
+void j1Player::Move_God() {
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
+			if (Vel.x == 0) {
+				Cont_X = 0;
+			}
+
+			Vel.x = -10 + Cont_X;
+			Cont_X -= 1.0f;
+			
+
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
+		if (Vel.x == 0) {
+			Cont_X = 0;
+		}
+
+
+		Vel.x = 10 + Cont_X;
+		Cont_X += 1.0f;
+	}
 
 
 
+	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && !Jumping) {
+		Vel.y = -50;
+		Cont = 1.3;
+		Jumping = true;
+	}
+
+	else if (Jumping) {
+		if (Vel.y <= 4) {
+			Vel.y += 1.3;
+		}
+		else {
+			Cont += 0.1;
+			Vel.y += Cont;
+		}
+	}
+	else if (!Onplat && !Jumping) {
+
+		Vel.y += 0;
+	}
 
 }
+
+
 
 void j1Player::Movex() {
 
