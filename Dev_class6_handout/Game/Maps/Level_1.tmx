@@ -3,7 +3,12 @@
  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32" tilecount="60" columns="10">
   <image source="Textures/Tileset.png" width="320" height="192"/>
   <terraintypes>
-   <terrain name="air_rock" tile="-1"/>
+   <terrain name="air_rock" tile="-1">
+    <properties>
+     <property name="PlayerX" type="float" value="15"/>
+     <property name="PlayerY" type="float" value="0"/>
+    </properties>
+   </terrain>
    <terrain name="air_rock_grass" tile="-1"/>
    <terrain name="Nuevo Terreno" tile="-1"/>
   </terraintypes>

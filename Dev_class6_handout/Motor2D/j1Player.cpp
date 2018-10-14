@@ -274,7 +274,7 @@ void j1Player::Debug_Keys() {
 
 
 
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {   // CHANGE TO F10	
 
 		if (!God_Mode) {
 			God_Mode = true;

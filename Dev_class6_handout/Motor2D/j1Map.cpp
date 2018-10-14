@@ -248,6 +248,7 @@ bool j1Map::Load(const char* file_name)
 		LOG("Successfully parsed map XML file: %s", file_name);
 		LOG("width: %d height: %d", data.width, data.height);
 		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
+		LOG("X %f y %f", data.Posi.x, data.Posi.y);
 
 		p2List_item<TileSet*>* item = data.tilesets.start;
 		while(item != NULL)
@@ -293,6 +294,9 @@ bool j1Map::LoadMap()
 		data.height = map.attribute("height").as_int();
 		data.tile_width = map.attribute("tilewidth").as_int();
 		data.tile_height = map.attribute("tileheight").as_int();
+		data.Posi.x = map.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").child("PlayerX").attribute("value").as_float();
+		data.Posi.y = map.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").child("PlayerY").attribute("value").as_float();
+	
 		p2SString bg_color(map.attribute("backgroundcolor").as_string());
 
 		data.background_color.r = 0;

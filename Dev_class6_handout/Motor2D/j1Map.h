@@ -91,6 +91,7 @@ enum MapTypes
 struct MapData
 {
 	int					width;
+	fPoint				Posi;
 	int					height;
 	int					tile_width;
 	int					tile_height;
