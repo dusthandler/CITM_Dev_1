@@ -26,6 +26,8 @@ enum PlayerState {
 	FALLING_DOWN,
 	FALLING_RIGHT,
 	FALLING_LEFT,
+	DIED,
+	WIN
 };
 
 class j1Player : public j1Module
@@ -96,6 +98,7 @@ public:
 	bool Arrived_Lvl2 = false; 
 	bool Reset_Fx = true; 
 	uint Jump_Count = 0; 
+	bool Level_Win = false; 
 
 	Collider* Player_Collider = nullptr;
 

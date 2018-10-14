@@ -254,21 +254,24 @@ void j1Player::Debug_Keys() {
 void j1Player::Switch_Level_Logic() {
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {      // change this with the win collider
-		Arrived_Lvl2 = true;  
+		Level_Win = true;
 	}
 
-	if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
+	/*if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
 		App->player->Disable();
 		App->fade->FadeToBlack(App->scene, App->scene, 2);  
-	}
-	else if (Alive && Arrived_Lvl2) {                                                       // is in level 1 and exits level  
+	}*/
+
+	if (Alive && Arrived_Lvl2) {                                                       // is in level 1 and exits level  
 		App->player->Disable(); 
-		App->fade->FadeToBlack(App->scene, App->scene2, 2);   
+		App->fade->FadeToBlack(App->scene, App->scene2, 2);
+
 	}
-	else if (!Alive && Arrived_Lvl2) {
+
+	/*else if (!Alive && Arrived_Lvl2) {
 		App->player->Disable();
 		App->fade->FadeToBlack(App->scene2, App->scene2, 2);           // Dies in level 2
-	}
+	}*/
 
 	LOG("ALIVE %i ARRIVED LVL 2    %i", Alive, Arrived_Lvl2); 
 
@@ -369,80 +372,97 @@ void j1Player::Movey() {
 
 PlayerState j1Player::Get_Player_State() {
 
+	if (Alive) {   
 
+		if (!Level_Win) {   // IN THE LEVEL 
 
-	if (!Onplat) {   // IN THE AIR
+			if (!Onplat) {   // IN THE AIR
 
-		if (Vel.y < 0) {                 // GOING UP 
+				if (Vel.y < 0) {                 // GOING UP 
 
-			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-				State = JUMPING_LEFT;
-				Player_Animation = &Jumping_Left; 
+					if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+						State = JUMPING_LEFT;
+						Player_Animation = &Jumping_Left;
+					}
+
+					else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+						State = JUMPING_RIGHT;
+						Player_Animation = &Jumping_Right;
+					}
+					else {
+						State = JUMPING_UP;
+					}
+				}
+
+				else {                            // GOING DOWN
+
+					if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+						State = FALLING_LEFT;
+						Player_Animation = &Falling_Left;
+					}
+
+					else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+						State = FALLING_RIGHT;
+						Player_Animation = &Falling_Right;
+					}
+					else {
+						State = FALLING_DOWN;
+						Player_Animation = &Falling;
+					}
+				}
+
 			}
 
-			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-				State = JUMPING_RIGHT;
-				Player_Animation = &Jumping_Right; 
+			else {    // IN THE GROUND
+
+
+				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+
+					State = WALKING_LEFT;
+					if (Vel.x > -MAX_SPEED_X) {
+
+						Player_Animation = &Walking_Left2;
+					}
+
+					else {
+						Player_Animation = &Walking_Left;
+					}
+				}
+
+
+				else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+
+					State = WALKING_RIGHT;
+
+					if (Vel.x < MAX_SPEED_X) {
+
+						Player_Animation = &Walking_Right2;
+					}
+					else {
+						Player_Animation = &Walking_Right;
+					}
+				}
+
+
+				else {
+
+					State = IDLE;
+					Player_Animation = &Idle;
+				}
 			}
-			else {
-				State = JUMPING_UP;
-			}
+
 		}
 
-		else {                            // GOING DOWN
+		else {
 
-			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-				State = FALLING_LEFT;
-				Player_Animation = &Falling_Left; 
-			}
-
-			else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-				State = FALLING_RIGHT;
-				Player_Animation = &Falling_Right; 
-			}
-			else {
-				State = FALLING_DOWN;
-				Player_Animation = &Falling;
-			}
+			State = WIN; 
 		}
 
 	}
 
-	else {    // IN THE GROUND
-		
+	else {
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-			State = WALKING_LEFT;
-			if (Vel.x > -MAX_SPEED_X) {
-
-				Player_Animation = &Walking_Left2;   
-			}
-
-			else {
-				Player_Animation = &Walking_Left;    
-			}
-		}
-
-
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-
-				State = WALKING_RIGHT;
-
-				if (Vel.x < MAX_SPEED_X) {
-
-					Player_Animation = &Walking_Right2;
-				}
-				else {
-					Player_Animation = &Walking_Right; 
-				}
-		}
-		
-
-		else {
-			State = IDLE;
-			Player_Animation = &Idle; 
-		}
+		State = DIED;
 	}
 
 
