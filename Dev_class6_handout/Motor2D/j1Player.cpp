@@ -198,6 +198,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 
+				 if (c2->type == COLLIDER_WIN) {
+					 Level_Win = true; 
+				 }
+
 				LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);
 
 
@@ -260,7 +264,9 @@ void j1Player::Debug_Keys() {
 
 void j1Player::Switch_Level_Logic() {
 
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {   
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN || Level_Win) {   
+
+		Level_Win = false;
 		Disable();
 		App->scene->MapSwap(1);
 		
