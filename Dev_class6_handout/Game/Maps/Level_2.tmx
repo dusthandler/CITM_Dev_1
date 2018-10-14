@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="243">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="242">
  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32" tilecount="60" columns="10">
   <image source="Textures/Tileset.png" width="320" height="192"/>
   <terraintypes>
@@ -37843,7 +37843,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="21"/>
-   <tile gid="6"/>
+   <tile gid="12"/>
    <tile gid="12"/>
    <tile gid="13"/>
    <tile gid="0"/>
@@ -38013,7 +38013,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="11"/>
+   <tile gid="6"/>
    <tile gid="12"/>
    <tile gid="13"/>
    <tile gid="0"/>
@@ -52267,6 +52267,5 @@
   <object id="238" name="Floor" x="5256.25" y="1055.88" width="146" height="32.875"/>
   <object id="240" name="Win" x="5256.67" y="1018.33" width="146" height="61.3333"/>
   <object id="241" name="Floor" x="4105.33" y="673.333" width="77.3333" height="62"/>
-  <object id="242" name="Die" x="21.2121" y="-230.303" width="5493.45" height="240.97"/>
  </objectgroup>
 </map>
