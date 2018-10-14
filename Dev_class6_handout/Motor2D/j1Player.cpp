@@ -81,8 +81,14 @@ void j1Player::Set_Player_Info() {
 	App->audio->LoadFx("Sound/Fx/death.wav");
 	App->audio->LoadFx("Sound/Fx/landing.wav");
 
-	Pos.x = 0;                                                             // we need to load this from tiled 
-	Pos.y = 0;
+	if (!Arrived_Lvl2) {                                                             // we need to load this from tiled 
+		Pos.y = 0;
+	}
+	else {
+		Pos.y = 380; 
+	}
+	Pos.x = 15; 
+
 	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y, 35, 45 }, COLLIDER_PLAYER, this);
 }
 
@@ -203,6 +209,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				/*LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);*/
 		 if (c2->type == COLLIDER_WIN) {
 					 Level_Win = true; 
+					 Arrived_Lvl2 = true;
 				 }
 
 				
@@ -283,6 +290,7 @@ void j1Player::Switch_Level_Logic() {
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN || Level_Win) {   
 
+		Arrived_Lvl2 = true; 
 		Level_Win = false;
 		Disable();
 		App->scene->MapSwap(1);
