@@ -45,8 +45,8 @@ bool j1FB::Update(float dt)
 		if (now >= total_time)
 		{
 			
-			ModuleOff->Disable();
-			ModuleOn->Enable();
+			ModuleOff->Deactivate(); 
+			ModuleOn->Activate(); 
 			LOG("FADING_1");
 			// ---
 			total_time += total_time;

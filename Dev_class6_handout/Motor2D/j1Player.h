@@ -81,6 +81,8 @@ private:
 	Animation Falling_Right;
 	Animation Falling_Left; 
 
+	Animation Death; 
+
 public: 
 
 	PlayerState State;

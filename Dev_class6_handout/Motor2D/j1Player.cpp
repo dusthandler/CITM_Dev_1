@@ -32,7 +32,6 @@ bool j1Player::Awake(pugi::xml_node&)
 {
 	Player_Animation = &Idle;
 	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });       // do this in tiled 
-	Falling.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
 	Walking_Right.PushBack({ 3, 96, 44, 45 });
 	Walking_Left.PushBack({ 341, 95, 44, 45 });
 	Walking_Right2.PushBack({ 55, 96, 42, 45 });
@@ -43,6 +42,12 @@ bool j1Player::Awake(pugi::xml_node&)
 
 	Falling_Right.PushBack({ 103, 49, 32, 45 });
 	Falling_Left.PushBack({ 253, 49, 32, 45 });
+
+
+	Death.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
+
+	Falling.PushBack({ 0, 0, 0, 0});
+
 
 	return true;
 }
@@ -262,10 +267,9 @@ void j1Player::Switch_Level_Logic() {
 		App->fade->FadeToBlack(App->scene, App->scene, 2);  
 	}*/
 
-	if (Alive && Arrived_Lvl2) {                                                       // is in level 1 and exits level  
+	if (Alive && Level_Win && !Arrived_Lvl2) {                                                       // is in level 1 and exits level  
 		App->player->Disable(); 
 		App->fade->FadeToBlack(App->scene, App->scene2, 2);
-
 	}
 
 	/*else if (!Alive && Arrived_Lvl2) {
@@ -407,7 +411,7 @@ PlayerState j1Player::Get_Player_State() {
 					}
 					else {
 						State = FALLING_DOWN;
-						Player_Animation = &Falling;
+					//	Player_Animation = &Falling;
 					}
 				}
 
