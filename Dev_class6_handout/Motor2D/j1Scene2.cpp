@@ -36,6 +36,8 @@ bool j1Scene2::Awake()
 // Called before the first frame
 bool j1Scene2::Start()
 {
+
+	App->scene2->Activate(); 
 	
 
 	if (!Map_Loaded) {

@@ -99,7 +99,8 @@ public:
 	bool Inside_Collider = false; 
 	bool God_Mode = false; 
 	bool Arrived_Lvl2 = false; 
-	bool Reset_Fx = true; 
+	bool Reset_Fx_2 = true; 
+	bool Reset_Fx_3 = true;
 	uint Jump_Count = 0; 
 	bool Level_Win = false; 
 

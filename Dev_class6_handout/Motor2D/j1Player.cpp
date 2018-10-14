@@ -75,6 +75,7 @@ void j1Player::Set_Player_Info() {
 
 	Alive = true; 
 	Player_Texture = App->tex->Load("Maps/Ninja/Ninja.png");             
+	Reset_Fx_2 = true;  // so that it plays death once 
 
 	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
 	App->audio->LoadFx("Sound/Fx/death.wav");
@@ -92,9 +93,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 			LOG("WE ARE HAVING A COLISION"); 
 
-			if (Reset_Fx) {
+			if (Reset_Fx_3) {
 				App->audio->PlayFx(3, 0);
-				Reset_Fx = false; 
+				Reset_Fx_3 = false;
 		   }
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
@@ -170,10 +171,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 						 Alive = false;
 
-						 if (Reset_Fx) {
+						 if (Reset_Fx_2) {
 
 							 App->audio->PlayFx(2, 0);
-							 Reset_Fx = false;
+							 Reset_Fx_2 = false;
 						 }
 					 }
 
@@ -222,8 +223,8 @@ bool j1Player::Update(float dt)
 			Acc.y = 13;
 			if (!Onplat) {
 				Acc.y = 4;
-				if (!Reset_Fx) {
-					Reset_Fx = true;                   // So that landing fx are available next time
+				if (!Reset_Fx_3) {
+					Reset_Fx_3 = true;                   // So that landing fx are available next time
 				}
 			}
 
@@ -425,6 +426,7 @@ PlayerState j1Player::Get_Player_State() {
 				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
 					State = WALKING_LEFT;
+
 					if (Vel.x > -MAX_SPEED_X) {
 
 						Player_Animation = &Walking_Left2;
@@ -469,6 +471,7 @@ PlayerState j1Player::Get_Player_State() {
 	else {
 
 		State = DIED;
+		Player_Animation = &Death; 
 	}
 
 
