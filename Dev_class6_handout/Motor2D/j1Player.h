@@ -94,6 +94,8 @@ public:
 	bool Inside_Collider = false; 
 	bool God_Mode = false; 
 	bool Arrived_Lvl2 = false; 
+	bool Reset_Fx = true; 
+
 	Collider* Player_Collider = nullptr;
 
 

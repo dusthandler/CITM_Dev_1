@@ -72,7 +72,7 @@ void j1Player::Set_Player_Info() {
 
 	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
 	App->audio->LoadFx("Sound/Fx/death.wav");
-	App->audio->LoadFx("Sound/Fx/jump_to_roof.wav");
+	App->audio->LoadFx("Sound/Fx/landing.wav");
 
 	Pos.x = 0;                                                             // we need to load this from tiled 
 	Pos.y = 0;
@@ -86,7 +86,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 			LOG("WE ARE HAVING A COLISION"); 
 
-		
+			if (Reset_Fx) {
+				App->audio->PlayFx(3, 0);
+				Reset_Fx = false; 
+		   }
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
 
@@ -156,14 +159,24 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 				 if (c2->type == COLLIDER_DEATH) {
+
 					 if (!God_Mode) {
+
 						 Alive = false;
-						 App->audio->PlayFx(2, 1); 
+
+						 if (Reset_Fx) {
+
+							 App->audio->PlayFx(2, 0);
+							 Reset_Fx = false;
+						 }
 					 }
+
 					 else {
+
 						 if (c1->rect.y <= c2->rect.y) {     // god player cant die 
 
 							 if (Vel.y >= 0) {
+
 								 Onplat = true;
 								 Jumping = false;
 								 Vel.y = 0;
@@ -203,6 +216,9 @@ bool j1Player::Update(float dt)
 			Acc.y = 13;
 			if (!Onplat) {
 				Acc.y = 4;
+				if (!Reset_Fx) {
+					Reset_Fx = true;                   // So that landing fx are available next time
+				}
 			}
 
 			else Acc.y = 0;
@@ -314,7 +330,7 @@ void j1Player::Movey() {
 	// Change variables to can get the map
 	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)) {
 		
-		App->audio->PlayFx(1, 1); 
+		App->audio->PlayFx(1, 0); 
 
 		if (God_Mode) {   // god player can jump infinitely
 			Vel.y = -26;
