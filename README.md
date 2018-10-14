@@ -1,8 +1,8 @@
 # CITM_Dev_1
 
 Ninjump is a plataformer game where you will have to value from your skills and reflexes to advance.
-
-##Team members & Github profiles:
+## How to play:
+#Team members & Github profiles:
 
 - Marc Doctor Pedrosa 
 	https://github.com/thedoctormarc
