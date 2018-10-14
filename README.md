@@ -23,3 +23,5 @@ Link to the stage sprites:
 
 Link to dust particles:
 http://spritefx.blogspot.com/2013/04/sprite-dust.html
+
+All music and sounds have been extracted from "Naruto Ultimate Ninja" series.
