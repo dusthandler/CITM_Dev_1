@@ -1,4 +1,4 @@
-/*#include "p2Defs.h"
+#include "p2Defs.h"
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Input.h"
@@ -40,7 +40,7 @@ bool j1Scene2::Start()
 
 	if (!Map_Loaded) {
 		App->map->Load("Level_2.tmx");
-		LOG("---------------------------CANCER");
+		LOG("---------------------------LVEL 2 LOADED------------------------");
 		Map_Loaded = true;
 	}
 
@@ -117,4 +117,4 @@ bool j1Scene2::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
-}*/
+}

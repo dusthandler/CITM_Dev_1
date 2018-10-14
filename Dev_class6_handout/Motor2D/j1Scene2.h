@@ -1,4 +1,4 @@
-/*#ifndef __j1SCENE2_H__
+#ifndef __j1SCENE2_H__
 #define __j1SCENE2_H__
 
 #include "j1Module.h"
@@ -37,4 +37,4 @@ private:
 
 };
 
-#endif // __j1SCENE2_H__*/
+#endif // __j1SCENE2_H__

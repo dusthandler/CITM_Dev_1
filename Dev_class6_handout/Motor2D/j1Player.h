@@ -54,7 +54,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	void Set_Player_Info();
 	void Debug_Keys(); 
-	// void Switch_Level_Logic(); 
+	void Switch_Level_Logic(); 
 
 
 	// Called before quitting

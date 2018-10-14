@@ -12,7 +12,7 @@
 #include <math.h>
 #include "j1FadeBlack.h"
 #include "j1Window.h"
-// #include "j1Scene2.h"
+#include "j1Scene2.h"
 
 j1Player::j1Player() : j1Module()
 
@@ -212,19 +212,18 @@ bool j1Player::Update(float dt)
 
 void j1Player::Debug_Keys() {
 
-	//Switch_Level_Logic(); 
+	Switch_Level_Logic(); 
 	
 	
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
 		God_Mode = true; 
-		LOG("GOD MODE YEAH"); 
 	}
 	
 	// F9 located in collision module 
 }
-/*
+
 void j1Player::Switch_Level_Logic() {
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {      // change this with the win collider
@@ -235,8 +234,9 @@ void j1Player::Switch_Level_Logic() {
 		App->player->Disable();
 		App->fade->FadeToBlack(App->scene, App->scene, 2);  
 	}
-	else if (Alive && Arrived_Lvl2) {                                // is in level 1 and exits level   
-		App->fade->FadeToBlack(App->scene, App->scene2, 2);
+	else if (Alive && Arrived_Lvl2) {                                                       // is in level 1 and exits level  
+		App->scene->Disable(); 
+		App->fade->FadeToBlack(App->scene, App->scene2, 2);   
 	}
 	else if (!Alive && Arrived_Lvl2) {
 		App->player->Disable();
@@ -245,7 +245,7 @@ void j1Player::Switch_Level_Logic() {
 
 	LOG("ALIVE %i ARRIVED LVL 2    %i", Alive, Arrived_Lvl2); 
 
-}*/
+}
 
 
 

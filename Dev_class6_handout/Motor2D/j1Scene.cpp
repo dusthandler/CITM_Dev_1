@@ -40,7 +40,7 @@ bool j1Scene::Start()
 
 	if (!Map_Loaded) {
 		App->map->Load("MaidInAbyss.tmx");
-		LOG("---------------------------CANCER");
+		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true; 
 	}
 	
@@ -86,9 +86,9 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();
 		App->render->camera.y = (int)(App->player->Pos.y - 300) * (-1) * App->win->GetScale();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 		App->fade->FadeToBlack(App->scene, App->scene, 2.5f);
-	};
+	};*/
 		
 	
 	App->map->Draw();

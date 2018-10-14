@@ -41,7 +41,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(j1Module* module);
+	void AddModule(j1Module* module, bool To_Enable = true);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -90,7 +90,7 @@ public:
 	j1Player*		    player;
 	j1FB*				fade;
 	j1Collision*  		collision;
-	// j1Scene2*			scene2; 
+	j1Scene2*			scene2; 
 
 private:
 

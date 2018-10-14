@@ -15,7 +15,7 @@
 #include "j1Player.h"
 #include "j1FadeBlack.h"
 #include "j1Collision.h"
-// #include "j1Scene2.h"
+#include "j1Scene2.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -33,7 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	fade = new j1FB();
 	collision = new j1Collision();
-//	scene2 = new j1Scene2();
+	scene2 = new j1Scene2();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -46,7 +46,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(player); 
 	AddModule(fade);
 	AddModule(collision);
-	// AddModule(scene2); 
+	AddModule(scene2, false); 
 	
 
 	// render last to swap buffer
@@ -68,10 +68,12 @@ j1App::~j1App()
 	modules.clear();
 }
 
-void j1App::AddModule(j1Module* module)
+void j1App::AddModule(j1Module* module, bool To_Enable)
 {
-	
-		module->Init(); 
+	if (To_Enable) {
+		module->Init();
+	}
+
 		modules.add(module);
 
 }
@@ -122,7 +124,9 @@ bool j1App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active) {
+			ret = item->data->Start();
+		}
 		item = item->next;
 	}
 
