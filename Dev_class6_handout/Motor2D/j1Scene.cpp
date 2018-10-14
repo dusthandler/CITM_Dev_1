@@ -51,6 +51,7 @@ bool j1Scene::Start()
 		App->player->Enable(); 
 		LOG("PLAYER RESPAWNED"); 
 	}
+	App->player->Enable();
 
 	//App->map->Load("iso.tmx");
 	

@@ -261,7 +261,15 @@ void j1Player::Debug_Keys() {
 void j1Player::Switch_Level_Logic() {
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {   
+		Disable();
 		App->scene->MapSwap(1);
+		
+		/*App->player->CleanUp();*/// change this with the win collider
+	}
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+		Disable();
+		App->scene->MapSwap(0);
+		
 		/*App->player->CleanUp();*/// change this with the win collider
 	}
 
