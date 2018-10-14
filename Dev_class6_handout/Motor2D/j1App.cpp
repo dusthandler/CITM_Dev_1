@@ -357,6 +357,8 @@ bool j1App::LoadGameNow()
 
 	want_to_load = false;
 	return ret;
+
+
 }
 
 bool j1App::SavegameNow() const
@@ -383,10 +385,11 @@ bool j1App::SavegameNow() const
 	{
 		std::stringstream stream;
 		data.save(stream);
+		data.save_file(save_game.GetString());
 
 		// we are done, so write data to disk
 //		fs->Save(save_game.GetString(), stream.str().c_str(), stream.str().length());
-		LOG("... finished saving", save_game.GetString());
+		//LOG("... finished saving", save_game.GetString());
 	}
 	else
 		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");

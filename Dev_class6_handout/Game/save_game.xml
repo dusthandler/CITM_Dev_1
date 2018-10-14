@@ -1,9 +1,21 @@
-<!-- Save game for the game -->
-
+<?xml version="1.0"?>
 <game_state>
-
-  <renderer>
-    <camera x="100" y="0"/>
-  </renderer>
-
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene />
+	<player>
+		<position x="160" y="562" />
+		<velocity x="0" y="0" />
+		<Cont Cont="2.5999999" Cont_X="10" />
+		<Cont Jumping="false" Onplat="false" Alive="true" God_Mode="false" />
+		<state collider_type="collider_player" />
+	</player>
+	<fadeToBlack />
+	<:anonymous />
+	<renderer>
+		<camera x="0" y="-262" />
+	</renderer>
 </game_state>

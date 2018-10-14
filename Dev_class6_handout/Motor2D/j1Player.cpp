@@ -579,6 +579,71 @@ bool j1Player::Load(pugi::xml_node& node)
 	Acc.x = node.child("acceleration").attribute("x").as_float(0);
 	Acc.y = node.child("acceleration").attribute("y").as_float(0);
 
-	Jumping = node.child("conditions").attribute("Jumping").as_bool(false);
+	Jumping = node.child("var").attribute("Jumping").as_bool(false);
+	Onplat = node.child("var").attribute("Onplat").as_bool(false);
+	Alive = node.child("var").attribute("Alive").as_bool(true);
+	Cont = node.child("cont").attribute("Cont").as_float(0);
+	Cont_X = node.child("cont").attribute("Cont_X").as_float(0);
+	God_Mode = node.child("var").attribute("God_Mode").as_bool(false);
+
+	
+
+	p2SString collider(node.child("state").attribute("collider_type").as_string(""));
+
+	if (collider == "collider_player")
+	{
+		Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+	}
+	else if (collider == "collider_god")
+	{
+		Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+	}
+
+	return ret;
+
+}
+
+bool j1Player::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	pugi::xml_node pos = node.append_child("position");
+
+	pos.append_attribute("x") = Pos.x;
+	pos.append_attribute("y") = Pos.y;
+
+	pugi::xml_node vel = node.append_child("velocity");
+
+	vel.append_attribute("x") = Vel.x;
+	vel.append_attribute("y") = Vel.y;
+
+	pugi::xml_node cont = node.append_child("Cont");
+
+	cont.append_attribute("Cont") = Cont;
+	cont.append_attribute("Cont_X") = Cont_X;
+
+	pugi::xml_node var = node.append_child("Cont");
+
+	var.append_attribute("Jumping") = Jumping;
+	var.append_attribute("Onplat") = Onplat;
+	var.append_attribute("Alive") = Alive;
+	var.append_attribute("God_Mode") = God_Mode;
+
+	
+	pugi::xml_node coll = node.append_child("state");
+
+	p2SString collider;
+	switch (Player_Collider->type)
+	{
+	case COLLIDER_TYPE::COLLIDER_PLAYER:
+		collider.create("collider_player");
+		break;
+	case COLLIDER_TYPE::COLLIDER_GOD:
+		collider.create("collider_god");
+		break;
+	}
+
+	coll.append_attribute("collider_type") = collider.GetString();
+
 	return ret;
 }
