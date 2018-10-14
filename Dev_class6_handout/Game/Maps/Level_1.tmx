@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="71">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="72">
  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32" tilecount="60" columns="10">
   <image source="Textures/Tileset.png" width="320" height="192"/>
   <terraintypes>
@@ -52164,5 +52164,6 @@
   <object id="67" name="Win" x="5408" y="381.5" width="39" height="141.5"/>
   <object id="69" name="Die" x="1412" y="1080" width="4004" height="268"/>
   <object id="70" name="Die" x="1346.67" y="994" width="155.333" height="28.6667"/>
+  <object id="71" name="Die" x="-296" y="-76" width="5598" height="88"/>
  </objectgroup>
 </map>
