@@ -559,7 +559,7 @@
    <tile gid="5831"/>
    <tile gid="5832"/>
    <tile gid="5833"/>
-   <tile gid="5834"/>
+   <tile gid="6373"/>
    <tile gid="5835"/>
    <tile gid="5836"/>
    <tile gid="5837"/>
@@ -729,7 +729,7 @@
    <tile gid="5885"/>
    <tile gid="5886"/>
    <tile gid="5887"/>
-   <tile gid="5888"/>
+   <tile gid="6214"/>
    <tile gid="5889"/>
    <tile gid="5890"/>
    <tile gid="5891"/>
@@ -6184,7 +6184,7 @@
    <tile gid="3949"/>
    <tile gid="3950"/>
    <tile gid="3951"/>
-   <tile gid="3952"/>
+   <tile gid="0"/>
    <tile gid="3953"/>
    <tile gid="3954"/>
    <tile gid="3955"/>
@@ -6346,7 +6346,7 @@
    <tile gid="3995"/>
    <tile gid="3996"/>
    <tile gid="3997"/>
-   <tile gid="3998"/>
+   <tile gid="0"/>
    <tile gid="3999"/>
    <tile gid="4000"/>
    <tile gid="4001"/>
@@ -6516,7 +6516,7 @@
    <tile gid="4049"/>
    <tile gid="4050"/>
    <tile gid="4051"/>
-   <tile gid="4052"/>
+   <tile gid="0"/>
    <tile gid="4053"/>
    <tile gid="4054"/>
    <tile gid="4055"/>
@@ -21147,7 +21147,7 @@
    <tile gid="3182"/>
    <tile gid="3183"/>
    <tile gid="3184"/>
-   <tile gid="3185"/>
+   <tile gid="0"/>
    <tile gid="3186"/>
    <tile gid="3187"/>
    <tile gid="3188"/>
@@ -21201,7 +21201,7 @@
    <tile gid="3182"/>
    <tile gid="3183"/>
    <tile gid="3184"/>
-   <tile gid="3185"/>
+   <tile gid="0"/>
    <tile gid="3186"/>
    <tile gid="3187"/>
    <tile gid="3188"/>
@@ -21255,7 +21255,7 @@
    <tile gid="3182"/>
    <tile gid="3183"/>
    <tile gid="3184"/>
-   <tile gid="3185"/>
+   <tile gid="0"/>
    <tile gid="3186"/>
    <tile gid="3187"/>
    <tile gid="3188"/>
@@ -21584,7 +21584,7 @@
    <tile gid="3333"/>
    <tile gid="3334"/>
    <tile gid="3335"/>
-   <tile gid="3336"/>
+   <tile gid="0"/>
    <tile gid="3337"/>
    <tile gid="3338"/>
    <tile gid="3285"/>

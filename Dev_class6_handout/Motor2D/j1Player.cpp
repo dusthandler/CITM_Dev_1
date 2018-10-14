@@ -198,7 +198,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 
+
 				/*LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);*/
+		 if (c2->type == COLLIDER_WIN) {
+					 Level_Win = true; 
+				 }
+
+				
+
 
 
 			
@@ -216,6 +223,9 @@ bool j1Player::Update(float dt)
 	
 		if (God_Mode) {
 			Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD; 
+		}
+		else {
+			Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER; 
 		}
 
 			Movex();
@@ -252,15 +262,24 @@ void j1Player::Debug_Keys() {
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
-		God_Mode = true; 
+
+		if (!God_Mode) {
+			God_Mode = true;
+		}
+		else {
+			God_Mode = false; 
+		}
 	}
 	
+
 	// F9 located in collision module 
 }
 
 void j1Player::Switch_Level_Logic() {
 
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {   
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN || Level_Win) {   
+
+		Level_Win = false;
 		Disable();
 		App->scene->MapSwap(1);
 		
@@ -309,7 +328,7 @@ void j1Player::Movex() {
 				if (Vel.x > -MAX_SPEED_X) {
 
 					Vel.x = -10 + Cont_X;
-					Cont_X -= 1.0f;
+					Cont_X -= 10.0f;
 				}
 
 				else {
@@ -329,7 +348,7 @@ void j1Player::Movex() {
 				if (Vel.x < MAX_SPEED_X) {
 
 					Vel.x = 10 + Cont_X;
-					Cont_X += 1.0f;
+					Cont_X += 10.0f;
 				}
 
 				else {
@@ -351,15 +370,15 @@ void j1Player::Movey() {
 
 		
 		if (God_Mode) {   // god player can jump infinitely
-			Vel.y = -26;
+			Vel.y = -30;
 			Cont = 1.3;
 			Jumping = true;
 			App->audio->PlayFx(1, 0);
 		}
 
 		else if(Jump_Count < 2) {
-			Vel.y = -16;
-			Cont = 1.3;
+			Vel.y = -15;
+			Cont = 2.6;
 			Jumping = true;
 			App->audio->PlayFx(1, 0);
 		}
@@ -376,7 +395,7 @@ void j1Player::Movey() {
 	}
 	else if (!Onplat && !Jumping) {
 		
-		Vel.y += 1.1;
+		Vel.y += 2.6;
 	}
 	
 	
