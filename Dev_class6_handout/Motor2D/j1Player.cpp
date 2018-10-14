@@ -367,15 +367,15 @@ void j1Player::Movey() {
 
 		
 		if (God_Mode) {   // god player can jump infinitely
-			Vel.y = -26;
+			Vel.y = -56;
 			Cont = 1.3;
 			Jumping = true;
 			App->audio->PlayFx(1, 0);
 		}
 
 		else if(Jump_Count < 2) {
-			Vel.y = -16;
-			Cont = 1.3;
+			Vel.y = -2;
+			Cont = 1.8;
 			Jumping = true;
 			App->audio->PlayFx(1, 0);
 		}
