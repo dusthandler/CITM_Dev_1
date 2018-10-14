@@ -1,8 +1,8 @@
 # CITM_Dev_1
 
-Ninjump is a plataformer game where you will have to value from your skills and reflexes to advance.
-## How to play:
-#Team members & Github profiles:
+Ninjump is a platformer game where you will have to use your skills and reflexes to advance.
+
+## Team members & Github profiles:
 
 - Marc Doctor Pedrosa 
 	https://github.com/thedoctormarc
@@ -13,29 +13,29 @@ Ninjump is a plataformer game where you will have to value from your skills and 
 - Kevin Manel Muñoz Oliver 
 	https://github.com/dusthandler
 
-##Controls:
+## Controls:
 
 - A · Go left
 - D · Go right
 - Space · Jump/Double Jump
 - Shift · Jump to roof
 
-##Innovation:
+## Innovation:
 
 - You can jump to walk on the roof. When you are in that state you cannot jump against the gravity, if you jump you will fall, but you will still be able to use the double jump. 
 
 The ninja sprites are made by us.
 
-###Link to repository:
+### Link to repository:
 -https://github.com/dusthandler/CITM_Dev_1
 
-##Credits
+## Credits
 
-###Link to the stage sprites:
+### Link to the stage sprites:
 - https://aamatniekss.itch.io/free-pixelart-platformer-tileset
 
-###Link to dust particles:
+### Link to dust particles:
 http://spritefx.blogspot.com/2013/04/sprite-dust.html
 
-###Music and Sound Effects
+### Music and Sound Effects
 All music and sounds have been extracted from "Naruto Ultimate Ninja" series.
