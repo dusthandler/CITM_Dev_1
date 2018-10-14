@@ -375,7 +375,7 @@ void j1Player::Movey() {
 
 		else if(Jump_Count < 2) {
 			Vel.y = -22;
-			Cont = 1.8;
+			Cont = 5.6;
 			Jumping = true;
 			App->audio->PlayFx(1, 0);
 		}
@@ -392,7 +392,7 @@ void j1Player::Movey() {
 	}
 	else if (!Onplat && !Jumping) {
 		
-		Vel.y += 1.1;
+		Vel.y += 5.6;
 	}
 	
 	
