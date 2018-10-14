@@ -2,23 +2,23 @@
 
 Ninjump is a plataformer game where you will have to value from your skills and reflexes to advance.
 
-##Team members / Github profiles:
+##Team members & Github profiles:
 
 - Marc Doctor Pedrosa 
 	https://github.com/thedoctormarc
 
-- Guillem Sánchez Herranz 
+- Guillem SÃ¡nchez Herranz 
 	https://github.com/GuillemSanchez
 
-- Kevin Manel Muñoz Oliver 
+- Kevin Manel MuÃ±oz Oliver 
 	https://github.com/dusthandler
 
 ##Controls:
 
-- A · Go left
-- D · Go right
-- Space · Jump/Double Jump
-- Shift · Jump to roof
+- A Â· Go left
+- D Â· Go right
+- Space Â· Jump/Double Jump
+- Shift Â· Jump to roof
 
 ##Innovation:
 
