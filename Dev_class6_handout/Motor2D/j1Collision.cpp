@@ -150,11 +150,32 @@ bool j1Collision::CleanUp()
 		if (colliders[i] != nullptr)
 		{
 			delete colliders[i];
+			
 			colliders[i] = nullptr;
 		}
 	}
 
 	return ret; 
+}
+
+bool j1Collision::CleanWallDeath()
+{
+	bool ret = true;
+	LOG("Freeing wall and death colliders");
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] != nullptr)
+		{
+			if (colliders[i]->type == COLLIDER_WALL || colliders[i]->type == COLLIDER_DEATH) {
+				delete colliders[i];
+				colliders[i] = nullptr;
+			}
+			
+		}
+	}
+
+	return ret;
 }
 
 Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)

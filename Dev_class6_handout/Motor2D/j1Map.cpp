@@ -204,6 +204,7 @@ bool j1Map::CleanUp()
 
 	while (Object_item != NULL)
 	{
+		
 		RELEASE(Object_item->data);
 		Object_item = Object_item->next;
 	}

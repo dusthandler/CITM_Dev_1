@@ -11,7 +11,8 @@
 #include "j1Player.h"
 #include "j1Player.h"
 #include "j1FadeBlack.h"
-#include "j1Scene2.h"
+#include "j1Collision.h"
+
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -35,6 +36,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+	
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
 	App->audio->PlayMus(mus); 
 
@@ -42,6 +44,7 @@ bool j1Scene::Start()
 		App->map->Load("Level_1.tmx");
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true; 
+		SwitchM = 0;
 	}
 	
 	if (!App->player->Alive) {
@@ -124,4 +127,32 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 	App->audio->UnloadMus(mus);                        // Clean Up Music
 	return true;
+}
+
+
+
+bool j1Scene::MapSwap(int SwitchM)
+{
+	bool ret = true;
+
+	if (SwitchM == 0)
+	{
+		App->fade->FadeToBlack(this, this, 0.5f);
+		
+		App->map->CleanUp();
+		App->collision->CleanWallDeath();
+		App->map->Load("Level_1.tmx");
+		
+	}
+	else if (SwitchM == 1)
+	{
+		App->fade->FadeToBlack(this, this, 0.5f);
+		
+		App->map->CleanUp();
+		App->collision->CleanWallDeath();
+		App->map->Load("Level_2.tmx");
+	}
+	this->SwitchM = SwitchM;
+
+	return ret;
 }

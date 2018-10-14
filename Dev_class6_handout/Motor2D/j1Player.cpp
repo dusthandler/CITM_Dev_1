@@ -12,7 +12,7 @@
 #include <math.h>
 #include "j1FadeBlack.h"
 #include "j1Window.h"
-#include "j1Scene2.h"
+
 
 j1Player::j1Player() : j1Module()
 
@@ -260,8 +260,9 @@ void j1Player::Debug_Keys() {
 
 void j1Player::Switch_Level_Logic() {
 
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {      // change this with the win collider
-		Level_Win = true;
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {   
+		App->scene->MapSwap(1);
+		/*App->player->CleanUp();*/// change this with the win collider
 	}
 
 	/*if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
@@ -269,10 +270,7 @@ void j1Player::Switch_Level_Logic() {
 		App->fade->FadeToBlack(App->scene, App->scene, 2);  
 	}*/
 
-	if (Alive && Level_Win && !Arrived_Lvl2) {                                                       // is in level 1 and exits level  
-		App->player->Disable(); 
-		App->fade->FadeToBlack(App->scene, App->scene2, 2);
-	}
+	
 
 	/*else if (!Alive && Arrived_Lvl2) {
 		App->player->Disable();
@@ -504,7 +502,13 @@ bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(Player_Texture);
 	// Player_Animation = &None;
-	Player_Collider->to_delete = true;   // CLEAN COLLIDERS
+	Player_Texture = nullptr;
+	/*Player_Animation = nullptr;*/
+	if (Player_Collider != nullptr)
+	{
+		Player_Collider->to_delete = true;
+		
+	}
 
 	App->audio->UnloadFx(1); 
 	App->audio->UnloadFx(2);           // CLEAN FXs

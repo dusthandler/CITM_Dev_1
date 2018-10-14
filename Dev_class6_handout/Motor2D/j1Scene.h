@@ -33,8 +33,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool MapSwap(int);
+
 private:
 	bool Map_Loaded = false; 
+	int SwitchM;
 	_Mix_Music* mus = nullptr;
 
 };
