@@ -181,7 +181,7 @@ bool j1Collision::CleanWallDeath()
 	{
 		if (colliders[i] != nullptr)
 		{
-			if (colliders[i]->type == COLLIDER_WALL || colliders[i]->type == COLLIDER_DEATH) {
+			if (colliders[i]->type == COLLIDER_WALL || colliders[i]->type == COLLIDER_DEATH || colliders[i]->type == COLLIDER_WIN) {
 				delete colliders[i];
 				colliders[i] = nullptr;
 			}
