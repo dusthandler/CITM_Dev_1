@@ -39,6 +39,9 @@ private:
 	bool Map_Loaded = false; 
 	int SwitchM;
 	_Mix_Music* mus = nullptr;
+	_Mix_Music* mus2 = nullptr;
+	bool Mus_1 = true; 
+	uint Mus_Id = 1; 
 
 };
 

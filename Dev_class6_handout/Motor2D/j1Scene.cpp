@@ -38,8 +38,22 @@ bool j1Scene::Start()
 {
 	
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
-	App->audio->PlayMus(mus); 
+	mus2 = App->audio->LoadMus("Sound/Music/level_2.ogg");
 
+	if (Mus_1) {
+		App->audio->PlayMus(mus);
+		Mus_1 = false; 
+	}
+	else {
+		if (Mus_Id == 1) {
+			App->audio->PlayMus(mus);
+		}
+		else {
+			App->audio->PlayMus(mus2);
+		}
+
+	}
+	
 	if (!Map_Loaded) {
 		App->map->Load("Level_1.tmx");
 		LOG("---------------------------LVEL 1 LOADED------------------------");
@@ -151,6 +165,7 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	App->audio->UnloadMus(mus);                        // Clean Up Music
+	App->audio->UnloadMus(mus2); 
 	return true;
 }
 
@@ -167,6 +182,7 @@ bool j1Scene::MapSwap(int SwitchM)
 		App->map->CleanUp();
 		App->collision->CleanWallDeath();
 		App->map->Load("Level_1.tmx");
+		Mus_Id = 1; 
 		
 	}
 	else if (SwitchM == 1)
@@ -176,6 +192,7 @@ bool j1Scene::MapSwap(int SwitchM)
 		App->map->CleanUp();
 		App->collision->CleanWallDeath();
 		App->map->Load("Level_2.tmx");
+		Mus_Id = 2; 
 	}
 	this->SwitchM = SwitchM;
 
