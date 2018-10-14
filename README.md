@@ -24,6 +24,9 @@ Ninjump is a platformer game where you will have to use your skills and reflexes
 
 - You can jump to walk on the roof. When you are in that state you cannot jump against the gravity, if you jump you will fall, but you will still be able to use the double jump. 
 
+### Interesting stuff about how the levels have been designed
+https://github.com/dusthandler/CITM_Dev_1/blob/master/Dev_class6_handout/Graphics_Kev_shits/Level%20Design/Level_1_2_Design.png
+
 The ninja sprites are made by us.
 
 ### Link to repository:
