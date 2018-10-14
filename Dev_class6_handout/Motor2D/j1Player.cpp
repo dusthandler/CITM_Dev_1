@@ -86,11 +86,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 			LOG("WE ARE HAVING A COLISION"); 
 
-			if (!Play_Sound_Once) {
-				App->audio->PlayFx(3, 1);
-				Play_Sound_Once = true; 
-			}
-
+		
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
 
