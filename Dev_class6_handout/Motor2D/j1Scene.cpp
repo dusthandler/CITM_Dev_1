@@ -39,7 +39,7 @@ bool j1Scene::Start()
 	App->audio->PlayMus(mus); 
 
 	if (!Map_Loaded) {
-		App->map->Load("Level_1.tmx");
+		App->map->Load("MaidInAbyss.tmx");
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true; 
 	}

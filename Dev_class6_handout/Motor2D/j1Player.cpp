@@ -221,8 +221,10 @@ bool j1Player::Update(float dt)
 				}
 			}
 
-			else Acc.y = 0;
-
+			else {
+				Acc.y = 0;
+				Jump_Count = 0;  // reset double jump
+			}
 			Pos.x += Vel.x;
 			Pos.y += Vel.y + Acc.y;
 	
@@ -260,7 +262,7 @@ void j1Player::Switch_Level_Logic() {
 		App->fade->FadeToBlack(App->scene, App->scene, 2);  
 	}
 	else if (Alive && Arrived_Lvl2) {                                                       // is in level 1 and exits level  
-		App->scene->Disable(); 
+		App->player->Disable(); 
 		App->fade->FadeToBlack(App->scene, App->scene2, 2);   
 	}
 	else if (!Alive && Arrived_Lvl2) {
@@ -330,18 +332,21 @@ void j1Player::Movey() {
 	// Change variables to can get the map
 	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)) {
 		
-		App->audio->PlayFx(1, 0); 
+		Jump_Count++; 
 
+		
 		if (God_Mode) {   // god player can jump infinitely
 			Vel.y = -26;
 			Cont = 1.3;
 			Jumping = true;
+			App->audio->PlayFx(1, 0);
 		}
 
-		else if(!Jumping && Vel.y == 0) {
+		else if(Jump_Count < 2) {
 			Vel.y = -16;
 			Cont = 1.3;
 			Jumping = true;
+			App->audio->PlayFx(1, 0);
 		}
 	}
 

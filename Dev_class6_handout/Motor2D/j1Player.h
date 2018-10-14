@@ -95,6 +95,7 @@ public:
 	bool God_Mode = false; 
 	bool Arrived_Lvl2 = false; 
 	bool Reset_Fx = true; 
+	uint Jump_Count = 0; 
 
 	Collider* Player_Collider = nullptr;
 
