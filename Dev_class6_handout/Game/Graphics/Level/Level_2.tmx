@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="170" height="34" tilewidth="32" tileheight="32" nextobjectid="241">
  <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32" tilecount="60" columns="10">
-  <image source="../maps/Tileset.png" width="320" height="192"/>
+  <image source="Textures/Tileset.png" width="320" height="192"/>
   <terraintypes>
    <terrain name="air_rock" tile="-1"/>
    <terrain name="air_rock_grass" tile="-1"/>
@@ -16,22 +16,22 @@
   <tile id="29" terrain="0,,,"/>
  </tileset>
  <tileset firstgid="61" name="Tilesetdown" tilewidth="32" tileheight="32" tilecount="60" columns="10">
-  <image source="../maps/Tilesetdown.png" width="320" height="192"/>
+  <image source="Textures/Tilesetdown.png" width="320" height="192"/>
  </tileset>
  <tileset firstgid="121" name="Trees" tilewidth="32" tileheight="32" tilecount="32" columns="8">
-  <image source="../maps/Trees.png" width="256" height="128"/>
+  <image source="Textures/Trees.png" width="256" height="128"/>
  </tileset>
  <tileset firstgid="153" name="BGBack" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="../maps/BGBack.png" width="1741" height="1088"/>
+  <image source="Textures/BGBack.png" width="1741" height="1088"/>
  </tileset>
  <tileset firstgid="1989" name="BGFront" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="../maps/BGFront.png" width="1741" height="1088"/>
+  <image source="Textures/BGFront.png" width="1741" height="1088"/>
  </tileset>
  <tileset firstgid="3825" name="CloudsFront" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="../maps/CloudsFront.png" width="1741" height="1088"/>
+  <image source="Textures/CloudsFront.png" width="1741" height="1088"/>
  </tileset>
  <tileset firstgid="5661" name="CloudsBack" tilewidth="32" tileheight="32" tilecount="1836" columns="54">
-  <image source="../maps/CloudsBack.png" width="1741" height="1088"/>
+  <image source="Textures/CloudsBack.png" width="1741" height="1088"/>
  </tileset>
  <layer name="Parallax4" width="170" height="34">
   <properties>
