@@ -396,6 +396,7 @@ PlayerState j1Player::Get_Player_State() {
 					}
 					else {
 						State = JUMPING_UP;
+						Player_Animation = &Jumping_Up;
 					}
 				}
 
@@ -412,7 +413,7 @@ PlayerState j1Player::Get_Player_State() {
 					}
 					else {
 						State = FALLING_DOWN;
-					//	Player_Animation = &Falling;
+						Player_Animation = &Falling;
 					}
 				}
 
