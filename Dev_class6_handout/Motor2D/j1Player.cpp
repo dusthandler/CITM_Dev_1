@@ -100,7 +100,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 			LOG("WE ARE HAVING A COLISION"); 
 
-			if (Reset_Fx_3) {
+			if (Reset_Fx_3 && Vel.y > 0) {
 				App->audio->PlayFx(3, 0);
 				Reset_Fx_3 = false;
 		   }
