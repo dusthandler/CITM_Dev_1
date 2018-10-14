@@ -68,12 +68,10 @@ j1App::~j1App()
 	modules.clear();
 }
 
-void j1App::AddModule(j1Module* module, bool To_Enable)
+void j1App::AddModule(j1Module* module)
 {
-	if (To_Enable) {
+	
 		module->Init();
-	}
-
 		modules.add(module);
 
 }

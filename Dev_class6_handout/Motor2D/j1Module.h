@@ -106,24 +106,6 @@ public:
 
 	
 
-	void Activate()
-	{
-		if (active == false)
-		{
-			active = true;
-			Start();
-		}
-	}
-
-	void Deactivate()
-	{
-		if (active == true)
-		{
-			active = false;
-			CleanUp();
-		}
-	}
-
 
 	
 };

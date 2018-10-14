@@ -41,7 +41,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(j1Module* module, bool To_Enable = true);
+	void AddModule(j1Module* module); 
 
 	// Exposing some properties for reading
 	int GetArgc() const;
