@@ -199,11 +199,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-				 if (c2->type == COLLIDER_WIN) {
+
+				/*LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);*/
+		 if (c2->type == COLLIDER_WIN) {
 					 Level_Win = true; 
 				 }
 
-				LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);
+				
+
 
 
 			

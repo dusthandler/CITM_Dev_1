@@ -87,8 +87,30 @@ bool j1Scene::Update(float dt)
 
 
 	else {
-		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();
 		App->render->camera.y = (int)(App->player->Pos.y - 300) * (-1) * App->win->GetScale();
+		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();
+		if (App->render->camera.y <= -310) {
+			App->render->camera.y = -320;
+		}
+
+		else if (App->render->camera.y >= 0) {
+			App->render->camera.y = 0;
+		}
+		if (App->render->camera.x >= 0) {
+			App->render->camera.x = 0;
+		}
+		else if (App->render->camera.x <= -4401) {
+			App->render->camera.x = -4401;
+		}
+
+			
+		
+
+		/*if (App->render->camera.x <= ) {
+			;
+		}
+		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();
+		App->render->camera.y = (int)(App->player->Pos.y - 300) * (-1) * App->win->GetScale();*/
 	}
 	/*if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 		App->fade->FadeToBlack(App->scene, App->scene, 2.5f);
@@ -97,6 +119,8 @@ bool j1Scene::Update(float dt)
 	
 	App->map->Draw();
 	App->player->Draw();
+	
+	LOG("camera x: %i camera y: %i" ,App->render->camera.x, App->render->camera.y);
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
