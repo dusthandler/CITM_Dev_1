@@ -181,13 +181,12 @@ bool j1Collision::CleanWallDeath()
 	{
 		if (colliders[i] != nullptr)
 		{
-<<<<<<< HEAD
-			// if (colliders[i]->type == COLLIDER_WALL || colliders[i]->type == COLLIDER_DEATH || colliders[i]->type == COLLIDER_WIN) {
+			
 			if (colliders[i] != nullptr)
 			{
-=======
-			if (colliders[i]->type == COLLIDER_WALL || colliders[i]->type == COLLIDER_DEATH || colliders[i]->type == COLLIDER_WIN) {
->>>>>>> a8c65eb114809c5951eda89a3261af81b9b7fb26
+
+		//	if (colliders[i]->type == COLLIDER_WALL || colliders[i]->type == COLLIDER_DEATH || colliders[i]->type == COLLIDER_WIN) {
+
 				delete colliders[i];
 				colliders[i] = nullptr;
 			}
