@@ -76,6 +76,7 @@ private:
 	Animation Walking_Left;
 	Animation Walking_Left2;
 
+	Animation Jumping_Up;
 	Animation Jumping_Right;
 	Animation Jumping_Left; 
 	Animation Falling_Right;

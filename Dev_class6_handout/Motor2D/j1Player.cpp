@@ -37,6 +37,7 @@ bool j1Player::Awake(pugi::xml_node&)
 	Walking_Right2.PushBack({ 55, 96, 42, 45 });
 	Walking_Left2.PushBack({ 298, 95, 42, 45 });
 
+	Jumping_Up.PushBack({ 100, 143, PLAYER_WIDTH, PLAYER_HEIGHT });
 	Jumping_Right.PushBack({ 8, 49, 31, 46 });
 	Jumping_Left.PushBack({ 348, 49, 31, 46 });
 
