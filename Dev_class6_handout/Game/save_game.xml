@@ -7,15 +7,15 @@
 	<map />
 	<scene />
 	<player>
-		<position x="160" y="562" />
+		<position x="15" y="532" />
 		<velocity x="0" y="0" />
-		<Cont Cont="2.5999999" Cont_X="10" />
+		<Cont Cont="0" Cont_X="0" />
 		<Cont Jumping="false" Onplat="false" Alive="true" God_Mode="false" />
 		<state collider_type="collider_player" />
 	</player>
 	<fadeToBlack />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-262" />
+		<camera x="0" y="-232" />
 	</renderer>
 </game_state>
