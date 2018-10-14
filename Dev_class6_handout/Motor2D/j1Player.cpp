@@ -325,7 +325,7 @@ void j1Player::Movex() {
 				if (Vel.x > -MAX_SPEED_X) {
 
 					Vel.x = -10 + Cont_X;
-					Cont_X -= 1.0f;
+					Cont_X -= 10.0f;
 				}
 
 				else {
@@ -345,7 +345,7 @@ void j1Player::Movex() {
 				if (Vel.x < MAX_SPEED_X) {
 
 					Vel.x = 10 + Cont_X;
-					Cont_X += 1.0f;
+					Cont_X += 10.0f;
 				}
 
 				else {
@@ -374,8 +374,8 @@ void j1Player::Movey() {
 		}
 
 		else if(Jump_Count < 2) {
-			Vel.y = -22;
-			Cont = 5.6;
+			Vel.y = -15;
+			Cont = 2.6;
 			Jumping = true;
 			App->audio->PlayFx(1, 0);
 		}
@@ -392,7 +392,7 @@ void j1Player::Movey() {
 	}
 	else if (!Onplat && !Jumping) {
 		
-		Vel.y += 5.6;
+		Vel.y += 2.6;
 	}
 	
 	
