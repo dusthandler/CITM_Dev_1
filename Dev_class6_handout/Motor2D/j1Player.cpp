@@ -46,7 +46,7 @@ bool j1Player::Awake(pugi::xml_node&)
 
 	Death.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
 
-	Falling.PushBack({ 0, 0, 0, 0});
+	Falling.PushBack({ 56, 143,PLAYER_WIDTH, PLAYER_HEIGHT });
 
 
 	return true;
