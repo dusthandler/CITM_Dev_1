@@ -103,6 +103,7 @@ public:
 	bool Reset_Fx_3 = true;
 	uint Jump_Count = 0; 
 	bool Level_Win = false; 
+	bool Respawning = true; 
 
 	Collider* Player_Collider = nullptr;
 

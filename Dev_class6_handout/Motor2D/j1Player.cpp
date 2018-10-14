@@ -88,6 +88,7 @@ void j1Player::Set_Player_Info() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
+	Respawning = false; 
 	
 		if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
@@ -224,7 +225,8 @@ bool j1Player::Update(float dt)
 		else {
 			Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER; 
 		}
-
+	     
+		
 			Movex();
 			Movey();
 			Acc.y = 13;
@@ -239,6 +241,8 @@ bool j1Player::Update(float dt)
 				Acc.y = 0;
 				Jump_Count = 0;  // reset double jump
 			}
+		
+		
 			Pos.x += Vel.x;
 			Pos.y += Vel.y + Acc.y;
 	
@@ -309,92 +313,103 @@ void j1Player::Switch_Level_Logic() {
 
 void j1Player::Movex() {
 
+	if (!Respawning) {
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-
-		if (Pos.x <= 0) {
-			Vel.x = 0;
-		}
-		else {
-
-			if (Vel.x == 0) {
-				Cont_X = 0;
+			if (Pos.x <= 0) {
+				Vel.x = 0;
 			}
+			else {
 
-		
+				if (Vel.x == 0) {
+					Cont_X = 0;
+				}
+
+
 				if (Vel.x > -MAX_SPEED_X) {
 
 					Vel.x = -10 + Cont_X;
-					Cont_X -= 10.0f;
+					Cont_X -= 1.0f;
 				}
 
 				else {
 					Vel.x = -MAX_SPEED_X;
 				}
 
-			
+
+			}
 		}
-	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
-		    if (Vel.x == 0) {
-			Cont_X = 0; 
+			if (Vel.x == 0) {
+				Cont_X = 0;
 			}
 
-				if (Vel.x < MAX_SPEED_X) {
+			if (Vel.x < MAX_SPEED_X) {
 
-					Vel.x = 10 + Cont_X;
-					Cont_X += 10.0f;
-				}
+				Vel.x = 10 + Cont_X;
+				Cont_X += 1.0f;
+			}
 
-				else {
-					Vel.x = MAX_SPEED_X;
-				}
-		
+			else {
+				Vel.x = MAX_SPEED_X;
+			}
+
+		}
+		else
+			Vel.x = 0;
+
 	}
-	else
-		Vel.x = 0;
 
+	else {
+		Vel.x = 0;
+	}
 
 }
 
 void j1Player::Movey() {
 	// Change variables to can get the map
-	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)) {
-		
-		Jump_Count++; 
+	if (!Respawning) {
 
-		
-		if (God_Mode) {   // god player can jump infinitely
-			Vel.y = -30;
-			Cont = 1.3;
-			Jumping = true;
-			App->audio->PlayFx(1, 0);
+		if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)) {
+
+			Jump_Count++;
+
+
+			if (God_Mode) {   // god player can jump infinitely
+				Vel.y = -30;
+				Cont = 1.3;
+				Jumping = true;
+				App->audio->PlayFx(1, 0);
+			}
+
+			else if (Jump_Count < 2) {
+				Vel.y = -15;
+				Cont = 2.6;
+				Jumping = true;
+				App->audio->PlayFx(1, 0);
+			}
 		}
 
-		else if(Jump_Count < 2) {
-			Vel.y = -15;
-			Cont = 2.6;
-			Jumping = true;
-			App->audio->PlayFx(1, 0);
+		else if (Jumping) {
+			if (Vel.y <= 4) {
+				Vel.y += 1.3;
+			}
+			else {
+				Cont += 0.1;
+				Vel.y += Cont;
+			}
+		}
+		else if (!Onplat && !Jumping) {
+
+			Vel.y += 2.6;
 		}
 	}
 
-	else if (Jumping) {
-		if (Vel.y <= 4) {
-			Vel.y += 1.3; 
-		}
-		else {
-			Cont += 0.1;
-			Vel.y += Cont;
-		}
-	}
-	else if (!Onplat && !Jumping) {
-		
+	else {
 		Vel.y += 2.6;
 	}
-	
 	
 }
 
