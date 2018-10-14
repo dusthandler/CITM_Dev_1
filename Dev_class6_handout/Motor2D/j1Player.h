@@ -61,6 +61,7 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+	bool Load(pugi::xml_node& node);
 
 	/*void SwitchToDown(Animation*);     // switch animation functions, they should recieve the "idle" animation
 	void SwitchToUp(Animation*);*/

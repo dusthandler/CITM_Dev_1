@@ -569,3 +569,16 @@ bool j1Player::CleanUp()
 }
 
 
+bool j1Player::Load(pugi::xml_node& node)
+{
+	bool ret = true;
+	Pos.x = node.child("position").attribute("x").as_float(0);
+	Pos.y = node.child("position").attribute("y").as_float(0);
+	Vel.x = node.child("velocity").attribute("x").as_float(0);
+	Vel.y = node.child("velocity").attribute("y").as_float(0);
+	Acc.x = node.child("acceleration").attribute("x").as_float(0);
+	Acc.y = node.child("acceleration").attribute("y").as_float(0);
+
+	Jumping = node.child("conditions").attribute("Jumping").as_bool(false);
+	return ret;
+}
