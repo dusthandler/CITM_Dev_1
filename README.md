@@ -1,10 +1,12 @@
 # CITM_Dev_1
 
+Game: Ninjump
+
 Team members:
 
-- Marc Doctor
-- Guillem Sánchez
-- Kevin Muñoz
+- Marc Doctor Pedrosa
+- Guillem Sánchez Herranz
+- Kevin Manel Muñoz Oliver
 
 Controls:
 
