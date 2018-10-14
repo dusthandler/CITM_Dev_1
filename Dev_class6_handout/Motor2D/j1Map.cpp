@@ -36,25 +36,7 @@ void j1Map::Draw()
 	TileSet* tileset = data.tilesets.start->data;
 
 
-	/*for (int i = 0; i < layer->width; i++) {
-		for (int j = 0; j < layer->height; j++) {
-			uint id = layer->data[(layer->width*i) + j];
-			SDL_Rect rect = tileset->GetTileRect[id];
-
-			App->render->Blit(tileset->texture, j*tileset->tex_width, i*tileset->tile_height, &rect);
-		}
-	}*/
-
-
-	/*for (uint x = 0; x < data.width; x++)
-	{
-		for (uint y = 0; y < data.height; y++)
-		{
-			iPoint coordenates = MapToWorld(x, y);
-			SDL_Rect rect = tileset->GetTileRect(layer->Get(x, y));
-			App->render->Blit(tileset->texture, coordenates.x, coordenates.y, &rect);
-		}
-	}*/
+	
 
 	p2List_item<TileSet*>* item_tile = data.tilesets.end;//Painters rule application.
 	p2List_item<MapLayer*>* layers_lay = data.layers.start;
@@ -74,31 +56,7 @@ void j1Map::Draw()
 					iPoint world_coords = MapToWorld(x, y);
 					App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
 
-					/*if (layers_lay->data->type1 == LAYER_MAIN) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-
-					}
-					else if (layers_lay->data->type1 == LAYER_DW) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}
-					else if (layers_lay->data->type1 == LAYER_BG_1) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}
-					else if (layers_lay->data->type1 == LAYER_BG_2) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}
-					else if (layers_lay->data->type1 == LAYER_PARA_1) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}
-					else if (layers_lay->data->type1 == LAYER_PARA_2) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}
-					else if (layers_lay->data->type1 == LAYER_PARA_3) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}
-					else if (layers_lay->data->type1 == LAYER_PARA_4) {
-						App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-					}*/
+				
 					
 
 

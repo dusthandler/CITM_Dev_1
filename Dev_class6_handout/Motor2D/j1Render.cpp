@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Collision.h"
 
 #define VSYNC true
 
@@ -137,6 +138,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		rect.w = section->w;
 		rect.h = section->h;
 	}
+	
 	else
 	{
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
@@ -154,12 +156,23 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		pivot.y = pivot_y;
 		p = &pivot;
 	}
+	/*bool blit = true;
 
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		ret = false;
-	}
+	if (camera.x + camera.w < x) blit = false;
+	else if (camera.x > x + section->w) blit = false;
+	else if (camera.y + camera.h < y) blit = false;
+	else if (camera.y > section->h + y) blit = false;
+
+	
+*/
+	/*if (blit) {*/
+		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		}
+	/*}*/
+	
 
 	return ret;
 }
