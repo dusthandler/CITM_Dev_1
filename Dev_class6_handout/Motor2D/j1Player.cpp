@@ -221,6 +221,9 @@ bool j1Player::Update(float dt)
 		if (God_Mode) {
 			Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD; 
 		}
+		else {
+			Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER; 
+		}
 
 			Movex();
 			Movey();
@@ -256,9 +259,16 @@ void j1Player::Debug_Keys() {
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
-		God_Mode = true; 
+
+		if (!God_Mode) {
+			God_Mode = true;
+		}
+		else {
+			God_Mode = false; 
+		}
 	}
 	
+
 	// F9 located in collision module 
 }
 
