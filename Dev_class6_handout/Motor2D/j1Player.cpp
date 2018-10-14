@@ -291,33 +291,20 @@ void j1Player::Debug_Keys() {
 
 void j1Player::Switch_Level_Logic() {
 
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN || Level_Win) {
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Level_Win) {
 
 		Arrived_Lvl2 = true;
 		Level_Win = false;
 		Disable();
 		App->scene->MapSwap(1);
 
-		/*App->player->CleanUp();*/// change this with the win collider
 	}
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || (!Alive)) {
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || (!Alive)) {
 		Disable();
 		App->scene->MapSwap(0);
 	}
-		/*App->player->CleanUp();*/// change this with the win collider
-	
-
-	/*if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
-	App->player->Disable();
-	App->fade->FadeToBlack(App->scene, App->scene, 2);
-	}*/
-
-
-
-	/*else if (!Alive && Arrived_Lvl2) {
-	App->player->Disable();
-	App->fade->FadeToBlack(App->scene2, App->scene2, 2);           // Dies in level 2
-	}*/
+		
 
 	LOG("ALIVE %i ARRIVED LVL 2    %i", Alive, Arrived_Lvl2);
 
