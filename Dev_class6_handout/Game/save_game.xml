@@ -7,8 +7,13 @@
 	<map />
 	<scene />
 	<player>
+<<<<<<< HEAD
 		<position x="15" y="417.600037" />
 		<velocity x="0" y="41.5999985" />
+=======
+		<position x="15" y="426.000031" />
+		<velocity x="0" y="26.4000053" />
+>>>>>>> a8c65eb114809c5951eda89a3261af81b9b7fb26
 		<Cont Cont="0" Cont_X="0" />
 		<Cont Jumping="false" Onplat="false" Alive="true" God_Mode="false" />
 		<state collider_type="collider_player" />
@@ -16,6 +21,10 @@
 	<fadeToBlack />
 	<:anonymous />
 	<renderer>
+<<<<<<< HEAD
 		<camera x="0" y="-72" />
+=======
+		<camera x="0" y="-95" />
+>>>>>>> a8c65eb114809c5951eda89a3261af81b9b7fb26
 	</renderer>
 </game_state>

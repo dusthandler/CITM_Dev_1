@@ -211,7 +211,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	/*LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);*/
 	if (c2->type == COLLIDER_WIN) {
 		Level_Win = true;
-		Arrived_Lvl2 = true;
 	}
 
 
@@ -293,7 +292,7 @@ void j1Player::Switch_Level_Logic() {
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Level_Win) {
 
-		Arrived_Lvl2 = true;
+		
 		Level_Win = false;
 		Disable();
 		App->scene->MapSwap(1);
@@ -379,15 +378,15 @@ void j1Player::Movey() {
 
 
 			if (God_Mode) {   // god player can jump infinitely
-				Vel.y = -30;
+				Vel.y = -26;
 				Cont = 1.3;
 				Jumping = true;
 				App->audio->PlayFx(1, 0);
 			}
 
 			else if (Jump_Count < 2) {
-				Vel.y = -15;
-				Cont = 2.6;
+				Vel.y = -16;
+				Cont = 1.3;
 				Jumping = true;
 				App->audio->PlayFx(1, 0);
 			}
@@ -404,12 +403,12 @@ void j1Player::Movey() {
 		}
 		else if (!Onplat && !Jumping) {
 
-			Vel.y += 2.6;
+			Vel.y += 1.1;
 		}
 	}
 
 	else {
-		Vel.y += 2.6;
+		Vel.y += 1.1;
 	}
 
 }
