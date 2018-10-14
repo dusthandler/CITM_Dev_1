@@ -68,7 +68,12 @@ bool j1Player::PreUpdate()
 void j1Player::Set_Player_Info() {
 
 	Alive = true; 
-	Player_Texture = App->tex->Load("Graphics/Ninja.png");
+	Player_Texture = App->tex->Load("Graphics/Ninja.png");             
+
+	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
+	App->audio->LoadFx("Sound/Fx/death.wav");
+	App->audio->LoadFx("Sound/Fx/jump_to_roof.wav");
+
 	Pos.x = 0;                                                             // we need to load this from tiled 
 	Pos.y = 0;
 	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y, 35, 45 }, COLLIDER_PLAYER, this);
@@ -80,6 +85,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
 			LOG("WE ARE HAVING A COLISION"); 
+
+			if (!Play_Sound_Once) {
+				App->audio->PlayFx(3, 1);
+				Play_Sound_Once = true; 
+			}
+
 
 			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
 
@@ -151,6 +162,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				 if (c2->type == COLLIDER_DEATH) {
 					 if (!God_Mode) {
 						 Alive = false;
+						 App->audio->PlayFx(2, 1); 
 					 }
 					 else {
 						 if (c1->rect.y <= c2->rect.y) {     // god player cant die 
@@ -193,7 +205,10 @@ bool j1Player::Update(float dt)
 			Movex();
 			Movey();
 			Acc.y = 13;
-			if (!Onplat) Acc.y = 4;
+			if (!Onplat) {
+				Acc.y = 4;
+			}
+
 			else Acc.y = 0;
 
 			Pos.x += Vel.x;
@@ -202,8 +217,6 @@ bool j1Player::Update(float dt)
 
 		// Draw --------------------------------------------------------------------------------------------------------------------------
 		
-		
-	
 
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
 
@@ -305,6 +318,8 @@ void j1Player::Movey() {
 	// Change variables to can get the map
 	if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)) {
 		
+		App->audio->PlayFx(1, 1); 
+
 		if (God_Mode) {   // god player can jump infinitely
 			Vel.y = -26;
 			Cont = 1.3;
@@ -442,8 +457,12 @@ bool j1Player::PostUpdate()
 bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(Player_Texture);
-	Player_Animation = &None;
+	// Player_Animation = &None;
 	Player_Collider->to_delete = true;   // CLEAN COLLIDERS
+
+	App->audio->UnloadFx(1); 
+	App->audio->UnloadFx(2);           // CLEAN FXs
+	App->audio->UnloadFx(3);
 
 
 	return true;

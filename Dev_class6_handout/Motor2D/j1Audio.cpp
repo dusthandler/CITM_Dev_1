@@ -195,7 +195,9 @@ bool j1Audio::UnloadFx(unsigned int Fx)
 			Mix_FreeChunk(item->data);
 		}
 
+
 	}
+	LOG("FX HAS BEEN UNLOADED PROPERLY"); 
 
 	fx.clear();
 	
