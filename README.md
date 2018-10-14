@@ -18,7 +18,18 @@ Ninjump is a platformer game where you will have to use your skills and reflexes
 - A · Go left
 - D · Go right
 - Space · Jump/Double Jump
+
+###For the next release:
 - Shift · Jump to roof
+
+### Debug Functions:
+
+- F1 Start from the very first level
+- F2 Sart from the beginning of the current level
+- F5 Save the current state
+- F6 Load the previous state
+- F9 View Colliders
+- F10 God Mode
 
 ## Innovation:
 
