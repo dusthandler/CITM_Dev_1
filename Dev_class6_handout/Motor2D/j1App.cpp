@@ -329,7 +329,7 @@ bool j1App::LoadGameNow()
 	pugi::xml_document data;
 	pugi::xml_node root;
 
-	pugi::xml_parse_result result = data.load_file(load_game.GetString());
+	pugi::xml_parse_result result = data.load_file("save_game.xml");
 
 	if(result != NULL)
 	{
@@ -385,7 +385,7 @@ bool j1App::SavegameNow() const
 	{
 		std::stringstream stream;
 		data.save(stream);
-		data.save_file(save_game.GetString());
+		data.save_file("save_game.xml");
 
 		// we are done, so write data to disk
 //		fs->Save(save_game.GetString(), stream.str().c_str(), stream.str().length());
