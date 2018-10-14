@@ -73,8 +73,8 @@ bool j1Player::PreUpdate()
 
 void j1Player::Set_Player_Info() {
 
-	Alive = true; 
-	Player_Texture = App->tex->Load("Maps/Ninja/Ninja.png");             
+	Alive = true;
+	Player_Texture = App->tex->Load("Maps/Ninja/Ninja.png");
 	Reset_Fx_2 = true;  // so that it plays death once 
 
 	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
@@ -85,140 +85,142 @@ void j1Player::Set_Player_Info() {
 		Pos.y = 0;
 	}
 	else {
-		Pos.y = 380; 
+		Pos.y = 380;
 	}
-	Pos.x = 15; 
+	Pos.x = 15;
 
 	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y, 35, 45 }, COLLIDER_PLAYER, this);
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
-	Respawning = false; 
-	
-		if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
+	Respawning = false;
 
-			LOG("WE ARE HAVING A COLISION"); 
+	if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
-			if (Reset_Fx_3 && Vel.y > 0) {
-				App->audio->PlayFx(3, 0);
-				Reset_Fx_3 = false;
-		   }
+		LOG("WE ARE HAVING A COLISION");
 
-			if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
+		if (Reset_Fx_3 && Vel.y > 0) {
+			App->audio->PlayFx(3, 0);
+			Reset_Fx_3 = false;
+		}
 
-				
+		if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
+
+
+			if (Vel.y >= 0) {
+				Onplat = true;
+				Jumping = false;
+				Vel.y = 0;
+				Pos.y = c2->rect.y - PLAYER_HEIGHT;
+
+			}
+
+		}
+
+		else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)) {         // tries to go right
+
+			if (c1->type == COLLIDER_PLAYER) {   // god player does not hace laterlal colliders
+
+				if (Vel.x > 0) {
+
+					Pos.x = c2->rect.x - PLAYER_WIDTH;
+				}
+
+				else if (Vel.x < 0) {
+					Pos.x = c2->rect.x + c2->rect.w;
+				}
+			}
+
+		}
+
+
+	}
+
+
+
+
+	else if (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_WALL) {
+
+		if (c2->rect.y <= c1->rect.y) {     // player on top (Landing) 
+
+			if (Vel.y >= 0) {
+				Onplat = true;
+				Jumping = false;
+				Vel.y = 0;
+				Pos.y = c1->rect.y - PLAYER_HEIGHT;
+
+			}
+
+		}
+
+		else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x || c2->rect.x >= (c1->rect.x + c1->rect.w)) {         // tries to go right
+
+			if (Vel.x > 0) {
+				Pos.x = c1->rect.x - PLAYER_WIDTH;
+			}
+			else if (Vel.x < 0) {
+				Pos.x = c1->rect.x + c2->rect.w;
+			}
+
+
+		}
+
+
+	}
+
+
+
+
+	if (c2->type == COLLIDER_DEATH) {
+
+		LOG("PLAYER POSITION IS %f", Pos.y);
+
+		if (!God_Mode) {
+
+			Alive = false;
+
+			if (Reset_Fx_2) {
+
+				App->audio->PlayFx(2, 0);
+				Reset_Fx_2 = false;
+			}
+		}
+
+		else {
+
+			if (c1->rect.y <= c2->rect.y) {     // god player cant die 
+
 				if (Vel.y >= 0) {
+
 					Onplat = true;
 					Jumping = false;
 					Vel.y = 0;
 					Pos.y = c2->rect.y - PLAYER_HEIGHT;
 
 				}
-				
-			}
-
-			else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)) {         // tries to go right
-
-				if (c1->type == COLLIDER_PLAYER) {   // god player does not hace laterlal colliders
-
-					if (Vel.x > 0) {
-
-						Pos.x = c2->rect.x - PLAYER_WIDTH;
-					}
-
-					else if (Vel.x < 0) {
-						Pos.x = c2->rect.x + c2->rect.w;
-					}
-				}
-					
-			 }
-			
-            
-		}
-
-	
-
-
-		else if (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_WALL) {
-
-			if (c2->rect.y <= c1->rect.y) {     // player on top (Landing) 
-
-				if (Vel.y >= 0) {
-					Onplat = true;
-					Jumping = false;
-					Vel.y = 0;
-					Pos.y = c1->rect.y - PLAYER_HEIGHT;
-
-				}
 
 			}
-
-			else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x || c2->rect.x >= (c1->rect.x + c1->rect.w)) {         // tries to go right
-
-				if (Vel.x > 0) {
-					Pos.x = c1->rect.x - PLAYER_WIDTH;
-				}
-				else if (Vel.x < 0) {
-					Pos.x = c1->rect.x + c2->rect.w;
-				}
-
-
-			}
-
 
 		}
+	}
 
 
 
 
-				 if (c2->type == COLLIDER_DEATH) {
-
-					 if (!God_Mode) {
-
-						 Alive = false;
-
-						 if (Reset_Fx_2) {
-
-							 App->audio->PlayFx(2, 0);
-							 Reset_Fx_2 = false;
-						 }
-					 }
-
-					 else {
-
-						 if (c1->rect.y <= c2->rect.y) {     // god player cant die 
-
-							 if (Vel.y >= 0) {
-
-								 Onplat = true;
-								 Jumping = false;
-								 Vel.y = 0;
-								 Pos.y = c2->rect.y - PLAYER_HEIGHT;
-
-							 }
-
-						 }
-
-					 }
-				}
+	/*LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);*/
+	if (c2->type == COLLIDER_WIN) {
+		Level_Win = true;
+		Arrived_Lvl2 = true;
+	}
 
 
 
 
-				/*LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);*/
-		 if (c2->type == COLLIDER_WIN) {
-					 Level_Win = true; 
-					 Arrived_Lvl2 = true;
-				 }
-
-				
 
 
 
-			
-		
-	
+
 }
 
 
@@ -226,39 +228,40 @@ bool j1Player::Update(float dt)
 {
 
 	Get_Player_State();
-	Debug_Keys(); 
-	
-	
-		if (God_Mode) {
-			Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD; 
-		}
-		else {
-			Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER; 
-		}
-	     
-		
-			Movex();
-			Movey();
-			Acc.y = 13;
-			if (!Onplat) {
-				Acc.y = 4;
-				if (!Reset_Fx_3) {
-					Reset_Fx_3 = true;                   // So that landing fx are available next time
-				}
-			}
+	Debug_Keys();
 
-			else {
-				Acc.y = 0;
-				Jump_Count = 0;  // reset double jump
-			}
-		
-		
-			Pos.x += Vel.x;
-			Pos.y += Vel.y + Acc.y;
-	
 
-		// Draw --------------------------------------------------------------------------------------------------------------------------
-		
+
+	if (God_Mode) {
+		Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+	}
+	else {
+		Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+	}
+
+
+	Movex();
+	Movey();
+	Acc.y = 13;
+	if (!Onplat) {
+		Acc.y = 4;
+		if (!Reset_Fx_3) {
+			Reset_Fx_3 = true;                   // So that landing fx are available next time
+		}
+	}
+
+	else {
+		Acc.y = 0;
+		Jump_Count = 0;  // reset double jump
+	}
+
+
+	Pos.x += Vel.x;
+	Pos.y += Vel.y + Acc.y;
+
+
+	// Draw --------------------------------------------------------------------------------------------------------------------------
+
 
 	//Draw -------------------------------------------------------------------------------------------------------------------------------
 
@@ -267,56 +270,56 @@ bool j1Player::Update(float dt)
 
 void j1Player::Debug_Keys() {
 
-	Switch_Level_Logic(); 
-	
-	
-	
-	
+	Switch_Level_Logic();
+
+
+
+
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
 
 		if (!God_Mode) {
 			God_Mode = true;
 		}
 		else {
-			God_Mode = false; 
+			God_Mode = false;
 		}
 	}
-	
+
 
 	// F9 located in collision module 
 }
 
 void j1Player::Switch_Level_Logic() {
 
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN || Level_Win) {   
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN || Level_Win) {
 
-		Arrived_Lvl2 = true; 
+		Arrived_Lvl2 = true;
 		Level_Win = false;
 		Disable();
 		App->scene->MapSwap(1);
-		
+
 		/*App->player->CleanUp();*/// change this with the win collider
 	}
-	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || (!Alive)) {
 		Disable();
 		App->scene->MapSwap(0);
-		
-		/*App->player->CleanUp();*/// change this with the win collider
 	}
-
-	/*if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
-		App->player->Disable();
-		App->fade->FadeToBlack(App->scene, App->scene, 2);  
-	}*/
-
+		/*App->player->CleanUp();*/// change this with the win collider
 	
 
-	/*else if (!Alive && Arrived_Lvl2) {
-		App->player->Disable();
-		App->fade->FadeToBlack(App->scene2, App->scene2, 2);           // Dies in level 2
+	/*if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
+	App->player->Disable();
+	App->fade->FadeToBlack(App->scene, App->scene, 2);
 	}*/
 
-	LOG("ALIVE %i ARRIVED LVL 2    %i", Alive, Arrived_Lvl2); 
+
+
+	/*else if (!Alive && Arrived_Lvl2) {
+	App->player->Disable();
+	App->fade->FadeToBlack(App->scene2, App->scene2, 2);           // Dies in level 2
+	}*/
+
+	LOG("ALIVE %i ARRIVED LVL 2    %i", Alive, Arrived_Lvl2);
 
 }
 
@@ -421,12 +424,12 @@ void j1Player::Movey() {
 	else {
 		Vel.y += 2.6;
 	}
-	
+
 }
 
 PlayerState j1Player::Get_Player_State() {
 
-	if (Alive) {   
+	if (Alive) {
 
 		if (!Level_Win) {   // IN THE LEVEL 
 
@@ -511,7 +514,7 @@ PlayerState j1Player::Get_Player_State() {
 
 		else {
 
-			State = WIN; 
+			State = WIN;
 		}
 
 	}
@@ -519,7 +522,7 @@ PlayerState j1Player::Get_Player_State() {
 	else {
 
 		State = DIED;
-		Player_Animation = &Death; 
+		Player_Animation = &Death;
 	}
 
 
@@ -531,8 +534,8 @@ PlayerState j1Player::Get_Player_State() {
 
 bool j1Player::Draw()
 {
-	
-	
+
+
 	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
 	App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
 
@@ -541,9 +544,9 @@ bool j1Player::Draw()
 
 bool j1Player::PostUpdate()
 {
-	
+
 	Onplat = false;
-	
+
 	return true;
 }
 
@@ -557,16 +560,17 @@ bool j1Player::CleanUp()
 	if (Player_Collider != nullptr)
 	{
 		Player_Collider->to_delete = true;
-		
+
 	}
 
-	App->audio->UnloadFx(1); 
+	App->audio->UnloadFx(1);
 	App->audio->UnloadFx(2);           // CLEAN FXs
 	App->audio->UnloadFx(3);
 
 
 	return true;
 }
+
 
 
 bool j1Player::Load(pugi::xml_node& node)
