@@ -248,14 +248,7 @@ void j1Player::Debug_Keys() {
 
 	Switch_Level_Logic(); 
 	
-	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {    // CHANGE TO F5
-		App->SaveGame("save_game.xml");
-	}
-	if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {    // CHANGE TO F6	
-		App->LoadGame("save_game.xml");
-	}
-
-
+	
 	
 	
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
@@ -271,17 +264,10 @@ void j1Player::Switch_Level_Logic() {
 		Level_Win = true;
 	}
 
-	uint Death_Time = 800; 
-
-	if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
-		uint Now = SDL_GetTicks();
-		uint Last = 0;
-		if (Now > Last + Death_Time) {
-			App->player->Disable();
-			App->fade->FadeToBlack(App->scene, App->scene, 2);
-			Last = Now;
-		}
-	}
+	/*if (!Alive && !Arrived_Lvl2) {             // Dies in level 1
+		App->player->Disable();
+		App->fade->FadeToBlack(App->scene, App->scene, 2);  
+	}*/
 
 	if (Alive && Level_Win && !Arrived_Lvl2) {                                                       // is in level 1 and exits level  
 		App->player->Disable(); 
