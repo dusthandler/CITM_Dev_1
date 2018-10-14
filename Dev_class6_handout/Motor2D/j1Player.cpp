@@ -68,7 +68,7 @@ bool j1Player::PreUpdate()
 void j1Player::Set_Player_Info() {
 
 	Alive = true; 
-	Player_Texture = App->tex->Load("Graphics/Ninja.png");             
+	Player_Texture = App->tex->Load("Maps/Ninja/Ninja.png");             
 
 	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
 	App->audio->LoadFx("Sound/Fx/death.wav");
