@@ -63,9 +63,10 @@ bool j1Scene::Start()
 	
 	if (!App->player->Alive) {
 		App->player->Enable(); 
+		App->player->Pos.x = 15; //TODO: parche para que el player no desaparezca
 		LOG("PLAYER RESPAWNED"); 
 	}
-	App->player->Enable();
+	//App->player->Enable();
 
 	//App->map->Load("iso.tmx");
 	
@@ -170,7 +171,6 @@ bool j1Scene::CleanUp()
 }
 
 
-
 bool j1Scene::MapSwap(int SwitchM)
 {
 	bool ret = true;
@@ -182,6 +182,7 @@ bool j1Scene::MapSwap(int SwitchM)
 		App->map->CleanUp();
 		App->collision->CleanWallDeath();
 		App->map->Load("Level_1.tmx");
+		
 		Mus_Id = 1; 
 		
 	}
@@ -195,6 +196,7 @@ bool j1Scene::MapSwap(int SwitchM)
 		Mus_Id = 2; 
 	}
 	this->SwitchM = SwitchM;
+	LOG("Player Dead! x: %i", App->player->Pos.x);
 
 	return ret;
 }

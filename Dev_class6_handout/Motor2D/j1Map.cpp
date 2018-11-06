@@ -146,6 +146,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
+
 	// Remove all layers
 	p2List_item<MapLayer*>* Layer_item;
 	Layer_item = data.layers.start;
@@ -164,12 +165,15 @@ bool j1Map::CleanUp()
 
 	while (Object_item != NULL)
 	{
-		
+		LOG("Liberando objeto %s", Object_item->data->name.GetString());
+		//TODO: A veces al intentar liberar un objeto del mapa da error, como si la lista contuviese un objeto nulo o lago así. 
 		RELEASE(Object_item->data);
 		Object_item = Object_item->next;
-	}
-	data.objects.clear();
 
+	}
+
+	data.objects.clear();
+	
 	// Clean up the pugui tree
 	map_file.reset();
 
