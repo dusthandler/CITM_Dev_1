@@ -141,7 +141,7 @@ bool j1Map::CleanUp()
 
 	while(Tileset_item != NULL)
 	{
-		App->tex->UnLoad(Tileset_item->data->texture);   // TODO: check the importance of this line 
+		App->tex->UnLoad(Tileset_item->data->texture);
 		Tileset_item->data->texture = nullptr; 
 		RELEASE(Tileset_item->data);
 		
