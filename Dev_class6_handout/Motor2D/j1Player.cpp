@@ -139,7 +139,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-
+/*
 	else if (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_WALL) {
 
 		if (c2->rect.y <= c1->rect.y) {     // player on top (Landing) 
@@ -168,7 +168,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 	}
-
+	*/
 
 
 
@@ -295,12 +295,14 @@ void j1Player::Switch_Level_Logic() {
 		
 		Level_Win = false;
 		Disable();
+		App->player->Disable();           // disable player before swapping maps
 		App->scene->MapSwap(1);
 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || (!Alive)) {
 		Disable();
+		App->player->Disable();           // disable player before swapping maps
 		App->scene->MapSwap(0);
 		LOG("Player Dead! x: %i", App->player->Pos.x);
 	}

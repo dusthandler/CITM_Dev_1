@@ -200,5 +200,7 @@ bool j1Scene::MapSwap(int SwitchM)
 	this->SwitchM = SwitchM;
 	LOG("Player Dead! x: %i", App->player->Pos.x);
 
+	App->player->Enable();  // enable player after swapping maps
+
 	return ret;
 }
