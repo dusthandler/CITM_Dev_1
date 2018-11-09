@@ -23,6 +23,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	frames = 0;
 	want_to_save = want_to_load = false;
 
+	render = new j1Render();
 	input = new j1Input();
 	win = new j1Window();
 	tex = new j1Textures();
@@ -32,7 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	fade = new j1FB();
 	collision = new j1Collision();
-	render = new j1Render();
+	// render = new j1Render();
 
 
 	// Ordered for awake / Start / Update
