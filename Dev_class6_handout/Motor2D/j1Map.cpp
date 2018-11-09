@@ -141,7 +141,10 @@ bool j1Map::CleanUp()
 
 	while(Tileset_item != NULL)
 	{
+		App->tex->UnLoad(Tileset_item->data->texture);
+		Tileset_item->data->texture = nullptr; 
 		RELEASE(Tileset_item->data);
+		
 		Tileset_item = Tileset_item->next;
 	}
 	data.tilesets.clear();

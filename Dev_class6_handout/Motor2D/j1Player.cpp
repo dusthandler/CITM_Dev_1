@@ -290,7 +290,7 @@ void j1Player::Debug_Keys() {
 
 void j1Player::Switch_Level_Logic() {
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Level_Win) {
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || Level_Win) {
 
 		
 		Level_Win = false;
@@ -299,7 +299,7 @@ void j1Player::Switch_Level_Logic() {
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || (!Alive)) {
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || (!Alive)) {
 		Disable();
 		App->scene->MapSwap(0);
 	}

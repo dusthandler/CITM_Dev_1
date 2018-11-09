@@ -17,6 +17,7 @@
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
+
  
 }
 
@@ -53,13 +54,14 @@ bool j1Scene::Start()
 		}
 
 	}
-	
+
 	if (!Map_Loaded) {
 		App->map->Load("Level_1.tmx");
 		LOG("---------------------------LVEL 1 LOADED------------------------");
-		Map_Loaded = true; 
-		SwitchM = 0;
+		Map_Loaded = true;
 	}
+	
+	
 	
 	if (!App->player->Alive) {
 		App->player->Enable(); 
@@ -178,9 +180,9 @@ bool j1Scene::MapSwap(int SwitchM)
 	if (SwitchM == 0)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
-		
-		App->map->CleanUp();
 		App->collision->CleanWallDeath();
+		App->map->CleanUp();
+	
 		App->map->Load("Level_1.tmx");
 		Mus_Id = 1; 
 		
@@ -188,9 +190,9 @@ bool j1Scene::MapSwap(int SwitchM)
 	else if (SwitchM == 1)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
-		
-		App->map->CleanUp();
 		App->collision->CleanWallDeath();
+		App->map->CleanUp();
+	
 		App->map->Load("Level_2.tmx");
 		Mus_Id = 2; 
 	}
