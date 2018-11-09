@@ -302,6 +302,7 @@ void j1Player::Switch_Level_Logic() {
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || (!Alive)) {
 		Disable();
 		App->scene->MapSwap(0);
+		LOG("Player Dead! x: %i", App->player->Pos.x);
 	}
 		
 
