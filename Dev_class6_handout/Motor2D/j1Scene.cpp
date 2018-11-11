@@ -84,6 +84,8 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	PERF_START(ptimer); 
+
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
 
@@ -120,20 +122,9 @@ bool j1Scene::Update(float dt)
 			App->render->camera.x = -4401;
 		}
 
-			
-		
-
-		/*if (App->render->camera.x <= ) {
-			;
-		}
-		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();
-		App->render->camera.y = (int)(App->player->Pos.y - 300) * (-1) * App->win->GetScale();*/
 	}
-	/*if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
-		App->fade->FadeToBlack(App->scene, App->scene, 2.5f);
-	};*/
-		
 	
+		
 	App->map->Draw();
 	App->player->Draw();
 	
@@ -141,14 +132,11 @@ bool j1Scene::Update(float dt)
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	//iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	/*p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(),
-					map_coordinates.x, map_coordinates.y);*/
 
-	/*App->win->SetTitle(title.GetString());*/
+
+	PERF_PEEK(ptimer);           // update takes more than 100 ms :/
+
+
 	return true;
 }
 

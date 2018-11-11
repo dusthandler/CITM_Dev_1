@@ -2,6 +2,8 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "j1PerfTimer.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 struct _Mix_Music;
@@ -42,6 +44,7 @@ private:
 	_Mix_Music* mus2 = nullptr;
 	bool Mus_1 = true; 
 	uint Mus_Id = 1; 
+	j1PerfTimer			ptimer;
 
 };
 

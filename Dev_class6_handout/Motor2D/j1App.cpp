@@ -133,7 +133,9 @@ bool j1App::Start()
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active) {          // check this line
+			ret = item->data->Start();
+		}
 		item = item->next;
 	}
 	startup_time.Start();
@@ -197,6 +199,7 @@ void j1App::PrepareUpdate()
 void j1App::FinishUpdate()
 {
 	PERF_START(ptimer);
+	double start_time = ptimer.ReadMs(); 
 
 	if (want_to_save == true)
 		SavegameNow();
@@ -226,7 +229,7 @@ void j1App::FinishUpdate()
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
     
 
-	 sprintf_s(compound_title, 256, "%s VSYNC: %s", title, VSYNC ? "true" : "false");   // we should print vsync value
+	 sprintf_s(compound_title, 256, "%s VSYNC: %s CAP: %s", title, VSYNC ? "true" : "false", cap ? "true" : "false");   // we should print vsync value
 	 App->win->SetTitle(compound_title);
 
 
@@ -241,10 +244,25 @@ void j1App::FinishUpdate()
 	PERF_PEEK(ptimer);*/
 
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
+	
+	uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time);  // we should adjust "standard frame time" later on to 14
 
-	uint wait_time = 16 - ptimer.ReadMs();
-	SDL_Delay(wait_time);         // delta time between the expected 16 ms and the actual time 
+	if (input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+		if (!cap) {
+			cap = true; 
+		}
+		else {
+			cap = false; 
+		}
+	}
+
+	if (cap) {
+		SDL_Delay(wait_time);         // waits between the frame time and the 16 ms 
+	}
+
+	
 	PERF_PEEK(ptimer);
+
 
 	LOG("Wait time until frame is finished: %i ms", wait_time);
 
