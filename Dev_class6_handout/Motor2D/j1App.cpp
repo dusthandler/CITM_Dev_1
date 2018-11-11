@@ -247,7 +247,7 @@ void j1App::FinishUpdate()
 	
 	uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time);  // we should adjust "standard frame time" later on to 14
 
-	if (input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+	if (input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {  // change to F11
 		if (!cap) {
 			cap = true; 
 		}

@@ -139,42 +139,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-/*
-	else if (c2->type == COLLIDER_PLAYER && c1->type == COLLIDER_WALL) {
-
-		if (c2->rect.y <= c1->rect.y) {     // player on top (Landing) 
-
-			if (Vel.y >= 0) {
-				Onplat = true;
-				Jumping = false;
-				Vel.y = 0;
-				Pos.y = c1->rect.y - PLAYER_HEIGHT;
-
-			}
-
-		}
-
-		else if (c2->rect.x + PLAYER_WIDTH >= c1->rect.x || c2->rect.x >= (c1->rect.x + c1->rect.w)) {         // tries to go right
-
-			if (Vel.x > 0) {
-				Pos.x = c1->rect.x - PLAYER_WIDTH;
-			}
-			else if (Vel.x < 0) {
-				Pos.x = c1->rect.x + c2->rect.w;
-			}
-
-
-		}
-
-
-	}
-	*/
-
 
 
 	if (c2->type == COLLIDER_DEATH) {
-
-		LOG("PLAYER POSITION IS %f", Pos.y);
 
 		if (!God_Mode) {
 
@@ -212,13 +179,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (c2->type == COLLIDER_WIN) {
 		Level_Win = true;
 	}
-
-
-
-
-
-
-
 
 }
 
