@@ -35,7 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	fade = new j1FB();
 	collision = new j1Collision();
-	// render = new j1Render();
+    // render = new j1Render();
 
 
 	// Ordered for awake / Start / Update
@@ -218,13 +218,27 @@ void j1App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+	char* vsync = "NULL"; 
+	// VSYNC ? "true" : "false";
+	if (VSYNC == true) {
+		vsync = "true"; 
+	}
+	else {
+		vsync = "false"; 
+	}
+	
+	char compound_title[256];  // contains main title, vsync 
+	static char title[256]; 
+	
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu",         
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	App->win->SetTitle(title);
+    
+
+	 sprintf_s(compound_title, 256, "%s VSYNC: %s", title, vsync);   // we should print vsync value
+	 App->win->SetTitle(compound_title);
 
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
-
+	
 
 	/*PERF_START(Time);
 	LOG("Before - > %f", Time.ReadMs());*/

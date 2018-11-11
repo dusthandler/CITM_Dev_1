@@ -226,6 +226,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 bool j1Player::Update(float dt)
 {
 
+
+
 	Get_Player_State();
 	Debug_Keys();
 

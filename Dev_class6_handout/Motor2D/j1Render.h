@@ -5,6 +5,8 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+  #define VSYNC true
+
 class j1Render : public j1Module
 {
 public:
@@ -49,6 +51,7 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+    
 };
 
 #endif // __j1RENDER_H__

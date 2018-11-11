@@ -5,7 +5,7 @@
 #include "j1Render.h"
 #include "j1Collision.h"
 
-#define VSYNC true
+// #define VSYNC true
 
 j1Render::j1Render() : j1Module()
 {
