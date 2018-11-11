@@ -218,14 +218,6 @@ void j1App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	char* vsync = "NULL"; 
-	// VSYNC ? "true" : "false";
-	if (VSYNC == true) {
-		vsync = "true"; 
-	}
-	else {
-		vsync = "false"; 
-	}
 	
 	char compound_title[256];  // contains main title, vsync 
 	static char title[256]; 
@@ -234,8 +226,9 @@ void j1App::FinishUpdate()
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
     
 
-	 sprintf_s(compound_title, 256, "%s VSYNC: %s", title, vsync);   // we should print vsync value
+	 sprintf_s(compound_title, 256, "%s VSYNC: %s", title, VSYNC ? "true" : "false");   // we should print vsync value
 	 App->win->SetTitle(compound_title);
+
 
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
 	
