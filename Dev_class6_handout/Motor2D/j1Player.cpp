@@ -185,7 +185,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 bool j1Player::Update(float dt)
 {
-
+	// SDL_Delay(dt);
 
 
 	Get_Player_State();

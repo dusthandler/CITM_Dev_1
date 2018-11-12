@@ -15,7 +15,7 @@
 #include "j1Player.h"
 #include "j1FadeBlack.h"
 #include "j1Collision.h"
-
+#include "j1Pathfinding.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -35,6 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	fade = new j1FB();
 	collision = new j1Collision();
+	pathfinding = new j1PathFinding();
     // render = new j1Render();
 
 
@@ -45,6 +46,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
+	AddModule(pathfinding);
 	AddModule(scene);
 	AddModule(player); 
 	AddModule(fade);
@@ -245,7 +247,7 @@ void j1App::FinishUpdate()
 
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
 	
-	uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time);  // we should adjust "standard frame time" later on to 14
+	uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time);  // standard frame time should be adjusted, to limit fps to 30
 
 	if (input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {  // change to F11
 		if (!cap) {
@@ -259,7 +261,7 @@ void j1App::FinishUpdate()
 	if (cap) {
 		SDL_Delay(wait_time);         // waits between the frame time and the 16 ms 
 	}
-
+	dt = wait_time; 
 	
 	PERF_PEEK(ptimer);
 
