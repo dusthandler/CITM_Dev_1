@@ -247,7 +247,16 @@ void j1App::FinishUpdate()
 
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
 	
-	uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time);  // standard frame time should be adjusted, to limit fps to 30
+	// uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time);  // standard frame time should be adjusted, to limit fps to 30
+
+	uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time); // 49
+
+
+
+	wait_time = frames_on_last_update * (49 / 6); // at 6 FPS, wait time is 49 ms 
+	
+	
+
 
 	if (input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {  // change to F11
 		if (!cap) {
@@ -266,11 +275,11 @@ void j1App::FinishUpdate()
 	PERF_PEEK(ptimer);
 
 
-	/*LOG("Wait time until frame is finished: %i ms", wait_time);*/
+	LOG("Wait time until frame is finished: %i ms", wait_time);
 
 
 	float delta_time = ptimer.ReadMs() / 1000;
-	/*LOG("Frame time ----> %f seconds", delta_time); */ // to capture a single frame time in seconds
+	LOG("Frame time ----> %f seconds", delta_time);  // to capture a single frame time in seconds
 }
 
 // Call modules before each loop iteration
