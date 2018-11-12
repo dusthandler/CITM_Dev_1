@@ -128,7 +128,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 	App->player->Draw();
 	
-	LOG("camera x: %i camera y: %i" ,App->render->camera.x, App->render->camera.y);
+
 
 	int x, y;
 	App->input->GetMousePosition(x, y);

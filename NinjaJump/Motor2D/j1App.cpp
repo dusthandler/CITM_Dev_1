@@ -266,11 +266,11 @@ void j1App::FinishUpdate()
 	PERF_PEEK(ptimer);
 
 
-	LOG("Wait time until frame is finished: %i ms", wait_time);
+	/*LOG("Wait time until frame is finished: %i ms", wait_time);*/
 
 
 	float delta_time = ptimer.ReadMs() / 1000;
-	LOG("Frame time ----> %f seconds", delta_time);  // to capture a single frame time in seconds
+	/*LOG("Frame time ----> %f seconds", delta_time); */ // to capture a single frame time in seconds
 }
 
 // Call modules before each loop iteration

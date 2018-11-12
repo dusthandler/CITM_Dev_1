@@ -64,7 +64,9 @@ bool j1Player::Start()
 // Called each loop iteration
 bool j1Player::PreUpdate()
 {
-	Player_Collider->SetPos(Pos.x, Pos.y + 10);
+	
+
+	Player_Collider->SetPos(Pos.x, Pos.y);
 	return true;
 
 }
@@ -96,47 +98,45 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 	Respawning = false;
 
-	if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
+	//if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
-		LOG("WE ARE HAVING A COLISION");
+	//	LOG("WE ARE HAVING A COLISION");
+
+		
+
+	if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
 		if (Reset_Fx_3 && Vel.y > 0) {
 			App->audio->PlayFx(3, 0);
 			Reset_Fx_3 = false;
 		}
 
-		if (c1->rect.y <= c2->rect.y) {     // player on top (Landing) 
-
-
-			if (Vel.y >= 0) {
-				Onplat = true;
-				Jumping = false;
-				Vel.y = 0;
-				Pos.y = c2->rect.y - PLAYER_HEIGHT;
-
-			}
-
+		if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 20) {
+			Vel.y = 0;
+			Pos.y = c2->rect.y - PLAYER_HEIGHT;
+			Onplat = true;
+			Jumping = false;
 		}
+		if (c1->rect.y >= c2->rect.h + c2->rect.y - 20 && c1->rect.y <= c2->rect.h + c2->rect.y) {
+			Pos.y = c2->rect.y + c2->rect.h;
+		}
+		if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.h + c1->rect.y >= c2->rect.y + 10) {
 
-		else if (c1->rect.x + PLAYER_WIDTH >= c2->rect.x || c1->rect.x >= (c2->rect.x + c2->rect.w)) {         // tries to go right
-
-			if (c1->type == COLLIDER_PLAYER) {   // god player does not hace laterlal colliders
-
+			if ((c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x + c1->rect.w <= c2->rect.x + 20) || (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x > c2->rect.w + c2->rect.x - 20)) {
 				if (Vel.x > 0) {
-
 					Pos.x = c2->rect.x - PLAYER_WIDTH;
+					Vel.x = 0;
 				}
 
 				else if (Vel.x < 0) {
 					Pos.x = c2->rect.x + c2->rect.w;
+					Vel.x = 0;
 				}
 			}
-
 		}
-
-
+		
+		
 	}
-
 
 
 
@@ -151,6 +151,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 				App->audio->PlayFx(2, 0);
 				Reset_Fx_2 = false;
+				Vel.y = 0;
 			}
 		}
 
@@ -175,7 +176,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 
 
-	/*LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);*/
+	//LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);
 	if (c2->type == COLLIDER_WIN) {
 		Level_Win = true;
 	}
@@ -219,12 +220,6 @@ bool j1Player::Update(float dt)
 
 	Pos.x += Vel.x;
 	Pos.y += Vel.y + Acc.y;
-
-
-	// Draw --------------------------------------------------------------------------------------------------------------------------
-
-
-	//Draw -------------------------------------------------------------------------------------------------------------------------------
 
 	return true;
 }
@@ -270,7 +265,7 @@ void j1Player::Switch_Level_Logic() {
 	}
 		
 
-	LOG("ALIVE %i ARRIVED LVL 2    %i", Alive, Arrived_Lvl2);
+
 
 }
 
