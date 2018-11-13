@@ -49,11 +49,11 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool Draw();
+	void OnCollision(Collider* c1, Collider* c2);
 
 	void Movex();
 	void Movey();
 	PlayerState Get_Player_State();
-	void OnCollision(Collider* c1, Collider* c2);
 	void Set_Player_Info();
 	void Debug_Keys(); 
 	void Switch_Level_Logic(); 
