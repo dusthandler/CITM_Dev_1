@@ -85,9 +85,10 @@ private:
 	Animation Falling_Left; 
 
 	Animation Death; 
+	
 
 public: 
-
+	int mapLo;
 	PlayerState State;
 	
 	fPoint Pos;

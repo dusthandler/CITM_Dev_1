@@ -60,6 +60,8 @@ bool j1Scene::Start()
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true;
 	}
+
+	
 	
 	
 	
@@ -70,7 +72,7 @@ bool j1Scene::Start()
 	}
 	//App->player->Enable();
 
-	//App->map->Load("iso.tmx");
+
 	
 	return true;
 }
@@ -164,7 +166,7 @@ bool j1Scene::CleanUp()
 bool j1Scene::MapSwap(int SwitchM)
 {
 	bool ret = true;
-
+	App->player->Disable();
 	if (SwitchM == 0)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);

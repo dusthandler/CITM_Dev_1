@@ -202,14 +202,12 @@ bool j1Player::Update(float dt)
 	// SDL_Delay(dt);
 
 	
-	if (!gravity_reverse) {
-		if (Pos.x > App->map->MapToWorld(84, 0).x) {                  // change for a tiled variable
-			gravity_reverse = true;
-			if () {
-
-			}
-		}
-	}
+	//if (!gravity_reverse) {
+	//	if (Pos.x > App->map->MapToWorld(84, 0).x) {                  // change for a tiled variable
+	//		gravity_reverse = true;
+	//		
+	//	}
+	//}
 
 	Get_Player_State();
 	Debug_Keys();
@@ -278,17 +276,19 @@ void j1Player::Switch_Level_Logic() {
 
 		
 		Level_Win = false;
-		Disable();
-		App->player->Disable();           // disable player before swapping maps
+		/*Disable();*/
+		/*App->player->Disable(); */          // disable player before swapping maps
 		App->scene->MapSwap(1);
+		mapLo = 1;
 
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || (!Alive)) {
-		Disable();
-		App->player->Disable();           // disable player before swapping maps
+		/*Disable();*/
+		/*App->player->Disable();    */       // disable player before swapping maps
 		App->scene->MapSwap(0);
-		LOG("Player Dead! x: %i", App->player->Pos.x);
+		mapLo = 0;
+		
 	}
 		
 
@@ -558,6 +558,15 @@ bool j1Player::CleanUp()
 bool j1Player::Load(pugi::xml_node& node)
 {
 	bool ret = true;
+
+	
+	
+	
+	mapLo = node.child("position").attribute("Map_Logic").as_int(0);
+	App->scene->MapSwap(mapLo);
+
+
+
 	Pos.x = node.child("position").attribute("x").as_float(0);
 	Pos.y = node.child("position").attribute("y").as_float(0);
 	Vel.x = node.child("velocity").attribute("x").as_float(0);
@@ -571,6 +580,8 @@ bool j1Player::Load(pugi::xml_node& node)
 	Cont = node.child("cont").attribute("Cont").as_float(0);
 	Cont_X = node.child("cont").attribute("Cont_X").as_float(0);
 	God_Mode = node.child("var").attribute("God_Mode").as_bool(false);
+	
+	
 
 	
 
@@ -584,7 +595,7 @@ bool j1Player::Load(pugi::xml_node& node)
 	{
 		Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD;
 	}
-
+	
 	return ret;
 
 }
@@ -597,6 +608,7 @@ bool j1Player::Save(pugi::xml_node& node) const
 
 	pos.append_attribute("x") = Pos.x;
 	pos.append_attribute("y") = Pos.y;
+	pos.append_attribute("Map_Logic") = mapLo;
 
 	pugi::xml_node vel = node.append_child("velocity");
 
@@ -614,6 +626,7 @@ bool j1Player::Save(pugi::xml_node& node) const
 	var.append_attribute("Onplat") = Onplat;
 	var.append_attribute("Alive") = Alive;
 	var.append_attribute("God_Mode") = God_Mode;
+	
 
 	
 	pugi::xml_node coll = node.append_child("state");
