@@ -14,7 +14,6 @@
 #include "j1Window.h"
 
 
-
 j1Player::j1Player() : j1Module()
 
 {
@@ -83,15 +82,15 @@ void j1Player::Set_Player_Info() {
 	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
 	App->audio->LoadFx("Sound/Fx/death.wav");
 	App->audio->LoadFx("Sound/Fx/landing.wav");
-	App->audio->LoadFx("Sound/Fx/gravity_reverse.wav");
+	
+	pugi::xml_node InitPos = App->map->map_file.child("map");
 
-	if (!In_Lvl_1) {                                                             // we need to load this from tiled 
-		Pos.y = 0;
-	}
-	else {
-		Pos.y = 380;
-	}
-	Pos.x = 15;
+	                                                          // we need to load this from tiled 
+	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_float();
+	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_float();
+	
+	
+
 
 	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y, 35, 45 }, COLLIDER_PLAYER, this);
 }
@@ -113,9 +112,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Reset_Fx_3 = false;
 		}
 
-		if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 20) {  // landing
+		if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 20) {
 			Vel.y = 0;
 			Pos.y = c2->rect.y - PLAYER_HEIGHT;
+			
 			if (!gravity_reverse) {
 				Onplat = true;             // without gravity, it lands
 			}
@@ -124,7 +124,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			}
 			Jumping = false;
 		}
-		if (c1->rect.y >= c2->rect.h + c2->rect.y - 20 && c1->rect.y <= c2->rect.h + c2->rect.y) {  // roof
+		if (c1->rect.y >= c2->rect.h + c2->rect.y - 20 && c1->rect.y <= c2->rect.h + c2->rect.y) {
 			Pos.y = c2->rect.y + c2->rect.h;
 			if (gravity_reverse) {
 				Onplat = true;                // with gravity, roof is now floor
@@ -132,17 +132,19 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}
 		if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.h + c1->rect.y >= c2->rect.y + 10) {
 
-			if ((c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x + c1->rect.w <= c2->rect.x + 20) || (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x > c2->rect.w + c2->rect.x - 20)) {
+			if ((c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x + c1->rect.w <= c2->rect.x + 20)) {
 				if (Vel.x > 0) {
 					Pos.x = c2->rect.x - PLAYER_WIDTH;
 					Vel.x = 0;
 				}
-
-				else if (Vel.x < 0) {
+			}
+			else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x > c2->rect.w + c2->rect.x - 20){
+				if (Vel.x < 0) {
 					Pos.x = c2->rect.x + c2->rect.w;
 					Vel.x = 0;
 				}
 			}
+		
 		}
 		
 		
@@ -184,7 +186,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 
-	LOG(" Onplat %s and jumping %s", Onplat ? "true" : "false", Jumping ? "true" : "false"); 
+
 
 	//LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);
 	if (c2->type == COLLIDER_WIN) {
@@ -197,17 +199,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 bool j1Player::Update(float dt)
 {
 	// SDL_Delay(dt);
-	
-	if (!gravity_reverse) {
-		if (Pos.x > App->map->MapToWorld(86, 0).x) {                  // change for a tiled variable
-			gravity_reverse = true;
 
-			if (Reset_Fx_Gravity == true) {
-				App->audio->PlayFx(4, 0); // gravity activation fx
-				Reset_Fx_Gravity = false;
-			}
-		}
-	}
 	
 
 	Get_Player_State();
@@ -240,7 +232,6 @@ bool j1Player::Update(float dt)
 
 
 	Pos.x += Vel.x;
-
 	if (!gravity_reverse) {
 		Pos.y += Vel.y + Acc.y;
 	}
@@ -258,7 +249,7 @@ void j1Player::Debug_Keys() {
 
 
 
-	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {   // CHANGE TO F10	
 
 		if (!God_Mode) {
 			God_Mode = true;
@@ -548,7 +539,7 @@ bool j1Player::CleanUp()
 	App->audio->UnloadFx(1);
 	App->audio->UnloadFx(2);           // CLEAN FXs
 	App->audio->UnloadFx(3);
-	App->audio->UnloadFx(4);
+
 
 	return true;
 }
