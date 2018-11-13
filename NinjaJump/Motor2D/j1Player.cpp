@@ -84,7 +84,7 @@ void j1Player::Set_Player_Info() {
 	App->audio->LoadFx("Sound/Fx/death.wav");
 	App->audio->LoadFx("Sound/Fx/landing.wav");
 
-	if (!Arrived_Lvl2) {                                                             // we need to load this from tiled 
+	if (In_Lvl_1) {                                                             // we need to load this from tiled 
 		Pos.y = 0;
 	}
 	else {

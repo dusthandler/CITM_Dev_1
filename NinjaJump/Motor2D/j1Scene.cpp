@@ -174,7 +174,7 @@ bool j1Scene::MapSwap(int SwitchM)
 		App->map->Load("Level_1.tmx");
 		
 		Mus_Id = 1; 
-		
+		App->player->In_Lvl_1 = true; 
 	}
 	else if (SwitchM == 1)
 	{
@@ -184,6 +184,7 @@ bool j1Scene::MapSwap(int SwitchM)
 	
 		App->map->Load("Level_2.tmx");
 		Mus_Id = 2; 
+		App->player->In_Lvl_1 = false; 
 	}
 	this->SwitchM = SwitchM;
 	LOG("Player Dead! x: %i", App->player->Pos.x);
