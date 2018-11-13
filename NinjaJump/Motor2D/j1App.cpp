@@ -236,27 +236,9 @@ void j1App::FinishUpdate()
 
 
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
-	
-
-	/*PERF_START(Time);
-	LOG("Before - > %f", Time.ReadMs());*/
-
-
-	/*SDL_Delay(16);       // 16 ms standard
-	PERF_PEEK(ptimer);*/
-
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
 	
-	// uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time);  // standard frame time should be adjusted, to limit fps to 30
-
-	uint wait_time = STANDARD_FRAME_TIME_MS - (ptimer.ReadMs() - start_time); // 49
-
-
-
-	wait_time = frames_on_last_update * (49 / 6); // at 6 FPS, wait time is 49 ms 
 	
-	
-
 
 	if (input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {  // change to F11
 		if (!cap) {
@@ -268,14 +250,14 @@ void j1App::FinishUpdate()
 	}
 
 	if (cap) {
-		SDL_Delay(wait_time);         // waits between the frame time and the 16 ms 
+			 SDL_Delay((1 / float(5))*1000  - last_frame_ms);         // waits between the frame time and the default fps 
 	}
-	dt = wait_time; 
+	
 	
 	PERF_PEEK(ptimer);
 
 
-	LOG("Wait time until frame is finished: %i ms", wait_time);
+// 	LOG("Wait time until frame is finished: %i ms", wait_time);
 
 
 	float delta_time = ptimer.ReadMs() / 1000;
