@@ -132,17 +132,19 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}
 		if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.h + c1->rect.y >= c2->rect.y + 10) {
 
-			if ((c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x + c1->rect.w <= c2->rect.x + 20) || (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x > c2->rect.w + c2->rect.x - 20)) {
+			if ((c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x + c1->rect.w <= c2->rect.x + 20)) {
 				if (Vel.x > 0) {
 					Pos.x = c2->rect.x - PLAYER_WIDTH;
 					Vel.x = 0;
 				}
-
-				else if (Vel.x < 0) {
+			}
+			else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x > c2->rect.w + c2->rect.x - 20){
+				if (Vel.x < 0) {
 					Pos.x = c2->rect.x + c2->rect.w;
 					Vel.x = 0;
 				}
 			}
+		
 		}
 		
 		
