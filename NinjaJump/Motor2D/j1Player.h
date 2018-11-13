@@ -111,6 +111,7 @@ public:
 
 	// gravity
 	bool gravity_reverse = false; 
+	uint grav_factor = 1; 
 public:
 
 

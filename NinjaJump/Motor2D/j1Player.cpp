@@ -14,6 +14,7 @@
 #include "j1Window.h"
 
 
+
 j1Player::j1Player() : j1Module()
 
 {
@@ -111,14 +112,22 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			Reset_Fx_3 = false;
 		}
 
-		if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 20) {
+		if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 20) {  // landing
 			Vel.y = 0;
 			Pos.y = c2->rect.y - PLAYER_HEIGHT;
-			Onplat = true;
+			if (!gravity_reverse) {
+				Onplat = true;             // without gravity, it lands
+			}
+			else {
+				Onplat = false;            // with graivty, it falls
+			}
 			Jumping = false;
 		}
-		if (c1->rect.y >= c2->rect.h + c2->rect.y - 20 && c1->rect.y <= c2->rect.h + c2->rect.y) {
+		if (c1->rect.y >= c2->rect.h + c2->rect.y - 20 && c1->rect.y <= c2->rect.h + c2->rect.y) {  // roof
 			Pos.y = c2->rect.y + c2->rect.h;
+			if (gravity_reverse) {
+				Onplat = true;                // with gravity, roof is now floor
+			}
 		}
 		if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.h + c1->rect.y >= c2->rect.y + 10) {
 
@@ -174,7 +183,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 
-
+	LOG(" Onplat %s and jumping %s", Onplat ? "true" : "false", Jumping ? "true" : "false"); 
 
 	//LOG("POSITION COLLIDER 1 x: %i  y: %i   COLLIDER 2 x: %i  y: %i", c1->rect.x, c1->rect.y, c2->rect.x, c2->rect.y);
 	if (c2->type == COLLIDER_WIN) {
@@ -187,9 +196,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 bool j1Player::Update(float dt)
 {
 	// SDL_Delay(dt);
-
+	
 	if (!gravity_reverse) {
-		if (Pos.x > 50) {
+		if (Pos.x > App->map->MapToWorld(84, 0).x) {                  // change for a tiled variable
 			gravity_reverse = true;
 		}
 	}
@@ -225,7 +234,13 @@ bool j1Player::Update(float dt)
 
 
 	Pos.x += Vel.x;
-	Pos.y += Vel.y + Acc.y;
+
+	if (!gravity_reverse) {
+		Pos.y += Vel.y + Acc.y;
+	}
+	else {
+		Pos.y -= Vel.y + Acc.y;
+	}
 
 	return true;
 }
