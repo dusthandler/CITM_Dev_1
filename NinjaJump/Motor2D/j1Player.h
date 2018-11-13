@@ -100,14 +100,13 @@ public:
 	bool Alive = true; 
 	bool Inside_Collider = false; 
 	bool God_Mode = false; 
-<<<<<<< HEAD
-	bool In_Lvl_1 = true;
 
-=======
-	bool Arrived_Lvl2 = false; 
+	
+
+	bool In_Lvl_1 = true;
 	bool Reset_Fx_2 = true; 
 	bool Reset_Fx_3 = true;
->>>>>>> 144b8cc577370a8bb09bf06ca56b7fd175cf0308
+
 	uint Jump_Count = 0; 
 	bool Level_Win = false; 
 	bool Respawning = true; 
