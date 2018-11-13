@@ -102,8 +102,7 @@ public:
 	bool Inside_Collider = false; 
 	bool God_Mode = false; 
 	bool In_Lvl_1 = false;
-	bool Reset_Fx_2 = true; 
-	bool Reset_Fx_3 = true;
+	
 	uint Jump_Count = 0; 
 	bool Level_Win = false; 
 	bool Respawning = true; 
@@ -112,6 +111,12 @@ public:
 
 	// gravity
 	bool gravity_reverse = false; 
+
+
+	// fx
+	bool Reset_Fx_2 = true;
+	bool Reset_Fx_3 = true;
+	bool Reset_Fx_Gravity = true;
 
 public:
 

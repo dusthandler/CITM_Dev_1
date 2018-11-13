@@ -8,15 +8,15 @@
 	<pathfinding />
 	<scene />
 	<player>
-		<position x="760" y="498" Map_Logic="1" />
+		<position x="605" y="851" Map_Logic="0" />
 		<velocity x="0" y="0" />
-		<Cont Cont="2.0999999" Cont_X="5" />
+		<Cont Cont="1.29999995" Cont_X="10" />
 		<Cont Jumping="false" Onplat="false" Alive="true" God_Mode="false" />
 		<state collider_type="collider_player" />
 	</player>
 	<fadeToBlack />
 	<:anonymous />
 	<renderer>
-		<camera x="-460" y="-198" />
+		<camera x="-305" y="-320" />
 	</renderer>
 </game_state>

@@ -202,12 +202,17 @@ bool j1Player::Update(float dt)
 	// SDL_Delay(dt);
 
 	
+
 	//if (!gravity_reverse) {
 	//	if (Pos.x > App->map->MapToWorld(84, 0).x) {                  // change for a tiled variable
 	//		gravity_reverse = true;
-	//		
+	//		if (Reset_Fx_Gravity) {
+	//			App->audio->PlayFx(4, 0); 
+	//			Reset_Fx_Gravity = false;
+	//		}
 	//	}
 	//}
+
 
 	Get_Player_State();
 	Debug_Keys();

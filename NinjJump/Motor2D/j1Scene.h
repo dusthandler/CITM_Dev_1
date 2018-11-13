@@ -37,7 +37,7 @@ public:
 
 	bool MapSwap(int);
 	int SwitchM = 0;
-	int putamierda = 0;
+
 private:
 	bool Map_Loaded = false; 
 	
