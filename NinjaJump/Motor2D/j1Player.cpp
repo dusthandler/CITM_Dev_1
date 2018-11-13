@@ -83,6 +83,7 @@ void j1Player::Set_Player_Info() {
 	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
 	App->audio->LoadFx("Sound/Fx/death.wav");
 	App->audio->LoadFx("Sound/Fx/landing.wav");
+	App->audio->LoadFx("Sound/Fx/gravity_reverse.wav");
 
 	if (In_Lvl_1) {                                                             // we need to load this from tiled 
 		Pos.y = 0;
@@ -198,8 +199,13 @@ bool j1Player::Update(float dt)
 	// SDL_Delay(dt);
 	
 	if (!gravity_reverse) {
-		if (Pos.x > App->map->MapToWorld(84, 0).x) {                  // change for a tiled variable
+		if (Pos.x > App->map->MapToWorld(86, 0).x) {                  // change for a tiled variable
 			gravity_reverse = true;
+
+			if (Reset_Fx_Gravity == true) {
+				App->audio->PlayFx(4, 0); // gravity activation fx
+				Reset_Fx_Gravity = false;
+			}
 		}
 	}
 	
@@ -252,7 +258,7 @@ void j1Player::Debug_Keys() {
 
 
 
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {   // CHANGE TO F10	
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
 
 		if (!God_Mode) {
 			God_Mode = true;
@@ -542,7 +548,7 @@ bool j1Player::CleanUp()
 	App->audio->UnloadFx(1);
 	App->audio->UnloadFx(2);           // CLEAN FXs
 	App->audio->UnloadFx(3);
-
+	App->audio->UnloadFx(4);
 
 	return true;
 }
