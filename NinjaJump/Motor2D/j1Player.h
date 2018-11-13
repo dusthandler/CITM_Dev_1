@@ -109,7 +109,8 @@ public:
 
 	Collider* Player_Collider = nullptr;
 
-
+	// gravity
+	bool gravity_reverse = false; 
 public:
 
 

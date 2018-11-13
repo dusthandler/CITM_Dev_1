@@ -4,6 +4,7 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Collision.h"
+#include "j1Player.h"
 
 // #define VSYNC true
 
@@ -124,7 +125,7 @@ void j1Render::ResetViewPort()
 }
 
 // Blit to screen
-bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivot_x, int pivot_y) const
+bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, char* type, double angle, int pivot_x, int pivot_y)
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
@@ -156,22 +157,36 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		pivot.y = pivot_y;
 		p = &pivot;
 	}
+
 	/*bool blit = true;
 
-	if (camera.x + camera.w < x) blit = false;
-	else if (camera.x > x + section->w) blit = false;
-	else if (camera.y + camera.h < y) blit = false;
-	else if (camera.y > section->h + y) blit = false;
-
+	// if (special) {
+		if (camera.x + camera.w < x) blit = false;
+		else if (camera.x > x + section->w) blit = false;
+		else if (camera.y + camera.h < y) blit = false;
+		else if (camera.y > section->h + y) blit = false;
+//	}
 	
-*/
-	/*if (blit) {*/
-		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
-		{
+
+
+	if (blit) {*/
+
+	if (type == "player" && App->player->gravity_reverse) {
+		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_VERTICAL) != 0) {
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-			ret = false;
 		}
-	/*}*/
+	}
+
+	if (type == "bg" || (type == "player" && !App->player->gravity_reverse)){
+		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0) {
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		}
+	 }
+	
+
+			// LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		
+	// }
 	
 
 	return ret;

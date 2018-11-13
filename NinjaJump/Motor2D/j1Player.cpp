@@ -188,6 +188,12 @@ bool j1Player::Update(float dt)
 {
 	// SDL_Delay(dt);
 
+	if (!gravity_reverse) {
+		if (Pos.x > 50) {
+			gravity_reverse = true;
+		}
+	}
+	
 
 	Get_Player_State();
 	Debug_Keys();
@@ -330,6 +336,9 @@ void j1Player::Movex() {
 
 void j1Player::Movey() {
 	// Change variables to can get the map
+
+
+
 	if (!Respawning) {
 
 		if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)) {
@@ -483,7 +492,13 @@ bool j1Player::Draw()
 
 
 	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
-	App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
+
+	if (!gravity_reverse) {
+		App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
+	}
+	else {
+		App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1, "player"); 
+	}
 
 	return true;
 }
