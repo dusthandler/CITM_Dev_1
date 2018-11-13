@@ -92,7 +92,7 @@ public:
 	/**
 	* Deletes an item from the list
 	*/
-	bool del(p2List_item<tdata>* item)
+	bool del(const p2List_item<tdata>* item)
 	{
 		if(item == NULL)
 		{
