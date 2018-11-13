@@ -100,7 +100,7 @@ public:
 	bool Alive = true; 
 	bool Inside_Collider = false; 
 	bool God_Mode = false; 
-	bool In_Lvl_1 = true;
+	bool Arrived_Lvl2 = false; 
 	bool Reset_Fx_2 = true; 
 	bool Reset_Fx_3 = true;
 	uint Jump_Count = 0; 
