@@ -6,7 +6,7 @@
    <terrain name="air_rock" tile="-1">
     <properties>
      <property name="PlayerX" type="float" value="15"/>
-     <property name="PlayerY" type="float" value="70"/>
+     <property name="PlayerY" type="float" value="0"/>
     </properties>
    </terrain>
    <terrain name="air_rock_grass" tile="-1"/>

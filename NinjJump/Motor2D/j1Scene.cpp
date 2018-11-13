@@ -56,7 +56,7 @@ bool j1Scene::Start()
 	}
 
 	if (!Map_Loaded) {
-		App->map->Load("Level_2.tmx");
+		App->map->Load("Level_1.tmx");
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true;
 	}

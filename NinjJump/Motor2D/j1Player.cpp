@@ -115,11 +115,20 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		if (c1->rect.y + c1->rect.h >= c2->rect.y && c1->rect.y + c1->rect.h <= c2->rect.y + 20) {
 			Vel.y = 0;
 			Pos.y = c2->rect.y - PLAYER_HEIGHT;
-			Onplat = true;
+			
+			if (!gravity_reverse) {
+				Onplat = true;             // without gravity, it lands
+			}
+			else {
+				Onplat = false;            // with graivty, it falls
+			}
 			Jumping = false;
 		}
 		if (c1->rect.y >= c2->rect.h + c2->rect.y - 20 && c1->rect.y <= c2->rect.h + c2->rect.y) {
 			Pos.y = c2->rect.y + c2->rect.h;
+			if (gravity_reverse) {
+				Onplat = true;                // with gravity, roof is now floor
+			}
 		}
 		if (c1->rect.y <= c2->rect.y + c2->rect.h && c1->rect.h + c1->rect.y >= c2->rect.y + 10) {
 
@@ -221,7 +230,12 @@ bool j1Player::Update(float dt)
 
 
 	Pos.x += Vel.x;
-	Pos.y += Vel.y + Acc.y;
+	if (!gravity_reverse) {
+		Pos.y += Vel.y + Acc.y;
+	}
+	else {
+		Pos.y -= Vel.y + Acc.y;
+	}
 
 	return true;
 }
