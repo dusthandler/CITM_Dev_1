@@ -53,7 +53,12 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
-    
+
+
+	uint init_x = 0; 
+	bool reset_init_x = false; 
+	uint init_y = 0; 
+	bool reset_init_y = false;
 };
 
 #endif // __j1RENDER_H__

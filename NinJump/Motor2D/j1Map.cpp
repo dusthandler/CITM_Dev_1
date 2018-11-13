@@ -55,7 +55,7 @@ void j1Map::Draw()
 					SDL_Rect rect = item_tile->data->GetTileRect(layers_lay->data->Get(x, y));
 					iPoint world_coords = MapToWorld(x, y);
 					App->render->Blit(item_tile->data->texture, world_coords.x, world_coords.y, &rect, layers_lay->data->Parallaxspeed);
-			
+			       
 					
 
 				}
