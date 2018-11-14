@@ -10,6 +10,8 @@
 #define PLAYER_HEIGHT 45
 #define MAX_SPEED_X 20
 #define MAX_ACCELERATION_Y 2
+#define MAX_SPEED_Y 20
+#define MAX_TOTAL_SPEED 20
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -53,6 +55,7 @@ public:
 
 	void Movex();
 	void Movey();
+	void Solve_Move(); 
 	PlayerState Get_Player_State();
 	void Set_Player_Info();
 	void Debug_Keys(); 
@@ -106,6 +109,7 @@ public:
 	uint Jump_Count = 0; 
 	bool Level_Win = false; 
 	bool Respawning = true; 
+
 
 	Collider* Player_Collider = nullptr;
 

@@ -158,14 +158,39 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		p = &pivot;
 	}
 
+<<<<<<< HEAD
 	/*bool blit = true;
+=======
+	bool blit = true;
+
+	/* if (type == "bg") {
+
+		 if (!reset_init_x) {
+			 init_x = x; 
+			 reset_init_x = true; 
+		 }
+
+		 if (!reset_init_y) {
+			 init_y = y;
+			 reset_init_y = true;
+		 }
+
+		 x = init_x + camera.x;                // the blit position moves as fast as the camera
+	     // y = init_y + camera.y; 
+>>>>>>> 5f85bf7ceb5004479d929842aa6e75ad65d4f469
 
 	// if (special) {
 		if (camera.x + camera.w < x) blit = false;
 		else if (camera.x > x + section->w) blit = false;
 		else if (camera.y + camera.h < y) blit = false;
 		else if (camera.y > section->h + y) blit = false;
+<<<<<<< HEAD
 //	}
+=======
+
+		
+    }*/
+>>>>>>> 5f85bf7ceb5004479d929842aa6e75ad65d4f469
 	
 
 
