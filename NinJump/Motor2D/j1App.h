@@ -21,6 +21,7 @@ class j1Player;
 class j1FB;
 class j1Collision;
 class j1PathFinding;
+class j1Entity_Manager; 
 
 
 class j1App
@@ -96,6 +97,7 @@ public:
 	j1FB*				fade;
 	j1Collision*  		collision;
 	j1PathFinding*		pathfinding;
+	j1Entity_Manager*   entity_manager; 
 
 private:
 
