@@ -8,9 +8,9 @@
 
 #define PLAYER_WIDTH 35
 #define PLAYER_HEIGHT 45
-#define MAX_SPEED_X 20
+#define MAX_SPEED_X 5
 #define MAX_ACCELERATION_Y 2
-#define MAX_SPEED_Y 20
+#define MAX_SPEED_Y 700
 #define MAX_TOTAL_SPEED 20
 
 struct SDL_Texture;
@@ -53,9 +53,9 @@ public:
 	bool Draw();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	void Movex();
-	void Movey();
-	void Solve_Move(); 
+	void Movex(float dt);
+	void Movey(float dt);
+	void Solve_Move(float dt); 
 	PlayerState Get_Player_State();
 	void Set_Player_Info();
 	void Debug_Keys(); 

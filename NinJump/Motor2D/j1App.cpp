@@ -197,6 +197,7 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	// TODO 4: Calculate the dt: differential time since last frame
+	dt = frame_time.ReadSec();
 	frame_time.Start();
 
 
@@ -205,8 +206,8 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
-	PERF_START(ptimer);
-	double start_time = ptimer.ReadMs(); 
+	/*PERF_START(ptimer);
+	double start_time = ptimer.ReadMs();*/
 
 	if (want_to_save == true)
 		SavegameNow();
@@ -259,14 +260,14 @@ void j1App::FinishUpdate()
 	}
 	
 	
-	PERF_PEEK(ptimer);
+	//PERF_PEEK(ptimer);
 
 
 // 	LOG("Wait time until frame is finished: %i ms", wait_time);
 
 
-	float delta_time = ptimer.ReadMs() / 1000;
-	LOG("Frame time ----> %f seconds", delta_time);  // to capture a single frame time in seconds
+	/*float delta_time = ptimer.ReadMs() / 1000;*/
+	/*LOG("Frame time ----> %f seconds", delta_time);*/  // to capture a single frame time in seconds
 }
 
 // Call modules before each loop iteration
