@@ -160,7 +160,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	bool blit = true;
 
-	 if (type == "bg") {
+	/* if (type == "bg") {
 
 		 if (!reset_init_x) {
 			 init_x = x; 
@@ -181,7 +181,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		else if (camera.y > section->h + y) blit = false;
 
 		
-    }
+    }*/
 	
 
 

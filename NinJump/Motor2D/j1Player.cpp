@@ -202,18 +202,26 @@ bool j1Player::Update(float dt)
 	// SDL_Delay(dt);
 
 	
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {  // change for a tiled variable
 
-	//if (!gravity_reverse) {
-	//	if (Pos.x > App->map->MapToWorld(84, 0).x) {                  // change for a tiled variable
-	//		gravity_reverse = true;
-	//		if (Reset_Fx_Gravity) {
-	//			App->audio->PlayFx(4, 0); 
-	//			Reset_Fx_Gravity = false;
-	//		}
-	//	}
-	//}
+		if (!gravity_reverse) {
+			
+			gravity_reverse = true;
+			if (Reset_Fx_Gravity) {
+				App->audio->PlayFx(4, 0);
+				Reset_Fx_Gravity = false;
+			}
+		}
 
-
+		else {
+			gravity_reverse = false;
+			if (!Reset_Fx_Gravity) {
+				App->audio->PlayFx(4, 0);
+				Reset_Fx_Gravity = true;
+			}
+		}
+	}
+	
 	Get_Player_State();
 	Debug_Keys();
 
@@ -242,6 +250,14 @@ bool j1Player::Update(float dt)
 		Jump_Count = 0;  // reset double jump
 	}
 
+	if (Vel.x + Vel.y > MAX_TOTAL_SPEED) {      // speed nerf
+		Vel.x / 2; 
+		Vel.y / 2; 
+	}
+	else if (Vel.x + Vel.y < -MAX_TOTAL_SPEED) {
+		Vel.x / 2;
+		Vel.y / 2;
+	}
 
 	Pos.x += Vel.x;
 	if (!gravity_reverse) {
@@ -406,6 +422,14 @@ void j1Player::Movey() {
 		Vel.y += 1.1;
 	}
 
+	if (Vel.y > MAX_SPEED_Y) {
+		Vel.y = MAX_SPEED_Y;
+	}
+	else if (Vel.y < -MAX_SPEED_Y) {
+		Vel.y = -MAX_SPEED_Y;
+	}
+
+	
 }
 
 PlayerState j1Player::Get_Player_State() {
