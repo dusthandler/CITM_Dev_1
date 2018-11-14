@@ -100,6 +100,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 	Respawning = false;
 
+
 	//if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
 	//	LOG("WE ARE HAVING A COLISION");
@@ -121,7 +122,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 				Onplat = true;             // without gravity, it lands
 			}
 			else {
-				Onplat = false;            // with graivty, it falls
+				Onplat = false;            // with gravity, it falls
 			}
 			Jumping = false;
 		}
@@ -200,32 +201,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 bool j1Player::Update(float dt)
 {
 	// SDL_Delay(dt);
-
-	
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {  // change for a tiled variable
-
-		if (!gravity_reverse) {
-			
-			gravity_reverse = true;
-			if (Reset_Fx_Gravity) {
-				App->audio->PlayFx(4, 0);
-				Reset_Fx_Gravity = false;
-			}
-		}
-
-		else {
-			gravity_reverse = false;
-			if (!Reset_Fx_Gravity) {
-				App->audio->PlayFx(4, 0);
-				Reset_Fx_Gravity = true;
-			}
-		}
-	}
 	
 	Get_Player_State();
 	Debug_Keys();
-
-
 
 	if (God_Mode) {
 		Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD;
@@ -234,38 +212,9 @@ bool j1Player::Update(float dt)
 		Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
 	}
 
-
 	Movex();
 	Movey();
-	Acc.y = 13;
-	if (!Onplat) {
-		Acc.y = 4;
-		if (!Reset_Fx_3) {
-			Reset_Fx_3 = true;                   // So that landing fx are available next time
-		}
-	}
-
-	else {
-		Acc.y = 0;
-		Jump_Count = 0;  // reset double jump
-	}
-
-	if (Vel.x + Vel.y > MAX_TOTAL_SPEED) {      // speed nerf
-		Vel.x / 2; 
-		Vel.y / 2; 
-	}
-	else if (Vel.x + Vel.y < -MAX_TOTAL_SPEED) {
-		Vel.x / 2;
-		Vel.y / 2;
-	}
-
-	Pos.x += Vel.x;
-	if (!gravity_reverse) {
-		Pos.y += Vel.y + Acc.y;
-	}
-	else {
-		Pos.y -= Vel.y + Acc.y;
-	}
+	Solve_Move(); 
 
 	return true;
 }
@@ -289,6 +238,29 @@ void j1Player::Debug_Keys() {
 
 
 	// F9 located in collision module 
+	if (!Respawning) {
+
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {  // change for a tiled variable
+
+			if (!gravity_reverse) {
+
+				gravity_reverse = true;
+				if (Reset_Fx_Gravity) {
+					App->audio->PlayFx(4, 0);
+					Reset_Fx_Gravity = false;
+				}
+			}
+
+			else {
+				gravity_reverse = false;
+				if (!Reset_Fx_Gravity) {
+					App->audio->PlayFx(4, 0);
+					Reset_Fx_Gravity = true;
+				}
+			}
+		}
+	}
+
 }
 
 void j1Player::Switch_Level_Logic() {
@@ -311,9 +283,47 @@ void j1Player::Switch_Level_Logic() {
 		mapLo = 0;
 		
 	}
-		
 
 
+}
+
+void j1Player::Solve_Move() {
+
+	if (Pos.y < -PLAYER_HEIGHT && gravity_reverse) {      // sky limit
+		Alive = false; 
+		gravity_reverse = false;
+		Respawning = true; 
+	}
+
+	Acc.y = 13;
+	if (!Onplat) {
+		Acc.y = 4;
+		if (!Reset_Fx_3) {
+			Reset_Fx_3 = true;                   // So that landing fx are available next time
+		}
+	}
+
+	else {
+		Acc.y = 0;
+		Jump_Count = 0;  // reset double jump
+	}
+
+	if (Vel.x + Vel.y > MAX_TOTAL_SPEED) {      // speed nerf
+		Vel.x / 2;
+		Vel.y / 2;
+	}
+	else if (Vel.x + Vel.y < -MAX_TOTAL_SPEED) {
+		Vel.x / 2;
+		Vel.y / 2;
+	}
+
+	Pos.x += Vel.x;
+	if (!gravity_reverse) {
+		Pos.y += Vel.y + Acc.y;
+	}
+	else {
+		Pos.y -= Vel.y + Acc.y;
+	}
 
 }
 

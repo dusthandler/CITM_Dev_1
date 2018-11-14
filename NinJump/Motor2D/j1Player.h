@@ -55,6 +55,7 @@ public:
 
 	void Movex();
 	void Movey();
+	void Solve_Move(); 
 	PlayerState Get_Player_State();
 	void Set_Player_Info();
 	void Debug_Keys(); 
@@ -108,6 +109,7 @@ public:
 	uint Jump_Count = 0; 
 	bool Level_Win = false; 
 	bool Respawning = true; 
+
 
 	Collider* Player_Collider = nullptr;
 
