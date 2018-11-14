@@ -56,10 +56,17 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="j1Entity.cpp">
+<<<<<<< HEAD
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClCompile>
     <ClCompile Include="j1Entity_Manager.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+=======
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Entity_Manager.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+>>>>>>> 798857b3e2af26443593fe4da8d8760f9c1b56d1
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,10 +143,17 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Entity.h">
+<<<<<<< HEAD
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1Entity_Manager.h">
       <Filter>Desenvolupament  ========\Modules\Entities</Filter>
+=======
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Entity_Manager.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+>>>>>>> 798857b3e2af26443593fe4da8d8760f9c1b56d1
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

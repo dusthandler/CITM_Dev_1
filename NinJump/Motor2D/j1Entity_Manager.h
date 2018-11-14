@@ -20,7 +20,11 @@ public:
 	virtual ~j1Entity_Manager();*/
 
 
+<<<<<<< HEAD
 }; 
 
+=======
+};
+>>>>>>> 798857b3e2af26443593fe4da8d8760f9c1b56d1
 
 #endif // __j1ENTITY_MANAGER_H__
