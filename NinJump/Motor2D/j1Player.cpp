@@ -308,14 +308,22 @@ void j1Player::Solve_Move() {
 		Jump_Count = 0;  // reset double jump
 	}
 
-	if (Vel.x + Vel.y > MAX_TOTAL_SPEED) {      // speed nerf
-		Vel.x / 2;
-		Vel.y / 2;
+	/*if (Vel.x + Vel.y > MAX_TOTAL_SPEED) {      // speed nerf
+		float Prop = Vel.x / (MAX_SPEED_X);                              
+		Vel.x /= Prop; 
+		Prop = Vel.y / (MAX_SPEED_Y);
+		Vel.y /= Prop; 
+		LOG("SPEED NERF IS ------------------- %f", Prop);
 	}
 	else if (Vel.x + Vel.y < -MAX_TOTAL_SPEED) {
-		Vel.x / 2;
-		Vel.y / 2;
+		float Prop = Vel.x / (-MAX_SPEED_X );
+		Vel.x /= Prop;
+		Prop = Vel.y / (-MAX_SPEED_Y);
+		Vel.y /= Prop;
+		LOG("SPEED NERF IS ------------------- %f", Prop);
 	}
+	
+	LOG("player speed is %i + %i = %i", (int)Vel.x, (int)Vel.y, (int)(Vel.x + Vel.y));*/
 
 	Pos.x += Vel.x;
 	if (!gravity_reverse) {
