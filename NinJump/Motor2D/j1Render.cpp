@@ -71,6 +71,7 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
+	LOG("CAX: %i CAY: %i", camera.x, camera.y);
 	return true;
 }
 

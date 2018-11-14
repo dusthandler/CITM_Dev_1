@@ -212,9 +212,9 @@ bool j1Player::Update(float dt)
 		Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
 	}
 
-	Movex();
-	Movey();
-	Solve_Move(); 
+	Movex(dt);
+	Movey(dt);
+	Solve_Move(dt); 
 
 	return true;
 }
@@ -287,7 +287,7 @@ void j1Player::Switch_Level_Logic() {
 
 }
 
-void j1Player::Solve_Move() {
+void j1Player::Solve_Move(float dt) {
 
 	if (Pos.y < -PLAYER_HEIGHT && gravity_reverse) {      // sky limit
 		Alive = false; 
@@ -327,17 +327,17 @@ void j1Player::Solve_Move() {
 
 	Pos.x += Vel.x;
 	if (!gravity_reverse) {
-		Pos.y += Vel.y + Acc.y;
+		Pos.y += (Vel.y + Acc.y)*dt;
 	}
 	else {
-		Pos.y -= Vel.y + Acc.y;
+		Pos.y -= (Vel.y + Acc.y)*dt;
 	}
 
 }
 
 
 
-void j1Player::Movex() {
+void j1Player::Movex(float dt) {
 
 	if (!Respawning) {
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
@@ -354,12 +354,13 @@ void j1Player::Movex() {
 
 				if (Vel.x > -MAX_SPEED_X) {
 
-					Vel.x = -10 + Cont_X;
-					Cont_X -= 1.0f;
+					Vel.x = (-200 + Cont_X)*dt;
+					Cont_X -= 100.0f*dt;
+				/*	Vel.x = -200 * dt;*/
 				}
 
 				else {
-					Vel.x = -MAX_SPEED_X;
+					Vel.x = (-200 + Cont_X)*dt;
 				}
 
 
@@ -373,13 +374,13 @@ void j1Player::Movex() {
 			}
 
 			if (Vel.x < MAX_SPEED_X) {
-
-				Vel.x = 10 + Cont_X;
-				Cont_X += 1.0f;
+			/*	Vel.x = 200 * dt;*/
+				Vel.x = (200 + Cont_X)*dt;
+				Cont_X += 100.0f*dt;
 			}
 
 			else {
-				Vel.x = MAX_SPEED_X;
+				Vel.x = (200 + Cont_X)*dt;
 			}
 
 		}
@@ -394,7 +395,7 @@ void j1Player::Movex() {
 
 }
 
-void j1Player::Movey() {
+void j1Player::Movey(float dt) {
 	// Change variables to can get the map
 
 
@@ -407,41 +408,45 @@ void j1Player::Movey() {
 
 
 			if (God_Mode) {   // god player can jump infinitely
-				Vel.y = -26;
-				Cont = 1.3;
+				Vel.y = -800;
+				Cont = 20;
 				Jumping = true;
 				App->audio->PlayFx(1, 0);
-			}
-
+			}								//Danger:
+											//We should *dt every counter or we wont get the same result in diferent fps.
+											//We should *dt every counter or we wont get the same result in diferent fps.
+											//We should *dt every counter or we wont get the same result in diferent fps.
+											//We should *dt every counter or we wont get the same result in diferent fps.
 			else if (Jump_Count < 2) {
-				Vel.y = -16;
-				Cont = 1.3;
+				Vel.y = -400;
+				
 				Jumping = true;
 				App->audio->PlayFx(1, 0);
 			}
 		}
 
 		else if (Jumping) {
-			if (Vel.y <= 4) {
-				Vel.y += 1.3;
+			if (Vel.y <= -70) {
+				Vel.y += 550*dt;
 			}
 			else {
-				Cont += 0.1;
-				Vel.y += Cont;
+				Cont += 1000*dt;
+				Vel.y += Cont*dt;
 			}
 		}
 		else if (!Onplat && !Jumping) {
 
-			Vel.y += 1.1;
+			Vel.y += 850*dt;
 		}
 	}
 
 	else {
-		Vel.y += 1.1;
+		Vel.y += 650*dt;
 	}
 
 	if (Vel.y > MAX_SPEED_Y) {
 		Vel.y = MAX_SPEED_Y;
+		
 	}
 	else if (Vel.y < -MAX_SPEED_Y) {
 		Vel.y = -MAX_SPEED_Y;
