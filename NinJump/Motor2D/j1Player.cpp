@@ -427,21 +427,21 @@ void j1Player::Movey(float dt) {
 
 		else if (Jumping) {
 			if (Vel.y <= -70) {
-				Vel.y += 550*dt;
+				Vel.y += 150*dt;
 			}
 			else {
-				Cont += 1000*dt;
+				Cont += 100*dt;
 				Vel.y += Cont*dt;
 			}
 		}
 		else if (!Onplat && !Jumping) {
 
-			Vel.y += 850*dt;
+			Vel.y += 150*dt;
 		}
 	}
 
 	else {
-		Vel.y += 650*dt;
+		Vel.y += 150*dt;
 	}
 
 	if (Vel.y > MAX_SPEED_Y) {
