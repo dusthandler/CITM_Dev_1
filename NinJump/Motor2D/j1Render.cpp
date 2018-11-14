@@ -158,7 +158,7 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		p = &pivot;
 	}
 
-<<<<<<< HEAD
+
 	/*bool blit = true;
 =======
 	bool blit = true;
@@ -190,11 +190,11 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 		
     }*/
->>>>>>> 5f85bf7ceb5004479d929842aa6e75ad65d4f469
+
 	
 
 
-	if (blit) {*/
+	
 
 	if (type == "player" && App->player->gravity_reverse) {
 		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_VERTICAL) != 0) {
@@ -209,9 +209,9 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	 }
 	
 
-			// LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			
 		
-	// }
+	 
 	
 
 	return ret;
