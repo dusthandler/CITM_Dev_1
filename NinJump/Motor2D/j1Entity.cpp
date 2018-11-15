@@ -6,7 +6,7 @@
 
 
 
-j1Entity::j1Entity(Type type): type(type) 
+j1Entity::j1Entity(Type type): type(type)
 {}
 
 

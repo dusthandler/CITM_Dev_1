@@ -1,6 +1,8 @@
 #include "j1Entity_Manager.h"
 #include "j1Player.h"
 #include "j1Enemy_Flying.h"
+#include "j1Textures.h"
+#include "j1App.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -34,13 +36,15 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
 	j1Entity* pEntity = NULL;
-
+	
+	
 	// clean collider and texture first
 
 
 	for (item = entities.start; item != NULL; item = item->next)
 	{
 		if (item->data == entity && entity != nullptr && entity->to_delete) {
+			App->tex->UnLoad(item->data->tex);
 			delete entity;                                                  // check this out
 			entity = nullptr;                          
 		}
