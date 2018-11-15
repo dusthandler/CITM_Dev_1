@@ -10,4 +10,8 @@ j1Entity::j1Entity(iPoint pos): position(pos)
 {
 }
 
+j1Entity::~j1Entity(){}
 
+bool j1Entity::PreUpdate(float dt) {
+	// TODO: should we update the colliders here or in entity_manager ?? 
+}

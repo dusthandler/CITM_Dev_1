@@ -43,13 +43,13 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 		if (item->data == entity && entity != nullptr && entity->to_delete) {
 
 			if (entity->tex != nullptr) {
-				App->tex->UnLoad(item->data->tex);                       // clean collider and texture first
+				App->tex->UnLoad(item->data->tex);                      
 			}
 			if (entity->collider != nullptr) {
 				entity->collider->to_delete = true;
 			}
 		
-			delete entity;                                                  // check this out
+			delete entity;                                                 
 			entity = nullptr;                          
 		}
 		
@@ -69,7 +69,6 @@ void j1Entity_Manager::Draw() {
 		App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
 		
 	}
-
 
 }
 
@@ -113,13 +112,20 @@ bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this functi
 bool j1Entity_Manager::CleanUp()      // as in App
 {
 	bool ret = true;
-	p2List_item<j1Entity*>* item;
+	p2List_item<j1Entity*>* item;   
 	item = entities.end;
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->CleanUp();
-		item = item->prev;
+		if (item->data->tex != nullptr) {
+			App->tex->UnLoad(item->data->tex);                       
+		}
+		if (item->data->collider != nullptr) {
+			item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first
+		}
+		delete item->data;                                                  
+		item->data = nullptr;
+		
 	}
 
 	return ret;

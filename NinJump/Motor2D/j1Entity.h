@@ -20,7 +20,7 @@ public:
 
 	}
 
-	virtual bool  PreUpdate(float dt) {
+	virtual bool PreUpdate(float dt) {
 		return true;
 	}
 
@@ -40,7 +40,7 @@ public:
 		return true; 
 	}
 
-	virtual void FollowPath(){}
+	virtual void FollowPath(){}   
 
 	
 
