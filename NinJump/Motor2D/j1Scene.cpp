@@ -37,6 +37,11 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+	// --------------------- Create entities here -------------------- 
+
+
+
+	// we should order this
 	
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
 	mus2 = App->audio->LoadMus("Sound/Music/level_2.ogg");

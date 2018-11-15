@@ -31,12 +31,12 @@ public:
 		return true; 
 	}
 
-protected:
+public:
 	iPoint position; 
 	Type type; 
 	SDL_Texture* tex; 
 	bool active = false; 
-	
+	bool to_delete = false; 
 	
 }; 
 

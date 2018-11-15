@@ -1,6 +1,6 @@
 #include "j1Entity_Manager.h"
 #include "j1Player.h"
-
+#include "j1Enemy_Flying.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -18,7 +18,7 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type)
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	// case Type::ENEMY: ret = new j1Enemy(); break;
+	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(); break;
 	// case Type::PLAYER: ret = new j1Player(); break;
 	}
 	if (ret != nullptr)
@@ -28,6 +28,25 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type)
 
 	
 }
+
+void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
+
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+	j1Entity* pEntity = NULL;
+
+	for (item = entities.start; item != NULL; item = item->next)
+	{
+		if (item->data == entity && entity != nullptr && entity->to_delete) {
+			delete entity;                                                  // check this out
+			entity = nullptr;                          
+		}
+		
+	}
+
+}
+
+
 
 bool j1Entity_Manager::Update(float dt)
 {
@@ -43,7 +62,7 @@ bool j1Entity_Manager::Update(float dt)
 }
 
 bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this function is like DoUpdate() in App
-	bool ret = true;
+	bool ret = true;                                              // TODO: add "do_logic" condition
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
 	j1Entity* pEntity = NULL;
@@ -56,10 +75,26 @@ bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this functi
 			continue;
 		}*/
 
-		// TODO 5: send dt as an argument to all updates
-		// you will need to update module parent class
-		// and all modules that use update
-		// ret = item->data->Update(dt);
+		/* TODO 5: send dt as an argument to all updates
+		 you will need to update module parent class
+		 and all modules that use update */
+		 ret = item->data->Update(dt);
+	}
+
+	return ret;
+}
+
+
+bool j1Entity_Manager::CleanUp()      // as in App
+{
+	bool ret = true;
+	p2List_item<j1Entity*>* item;
+	item = entities.end;
+
+	while (item != NULL && ret == true)
+	{
+		ret = item->data->CleanUp();
+		item = item->prev;
 	}
 
 	return ret;

@@ -8,7 +8,8 @@
 enum class Type
 {
 	PLAYER,
-	ENEMY,
+	ENEMY_FLYING,
+	ENEMY_LAND,
 	UNKNOWN
 };
 
@@ -21,16 +22,18 @@ public:
 
 	// Destructor
 	virtual ~j1Entity_Manager();
-
+	// bool Awake(pugi::xml_node&);
 	bool Update(float dt); 
 	bool UpdateAll(float dt, bool do_logic); 
 
 	j1Entity* CreateEntity(Type); 
+	void DestroyEntity(j1Entity* entity); 
+    bool CleanUp(); 
 
 private: 
 	p2List<j1Entity*> entities; 
-	float accumulated_time = 0; 
-	float update_ms_cycle = 0;  // time of a frame in ms ? 
+	float accumulated_time = 0.0f; 
+	float update_ms_cycle = 0.0f;  // time of a frame in ms ? 
 	bool do_logic = false; 
 	
 }; 

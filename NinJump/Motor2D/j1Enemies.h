@@ -1,4 +1,4 @@
-#ifndef __J1ENEMIES__
+/*#ifndef __J1ENEMIES__
 #define __J1ENEMIES__
 
 #include "j1Module.h"
@@ -84,4 +84,4 @@ struct Enemy {
 
 
 
-#endif
+#endif*/

@@ -1,4 +1,4 @@
-#include "j1Player.h"
+/*#include "j1Player.h"
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Render.h"
@@ -60,7 +60,7 @@ bool j1Enemies::PreUpdate()
 	/*for (int i = 0; i < enemies.Count(); i++) {
 
 		enemies[i].Enemy_Collider->SetPos(enemies[i].Pos.x, enemies[i].Pos.y);
-	}*/
+	}
 	
 	return true;
 
@@ -92,4 +92,4 @@ void j1Enemies::Set_Enemies_Info() {
 	
 
 
-}
+}*/
