@@ -38,13 +38,20 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 	j1Entity* pEntity = NULL;
 	
 	
-	// clean collider and texture first
+	
 
 
 	for (item = entities.start; item != NULL; item = item->next)
 	{
 		if (item->data == entity && entity != nullptr && entity->to_delete) {
-			App->tex->UnLoad(item->data->tex);
+
+			if (entity->tex != nullptr) {
+				App->tex->UnLoad(item->data->tex);                       // clean collider and texture first
+			}
+			if (entity->collider != nullptr) {
+				entity->collider->to_delete = true;
+			}
+		
 			delete entity;                                                  // check this out
 			entity = nullptr;                          
 		}
