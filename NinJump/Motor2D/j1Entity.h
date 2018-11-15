@@ -3,9 +3,10 @@
 
 #include "p2Point.h"
 #include "j1Entity_Manager.h"
-
+#include "p2DynArray.h"
 
 struct SDL_Texture;
+struct Collider;
 
 class j1Entity : public j1Entity_Manager
 {
@@ -31,13 +32,21 @@ public:
 		return true; 
 	}
 
+	virtual void FollowPath(){}
+
 public:
+
 	iPoint position; 
 	Type type; 
+	bool active = false;
+	bool to_delete = false;
+
 	SDL_Texture* tex; 
-	bool active = false; 
-	bool to_delete = false; 
+	Animation* animation = nullptr;
+	Collider* collider = nullptr; 
 	
+	p2DynArray<iPoint>* Path; 
+
 }; 
 
 #endif // __j1ENTITY_H__ 

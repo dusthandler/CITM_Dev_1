@@ -1,52 +1,165 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="j1Collision.cpp" />
-    <ClCompile Include="j1Enemies.cpp" />
-    <ClCompile Include="j1Entity_Manager.cpp" />
-    <ClCompile Include="j1FadeBlack.cpp" />
-    <ClCompile Include="j1Main.cpp" />
-    <ClCompile Include="j1App.cpp" />
-    <ClCompile Include="j1Audio.cpp" />
-    <ClCompile Include="j1Input.cpp" />
-    <ClCompile Include="j1Map.cpp" />
-    <ClCompile Include="j1Pathfinding.cpp" />
-    <ClCompile Include="j1PerfTimer.cpp" />
-    <ClCompile Include="j1Scene.cpp" />
-    <ClCompile Include="j1Player.cpp" />
-    <ClCompile Include="j1Timer.cpp" />
-    <ClCompile Include="p2Log.cpp" />
-    <ClCompile Include="j1Render.cpp" />
-    <ClCompile Include="j1Textures.cpp" />
-    <ClCompile Include="j1Window.cpp" />
-    <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="j1App.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Audio.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Collision.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1FadeBlack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Input.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Main.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Map.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Pathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1PerfTimer.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Render.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Textures.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Timer.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Window.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Entity_Manager.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Enemies.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="p2Log.cpp">
+      <Filter>p2Help</Filter>
+    </ClCompile>
+    <ClCompile Include="PugiXml\src\pugixml.cpp">
+      <Filter>Pugi</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Enemy_Flying.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="j1Entity.h" />
-    <ClInclude Include="j1Enemies.h" />
-    <ClInclude Include="j1Collision.h" />
-    <ClInclude Include="j1Entity_Manager.h" />
-    <ClInclude Include="j1FadeBlack.h" />
-    <ClInclude Include="j1Map.h" />
-    <ClInclude Include="j1Pathfinding.h" />
-    <ClInclude Include="j1PerfTimer.h" />
-    <ClInclude Include="j1Scene.h" />
-    <ClInclude Include="j1Player.h" />
-    <ClInclude Include="j1Timer.h" />
-    <ClInclude Include="p2DynArray.h" />
-    <ClInclude Include="j1Audio.h" />
-    <ClInclude Include="j1Input.h" />
-    <ClInclude Include="p2Log.h" />
-    <ClInclude Include="j1App.h" />
-    <ClInclude Include="p2Defs.h" />
-    <ClInclude Include="p2List.h" />
-    <ClInclude Include="j1Module.h" />
-    <ClInclude Include="p2Point.h" />
-    <ClInclude Include="j1Render.h" />
-    <ClInclude Include="j1Textures.h" />
-    <ClInclude Include="j1Window.h" />
-    <ClInclude Include="p2SString.h" />
-    <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
-    <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="j1App.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Audio.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Collision.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1FadeBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Input.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Map.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Pathfinding.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1PerfTimer.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Player.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Render.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Textures.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Timer.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Window.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Entity_Manager.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Enemies.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Defs.h">
+      <Filter>p2Help</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>p2Help</Filter>
+    </ClInclude>
+    <ClInclude Include="p2SString.h">
+      <Filter>p2Help</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Log.h">
+      <Filter>p2Help</Filter>
+    </ClInclude>
+    <ClInclude Include="p2List.h">
+      <Filter>p2Help</Filter>
+    </ClInclude>
+    <ClInclude Include="p2DynArray.h">
+      <Filter>p2Help</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXml\src\pugiconfig.hpp">
+      <Filter>Pugi</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXml\src\pugixml.hpp">
+      <Filter>Pugi</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Enemy_Flying.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{ddf8f56f-3df4-4846-835c-4aca26091f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{7a54cb80-570f-4d09-b758-2f74f1157153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{037f6e7c-d877-40bd-960e-d1fe53cd9999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pugi">
+      <UniqueIdentifier>{f9df40bc-adbe-407d-ac76-d4056bf78585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="p2Help">
+      <UniqueIdentifier>{220ecdb7-ed4d-4f1e-ae2c-fb46d77c512f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

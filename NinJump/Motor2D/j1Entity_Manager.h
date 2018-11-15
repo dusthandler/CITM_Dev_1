@@ -22,7 +22,7 @@ public:
 
 	// Destructor
 	virtual ~j1Entity_Manager();
-	// bool Awake(pugi::xml_node&);
+	// bool Awake(pugi::xml_node&);  // TODO: check the necessity
 	bool Update(float dt); 
 	bool UpdateAll(float dt, bool do_logic); 
 

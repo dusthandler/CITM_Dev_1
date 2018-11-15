@@ -17,11 +17,12 @@ public:
 
 	}
 
-	bool Update(float dt); 
+	/*bool Update(float dt); 
 	bool Draw(); 
 	bool HandleInput(); 
+	void Follow_Path(); */
 
-protected:
+private:
 	
 
 
