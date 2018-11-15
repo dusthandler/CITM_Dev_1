@@ -64,6 +64,9 @@
     <ClCompile Include="j1Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Enemy_Walker.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -145,6 +148,9 @@
       <Filter>Pugi</Filter>
     </ClInclude>
     <ClInclude Include="j1Enemy_Flying.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Enemy_Walker.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>

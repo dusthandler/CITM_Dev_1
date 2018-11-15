@@ -23,16 +23,31 @@ public:
 
 	// Destructor
 	virtual ~j1Entity_Manager();
+
+/*	bool Awake(pugi::xml_node&); */ // TODO: check the necessity
+
 	bool Start();
-	// bool Awake(pugi::xml_node&);  // TODO: check the necessity
+
+	bool PreUpdate(float dt) {
+		return true;
+	}
+	bool Update(float dt);
+	bool UpdateAll(float dt, bool do_logic);
+
+	bool PostUpdate(float dt) {
+		return true;
+	}
 	
-	bool Update(float dt); 
-	bool UpdateAll(float dt, bool do_logic); 
 
 	j1Entity* CreateEntity(Type, iPoint); 
 	void DestroyEntity(j1Entity* entity); 
-    bool CleanUp(); 
+  
 	void Draw(); 
+
+	// Called before quiting 
+	bool CleanUp();
+	bool Load(pugi::xml_node& node);
+	bool Save(pugi::xml_node& node) const;
 
 private: 
 	p2List<j1Entity*> entities; 

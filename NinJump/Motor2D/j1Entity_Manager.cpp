@@ -4,6 +4,7 @@
 #include "j1Textures.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Enemy_Walker.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -20,7 +21,7 @@ bool j1Entity_Manager::Start(){
 	bool ret = true;
 	//New: We will create the entyties here, that way is more easy to do the respawn.
 	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
-	App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(350, 50));
+	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 
 
 	return ret;
@@ -31,6 +32,8 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 	j1Entity* ret = nullptr;
 	switch (type) {
 	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor
+	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
+	case Type::PLAYER: ret;
 	// case Type::PLAYER: ret = new j1Player(); break;
 	}
 	
@@ -142,3 +145,16 @@ bool j1Entity_Manager::CleanUp()      // as in App
 
 	return ret;
 }
+
+
+bool j1Entity_Manager::Load(pugi::xml_node &) //New: Save and Load methods, now are not working 
+{
+	return false;
+}
+
+bool j1Entity_Manager::Save(pugi::xml_node &) const
+{
+	return false;
+}
+
+
