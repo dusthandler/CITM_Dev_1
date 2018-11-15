@@ -20,8 +20,16 @@ public:
 
 	}
 
-	virtual bool  Update(float dt) {
+	virtual bool  PreUpdate(float dt) {
+		return true;
+	}
+
+	virtual bool Update(float dt) {
 		return true; 
+	}
+
+	virtual bool PostUpdate(float dt) {
+		return true;
 	}
 
 	virtual bool Draw() {

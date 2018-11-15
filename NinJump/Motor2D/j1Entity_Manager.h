@@ -4,6 +4,7 @@
 
 #include "j1Module.h"
 #include "p2List.h"
+#include "p2Point.h"
 
 enum class Type
 {
@@ -23,10 +24,11 @@ public:
 	// Destructor
 	virtual ~j1Entity_Manager();
 	// bool Awake(pugi::xml_node&);  // TODO: check the necessity
+	
 	bool Update(float dt); 
 	bool UpdateAll(float dt, bool do_logic); 
 
-	j1Entity* CreateEntity(Type); 
+	j1Entity* CreateEntity(Type, iPoint pos); 
 	void DestroyEntity(j1Entity* entity); 
     bool CleanUp(); 
 

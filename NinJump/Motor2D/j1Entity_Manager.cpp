@@ -13,7 +13,7 @@ j1Entity_Manager::~j1Entity_Manager()
 
 }
 
-j1Entity* j1Entity_Manager::CreateEntity(Type type)
+j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 {
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
@@ -34,6 +34,9 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
 	j1Entity* pEntity = NULL;
+
+	// clean collider and texture first
+
 
 	for (item = entities.start; item != NULL; item = item->next)
 	{
