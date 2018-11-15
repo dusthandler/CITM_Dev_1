@@ -13,7 +13,7 @@ struct SDL_Rect;
 class j1Entity : public j1Entity_Manager
 {
 public:
-	j1Entity(iPoint pos);
+	j1Entity(iPoint pos, Type type);
 
 	// Destructor
 	virtual ~j1Entity() {

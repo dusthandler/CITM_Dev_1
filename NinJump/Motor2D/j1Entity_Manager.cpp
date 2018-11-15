@@ -16,12 +16,21 @@ j1Entity_Manager::~j1Entity_Manager()
 
 }
 
-j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
+bool j1Entity_Manager::Start(){
+	bool ret = true;
+	//New: We will create the entyties here, that way is more easy to do the respawn.
+	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
+	App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(350, 50));
+
+
+	return ret;
+}
+j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos) 
 {
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos); break;
+	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor
 	// case Type::PLAYER: ret = new j1Player(); break;
 	}
 	
@@ -65,6 +74,7 @@ void j1Entity_Manager::Draw() {
 	
 	for (item = entities.start; item != NULL; item = item->next)
 	{
+
 		Rect = item->data->animation->GetCurrentFrame();
 		App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
 		
@@ -114,17 +124,19 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	bool ret = true;
 	p2List_item<j1Entity*>* item;   
 	item = entities.end;
-
+	
 	while (item != NULL && ret == true)
 	{
 		if (item->data->tex != nullptr) {
 			App->tex->UnLoad(item->data->tex);                       
 		}
 		if (item->data->collider != nullptr) {
-			item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first
+			item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first // Yes, always first collider (checked)
 		}
 		delete item->data;                                                  
 		item->data = nullptr;
+
+		item = item->prev; 
 		
 	}
 

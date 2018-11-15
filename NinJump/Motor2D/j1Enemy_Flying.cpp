@@ -7,7 +7,7 @@
 
 
 
-j1Enemy_Flying::j1Enemy_Flying(iPoint position) : j1Entity(position) {
+j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
 	collider = App->collision->AddCollider({ position.x, position.y,20,20 }, COLLIDER_ENEMY, (j1Module*)App->entity_manager);
 	tex = App->tex->Load("Maps/Ninja/Ninja.png");
