@@ -8,5 +8,4 @@
 
 j1Enemy_Flying::j1Enemy_Flying() : j1Entity(Type::ENEMY_FLYING) {
 
-	collider = App->collision->AddCollider({ 0,0,20,20 }, COLLIDER_DEATH, (j1Module*)App->entity_manager);
 }
