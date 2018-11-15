@@ -12,7 +12,8 @@
 #include "j1Player.h"
 #include "j1FadeBlack.h"
 #include "j1Collision.h"
-
+#include "j1Entity_Manager.h"
+#include "j1Enemy_Flying.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -39,7 +40,7 @@ bool j1Scene::Start()
 {
 	// --------------------- Create entities here -------------------- 
 
-
+	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(40, 50));
 
 	// we should order this
 	

@@ -6,11 +6,8 @@
 
 
 
-j1Entity::j1Entity(Type type): type(type)
-{}
-
-
-void j1Entity::SetPosition(int x, int y)
+j1Entity::j1Entity(iPoint pos): position(pos)
 {
-	position = { x,y };
 }
+
+

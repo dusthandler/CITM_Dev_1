@@ -28,9 +28,10 @@ public:
 	bool Update(float dt); 
 	bool UpdateAll(float dt, bool do_logic); 
 
-	j1Entity* CreateEntity(Type, iPoint pos); 
+	j1Entity* CreateEntity(Type, iPoint); 
 	void DestroyEntity(j1Entity* entity); 
     bool CleanUp(); 
+
 
 private: 
 	p2List<j1Entity*> entities; 

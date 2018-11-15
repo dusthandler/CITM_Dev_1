@@ -20,15 +20,15 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(); break;
+	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos); break;
 	// case Type::PLAYER: ret = new j1Player(); break;
 	}
-	if (ret != nullptr)
-		entities.add(ret); // entities.push_back(ret);
-	return ret;
-
-
 	
+	if (ret != nullptr) {
+		entities.add(ret); // entities.push_back(ret);
+	}
+
+	return ret;
 }
 
 void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
@@ -36,10 +36,6 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
 	j1Entity* pEntity = NULL;
-	
-	
-	
-
 
 	for (item = entities.start; item != NULL; item = item->next)
 	{

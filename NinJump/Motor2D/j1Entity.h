@@ -13,7 +13,7 @@ struct SDL_Rect;
 class j1Entity : public j1Entity_Manager
 {
 public:
-	j1Entity(Type type);
+	j1Entity(iPoint pos);
 
 	// Destructor
 	virtual ~j1Entity() {
@@ -42,7 +42,7 @@ public:
 
 	virtual void FollowPath(){}
 
-	void SetPosition(int x, int y);
+	
 
 public:
 
