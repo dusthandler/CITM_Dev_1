@@ -22,8 +22,7 @@ public:
 
 private:
 	
-	
-
+	Animation Idle; 
 
 };
 

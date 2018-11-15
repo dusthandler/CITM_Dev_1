@@ -3,6 +3,7 @@
 #include "j1Enemy_Flying.h"
 #include "j1Textures.h"
 #include "j1App.h"
+#include "j1Render.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -56,7 +57,21 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 
 }
 
+void j1Entity_Manager::Draw() {
 
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+	SDL_Rect Rect; 
+	
+	for (item = entities.start; item != NULL; item = item->next)
+	{
+		Rect = item->data->animation->GetCurrentFrame();
+		App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
+		
+	}
+
+
+}
 
 bool j1Entity_Manager::Update(float dt)
 {

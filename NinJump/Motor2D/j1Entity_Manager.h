@@ -31,7 +31,7 @@ public:
 	j1Entity* CreateEntity(Type, iPoint); 
 	void DestroyEntity(j1Entity* entity); 
     bool CleanUp(); 
-
+	void Draw(); 
 
 private: 
 	p2List<j1Entity*> entities; 
