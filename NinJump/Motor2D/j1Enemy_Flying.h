@@ -8,9 +8,7 @@ struct SDL_Texture;
 class j1Enemy_Flying : public j1Entity
 {
 public:
-	j1Enemy_Flying() {
-
-	}
+	j1Enemy_Flying();
 
 	// Destructor
 	virtual ~j1Enemy_Flying() {

@@ -79,6 +79,7 @@
     <ClCompile Include="j1Enemy_Flying.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Enemies.cpp" />
+    <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1Entity_Manager.cpp" />
     <ClCompile Include="j1FadeBlack.cpp" />
     <ClCompile Include="j1Main.cpp" />

@@ -4,16 +4,18 @@
 #include "p2Point.h"
 #include "j1Entity_Manager.h"
 #include "p2DynArray.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 struct Collider;
+struct SDL_Rect;
 
 class j1Entity : public j1Entity_Manager
 {
 public:
-	j1Entity() {
-
-	}
+	j1Entity(Type type);
+		
+	
 
 	// Destructor
 	virtual ~j1Entity() {
