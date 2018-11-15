@@ -1,5 +1,5 @@
 #include "j1Entity_Manager.h"
-
+#include "j1Player.h"
 
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
@@ -13,13 +13,13 @@ j1Entity_Manager::~j1Entity_Manager()
 
 }
 
-/*j1Entity* j1Entity_Manager::CreateEntity(Type type)
+j1Entity* j1Entity_Manager::CreateEntity(Type type)
 {
-	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
+// 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	// case j1Entity::Type::ENEMY: ret = new NPC(); break;
-	// case j1Entity::Type::player: ret = new Player(); break;
+	// case Type::ENEMY: ret = new j1Enemy(); break;
+	// case Type::PLAYER: ret = new j1Player(); break;
 	}
 	if (ret != nullptr)
 		entities.add(ret); // entities.push_back(ret);
@@ -27,7 +27,7 @@ j1Entity_Manager::~j1Entity_Manager()
 
 
 	
-}*/
+}
 
 bool j1Entity_Manager::Update(float dt)
 {

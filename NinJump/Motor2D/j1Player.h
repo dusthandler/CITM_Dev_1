@@ -5,6 +5,8 @@
 #include "p2Point.h"
 #include "Animation.h"  
 #include "j1Collision.h"
+#include "j1Entity.h"
+
 
 #define PLAYER_WIDTH 35
 #define PLAYER_HEIGHT 45

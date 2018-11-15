@@ -2,18 +2,10 @@
 #define __j1ENTITY_H__
 
 #include "p2Point.h"
-#include "j1Module.h"
 #include "j1Entity_Manager.h"
 
 
 struct SDL_Texture;
-
-enum class Type
-{
-	PLAYER,
-	ENEMY,
-	UNKNOWN
-};
 
 class j1Entity : public j1Entity_Manager
 {
@@ -44,7 +36,7 @@ protected:
 	Type type; 
 	SDL_Texture* tex; 
 	bool active = false; 
-
+	
 	
 }; 
 
