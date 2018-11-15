@@ -8,3 +8,9 @@
 
 j1Entity::j1Entity(Type type): type(type) 
 {}
+
+
+void j1Entity::SetPosition(int x, int y)
+{
+	position = { x,y };
+}

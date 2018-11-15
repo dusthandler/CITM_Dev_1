@@ -14,8 +14,6 @@ class j1Entity : public j1Entity_Manager
 {
 public:
 	j1Entity(Type type);
-		
-	
 
 	// Destructor
 	virtual ~j1Entity() {
@@ -36,9 +34,13 @@ public:
 
 	virtual void FollowPath(){}
 
+	void SetPosition(int x, int y);
+
 public:
 
 	iPoint position; 
+	iPoint Vel;
+	iPoint Acc;
 	Type type; 
 	bool active = false;
 	bool to_delete = false;
