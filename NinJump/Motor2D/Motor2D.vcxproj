@@ -76,7 +76,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1Enemies.cpp" />
     <ClCompile Include="j1Entity_Manager.cpp" />

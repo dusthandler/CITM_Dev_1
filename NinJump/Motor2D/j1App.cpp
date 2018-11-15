@@ -38,7 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new j1FB();
 	collision = new j1Collision();
 	pathfinding = new j1PathFinding();
-	entity_manager = new j1Entity_Manager(); 
+//	entity_manager = new j1Entity_Manager(); 
     // render = new j1Render();
 
 
@@ -49,7 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(entity_manager);  // TODO: think which position is best  
+//	AddModule(entity_manager);  // TODO: think which position is best  
 	AddModule(pathfinding);
 	AddModule(scene);
 	AddModule(player); 
@@ -99,7 +99,7 @@ bool j1App::Awake()
 	bool ret = false;
 
 	config = LoadConfig(config_file);
-
+	
 	if (config.empty() == false)
 	{
 		// self-config
@@ -206,8 +206,8 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
-	/*PERF_START(ptimer);
-	double start_time = ptimer.ReadMs();*/
+	PERF_START(ptimer);
+	double start_time = ptimer.ReadMs();
 
 	if (want_to_save == true)
 		SavegameNow();
@@ -256,18 +256,18 @@ void j1App::FinishUpdate()
 	}
 
 	if (cap) {
-			 SDL_Delay((1 / float(5))*1000  - last_frame_ms);         // waits between the frame time and the default fps 
+			 SDL_Delay((1 / float(Frame_Rate))*1000  - last_frame_ms);         // waits between the frame time and the default fps 
 	}
 	
 	
-	//PERF_PEEK(ptimer);
+	PERF_PEEK(ptimer);
 
 
 // 	LOG("Wait time until frame is finished: %i ms", wait_time);
 
 
-	/*float delta_time = ptimer.ReadMs() / 1000;*/
-	/*LOG("Frame time ----> %f seconds", delta_time);*/  // to capture a single frame time in seconds
+	/*float delta_time = ptimer.ReadMs() / 1000;
+	LOG("Frame time ----> %f seconds", delta_time);  // to capture a single frame time in seconds*/
 }
 
 // Call modules before each loop iteration
