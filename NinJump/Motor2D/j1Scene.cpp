@@ -12,8 +12,7 @@
 #include "j1Player.h"
 #include "j1FadeBlack.h"
 #include "j1Collision.h"
-#include "j1Entity_Manager.h"
-#include "j1Enemy_Flying.h"
+
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -137,7 +136,7 @@ bool j1Scene::Update(float dt)
 		
 	App->map->Draw();
 	App->player->Draw();
-	App->entity_manager->Draw(); 
+
 
 
 	int x, y;

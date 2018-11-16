@@ -46,29 +46,11 @@
     <ClCompile Include="j1Scene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="j1Entity_Manager.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Enemies.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="p2Log.cpp">
       <Filter>p2Help</Filter>
     </ClCompile>
     <ClCompile Include="PugiXml\src\pugixml.cpp">
       <Filter>Pugi</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Enemy_Flying.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Entity.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Enemy_Walker.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="j1Player_Entity.cpp">
-      <Filter>Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,15 +99,6 @@
     <ClInclude Include="j1Scene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="j1Entity.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Entity_Manager.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Enemies.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="p2Defs.h">
       <Filter>p2Help</Filter>
     </ClInclude>
@@ -149,15 +122,6 @@
     </ClInclude>
     <ClInclude Include="PugiXml\src\pugixml.hpp">
       <Filter>Pugi</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Enemy_Flying.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Enemy_Walker.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Player_Entity.h">
-      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,7 @@
 #include "j1Collision.h"
 #include "j1Pathfinding.h"
 #include "j1Pathfinding.h"
-#include "j1Entity_Manager.h"
+
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -40,7 +40,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new j1FB();
 	collision = new j1Collision();
 	pathfinding = new j1PathFinding();
-	entity_manager = new j1Entity_Manager(); 
+	
     // render = new j1Render();
 
 
@@ -50,8 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(map);
-	AddModule(entity_manager);  // TODO: think which position is best  
+	AddModule(map);  // TODO: think which position is best  
 	AddModule(pathfinding);
 	AddModule(scene);
 	AddModule(player); 

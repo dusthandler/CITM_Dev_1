@@ -76,12 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="j1Enemy_Flying.cpp" />
     <ClCompile Include="j1Collision.cpp" />
-    <ClCompile Include="j1Enemies.cpp" />
-    <ClCompile Include="j1Enemy_Walker.cpp" />
-    <ClCompile Include="j1Entity.cpp" />
-    <ClCompile Include="j1Entity_Manager.cpp" />
     <ClCompile Include="j1FadeBlack.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -90,7 +85,6 @@
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
-    <ClCompile Include="j1Player_Entity.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Timer.cpp" />
@@ -101,17 +95,11 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="j1Enemy_Flying.h" />
-    <ClInclude Include="j1Enemy_Walker.h" />
-    <ClInclude Include="j1Entity.h" />
-    <ClInclude Include="j1Enemies.h" />
     <ClInclude Include="j1Collision.h" />
-    <ClInclude Include="j1Entity_Manager.h" />
     <ClInclude Include="j1FadeBlack.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
-    <ClInclude Include="j1Player_Entity.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Timer.h" />
