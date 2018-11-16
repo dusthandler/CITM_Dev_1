@@ -566,20 +566,13 @@ bool j1Player::Draw()
 
 	SDL_Rect Rect = Player_Animation->GetCurrentFrame();
 
-	bool playerIsDrawn = false;
+	
 
 	if (!gravity_reverse) {
-		playerIsDrawn = App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
+		App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1);
 	}
 	else {
-		playerIsDrawn = App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1, "player");
-	}
-
-	if (playerIsDrawn) {
-		LOG("Player is drawn");
-	}
-	else{
-		LOG("Player is NOT drawn");
+		App->render->Blit(Player_Texture, Pos.x, Pos.y, &Rect, 1, "player");
 	}
 
 	return true;
