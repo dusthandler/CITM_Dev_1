@@ -149,9 +149,10 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	rect.w *= scale;
 	rect.h *= scale;
 
-	if (rect.x + rect.w < 0 || rect.x > 1024 || rect.y > 768 || rect.y + rect.h < 0) {
+	if (rect.x + rect.w < 0 || rect.x > 1024 || rect.y > 768 || rect.y + rect.h < 0) { // New: Blit now works
 		return false;
 	}
+	// App->win->GetWindowSize Para no hardcodear la pantalla xD
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
