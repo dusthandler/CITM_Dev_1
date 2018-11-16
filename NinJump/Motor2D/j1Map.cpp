@@ -5,11 +5,14 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1PathFinding.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
+
+
 }
 
 // Destructor
@@ -23,6 +26,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
+
 
 	return ret;
 }
@@ -295,6 +299,17 @@ bool j1Map::LoadMap()
 	{
 		data.width = map.attribute("width").as_int();
 		data.height = map.attribute("height").as_int();
+		
+		// create walkability map
+
+		uchar* flag; 
+		flag = new uchar[(uint)(data.width*data.height)];
+
+		LOG("WALKABILITY MAP %i %i", (uint)data.width, (uint)data.height);
+		App->pathfinding->SetMap((uint)data.width, (uint)data.height, flag);
+
+		delete flag; 
+
 		data.tile_width = map.attribute("tilewidth").as_int();
 		data.tile_height = map.attribute("tileheight").as_int();
 		data.Posi.x = map.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").child("PlayerX").attribute("value").as_float();

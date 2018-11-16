@@ -149,6 +149,7 @@ private:
 
 	p2SString			folder;
 	bool				map_loaded;
+
 };
 
 #endif // __j1MAP_H__

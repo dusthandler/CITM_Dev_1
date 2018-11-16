@@ -38,11 +38,11 @@ public:
 		return true; 
 	}
 
-	virtual bool HandleInput() {
+	virtual bool Handle_Input() {
 		return true; 
 	}
 
-	virtual void FollowPath(){}   
+	virtual void Follow_Path(){}   
 
 	
 
@@ -51,6 +51,7 @@ public:
 	iPoint position; 
 	iPoint Vel;
 	iPoint Acc;
+	iPoint dir; 
 	Type type; 
 	bool active = false;
 	bool to_delete = false;

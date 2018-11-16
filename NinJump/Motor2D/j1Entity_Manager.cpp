@@ -34,7 +34,7 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 	switch (type) {
 	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor  // there is no need to pass the type :/
 	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
-	case Type::PLAYER: ret = new j1Player(pos, type); Player_Count++; break;
+	// case Type::PLAYER: ret = new j1Player(pos, type); Player_Count++; break;
 	// case Type::PLAYER: ret = new j1Player(); break;
 	}
 	
@@ -88,7 +88,7 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 			if (entity->collider != nullptr) {
 				entity->collider->to_delete = true;
 			}
-		
+
 			delete entity;                                                 
 			entity = nullptr;                
 
