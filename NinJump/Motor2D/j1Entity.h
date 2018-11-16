@@ -10,6 +10,14 @@ struct SDL_Texture;
 struct Collider;
 struct SDL_Rect;
 
+enum Movement_State {
+	RIGHT,
+	LEFT,
+	DOWN,
+	UP,
+	STOP
+};
+
 class j1Entity : public j1Entity_Manager
 {
 public:
@@ -52,6 +60,7 @@ public:
 	iPoint Vel;
 	iPoint Acc;
 	iPoint dir; 
+	uint dir_multiplier; 
 	Type type; 
 	bool active = false;
 	bool to_delete = false;

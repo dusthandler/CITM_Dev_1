@@ -46,13 +46,18 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 bool j1PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	// return t != INVALID_WALK_CODE && t > 0;
+	if(t != INVALID_WALK_CODE && t > 0){
+		LOG("Position %i %i is a waaaaaaaaaaaalkable tile", pos.x, pos.y); 
+	}
+	return true; 
 }
 
 // Utility: return the walkability value of a tile
 uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 {
 	if (CheckBoundaries(pos))
+	//	LOG("Pos %i %i is inside boundariiiiiiiiiiiiiiiiiiiiiiiieeees", pos.x, pos.y);
 		return map[(pos.y*width) + pos.x];
 
 	return INVALID_WALK_CODE;
@@ -168,9 +173,10 @@ int PathNode::CalculateF(const iPoint& destination)
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 
-	LOG("open list is  ____________________________________ ");
+	
 	// TODO 1: if origin or destination are not walkable, return -1 DONE
 	if (IsWalkable(origin) == false || IsWalkable(destination) == false) {
+		LOG("ooooooooooooooooops !!   Not walkable !!! %s, %s", IsWalkable(origin) ? "true": "false", IsWalkable(destination) ? "true" : "false");
 		return -1;
 	}
 
@@ -179,10 +185,11 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	// Iterate while we have tile in the open list
 	PathList open, close;
 	int h = origin.DistanceTo(destination);
+	LOG("A and B are ******************************************************************************************  %i far", h); 
 	PathNode *originNode = new PathNode(0, h, origin, NULL);
 	open.list.add(*originNode);
 
-	 // %i", (int)open.list.count()); 
+	
 
 	while (open.list.count() != 0) {
 		LOG("This is actually pathfinding ... ... ... ... ... ... ... ... ...");

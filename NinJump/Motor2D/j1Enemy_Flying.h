@@ -18,12 +18,14 @@ public:
 	bool Update(float dt); 
 	bool Draw(); 
 	//bool HandleInput(); 
-	void Follow_Path(); 
+	void Follow_Path();
+	void Path_Dir_Logic(); 
+	// void Start_Follow()    TODO: only if enemy is near player, start following path
 
 private:
 	
 	Animation Idle; 
-
+	Movement_State m_state; 
 };
 
 #endif // __j1ENEMY_FLYING_H__ 
