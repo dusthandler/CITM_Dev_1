@@ -20,17 +20,15 @@ public:
 
 	}
 
-	virtual bool PreUpdate(float dt) {
+	virtual bool PreUpdate() {
 		return true;
 	}
-
-	
 
 	virtual bool Update(float dt) {
 		return true; 
 	}
 
-	virtual bool PostUpdate(float dt) {
+	virtual bool PostUpdate() {
 		return true;
 	}
 
@@ -38,11 +36,15 @@ public:
 		return true; 
 	}
 
-	virtual bool HandleInput() {
-		return true; 
+	virtual bool CleanUp() {
+		return true;
 	}
 
-	virtual void FollowPath(){}   
+	virtual void FollowPath(){} 
+
+	virtual void OnCollision(Collider* c1, Collider* c2) {
+
+	}
 
 	
 
@@ -55,7 +57,7 @@ public:
 	bool active = false;
 	bool to_delete = false;
 
-	SDL_Texture* tex; 
+	SDL_Texture* tex = nullptr; 
 	Animation* animation = nullptr;
 	Collider* collider = nullptr; 
 	

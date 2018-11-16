@@ -5,6 +5,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Enemy_Walker.h"
+#include "j1Player_Entity.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -22,6 +23,7 @@ bool j1Entity_Manager::Start(){
 	//New: We will create the entyties here, that way is more easy to do the respawn.
 	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
 	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
+	App->entity_manager->CreateEntity(Type::PLAYER, iPoint(50, 350));
 
 
 	return ret;
@@ -33,8 +35,7 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 	switch (type) {
 	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor
 	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
-	case Type::PLAYER: ret;
-	// case Type::PLAYER: ret = new j1Player(); break;
+	case Type::PLAYER: ret = new j1Player_Entity(pos, type); break;
 	}
 	
 	if (ret != nullptr) {
@@ -98,6 +99,51 @@ bool j1Entity_Manager::Update(float dt)
 	return true;
 }
 
+bool j1Entity_Manager::PreUpdate() {
+	bool ret = true;                                              // TODO: add "do_logic" condition
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+
+
+	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	{
+	
+
+		/*if (pEntity->active == false) {
+		continue;
+		}*/
+
+		/* TODO 5: send dt as an argument to all updates
+		you will need to update module parent class
+		and all modules that use update */
+		ret = item->data->PreUpdate();
+	}
+
+	return ret;
+}
+
+bool j1Entity_Manager::PostUpdate() {
+	bool ret = true;                                              // TODO: add "do_logic" condition
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+	
+
+	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	{
+		
+
+		/*if (pEntity->active == false) {
+		continue;
+		}*/
+
+		/* TODO 5: send dt as an argument to all updates
+		you will need to update module parent class
+		and all modules that use update */
+		ret = item->data->PostUpdate();
+	}
+
+	return ret;
+}
 bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this function is like DoUpdate() in App
 	bool ret = true;                                              // TODO: add "do_logic" condition
 	p2List_item<j1Entity*>* item;
@@ -125,22 +171,38 @@ bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this functi
 bool j1Entity_Manager::CleanUp()      // as in App
 {
 	bool ret = true;
-	p2List_item<j1Entity*>* item;   
-	item = entities.end;
-	
-	while (item != NULL && ret == true)
-	{
-		if (item->data->tex != nullptr) {
-			App->tex->UnLoad(item->data->tex);                       
-		}
-		if (item->data->collider != nullptr) {
-			item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first // Yes, always first collider (checked)
-		}
-		delete item->data;                                                  
-		item->data = nullptr;
+	p2List_item<j1Entity*>* item;  
 
-		item = item->prev; 
-		
+	//item = entities.end;
+	//
+	//while (item != NULL && ret == true)
+	//{
+	//	if (item->data->tex != nullptr) {
+	//		App->tex->UnLoad(item->data->tex);                       
+	//	}
+	//	if (item->data->collider != nullptr) {
+	//		item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first // Yes, always first collider (checked)
+	//	}
+	//	delete item->data;                                                  
+	//	item->data = nullptr;
+
+	//	item = item->prev; 
+	//	
+	//}
+
+	item = entities.start;
+
+	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	{
+
+		/*if (pEntity->active == false) {
+		continue;
+		}*/
+
+		/* TODO 5: send dt as an argument to all updates
+		you will need to update module parent class
+		and all modules that use update */
+		ret = item->data->CleanUp();
 	}
 
 	return ret;
