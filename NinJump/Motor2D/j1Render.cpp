@@ -71,7 +71,7 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
-	LOG("CAX: %i CAY: %i", camera.x, camera.y);
+	//LOG("CAX: %i CAY: %i", camera.x, camera.y);
 	return true;
 }
 
@@ -149,6 +149,10 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	rect.w *= scale;
 	rect.h *= scale;
 
+	if (rect.x + rect.w < 0 || rect.x > 1024 || rect.y > 768 || rect.y + rect.h < 0) {
+		return false;
+	}
+
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
 
@@ -158,7 +162,6 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		pivot.y = pivot_y;
 		p = &pivot;
 	}
-
 
 	/*bool blit = true;
 =======
