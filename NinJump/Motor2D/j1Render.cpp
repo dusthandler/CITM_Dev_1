@@ -201,13 +201,13 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	
 
-	if (type == "player" && App->player->gravity_reverse) {
+	/*if (type == "player" && App->player->gravity_reverse) {
 		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_VERTICAL) != 0) {
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		}
-	}
+	}*/
 
-	if (type == "bg" || (type == "player" && !App->player->gravity_reverse)){
+	if (type == "bg" || (type == "player")){// && !App->player->gravity_reverse)){
 		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0) {
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		}

@@ -71,11 +71,12 @@ bool j1Scene::Start()
 	
 	
 	
-	if (!App->player->Alive) {
+	/*if (!App->player->Alive) {
 		App->player->Enable(); 
-		App->player->Pos.x = 15; //TODO: parche para que el player no desaparezca
+		// App->player->Pos.x = 15; //TODO: parche para que el player no desaparezca
+		App->entity_manager->Get_Player()->position.x = 15; 
 		LOG("PLAYER RESPAWNED"); 
-	}
+	}*/
 	//App->player->Enable();
 
 
@@ -114,8 +115,11 @@ bool j1Scene::Update(float dt)
 
 
 	else {
-		App->render->camera.y = (int)(App->player->Pos.y - 300) * (-1) * App->win->GetScale();
-		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();
+		if (App->entity_manager->Player_Count > 0) {
+			App->render->camera.y = (int)(App->entity_manager->Get_Player()->position.y - 300) * (-1) * App->win->GetScale();
+			App->render->camera.x = (int)(App->entity_manager->Get_Player()->position.x - 300) * (-1) * App->win->GetScale();
+		}
+
 
 		if (App->render->camera.y <= -310) { //Bottom Limit
 			App->render->camera.y = -320;
@@ -136,7 +140,8 @@ bool j1Scene::Update(float dt)
 	// draw everything
 		
 	App->map->Draw();
-	App->player->Draw();
+	
+	// App->player->Draw();
 	App->entity_manager->Draw(); 
 
 
@@ -174,7 +179,7 @@ bool j1Scene::CleanUp()
 bool j1Scene::MapSwap(int SwitchM)
 {
 	bool ret = true;
-	App->player->Disable();
+/* //	App->player->Disable();
 	if (SwitchM == 0)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
@@ -198,7 +203,7 @@ bool j1Scene::MapSwap(int SwitchM)
 	this->SwitchM = SwitchM;
 	LOG("Player Dead! x: %i", App->player->Pos.x);
 
-	App->player->Enable();  // enable player after swapping maps
+//	App->player->Enable();  // enable player after swapping maps*/
 
 	return ret;
 }

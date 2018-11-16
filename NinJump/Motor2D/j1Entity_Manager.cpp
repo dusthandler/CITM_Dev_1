@@ -5,6 +5,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Enemy_Walker.h"
+#include "j1Map.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -23,7 +24,7 @@ bool j1Entity_Manager::Start(){
 	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
 	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 
-
+	j1Player* player = (j1Player*)CreateEntity(Type::PLAYER, Initialize_Player_Pos());
 	return ret;
 }
 j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos) 
@@ -31,9 +32,9 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor
+	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor  // there is no need to pass the type :/
 	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
-	case Type::PLAYER: ret;
+	case Type::PLAYER: ret = new j1Player(pos, type); Player_Count++; break;
 	// case Type::PLAYER: ret = new j1Player(); break;
 	}
 	
@@ -43,6 +44,33 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 
 	return ret;
 }
+
+iPoint j1Entity_Manager::Initialize_Player_Pos() {
+	iPoint Pos;
+	pugi::xml_node InitPos = App->map->map_file.child("map");
+
+	// we need to load this from tiled 
+	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_float();
+	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_float();
+
+	return Pos; 
+}
+
+j1Entity* j1Entity_Manager::Get_Player() {
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+	j1Entity* ret = NULL;
+
+	for (item = entities.start; item != NULL; item = item->next)
+	{
+		if (item->data->type == Type::PLAYER){// && item->data != nullptr) {
+			ret = item->data; 
+		}
+	}
+	
+	return ret; 
+}
+
 
 void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 
