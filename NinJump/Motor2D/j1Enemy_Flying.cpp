@@ -10,7 +10,7 @@
 
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
-	collider = App->collision->AddCollider({ position.x, position.y,20,20 }, COLLIDER_ENEMY, (j1Module*)App->entity_manager);
+	collider = App->collision->AddCollider({ position.x, position.y,20,20 }, COLLIDER_ENEMY, this);
 	tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	animation = &Idle;
 	Idle.PushBack({ 55, 2, 35, 45 });
@@ -23,8 +23,10 @@ j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, 
 bool j1Enemy_Flying::Update(float dt) {
 	bool ret = true;
 
+	if(!Reached_Player)
 	Follow_Path(); 
 
+	collider->SetPos(this->position.x, this->position.y); 
 
 	return ret;
 }
@@ -41,13 +43,13 @@ void j1Enemy_Flying::Follow_Path() {
 
 
     iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
-	iPoint dest = App->map->WorldToMap(100, 200);                                           // change for player position
+	iPoint dest = App->map->WorldToMap(100, 100);                                           // change for player position
 
 
 
-	/*	App->pathfinding->CreatePath(origin, dest); */                                        // create proper path 
+		App->pathfinding->CreatePath(origin, dest);            // create path 
 	
-	App->pathfinding->CreatePath(iPoint(5,5), iPoint(20,10));                                 // create random path 
+	                
 
 
 	this->Path = App->pathfinding->GetLastPath();  // capture the path
@@ -83,6 +85,14 @@ void j1Enemy_Flying::Follow_Path() {
 	Path_Dir_Logic(); 
 
 	LOG(" <<<<<<<<<<<<<<<<<<<<<<<<    PATH HAS %i elements >>>>>>>>>>>>>>>>>>>", this->Path->Count()); 
+
+	/*if (!Reached_Player) {
+		if (this->position == dest) {
+			Reached_Player = true; 
+		}
+	}*/
+
+
 
 }
 

@@ -26,6 +26,7 @@ private:
 	
 	Animation Idle; 
 	Movement_State m_state; 
+	bool Reached_Player = false; 
 };
 
 #endif // __j1ENEMY_FLYING_H__ 
