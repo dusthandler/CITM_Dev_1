@@ -49,19 +49,12 @@ public:
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 
-	// entity specific
-	iPoint Initialize_Player_Pos(); 
-	j1Entity* Get_Player(); 
-
-
 private: 
 	p2List<j1Entity*> entities; 
 	float accumulated_time = 0.0f; 
 	float update_ms_cycle = 0.0f;  // time of a frame in ms ? 
 	bool do_logic = false; 
 	
-public: 
-	uint Player_Count = 0;
 }; 
 
 

@@ -14,14 +14,11 @@
 #include "j1Window.h"
 
 
-j1Player::j1Player(iPoint pos, Type type) : j1Entity(pos, type)
+j1Player::j1Player() : j1Module()
 
 {
-	name.create("player");                                         // generate the initial player info
-	Player_Texture = App->tex->Load("Maps/Ninja/Ninja.png");
-	Player_Collider = App->collision->AddCollider({ pos.x, pos.y, 35, 45 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
-	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });
-	Player_Animation = &Idle;
+	name.create("player"); // aun no se poruqe
+
 
 }
 
@@ -33,7 +30,8 @@ j1Player::~j1Player()
 // Called before render is available
 bool j1Player::Awake(pugi::xml_node&)
 {
-	       // do this in tiled 
+	Player_Animation = &Idle;
+	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });       // do this in tiled 
 	Walking_Right.PushBack({ 3, 96, 44, 45 });
 	Walking_Left.PushBack({ 341, 95, 44, 45 });
 	Walking_Right2.PushBack({ 55, 96, 42, 45 });
@@ -78,7 +76,7 @@ bool j1Player::PreUpdate()
 void j1Player::Set_Player_Info() {
 
 	Alive = true;
-	
+	Player_Texture = App->tex->Load("Maps/Ninja/Ninja.png");
 	Reset_Fx_2 = true;  // so that it plays death once 
 
 	App->audio->LoadFx("Sound/Fx/jump.wav");          // FXs
@@ -86,16 +84,16 @@ void j1Player::Set_Player_Info() {
 	App->audio->LoadFx("Sound/Fx/landing.wav");
 	App->audio->LoadFx("Sound/Fx/gravity_reverse.wav");
 	
-	/*pugi::xml_node InitPos = App->map->map_file.child("map");
+	pugi::xml_node InitPos = App->map->map_file.child("map");
 
 	                                                          // we need to load this from tiled 
 	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_float();
-	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_float();*/
+	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_float();
 	
 	
 
 
-	
+	Player_Collider = App->collision->AddCollider({ (int)Pos.x, (int)Pos.y, 35, 45 }, COLLIDER_PLAYER, this);
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
@@ -591,15 +589,15 @@ bool j1Player::PostUpdate()
 // Called before quitting
 bool j1Player::CleanUp()
 {
-	/*App->tex->UnLoad(Player_Texture);
+	App->tex->UnLoad(Player_Texture);
 	// Player_Animation = &None;
-	Player_Texture = nullptr;                           // this is now done in entity manager
-	/*Player_Animation = nullptr;
+	Player_Texture = nullptr;
+	/*Player_Animation = nullptr;*/
 	if (Player_Collider != nullptr)
 	{
 		Player_Collider->to_delete = true;
 
-	}*/
+	}
 
 	App->audio->UnloadFx(1);
 	App->audio->UnloadFx(2);           // CLEAN FXs
