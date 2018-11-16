@@ -88,7 +88,7 @@ int main(int argc, char* args[])
 		{
 			// TODO 2: Add the Brofiler Macro to trigger a frame
 			BROFILER_FRAME("The frame");
-			BROFILER_CATEGORY("The profile", Profiler::Color::Azure);
+			BROFILER_CATEGORY("The profile", Profiler::Color::Gainsboro);
 
 			if (App->Update() == false)
 				state = CLEAN;
