@@ -561,7 +561,7 @@ PlayerState j1Player::Get_Player_State() {
 
 
 
-
+/*
 bool j1Player::Draw()
 {
 
@@ -578,7 +578,7 @@ bool j1Player::Draw()
 	}
 
 	return true;
-}
+}*/
 
 bool j1Player::PostUpdate()
 {

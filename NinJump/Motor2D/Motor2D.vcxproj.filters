@@ -28,9 +28,6 @@
     <ClCompile Include="j1PerfTimer.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Player.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Render.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -67,6 +64,9 @@
     <ClCompile Include="j1Enemy_Walker.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -94,9 +94,6 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1PerfTimer.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Player.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Render.h">
@@ -151,6 +148,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1Enemy_Walker.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Player.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>

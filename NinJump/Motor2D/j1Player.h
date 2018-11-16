@@ -52,7 +52,7 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
-	bool Draw();
+	// bool Draw();                                 // should we override draw from entity manager?
 	void OnCollision(Collider* c1, Collider* c2);
 
 	void Movex(float dt);

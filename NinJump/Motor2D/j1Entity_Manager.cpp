@@ -50,8 +50,8 @@ iPoint j1Entity_Manager::Initialize_Player_Pos() {
 	pugi::xml_node InitPos = App->map->map_file.child("map");
 
 	// we need to load this from tiled 
-	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_float();
-	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_float();
+	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_uint();
+	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
 
 	return Pos; 
 }
@@ -90,7 +90,11 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 			}
 		
 			delete entity;                                                 
-			entity = nullptr;                          
+			entity = nullptr;                
+
+			if (entity->type == Type::PLAYER) {
+				Player_Count--; 
+			}
 		}
 		
 	}

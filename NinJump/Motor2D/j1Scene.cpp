@@ -116,7 +116,7 @@ bool j1Scene::Update(float dt)
 
 	else {
 		if (App->entity_manager->Player_Count > 0) {
-			App->render->camera.y = (int)(App->entity_manager->Get_Player()->position.y - 300) * (-1) * App->win->GetScale();
+			App->render->camera.y = (int)(App->entity_manager->Get_Player()->position.y - 300) * (-1) * App->win->GetScale();  // TODO: should this work ?? 
 			App->render->camera.x = (int)(App->entity_manager->Get_Player()->position.x - 300) * (-1) * App->win->GetScale();
 		}
 

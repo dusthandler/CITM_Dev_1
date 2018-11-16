@@ -49,7 +49,7 @@ public:
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 
-	// entity specific
+	// player
 	iPoint Initialize_Player_Pos(); 
 	j1Entity* Get_Player(); 
 
