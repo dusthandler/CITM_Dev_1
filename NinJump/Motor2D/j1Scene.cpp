@@ -182,7 +182,7 @@ bool j1Scene::MapSwap(int SwitchM)
 	bool ret = true;
  //	App->player->Disable();
 
-	App->entity_manager->Disable();  // if we dont do this, enemies accumulate
+	// App->entity_manager->Disable();  // if we dont do this, enemies accumulate
 
 	if (SwitchM == 0)
 	{
@@ -207,7 +207,7 @@ bool j1Scene::MapSwap(int SwitchM)
 	this->SwitchM = SwitchM;
 
 
-	 App->entity_manager->Enable(); // we should then enable again
+	 // App->entity_manager->Enable(); // we should then enable again
 
 //	App->player->Enable();  // enable player after swapping maps*/
 

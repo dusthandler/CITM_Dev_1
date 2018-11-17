@@ -32,7 +32,7 @@ bool j1Enemy_Flying::Update(float dt) {
 
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {                                // testing DestroyEntity
 		to_delete = true; 
-		App->entity_manager->DestroyEntity(this); 
+		App->entity_manager->DestroyEntity(this);                // right now destroys ALL entites of this type
 	}
 
 
@@ -65,9 +65,7 @@ void j1Enemy_Flying::Follow_Path() {
 	}*/
 
 
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) App->scene->MapSwap(1);
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) App->scene->MapSwap(0);
 }
 
 

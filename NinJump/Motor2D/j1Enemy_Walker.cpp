@@ -20,11 +20,7 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 bool j1Enemy_Walker::Update(float dt) {
 	bool ret = true;
 	                                                                              // testing map swap
-	/*if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) App->scene->MapSwap(1);
-
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) App->scene->MapSwap(0);
 	
-
 
 	collider->SetPos(this->position.x, this->position.y);
 
@@ -35,7 +31,7 @@ bool j1Enemy_Walker::Update(float dt) {
 
 
 	if (!Reached_Player)
-		Follow_Path();*/
+		Follow_Path();
 
 
 

@@ -8,6 +8,7 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include "p2Log.h"
+#include "j1Scene.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -123,6 +124,16 @@ void j1Entity_Manager::Draw() {
 
 bool j1Entity_Manager::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		App->scene->MapSwap(1); 
+		CleanUp();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) { 
+		App->scene->MapSwap(0); CleanUp(); 
+	}
+
+
 	accumulated_time += dt;
 	if (accumulated_time >= update_ms_cycle)
 		do_logic = true;
