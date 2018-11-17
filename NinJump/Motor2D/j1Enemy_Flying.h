@@ -26,7 +26,7 @@ public:
 private:
 
 	Animation Idle;
-
+	bool Path_Generated = false; 
 };
 
 #endif // __j1ENEMY_FLYING_H__ 

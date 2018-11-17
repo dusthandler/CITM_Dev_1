@@ -18,6 +18,9 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 	Idle.PushBack({ 30, 2, 35, 45 });  // width and height now are 35 and 45
 
 	dir_multiplier = 10;
+
+	// testing
+	
 }
 
 
@@ -34,8 +37,8 @@ bool j1Enemy_Walker::Update(float dt) {
 	}*/
 
 
-	if (!Reached_Player)
-		Follow_Path();
+	/*if (!Reached_Player)
+		Follow_Path();*/
 
 
 
@@ -62,7 +65,7 @@ void j1Enemy_Walker::Follow_Path() {
 	// j1Entity::Follow_Path();
 
 	iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
-	iPoint dest = App->map->WorldToMap(300, 100);                                           // change for player position
+	iPoint dest = App->map->WorldToMap(GetPlayerPos().x, GetPlayerPos().y);                                           // change for player position
 
 	App->pathfinding->CreatePath(origin, dest);            // create path 
 

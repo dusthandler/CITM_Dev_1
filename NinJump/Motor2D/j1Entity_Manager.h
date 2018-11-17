@@ -48,6 +48,8 @@ public:
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 	bool restart = false; //Faith
+
+
 private: 
 	p2List<j1Entity*> entities; 
 	float accumulated_time = 0.0f; 

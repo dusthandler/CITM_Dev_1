@@ -19,14 +19,14 @@ j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, 
 	this->position = position;
 
 	// logic stuff
-	dir_multiplier = 10;
+	dir_multiplier = 5;
 }
 
 bool j1Enemy_Flying::Update(float dt) {
 	bool ret = true;
 
-	if (!Reached_Player)
-		Follow_Path();
+	/*if (!Reached_Player)
+		Follow_Path();*/
 
 	collider->SetPos(this->position.x, this->position.y);
 
@@ -49,21 +49,46 @@ bool j1Enemy_Flying::Draw() {
 
 void j1Enemy_Flying::Follow_Path() {
 
+	
+	iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
+	iPoint dest = App->map->WorldToMap(GetPlayerPos().x, GetPlayerPos().y);                                           // change for player position
 
-	j1Entity::Follow_Path();
+	App->pathfinding->CreatePath(origin, dest);            // create path 
+
+	this->Path = App->pathfinding->GetLastPath();       // capture the path
+
+	if (Path_Generated == false) {
+		for (uint i = 0; i < this->Path->Count(); ++i) {
+			if (i > 0) {
+				this->dir.x = Path->At(i)->x - Path->At(i - 1)->x;             // direction between path nodes
+				this->dir.y = Path->At(i)->y - Path->At(i - 1)->y;
+			}
+			else if (i == 0) {
+				this->dir.x = Path->At(i)->x;   // this should be 0 at th start ?? 
+				this->dir.y = Path->At(i)->y;
+			}
+			//	LOG("Enemy dir x is %i and y is %i", dir.x, dir.y);
+		}
+		Path_Generated = true; 
+	}
+
+	if (dir.x == 0 && dir.y == 0) {                       // know the direction
+		m_state = Movement_State::STOP;
+	}
+	else if (dir.x == 1 && dir.y == 0) {
+		m_state = Movement_State::RIGHT;
+	}
+	else if (dir.x == -1 && dir.y == 0) {
+		m_state = Movement_State::LEFT;
+	}
+	else if (dir.x == 0 && dir.y == 1) {
+		m_state = Movement_State::DOWN;
+	}
+	else if (dir.x == 0 && dir.y == -1) {
+		m_state = Movement_State::UP;
+	}
 
 	Path_Dir_Logic();
-
-	// LOG(" <<<<<<<<<<<<<<<<<<<<<<<<    PATH HAS %i elements >>>>>>>>>>>>>>>>>>>", this->Path->Count()); 
-
-	/*if (!Reached_Player) {
-		if (this->position == dest) {
-			Reached_Player = true;
-		}
-	}*/
-
-
-
 }
 
 
@@ -91,6 +116,9 @@ void j1Enemy_Flying::Path_Dir_Logic() {
 
 	this->position.x += dir.x*dir_multiplier;        // LATER, it can be changed to player pos - enemy pos (easier)
 	this->position.y += dir.y*dir_multiplier;
+
+
+	LOG("Enemy flying is moving in this direction: %i,%i", dir.x, dir.y); 
 }
 
 
