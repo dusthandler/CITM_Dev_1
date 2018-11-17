@@ -7,6 +7,8 @@
 #include "j1Input.h"
 #include "j1Scene.h"
 #include "p2Log.h"
+#include "j1Map.h"
+#include "j1Pathfinding.h"
 
 j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, type) {
 
@@ -14,6 +16,8 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 	tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	animation = &Idle;
 	Idle.PushBack({ 30, 2, 35, 45 });  // width and height now are 35 and 45
+
+	dir_multiplier = 10;
 }
 
 
@@ -39,10 +43,10 @@ bool j1Enemy_Walker::Update(float dt) {
 }
 
 bool j1Enemy_Walker::PostUpdate() {
-	bool ret = true; 
-	Onplat = false;  // same as player
 
-	return ret;
+	//Onplat = false;  // same as player
+
+	return true;
 }
 
 bool j1Enemy_Walker::Draw() {
@@ -55,14 +59,49 @@ bool j1Enemy_Walker::Draw() {
 
 void j1Enemy_Walker::Follow_Path() {
 
-	j1Entity::Follow_Path();
+	// j1Entity::Follow_Path();
+
+	iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
+	iPoint dest = App->map->WorldToMap(300, 100);                                           // change for player position
+
+	App->pathfinding->CreatePath(origin, dest);            // create path 
+
+	this->Path = App->pathfinding->GetLastPath();       // capture the path
+
+	for (uint i = 0; i < this->Path->Count(); ++i) {
+		if (i > 0) {
+			this->dir.x = Path->At(i)->x - Path->At(i - 1)->x;             // direction between path nodes
+			this->dir.y = Path->At(i)->y - Path->At(i - 1)->y;
+		}
+		else if (i == 0) {
+			this->dir.x = Path->At(i)->x;   // this should be 0 at th start ?? 
+			this->dir.y = Path->At(i)->y;
+		}
+		//	LOG("Enemy dir x is %i and y is %i", dir.x, dir.y);
+	}
+
+	if (dir.x == 0 && dir.y == 0) {                       // know the direction
+		m_state = Movement_State::STOP;
+	}
+	else if (dir.x == 1 && dir.y == 0) {
+		m_state = Movement_State::RIGHT;
+	}
+	else if (dir.x == -1 && dir.y == 0) {
+		m_state = Movement_State::LEFT;
+	}
+	else if (dir.x == 0 && dir.y == 1) {
+		m_state = Movement_State::DOWN;
+	}
+	else if (dir.x == 0 && dir.y == -1) {
+		m_state = Movement_State::UP;
+	}
 
 	Path_Dir_Logic();
 }
 
 void j1Enemy_Walker::Path_Dir_Logic() {
 
-	switch (m_state) {
+	/*switch (m_state) {
 	case Movement_State::RIGHT:
 
 		break;
@@ -78,16 +117,16 @@ void j1Enemy_Walker::Path_Dir_Logic() {
 	case Movement_State::STOP:
 
 		break;
-	}
+	}*/
 
 	if (Onplat) {
-		this->position.x += dir.x*(int)dir_multiplier;
+		this->position.x += dir.x*(int)dir_multiplier; 
 	}
 	else {
 		this->position.y += Gravity;
 	}
 
-	LOG("dir x =============================== %i", dir.x);
+
 }
 
 

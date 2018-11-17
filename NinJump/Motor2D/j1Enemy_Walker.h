@@ -20,7 +20,7 @@ public:
 	bool Draw();
 	//bool HandleInput(); 
 	bool CleanUp(); 
-	void Follow_Path() override;
+	void Follow_Path(); // override
 	void OnCollision(Collider* c1, Collider* c2);
 	void Path_Dir_Logic();
 private:

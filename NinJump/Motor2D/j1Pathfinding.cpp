@@ -57,8 +57,7 @@ bool j1PathFinding::IsWalkable(const iPoint& pos) const
 uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 {
 	if (CheckBoundaries(pos))
-		//	LOG("Pos %i %i is inside boundariiiiiiiiiiiiiiiiiiiiiiiieeees", pos.x, pos.y);
-		return map[(pos.y*width) + pos.x];
+		return map[(pos.y*width) + pos.x];    // !! WARNING -do not enter an invalid position (crash)- WARNING !!
 
 	return INVALID_WALK_CODE;
 }
