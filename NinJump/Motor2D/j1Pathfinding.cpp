@@ -46,20 +46,25 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 bool j1PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	// return t != INVALID_WALK_CODE && t > 0;
+	if (t != INVALID_WALK_CODE && t > 0) {
+		//	LOG("Position %i %i is a waaaaaaaaaaaalkable tile", pos.x, pos.y); 
+	}
+	return true;
 }
 
 // Utility: return the walkability value of a tile
 uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 {
 	if (CheckBoundaries(pos))
+		//	LOG("Pos %i %i is inside boundariiiiiiiiiiiiiiiiiiiiiiiieeees", pos.x, pos.y);
 		return map[(pos.y*width) + pos.x];
 
 	return INVALID_WALK_CODE;
 }
 
 // To request all tiles involved in the last generated path
-const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
+/*const*/p2DynArray<iPoint>* j1PathFinding::GetLastPath() //const
 {
 	return &last_path;
 }
@@ -167,8 +172,11 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
+
+
 	// TODO 1: if origin or destination are not walkable, return -1 DONE
 	if (IsWalkable(origin) == false || IsWalkable(destination) == false) {
+		//	LOG("ooooooooooooooooops !!   Not walkable !!! %s, %s", IsWalkable(origin) ? "true": "false", IsWalkable(destination) ? "true" : "false");
 		return -1;
 	}
 
@@ -177,12 +185,16 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	// Iterate while we have tile in the open list
 	PathList open, close;
 	int h = origin.DistanceTo(destination);
+	// LOG("A and B are ******************************************************************************************  %i far", h); 
 	PathNode *originNode = new PathNode(0, h, origin, NULL);
 	open.list.add(*originNode);
 
-	while (open.list.count() != 0) {
 
-		// TODO 3: Move the lowest score cell from open list to the closed list
+
+	while (open.list.count() != 0) {
+		//	LOG("This is actually pathfinding ... ... ... ... ... ... ... ... ...");
+
+			// TODO 3: Move the lowest score cell from open list to the closed list
 		PathNode lowestScoreNode = open.GetNodeLowestScore()->data;
 		close.list.add(lowestScoreNode);
 		open.list.del(open.Find(lowestScoreNode.pos));
@@ -224,9 +236,12 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			//calculate its F and add it to the open list
 			current.CalculateF(destination);
 			open.list.add(current);
+
+
 		}
 
 	}
+
 
 
 	return -1;
