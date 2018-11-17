@@ -40,6 +40,7 @@ public:
 
 private:
 	bool Map_Loaded = false; 
+	iPoint Player_act_pos;
 	
 	_Mix_Music* mus = nullptr;
 	_Mix_Music* mus2 = nullptr;

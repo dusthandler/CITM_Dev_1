@@ -11,7 +11,7 @@
 #include "j1FadeBlack.h"
 #include "j1Collision.h"
 #include "j1Entity_Manager.h"
-#include "j1Enemy_Flying.h"
+#include "j1Player_Entity.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -128,11 +128,11 @@ bool j1Scene::Update(float dt)
 
 	}
 
-
+	
 
 	else {
-		/*App->render->camera.y = (int)(App->player->Pos.y - 300) * (-1) * App->win->GetScale();
-		App->render->camera.x = (int)(App->player->Pos.x - 300) * (-1) * App->win->GetScale();*/
+		App->render->camera.y = (int)(Player_act_pos.y - 300) * (-1) * App->win->GetScale();
+		App->render->camera.x = (int)(Player_act_pos.x - 300) * (-1) * App->win->GetScale();
 
 		if (App->render->camera.y <= -310) { //Bottom Limit
 			App->render->camera.y = -320;
@@ -171,6 +171,7 @@ bool j1Scene::Update(float dt)
 bool j1Scene::PostUpdate()
 {
 	bool ret = true;
+	Player_act_pos = App->entity_manager->GetPlayerPos();
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

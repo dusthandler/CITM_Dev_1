@@ -31,12 +31,15 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool UpdateAll(float dt, bool do_logic);
+	iPoint GetPlayerPos();
 
 	bool PostUpdate();
 	
+	
+
 
 	j1Entity* CreateEntity(Type, iPoint); 
-	void DestroyEntity(j1Entity* entity); 
+	void DestroyEntity(j1Entity* entity);
   
 	void Draw(); 
 

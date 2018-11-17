@@ -18,6 +18,7 @@ j1Player_Entity::j1Player_Entity(iPoint position, Type type) : j1Entity(position
 	//First we load the tex and the animations.
 
 	this->position = position;
+	this->type = type;
 
 	tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	animation = &Idle;

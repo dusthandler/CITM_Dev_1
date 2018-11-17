@@ -99,15 +99,33 @@ void j1Entity_Manager::Draw() {
 
 bool j1Entity_Manager::Update(float dt)
 {
-	accumulated_time += dt;
-	if (accumulated_time >= update_ms_cycle)
-		do_logic = true;
-	UpdateAll(dt, do_logic);
-	if (do_logic == true) {
-		accumulated_time = 0.0f;
-		do_logic = false;
+	bool ret = true;                                              // TODO: add "do_logic" condition
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+	j1Entity* pEntity = NULL;
+
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+		CleanUp();
 	}
-	return true;
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN || restart) {
+		Start();
+		restart = false;
+	}
+	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	{
+		pEntity = item->data;
+
+		/*if (pEntity->active == false) {
+		continue;
+		}*/
+
+		/* TODO 5: send dt as an argument to all updates
+		you will need to update module parent class
+		and all modules that use update */
+		ret = item->data->Update(dt);
+	}
+
+	return ret;
 }
 
 bool j1Entity_Manager::PreUpdate() {
@@ -156,33 +174,7 @@ bool j1Entity_Manager::PostUpdate() {
 	return ret;
 }
 bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this function is like DoUpdate() in App
-	bool ret = true;                                              // TODO: add "do_logic" condition
-	p2List_item<j1Entity*>* item;
-	item = entities.start;
-	j1Entity* pEntity = NULL;
-
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-		CleanUp();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN || restart) {
-		Start();
-		restart = false;
-	}
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
-	{
-		pEntity = item->data;
-
-		/*if (pEntity->active == false) {
-			continue;
-		}*/
-
-		/* TODO 5: send dt as an argument to all updates
-		 you will need to update module parent class
-		 and all modules that use update */
-		 ret = item->data->Update(dt);
-	}
-
-	return ret;
+	
 }
 
 
@@ -191,35 +183,10 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	bool ret = true;
 	p2List_item<j1Entity*>* item;  
 
-	//item = entities.end;
-	//
-	//while (item != NULL && ret == true)
-	//{
-	//	if (item->data->tex != nullptr) {
-	//		App->tex->UnLoad(item->data->tex);                       
-	//	}
-	//	if (item->data->collider != nullptr) {
-	//		item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first // Yes, always first collider (checked)
-	//	}
-	//	delete item->data;                                                  
-	//	item->data = nullptr;
-
-	//	item = item->prev; 
-	//	
-	//}
-
 	item = entities.start;
 
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
-
-		/*if (pEntity->active == false) {
-		continue;
-		}*/
-
-		/* TODO 5: send dt as an argument to all updates
-		you will need to update module parent class
-		and all modules that use update */
 		ret = item->data->CleanUp();
 		delete item->data;
 		item->data = nullptr;
@@ -231,6 +198,23 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	return ret;
 }
 
+iPoint j1Entity_Manager::GetPlayerPos() {
+	iPoint pos;
+	bool done = false;
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+
+	for (; item != NULL; item = item->next) 
+	{
+
+		if (item->data->type == Type::PLAYER) {
+			pos = item->data->position;
+		}
+
+	}
+
+	return pos;
+}
 
 bool j1Entity_Manager::Load(pugi::xml_node &) //New: Save and Load methods, now are not working 
 {
