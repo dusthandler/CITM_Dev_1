@@ -10,6 +10,14 @@ struct SDL_Texture;
 struct Collider;
 struct SDL_Rect;
 
+enum Movement_State {
+	RIGHT,
+	LEFT,
+	DOWN,
+	UP,
+	STOP
+};
+
 class j1Entity : public j1Entity_Manager
 {
 public:
@@ -24,8 +32,10 @@ public:
 		return true;
 	}
 
+
+
 	virtual bool Update(float dt) {
-		return true; 
+		return true;
 	}
 
 	virtual bool PostUpdate() {
@@ -33,36 +43,34 @@ public:
 	}
 
 	virtual bool Draw() {
-		return true; 
-	}
-
-	virtual bool CleanUp() {
 		return true;
 	}
 
-	virtual void Follow_Path(){} 
-
-	virtual void OnCollision(Collider* c1, Collider* c2) {
-
+	virtual bool Handle_Input() {
+		return true;
 	}
 
-	
+	virtual void Follow_Path();
+
+	virtual void Path_Dir_Logic() {};
 
 public:
 
-	iPoint position; 
+	iPoint position;
 	iPoint Vel;
 	iPoint Acc;
-	Type type; 
+	iPoint dir;
+	uint dir_multiplier;
+	Type type;
 	bool active = false;
 	bool to_delete = false;
+	bool Reached_Player = false;
 
-	SDL_Texture* tex = nullptr; 
+	SDL_Texture* tex;
 	Animation* animation = nullptr;
-	Collider* collider = nullptr; 
-	
-	p2DynArray<iPoint>* Path; 
+	Collider* collider = nullptr;
 
-}; 
+	p2DynArray<iPoint>* Path;
+	Movement_State m_state;
 
-#endif // __j1ENTITY_H__ 
+};
