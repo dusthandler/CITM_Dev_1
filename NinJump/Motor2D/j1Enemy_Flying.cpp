@@ -7,6 +7,7 @@
 #include "j1PathFinding.h"
 #include "p2Log.h"
 #include "j1Map.h"
+#include "j1Input.h"
 
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
@@ -28,12 +29,14 @@ bool j1Enemy_Flying::Update(float dt) {
 
 	collider->SetPos(this->position.x, this->position.y); 
 
-	if (position.x > 300) {
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {                                // testing DestroyEntity
 		to_delete = true; 
 		App->entity_manager->DestroyEntity(this); 
 	}
-	LOG("Flyer pos is %i", position.x); 
 
+
+
+	LOG("Flyer pos is %i", position.x); 
 	return ret;
 }
 
@@ -48,45 +51,7 @@ bool j1Enemy_Flying::Draw() {
 void j1Enemy_Flying::Follow_Path() {
 
 
-    iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
-	iPoint dest = App->map->WorldToMap(100, 100);                                           // change for player position
-
-
-
-		App->pathfinding->CreatePath(origin, dest);            // create path 
-	
-	                
-
-
-	this->Path = App->pathfinding->GetLastPath();  // capture the path
-
-	for (uint i = 0; i < this->Path->Count(); ++i) {
-		if (i>0) {
-			this->dir.x = Path->At(i)->x - Path->At(i - 1)->x;             // direction between path nodes
-			this->dir.y = Path->At(i)->y - Path->At(i - 1)->y;
-		}
-		else if (i == 0) {
-			this->dir.x = Path->At(i)->x;         
-			this->dir.y = Path->At(i)->y;
-		}
-	//	LOG(" -----------------------     Enemy dir x is %i and y is %i", dir.x, dir.y);
-	}
-
-	if (dir.x == 0 && dir.y == 0) {                       // know the direction
-		m_state = Movement_State::STOP; 
-	}
-	else if (dir.x == 1 && dir.y == 0) {
-		m_state = Movement_State::RIGHT;
-	}
-	else if (dir.x == -1 && dir.y == 0) {
-		m_state = Movement_State::LEFT;
-	}
-	else if (dir.x == 0 && dir.y == 1) {
-		m_state = Movement_State::DOWN;
-	}
-	else if (dir.x == 0 && dir.y == -1) {
-		m_state = Movement_State::UP;
-	}
+	j1Entity::Follow_Path(); 
 	
 	Path_Dir_Logic(); 
 

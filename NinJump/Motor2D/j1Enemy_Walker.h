@@ -24,6 +24,8 @@ private:
 
 	Animation Idle;
 
+	// testing
+	int mapLo;
 };
 
 #endif // __j1ENEMY_FLYING_H__ 

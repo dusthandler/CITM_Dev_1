@@ -50,7 +50,7 @@ public:
 		return true; 
 	}
 
-	virtual void Follow_Path(){}   
+	virtual void Follow_Path(); 
 
 	
 
@@ -70,6 +70,7 @@ public:
 	Collider* collider = nullptr; 
 	
 	p2DynArray<iPoint>* Path; 
+	Movement_State m_state;
 
 }; 
 

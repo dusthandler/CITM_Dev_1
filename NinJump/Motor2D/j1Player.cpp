@@ -19,7 +19,7 @@ j1Player::j1Player(iPoint pos, Type type) : j1Entity(pos, type)
 {
 	name.create("player");                                         // generate the initial player info
 	tex = App->tex->Load("Maps/Ninja/Ninja.png");
-	collider = App->collision->AddCollider({ pos.x, pos.y, 35, 45 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
+	collider = App->collision->AddCollider({ pos.x, pos.y, 35, 45 }, COLLIDER_PLAYER, this);
 	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });
 	animation = &Idle;
 

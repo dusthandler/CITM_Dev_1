@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "j1Enemy_Walker.h"
 #include "j1Map.h"
+#include "j1Input.h"
 #include "p2Log.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
@@ -22,8 +23,6 @@ j1Entity_Manager::~j1Entity_Manager()
 bool j1Entity_Manager::Start(){
 	bool ret = true;
 	//New: We will create the entyties here, that way is more easy to do the respawn. // meeec, it creates them only one time
-	/* j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  
-	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));*/
 
 	// j1Player* player = (j1Player*)CreateEntity(Type::PLAYER, Initialize_Player_Pos());
 	return ret;
@@ -33,10 +32,10 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos, type); if (ret != nullptr) { flyers.add(ret); } break;
-	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); if (ret != nullptr) { walkers.add(ret); } break; //New: Land enemie :D
-    case Type::PLAYER: ret = new j1Player(pos, type); Player_Count++; break;
-	// case Type::PLAYER: ret = new j1Player(); break;
+	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos, type); /*if (ret != nullptr) { flyers.add(ret); }*/ break;
+	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); /*if (ret != nullptr) { walkers.add(ret); }*/ break; 
+   // case Type::PLAYER: ret = new j1Player(pos, type); Player_Count++; break;
+
 	}
 	
 	if (ret != nullptr) {
@@ -131,6 +130,13 @@ bool j1Entity_Manager::Update(float dt)
 		accumulated_time = 0.0f;
 		do_logic = false;
 	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {                                // testing spawn // change keys
+		App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(150, 200));
+	}
+
+
 	return true;
 }
 
@@ -181,6 +187,8 @@ bool j1Entity_Manager::CleanUp()      // as in App
 		item = item->prev; 
 		
 	}
+
+	
 
 	return ret;
 }

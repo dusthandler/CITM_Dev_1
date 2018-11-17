@@ -41,7 +41,7 @@ bool j1Scene::Start()
 	// --------------------- Create entities here -------------------- 
 	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));
 	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
-	
+//	j1Player* player = (j1Player*)App->entity_manager->CreateEntity(Type::PLAYER, iPoint(100, 100));
 
 	// we should order this
 	
@@ -181,11 +181,14 @@ bool j1Scene::MapSwap(int SwitchM)
 {
 	bool ret = true;
  //	App->player->Disable();
+
+	App->entity_manager->CleanUp();     // this does not crash
+
 	if (SwitchM == 0)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
 		App->collision->CleanWallDeath();
-		App->map->CleanUp();
+		App->map->CleanUp();                        // this crashes:/
 	
 		App->map->Load("Level_1.tmx");
 		
@@ -202,7 +205,7 @@ bool j1Scene::MapSwap(int SwitchM)
 		Mus_Id = 2; 
 	}
 	this->SwitchM = SwitchM;
-	 LOG("**************************************** map swap ///////////////////////////////////");
+
 
 //	App->player->Enable();  // enable player after swapping maps*/
 
