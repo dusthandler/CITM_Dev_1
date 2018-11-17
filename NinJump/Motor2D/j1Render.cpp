@@ -4,6 +4,7 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Collision.h"
+#include "Brofiler/Brofiler.h"
 
 
 // #define VSYNC true
@@ -24,6 +25,7 @@ j1Render::~j1Render()
 // Called before render is available
 bool j1Render::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Render Awake", Profiler::Color::LightPink);
 	LOG("Create SDL rendering context");
 	bool ret = true;
 	// load flags
@@ -56,6 +58,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Render::Start()
 {
+	BROFILER_CATEGORY("Render Start", Profiler::Color::Lavender);
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
@@ -65,18 +68,22 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+
+	BROFILER_CATEGORY("Render PreUpdate", Profiler::Color::LavenderBlush);
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+//	BROFILER_CATEGORY("Render Update", Profiler::Color::LawnGreen);
 	//LOG("CAX: %i CAY: %i", camera.x, camera.y);
 	return true;
 }
 
 bool j1Render::PostUpdate()
 {
+	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::LemonChiffon);
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -85,6 +92,7 @@ bool j1Render::PostUpdate()
 // Called before quitting
 bool j1Render::CleanUp()
 {
+	BROFILER_CATEGORY("Render CleanUp", Profiler::Color::LightBlue);
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
 	return true;
@@ -128,6 +136,7 @@ void j1Render::ResetViewPort()
 // Blit to screen
 bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, char* type, double angle, int pivot_x, int pivot_y)
 {
+	BROFILER_CATEGORY("Render Blit", Profiler::Color::LightCoral);
 	bool ret = true;
 	uint scale = App->win->GetScale();
 

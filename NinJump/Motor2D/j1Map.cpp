@@ -7,6 +7,8 @@
 #include "j1Collision.h"
 #include <math.h>
 
+#include "Brofiler/Brofiler.h"
+
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
@@ -19,6 +21,8 @@ j1Map::~j1Map()
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Map Awake", Profiler::Color::Green);
+
 	LOG("Loading Map Parser");
 	bool ret = true;
 
@@ -29,6 +33,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Map Draw", Profiler::Color::GreenYellow); 
+
 	if(map_loaded == false)
 		return;
 	
@@ -129,6 +135,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 // Called before quitting
 bool j1Map::CleanUp()
 {
+	BROFILER_CATEGORY("Map CleanUp", Profiler::Color::Indigo);
+
 	LOG("Unloading map");
 
 	// Remove all tilesets
@@ -182,6 +190,8 @@ bool j1Map::CleanUp()
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
+	BROFILER_CATEGORY("Map Load", Profiler::Color::Aqua);
+
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 

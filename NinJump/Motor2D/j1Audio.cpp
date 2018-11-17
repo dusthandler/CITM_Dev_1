@@ -3,6 +3,9 @@
 #include "j1App.h"
 #include "j1Audio.h"
 
+#include "Brofiler/Brofiler.h"
+
+
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -22,6 +25,7 @@ j1Audio::~j1Audio()
 // Called before render is available
 bool j1Audio::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Audio Awake", Profiler::Color::DarkGreen);
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);
@@ -58,6 +62,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 // Called before quitting
 bool j1Audio::CleanUp()
 {
+	BROFILER_CATEGORY("Audio CleanUp", Profiler::Color::DarkKhaki);
 	if(!active)
 		return true;
 
@@ -89,6 +94,8 @@ bool j1Audio::CleanUp()
 
 _Mix_Music* j1Audio::LoadMus(const char * path)
 {
+
+	BROFILER_CATEGORY("Audio LoadMus", Profiler::Color::DarkMagenta);
 	_Mix_Music* music = NULL;
 	music = Mix_LoadMUS(path);
 
@@ -118,11 +125,13 @@ _Mix_Music* j1Audio::LoadMus(const char * path)
 
 void j1Audio::PlayMus(_Mix_Music* mus)
 {
+	BROFILER_CATEGORY("Audio PlayMus", Profiler::Color::DarkOliveGreen);
 	Mix_PlayMusic(mus, -1);
 }
 
 bool j1Audio::UnloadMus(_Mix_Music* mus)
 {
+	BROFILER_CATEGORY("Audio UnloadMus", Profiler::Color::DarkOrange);
 	bool ret = false;
 	if (mus != nullptr) {
 		for (int i = 0; i < MAX_MUSICS; ++i)
@@ -145,6 +154,7 @@ bool j1Audio::UnloadMus(_Mix_Music* mus)
 // Load WAV
 unsigned int j1Audio::LoadFx(const char* path)
 {
+	BROFILER_CATEGORY("Audio LoadFx", Profiler::Color::DarkOrchid);
 	unsigned int ret = 0;
 
 	if(!active)
@@ -168,6 +178,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 // Play WAV
 bool j1Audio::PlayFx(unsigned int id, int repeat)
 {
+	BROFILER_CATEGORY("Audio PlayFx", Profiler::Color::DarkRed);
 	bool ret = false;
 
 	if(!active)
@@ -186,6 +197,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 bool j1Audio::UnloadFx(unsigned int Fx)
 {
 
+	BROFILER_CATEGORY("Audio UnloadFx", Profiler::Color::DarkSalmon);
 	bool ret = false;
 	p2List_item<Mix_Chunk*>* item;
 

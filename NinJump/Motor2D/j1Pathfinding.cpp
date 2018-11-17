@@ -2,6 +2,8 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1PathFinding.h"
+#include "Brofiler/Brofiler.h"
+
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -17,6 +19,7 @@ j1PathFinding::~j1PathFinding()
 // Called before quitting
 bool j1PathFinding::CleanUp()
 {
+	BROFILER_CATEGORY("Pathfinding CleanUp", Profiler::Color::IndianRed);
 	LOG("Freeing pathfinding library");
 
 	last_path.Clear();
@@ -121,6 +124,7 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // ----------------------------------------------------------------------------------
 uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 {
+	BROFILER_CATEGORY("Pathfinding FindWalkableAdjacents", Profiler::Color::Ivory);
 	iPoint cell;
 	uint before = list_to_fill.list.count();
 
@@ -171,7 +175,7 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-
+	BROFILER_CATEGORY("Pathfinding CreatePath", Profiler::Color::Khaki);
 
 	// TODO 1: if origin or destination are not walkable, return -1 DONE
 	if (IsWalkable(origin) == false || IsWalkable(destination) == false) {

@@ -4,6 +4,9 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 
+#include "Brofiler/Brofiler.h"
+
+
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
@@ -19,6 +22,7 @@ j1Textures::~j1Textures()
 // Called before render is available
 bool j1Textures::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Textures Awake", Profiler::Color::LightCyan);
 	LOG("Init Image library");
 	bool ret = true;
 	// load support for the PNG image format
@@ -37,6 +41,8 @@ bool j1Textures::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Textures::Start()
 {
+	
+//	BROFILER_CATEGORY("Textures Start", Profiler::Color::LightGoldenRodYellow);
 	LOG("start textures");
 	bool ret = true;
 	return ret;
@@ -45,6 +51,8 @@ bool j1Textures::Start()
 // Called before quitting
 bool j1Textures::CleanUp()
 {
+
+	BROFILER_CATEGORY("Textures CleanUp", Profiler::Color::LightGray);
 	LOG("Freeing textures and Image library");
 	p2List_item<SDL_Texture*>* item;
 
@@ -61,6 +69,7 @@ bool j1Textures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const j1Textures::Load(const char* path)
 {
+	BROFILER_CATEGORY("Textures Load", Profiler::Color::LightGreen);
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
@@ -80,6 +89,7 @@ SDL_Texture* const j1Textures::Load(const char* path)
 // Unload texture
 bool j1Textures::UnLoad(SDL_Texture* texture)
 {
+	BROFILER_CATEGORY("Textures UnLoad", Profiler::Color::LightPink);
 	p2List_item<SDL_Texture*>* item;
 
 	for(item = textures.start; item != NULL; item = item->next)

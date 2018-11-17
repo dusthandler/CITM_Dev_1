@@ -13,6 +13,7 @@
 #include "j1Entity_Manager.h"
 #include "j1Player_Entity.h"
 
+#include "Brofiler/Brofiler.h"
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -27,6 +28,7 @@ j1Scene::~j1Scene()
 // Called before render is available
 bool j1Scene::Awake()
 {
+	BROFILER_CATEGORY("Scene Awake", Profiler::Color::LightSkyBlue);
 	LOG("Loading Scene");
 	bool ret = true;
 
@@ -36,8 +38,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	// --------------------- Create entities here -------------------- 
-
+	BROFILER_CATEGORY("Scene Start", Profiler::Color::LightSlateGray);
 	
 
 	// we should order this
@@ -90,6 +91,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	BROFILER_CATEGORY("Scene Update", Profiler::Color::LightSteelBlue);
 	PERF_START(ptimer); 
 
 	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
@@ -168,6 +170,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("Scene PostUpdate", Profiler::Color::LightYellow);
 	bool ret = true;
 	Player_act_pos = App->entity_manager->GetPlayerPos();
 
@@ -180,6 +183,7 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
+	BROFILER_CATEGORY("Scene CleanUp", Profiler::Color::Lime);
 	LOG("Freeing scene");
 	App->audio->UnloadMus(mus);                        // Clean Up Music
 	App->audio->UnloadMus(mus2); 
@@ -189,6 +193,7 @@ bool j1Scene::CleanUp()
 
 bool j1Scene::MapSwap(int SwitchM)
 {
+	BROFILER_CATEGORY("Scene MapSwap", Profiler::Color::LimeGreen);
 	bool ret = true;
 	App->entity_manager->CleanUp();
 	if (SwitchM == 0)

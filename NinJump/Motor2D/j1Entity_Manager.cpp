@@ -9,6 +9,8 @@
 #include "j1Input.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "Brofiler/Brofiler.h"
+
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -22,6 +24,8 @@ j1Entity_Manager::~j1Entity_Manager()
 }
 
 bool j1Entity_Manager::Start(){
+	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::Brown);
+
 	bool ret = true; // Scene->Switch Para cambiar la posicion de los enemigos.
 	//New: We will create the entyties here, that way is more easy to do the respawn.
 	//j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
@@ -82,6 +86,7 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 }
 
 void j1Entity_Manager::Draw() {
+	BROFILER_CATEGORY("Entity Manager Draw", Profiler::Color::BurlyWood);
 
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
@@ -99,6 +104,7 @@ void j1Entity_Manager::Draw() {
 
 bool j1Entity_Manager::Update(float dt)
 {
+	BROFILER_CATEGORY("Entity Manager Update", Profiler::Color::CadetBlue);
 	bool ret = true;                                              // TODO: add "do_logic" condition
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
@@ -129,6 +135,7 @@ bool j1Entity_Manager::Update(float dt)
 }
 
 bool j1Entity_Manager::PreUpdate() {
+	BROFILER_CATEGORY("Entity Manager PreUpdate", Profiler::Color::CornflowerBlue);
 	bool ret = true;                                              // TODO: add "do_logic" condition
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
@@ -152,6 +159,7 @@ bool j1Entity_Manager::PreUpdate() {
 }
 
 bool j1Entity_Manager::PostUpdate() {
+	BROFILER_CATEGORY("Entity Manager PostUpdate", Profiler::Color::Cornsilk);
 	bool ret = true;                                              // TODO: add "do_logic" condition
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
@@ -180,6 +188,7 @@ bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this functi
 
 bool j1Entity_Manager::CleanUp()      // as in App
 {
+	BROFILER_CATEGORY("Entity Manager Cleanup", Profiler::Color::Crimson);
 	bool ret = true;
 	p2List_item<j1Entity*>* item;  
 
@@ -217,11 +226,13 @@ iPoint j1Entity_Manager::GetPlayerPos() {
 
 bool j1Entity_Manager::Load(pugi::xml_node &) //New: Save and Load methods, now are not working 
 {
+	// add brofiler category
 	return false;
 }
 
 bool j1Entity_Manager::Save(pugi::xml_node &) const
 {
+	// add brofiler category
 	return false;
 }
 
