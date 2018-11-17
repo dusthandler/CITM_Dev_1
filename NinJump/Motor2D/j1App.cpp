@@ -51,10 +51,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(entity_manager);  // TODO: think which position is best  
+
 	AddModule(pathfinding);
 	AddModule(scene);
-
+	AddModule(entity_manager);
 	AddModule(fade);
 	AddModule(collision);
 
