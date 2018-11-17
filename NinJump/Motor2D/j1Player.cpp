@@ -265,25 +265,6 @@ void j1Player::Debug_Keys() {
 
 void j1Player::Switch_Level_Logic() {
 
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || Level_Win) {
-
-		
-		Level_Win = false;
-		/*Disable();*/
-		/*App->player->Disable(); */          // disable player before swapping maps
-		App->scene->MapSwap(1);
-		mapLo = 1;
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || (!Alive)) {
-		/*Disable();*/
-		/*App->player->Disable();    */       // disable player before swapping maps
-		App->scene->MapSwap(0);
-		mapLo = 0;
-		
-	}
-
 
 }
 
