@@ -40,7 +40,7 @@ public:
 		return true;
 	}
 
-	virtual void FollowPath(){} 
+	virtual void Follow_Path(){} 
 
 	virtual void OnCollision(Collider* c1, Collider* c2) {
 
