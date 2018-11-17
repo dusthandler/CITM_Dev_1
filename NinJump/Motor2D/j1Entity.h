@@ -74,3 +74,5 @@ public:
 	Movement_State m_state;
 
 };
+
+#endif __j1ENTITY_H__
