@@ -38,7 +38,7 @@ public:
 		return true; 
 	}
 
-	virtual bool PostUpdate(float dt) {
+	virtual bool PostUpdate() {
 		return true;
 	}
 
@@ -52,7 +52,7 @@ public:
 
 	virtual void Follow_Path(); 
 
-	
+	virtual void Path_Dir_Logic() {}; 
 
 public:
 
@@ -64,6 +64,7 @@ public:
 	Type type; 
 	bool active = false;
 	bool to_delete = false;
+	bool Reached_Player = false;
 
 	SDL_Texture* tex; 
 	Animation* animation = nullptr;

@@ -63,8 +63,6 @@ void j1Enemy_Flying::Follow_Path() {
 		}
 	}*/
 
-
-
 }
 
 
@@ -90,7 +88,7 @@ void j1Enemy_Flying::Path_Dir_Logic() {
 		break;
 	}
 
-	this->position.x += dir.x*dir_multiplier;
+	this->position.x += dir.x*dir_multiplier;        // LATER, it can be changed to player pos - enemy pos (easier)
 	this->position.y += dir.y*dir_multiplier;
 }
 

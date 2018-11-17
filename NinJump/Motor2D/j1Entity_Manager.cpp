@@ -11,7 +11,7 @@
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
-
+	 
 }
 
 // Destructor
@@ -22,6 +22,7 @@ j1Entity_Manager::~j1Entity_Manager()
 
 bool j1Entity_Manager::Start(){
 	bool ret = true;
+	
 	//New: We will create the entyties here, that way is more easy to do the respawn. // meeec, it creates them only one time
 
 	// j1Player* player = (j1Player*)CreateEntity(Type::PLAYER, Initialize_Player_Pos());
@@ -178,7 +179,7 @@ bool j1Entity_Manager::CleanUp()      // as in App
 			App->tex->UnLoad(item->data->tex);                       
 		}
 		if (item->data->collider != nullptr) {
-			item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first // Yes, always first collider (checked)
+			item->data->collider->to_delete = true;  
 		}
 		
 		delete item->data;                                                  

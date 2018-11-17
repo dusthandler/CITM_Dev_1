@@ -26,7 +26,7 @@ void j1Entity::Follow_Path() {
 			this->dir.y = Path->At(i)->y - Path->At(i - 1)->y;
 		}
 		else if (i == 0) {
-			this->dir.x = Path->At(i)->x;
+			this->dir.x = Path->At(i)->x;   // this should be 0 at th start ?? 
 			this->dir.y = Path->At(i)->y;
 		}
 		//	LOG("Enemy dir x is %i and y is %i", dir.x, dir.y);
@@ -48,6 +48,8 @@ void j1Entity::Follow_Path() {
 		m_state = Movement_State::UP;
 	}
 }
+
+
 
 
 

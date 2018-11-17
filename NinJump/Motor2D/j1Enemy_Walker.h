@@ -16,16 +16,18 @@ public:
 	}
 
 	bool Update(float dt);
+	bool PostUpdate(); 
 	bool Draw();
 	//bool HandleInput(); 
-	//void Follow_Path(); 
-
+	 void Follow_Path() override;
+     void OnCollision(Collider* c1, Collider* c2);
+	 void Path_Dir_Logic();
 private:
 
 	Animation Idle;
+	bool Onplat = false; 
+	uint Gravity = 10; 
 
-	// testing
-	int mapLo;
 };
 
 #endif // __j1ENEMY_FLYING_H__ 

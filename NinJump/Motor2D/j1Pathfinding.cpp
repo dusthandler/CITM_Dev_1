@@ -48,7 +48,7 @@ bool j1PathFinding::IsWalkable(const iPoint& pos) const
 	uchar t = GetTileAt(pos);
 	// return t != INVALID_WALK_CODE && t > 0;
 	if(t != INVALID_WALK_CODE && t > 0){
-		LOG("Position %i %i is a waaaaaaaaaaaalkable tile", pos.x, pos.y); 
+	//	LOG("Position %i %i is a waaaaaaaaaaaalkable tile", pos.x, pos.y); 
 	}
 	return true; 
 }

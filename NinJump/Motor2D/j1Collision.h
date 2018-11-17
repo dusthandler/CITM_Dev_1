@@ -4,6 +4,7 @@
 #include "j1Module.h"
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
+#include "j1Entity.h"
 
 #define MAX_COLLIDERS 150
 
@@ -25,7 +26,7 @@ struct Collider
 	bool to_delete = false;
 	COLLIDER_TYPE type;
 	j1Module* callback = nullptr;
-	
+	// j1Entity* e_callback = nullptr; 
 
 	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, j1Module* callback = nullptr) :
 		rect(rectangle),
