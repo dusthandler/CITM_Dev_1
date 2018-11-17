@@ -154,6 +154,9 @@ bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this functi
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
 		CleanUp();
 	}
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+		Start();
+	}
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
 		pEntity = item->data;
