@@ -73,8 +73,6 @@ public:
 	void SwitchToUp(Animation*);*/
 private:
 
-	SDL_Texture* Player_Texture = nullptr;
-	Animation* Player_Animation = nullptr;
 	Animation Idle;
 	Animation None;
 	Animation Falling; 
@@ -112,8 +110,6 @@ public:
 	bool Level_Win = false; 
 	bool Respawning = true; 
 
-
-	Collider* Player_Collider = nullptr;
 
 	// gravity
 	bool gravity_reverse = false; 

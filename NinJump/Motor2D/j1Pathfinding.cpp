@@ -176,7 +176,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	
 	// TODO 1: if origin or destination are not walkable, return -1 DONE
 	if (IsWalkable(origin) == false || IsWalkable(destination) == false) {
-		LOG("ooooooooooooooooops !!   Not walkable !!! %s, %s", IsWalkable(origin) ? "true": "false", IsWalkable(destination) ? "true" : "false");
+	//	LOG("ooooooooooooooooops !!   Not walkable !!! %s, %s", IsWalkable(origin) ? "true": "false", IsWalkable(destination) ? "true" : "false");
 		return -1;
 	}
 
@@ -185,14 +185,14 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	// Iterate while we have tile in the open list
 	PathList open, close;
 	int h = origin.DistanceTo(destination);
-	LOG("A and B are ******************************************************************************************  %i far", h); 
+	// LOG("A and B are ******************************************************************************************  %i far", h); 
 	PathNode *originNode = new PathNode(0, h, origin, NULL);
 	open.list.add(*originNode);
 
 	
 
 	while (open.list.count() != 0) {
-		LOG("This is actually pathfinding ... ... ... ... ... ... ... ... ...");
+	//	LOG("This is actually pathfinding ... ... ... ... ... ... ... ... ...");
 
 		// TODO 3: Move the lowest score cell from open list to the closed list
 		PathNode lowestScoreNode = open.GetNodeLowestScore()->data;

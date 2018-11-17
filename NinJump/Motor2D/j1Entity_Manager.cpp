@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "j1Enemy_Walker.h"
 #include "j1Map.h"
+#include "p2Log.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -20,11 +21,11 @@ j1Entity_Manager::~j1Entity_Manager()
 
 bool j1Entity_Manager::Start(){
 	bool ret = true;
-	//New: We will create the entyties here, that way is more easy to do the respawn.
-	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
-	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
+	//New: We will create the entyties here, that way is more easy to do the respawn. // meeec, it creates them only one time
+	/* j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  
+	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));*/
 
-	j1Player* player = (j1Player*)CreateEntity(Type::PLAYER, Initialize_Player_Pos());
+	// j1Player* player = (j1Player*)CreateEntity(Type::PLAYER, Initialize_Player_Pos());
 	return ret;
 }
 j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos) 
@@ -32,15 +33,17 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor  // there is no need to pass the type :/
-	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
-	// case Type::PLAYER: ret = new j1Player(pos, type); Player_Count++; break;
+	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos, type); if (ret != nullptr) { flyers.add(ret); } break;
+	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); if (ret != nullptr) { walkers.add(ret); } break; //New: Land enemie :D
+    case Type::PLAYER: ret = new j1Player(pos, type); Player_Count++; break;
 	// case Type::PLAYER: ret = new j1Player(); break;
 	}
 	
 	if (ret != nullptr) {
 		entities.add(ret); // entities.push_back(ret);
 	}
+
+	LOG("There are a number of %i entities !!", entities.count()); 
 
 	return ret;
 }
@@ -82,19 +85,20 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 	{
 		if (item->data == entity && entity != nullptr && entity->to_delete) {
 
+			entities.del(item);                      // first remove from list
 			if (entity->tex != nullptr) {
 				App->tex->UnLoad(item->data->tex);                      
 			}
 			if (entity->collider != nullptr) {
 				entity->collider->to_delete = true;
 			}
-
-			delete entity;                                                 
+		                
+			delete entity;                      // then delete                   
 			entity = nullptr;                
 
-			if (entity->type == Type::PLAYER) {
+			/*if (entity->type == Type::PLAYER) {
 				Player_Count--; 
-			}
+			}*/
 		}
 		
 	}
@@ -109,10 +113,10 @@ void j1Entity_Manager::Draw() {
 	
 	for (item = entities.start; item != NULL; item = item->next)
 	{
-
-		Rect = item->data->animation->GetCurrentFrame();
-		App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
-		
+		if (item->data->animation != nullptr) {
+			Rect = item->data->animation->GetCurrentFrame();
+			App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
+		}
 	}
 
 }
@@ -162,12 +166,15 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	
 	while (item != NULL && ret == true)
 	{
+		entities.del(item);    // first remove from list
+
 		if (item->data->tex != nullptr) {
 			App->tex->UnLoad(item->data->tex);                       
 		}
 		if (item->data->collider != nullptr) {
 			item->data->collider->to_delete = true;  // TODO: check order, collider hsould be deleted first // Yes, always first collider (checked)
 		}
+		
 		delete item->data;                                                  
 		item->data = nullptr;
 

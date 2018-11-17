@@ -56,6 +56,9 @@ public:
 
 private: 
 	p2List<j1Entity*> entities; 
+	p2List<j1Entity*> flyers;
+	p2List<j1Entity*> walkers;
+
 	float accumulated_time = 0.0f; 
 	float update_ms_cycle = 0.0f;  // time of a frame in ms ? 
 	bool do_logic = false; 

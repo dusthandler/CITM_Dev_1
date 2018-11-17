@@ -39,7 +39,8 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	// --------------------- Create entities here -------------------- 
-
+	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));
+	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 	
 
 	// we should order this

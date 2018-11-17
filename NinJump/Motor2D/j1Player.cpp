@@ -18,11 +18,12 @@ j1Player::j1Player(iPoint pos, Type type) : j1Entity(pos, type)
 
 {
 	name.create("player");                                         // generate the initial player info
-	Player_Texture = App->tex->Load("Maps/Ninja/Ninja.png");
-	Player_Collider = App->collision->AddCollider({ pos.x, pos.y, 35, 45 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
+	tex = App->tex->Load("Maps/Ninja/Ninja.png");
+	collider = App->collision->AddCollider({ pos.x, pos.y, 35, 45 }, COLLIDER_PLAYER, (j1Module*)App->entity_manager);
 	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });
-	Player_Animation = &Idle;
+	animation = &Idle;
 
+	position = pos; 
 }
 
 // Destructor
@@ -68,7 +69,7 @@ bool j1Player::PreUpdate()
 {
 	
 
-	Player_Collider->SetPos(Pos.x, Pos.y);
+	collider->SetPos(Pos.x, Pos.y);
 	return true;
 
 }
@@ -208,10 +209,10 @@ bool j1Player::Update(float dt)
 	Debug_Keys();
 
 	if (God_Mode) {
-		Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+		collider->type = COLLIDER_TYPE::COLLIDER_GOD;
 	}
 	else {
-		Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+		collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
 	}
 
 	Movex(dt);
@@ -469,16 +470,16 @@ PlayerState j1Player::Get_Player_State() {
 
 					if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 						State = JUMPING_LEFT;
-						Player_Animation = &Jumping_Left;
+						animation = &Jumping_Left;
 					}
 
 					else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 						State = JUMPING_RIGHT;
-						Player_Animation = &Jumping_Right;
+						animation = &Jumping_Right;
 					}
 					else {
 						State = JUMPING_UP;
-						Player_Animation = &Jumping_Up;
+						animation = &Jumping_Up;
 					}
 				}
 
@@ -486,16 +487,16 @@ PlayerState j1Player::Get_Player_State() {
 
 					if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 						State = FALLING_LEFT;
-						Player_Animation = &Falling_Left;
+						animation = &Falling_Left;
 					}
 
 					else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 						State = FALLING_RIGHT;
-						Player_Animation = &Falling_Right;
+						animation = &Falling_Right;
 					}
 					else {
 						State = FALLING_DOWN;
-						Player_Animation = &Falling;
+						animation = &Falling;
 					}
 				}
 
@@ -510,11 +511,11 @@ PlayerState j1Player::Get_Player_State() {
 
 					if (Vel.x > -MAX_SPEED_X) {
 
-						Player_Animation = &Walking_Left2;
+						animation = &Walking_Left2;
 					}
 
 					else {
-						Player_Animation = &Walking_Left;
+						animation = &Walking_Left;
 					}
 				}
 
@@ -525,10 +526,10 @@ PlayerState j1Player::Get_Player_State() {
 
 					if (Vel.x < MAX_SPEED_X) {
 
-						Player_Animation = &Walking_Right2;
+						animation = &Walking_Right2;
 					}
 					else {
-						Player_Animation = &Walking_Right;
+						animation = &Walking_Right;
 					}
 				}
 
@@ -536,7 +537,7 @@ PlayerState j1Player::Get_Player_State() {
 				else {
 
 					State = IDLE;
-					Player_Animation = &Idle;
+					animation = &Idle;
 				}
 			}
 
@@ -552,7 +553,7 @@ PlayerState j1Player::Get_Player_State() {
 	else {
 
 		State = DIED;
-		Player_Animation = &Death;
+		animation = &Death;
 	}
 
 
@@ -645,11 +646,11 @@ bool j1Player::Load(pugi::xml_node& node)
 
 	if (collider == "collider_player")
 	{
-		Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+		this->collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
 	}
 	else if (collider == "collider_god")
 	{
-		Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+		this->collider->type = COLLIDER_TYPE::COLLIDER_GOD;
 	}
 	
 	return ret;
@@ -688,7 +689,7 @@ bool j1Player::Save(pugi::xml_node& node) const
 	pugi::xml_node coll = node.append_child("state");
 
 	p2SString collider;
-	switch (Player_Collider->type)
+	switch (this->collider->type)
 	{
 	case COLLIDER_TYPE::COLLIDER_PLAYER:
 		collider.create("collider_player");

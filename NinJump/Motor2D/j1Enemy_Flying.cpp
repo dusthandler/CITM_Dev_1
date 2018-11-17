@@ -28,6 +28,12 @@ bool j1Enemy_Flying::Update(float dt) {
 
 	collider->SetPos(this->position.x, this->position.y); 
 
+	if (position.x > 300) {
+		to_delete = true; 
+		App->entity_manager->DestroyEntity(this); 
+	}
+	LOG("Flyer pos is %i", position.x); 
+
 	return ret;
 }
 
@@ -63,7 +69,7 @@ void j1Enemy_Flying::Follow_Path() {
 			this->dir.x = Path->At(i)->x;         
 			this->dir.y = Path->At(i)->y;
 		}
-		LOG(" -----------------------     Enemy dir x is %i and y is %i", dir.x, dir.y);
+	//	LOG(" -----------------------     Enemy dir x is %i and y is %i", dir.x, dir.y);
 	}
 
 	if (dir.x == 0 && dir.y == 0) {                       // know the direction
@@ -84,7 +90,7 @@ void j1Enemy_Flying::Follow_Path() {
 	
 	Path_Dir_Logic(); 
 
-	LOG(" <<<<<<<<<<<<<<<<<<<<<<<<    PATH HAS %i elements >>>>>>>>>>>>>>>>>>>", this->Path->Count()); 
+	// LOG(" <<<<<<<<<<<<<<<<<<<<<<<<    PATH HAS %i elements >>>>>>>>>>>>>>>>>>>", this->Path->Count()); 
 
 	/*if (!Reached_Player) {
 		if (this->position == dest) {

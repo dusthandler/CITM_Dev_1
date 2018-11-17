@@ -168,7 +168,7 @@ bool j1Map::CleanUp()
 
 	while (Object_item != NULL)
 	{
-		LOG("Liberando objeto %s", Object_item->data->name.GetString());
+		// LOG("Liberando objeto %s", Object_item->data->name.GetString());
 		// TODO : A veces al intentar liberar un objeto del mapa da error, como si la lista contuviese un objeto nulo o lago así. 
 		RELEASE(Object_item->data);
 		Object_item = Object_item->next;
