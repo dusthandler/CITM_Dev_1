@@ -20,13 +20,11 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 bool j1Enemy_Walker::Update(float dt) {
 	bool ret = true;
 	                                                                              // testing map swap
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) App->scene->MapSwap(1);
+	/*if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) App->scene->MapSwap(1);
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) App->scene->MapSwap(0);
 	
 
-	if (!Reached_Player)
-		Follow_Path();
 
 	collider->SetPos(this->position.x, this->position.y);
 
@@ -36,6 +34,8 @@ bool j1Enemy_Walker::Update(float dt) {
 	}
 
 
+	if (!Reached_Player)
+		Follow_Path();*/
 
 
 
@@ -85,12 +85,13 @@ void j1Enemy_Walker::Path_Dir_Logic() {
 	}
 
 	if (Onplat) {
-		this->position.x += dir.x*dir_multiplier;
+		this->position.x += dir.x*(int)dir_multiplier;
 	}
 	else {
 		this->position.y += Gravity;
 	}
 
+	LOG("dir x =============================== %i", dir.x); 
 }
 
 
@@ -118,7 +119,7 @@ void j1Enemy_Walker::OnCollision(Collider* c1, Collider* c2) {                  
 			if ((c1->rect.x + c1->rect.w >= c2->rect.x && c1->rect.x + c1->rect.w <= c2->rect.x + 20)) {
 				if (dir.x > 0) {
 					position.x = c2->rect.x - 35;  // 35 = width
-					position.x = 0;
+					dir.x = 0;
 				}
 			}
 			else if (c1->rect.x <= c2->rect.x + c2->rect.w && c1->rect.x > c2->rect.w + c2->rect.x - 20) {

@@ -8,6 +8,7 @@
 #include "p2Log.h"
 #include "j1Map.h"
 #include "j1Input.h"
+#include "j1Scene.h"
 
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
@@ -63,6 +64,10 @@ void j1Enemy_Flying::Follow_Path() {
 		}
 	}*/
 
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) App->scene->MapSwap(1);
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) App->scene->MapSwap(0);
 }
 
 

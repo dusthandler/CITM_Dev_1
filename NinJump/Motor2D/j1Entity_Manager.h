@@ -28,15 +28,15 @@ public:
 
 	bool Start();
 
-	bool PreUpdate(float dt) {
+	/*bool PreUpdate(float dt) {
 		return true;
-	}
+	}*/
 	bool Update(float dt);
 	bool UpdateAll(float dt, bool do_logic);
 
-	bool PostUpdate(float dt) {
+	/*bool PostUpdate(float dt) {   
 		return true;
-	}
+	}*/
 	
 
 	j1Entity* CreateEntity(Type, iPoint); 

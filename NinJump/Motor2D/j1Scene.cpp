@@ -182,13 +182,13 @@ bool j1Scene::MapSwap(int SwitchM)
 	bool ret = true;
  //	App->player->Disable();
 
-	App->entity_manager->CleanUp();     // this does not crash
+	App->entity_manager->Disable();  // if we dont do this, enemies accumulate
 
 	if (SwitchM == 0)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
-		App->collision->CleanWallDeath();
-		App->map->CleanUp();                        // this crashes:/
+		App->collision->CleanWallDeath();                    // what should we clean here? 
+		App->map->CleanUp();                        // this crashes :(
 	
 		App->map->Load("Level_1.tmx");
 		
@@ -206,6 +206,8 @@ bool j1Scene::MapSwap(int SwitchM)
 	}
 	this->SwitchM = SwitchM;
 
+
+	 App->entity_manager->Enable(); // we should then enable again
 
 //	App->player->Enable();  // enable player after swapping maps*/
 
