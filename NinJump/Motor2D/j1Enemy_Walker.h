@@ -16,14 +16,18 @@ public:
 	}
 
 	bool Update(float dt);
+	bool PostUpdate();
 	bool Draw();
-	bool CleanUp();
 	//bool HandleInput(); 
-	//void Follow_Path(); 
-
+	bool CleanUp(); 
+	void Follow_Path() override;
+	void OnCollision(Collider* c1, Collider* c2);
+	void Path_Dir_Logic();
 private:
 
 	Animation Idle;
+	bool Onplat = false;
+	uint Gravity = 10;
 
 };
 
