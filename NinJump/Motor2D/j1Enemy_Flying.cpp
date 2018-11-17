@@ -39,6 +39,11 @@ bool j1Enemy_Flying::Draw() {
 	return ret;
 }
 
+bool j1Enemy_Flying::CleanUp() {
+	collider->to_delete = true;
+	App->tex->UnLoad(tex);
+	return true;
+}
 
 
 

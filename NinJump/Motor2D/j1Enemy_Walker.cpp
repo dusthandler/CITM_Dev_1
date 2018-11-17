@@ -37,5 +37,11 @@ bool j1Enemy_Walker::Draw() {
 	return ret;
 }
 
+bool j1Enemy_Walker::CleanUp() {
+	collider->to_delete = true;
+	App->tex->UnLoad(tex);
+	return true;
+}
+
 
 

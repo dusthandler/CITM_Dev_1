@@ -6,6 +6,7 @@
 #include "j1Render.h"
 #include "j1Enemy_Walker.h"
 #include "j1Player_Entity.h"
+#include "j1Input.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -150,6 +151,9 @@ bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this functi
 	item = entities.start;
 	j1Entity* pEntity = NULL;
 
+	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+		CleanUp();
+	}
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
 		pEntity = item->data;
@@ -203,7 +207,12 @@ bool j1Entity_Manager::CleanUp()      // as in App
 		you will need to update module parent class
 		and all modules that use update */
 		ret = item->data->CleanUp();
+		delete item->data;
+		item->data = nullptr;
 	}
+	entities.clear();
+
+
 
 	return ret;
 }

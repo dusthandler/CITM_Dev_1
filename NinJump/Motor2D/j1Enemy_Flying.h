@@ -17,6 +17,7 @@ public:
 
 	bool Update(float dt); 
 	bool Draw(); 
+	bool CleanUp();
 	//bool HandleInput(); 
 	//void Follow_Path(); 
 

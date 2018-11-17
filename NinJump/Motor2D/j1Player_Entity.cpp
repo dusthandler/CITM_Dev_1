@@ -513,11 +513,9 @@ bool j1Player_Entity::CleanUp() {
 	// Player_Animation = &None;
 	tex = nullptr;
 	/*Player_Animation = nullptr;*/
-	if (collider != nullptr)
-	{
-		collider->to_delete = true;
+	collider->to_delete = true;
 
-	}
+	
 
 	App->audio->UnloadFx(1);
 	App->audio->UnloadFx(2);           // CLEAN FXs
