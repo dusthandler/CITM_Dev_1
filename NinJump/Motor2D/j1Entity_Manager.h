@@ -44,12 +44,13 @@ public:
 	bool CleanUp();
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
-
+	bool restart = false;
 private: 
 	p2List<j1Entity*> entities; 
 	float accumulated_time = 0.0f; 
 	float update_ms_cycle = 0.0f;  // time of a frame in ms ? 
 	bool do_logic = false; 
+	
 	
 }; 
 

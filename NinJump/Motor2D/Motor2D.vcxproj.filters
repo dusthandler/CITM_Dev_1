@@ -49,9 +49,6 @@
     <ClCompile Include="j1Entity_Manager.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1Enemies.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="p2Log.cpp">
       <Filter>p2Help</Filter>
     </ClCompile>
@@ -121,9 +118,6 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1Entity_Manager.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Enemies.h">
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="p2Defs.h">

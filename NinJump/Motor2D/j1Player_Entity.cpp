@@ -293,7 +293,7 @@ PlayerStat j1Player_Entity::Get_Player_State() {
 void j1Player_Entity::Debug_Keys() {
 
 	//TDO: Mirar la logica para que funcione bien.
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || Level_Win) {
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN || Level_Win) {
 
 
 		Level_Win = false;
@@ -304,7 +304,7 @@ void j1Player_Entity::Debug_Keys() {
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || (!Alive)) {
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN || (!Alive)) {
 		/*Disable();*/
 		/*App->player->Disable();    */       // disable player before swapping maps
 		App->scene->MapSwap(0);

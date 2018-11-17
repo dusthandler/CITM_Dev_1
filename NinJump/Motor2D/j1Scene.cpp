@@ -174,7 +174,7 @@ bool j1Scene::CleanUp()
 bool j1Scene::MapSwap(int SwitchM)
 {
 	bool ret = true;
-	App->player->Disable();
+	App->entity_manager->CleanUp();
 	if (SwitchM == 0)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
@@ -197,8 +197,8 @@ bool j1Scene::MapSwap(int SwitchM)
 	}
 	this->SwitchM = SwitchM;
 	LOG("Player Dead! x: %i", App->player->Pos.x);
-
-	App->player->Enable();  // enable player after swapping maps
+	// enable player after swapping maps
+	App->entity_manager->restart = true;
 
 	return ret;
 }
