@@ -81,7 +81,7 @@ public:
 
 	bool Jumping = false;
 	bool Onplat = false;
-	bool Alive = true;
+
 	bool Inside_Collider = false;
 	bool God_Mode = false;
 	bool In_Lvl_1 = false;

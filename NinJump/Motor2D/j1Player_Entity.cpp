@@ -39,7 +39,7 @@ j1Player_Entity::j1Player_Entity(iPoint position, Type type) : j1Entity(position
 	Death.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
 
 	Falling.PushBack({ 56, 143,PLAYER_WIDTH, PLAYER_HEIGHT });
-	Alive = true;
+	App->scene->Player_Alive = true;
 	Reset_Fx_2 = true; 
 
 	////After the Fx TODO:clean the fx.
@@ -124,7 +124,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 		if (!God_Mode) {
 
-			Alive = false;
+			App->scene->Player_Alive = false;
 
 			if (Reset_Fx_2) {
 
@@ -154,7 +154,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 
 	if (c2->type == COLLIDER_WIN) {
-		Level_Win = true;
+		App->scene->Player_Win= true;
 	}
 
 
@@ -189,9 +189,9 @@ bool j1Player_Entity::Update(float dt) {
 }
 
 PlayerStat j1Player_Entity::Get_Player_State() {
-	if (Alive) {
+	if (App->scene->Player_Alive) {
 
-		if (!Level_Win) {   // IN THE LEVEL 
+		if (!App->scene->Player_Win) {   // IN THE LEVEL 
 
 			if (!Onplat) {   // IN THE AIR
 
@@ -294,24 +294,7 @@ PlayerStat j1Player_Entity::Get_Player_State() {
 void j1Player_Entity::Debug_Keys() {
 
 	//TDO: Mirar la logica para que funcione bien.
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN || Level_Win) {
-
-
-		Level_Win = false;
-		/*Disable();*/
-		/*App->player->Disable(); */          // disable player before swapping maps
-		App->scene->MapSwap(1);
-		Map_Switch = 1;
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN || (!Alive)) {
-		/*Disable();*/
-		/*App->player->Disable();    */       // disable player before swapping maps
-		App->scene->MapSwap(0);
-		Map_Switch = 0;
-
-	}
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
 
@@ -471,7 +454,7 @@ void j1Player_Entity::Movey(float dt) {
 void j1Player_Entity::Solve_Move(float dt) {
 
 	if (position.y < -PLAYER_HEIGHT && gravity_reverse) {      // sky limit
-		Alive = false;
+		App->scene->Player_Alive = false;
 		gravity_reverse = false;
 		Respawning = true;
 	}
