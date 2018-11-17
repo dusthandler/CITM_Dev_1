@@ -9,6 +9,8 @@
 #include "p2Log.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
+#include "Brofiler/Brofiler.h"
+
 
 j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, type) {
 
@@ -25,6 +27,9 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 
 
 bool j1Enemy_Walker::Update(float dt) {
+
+	BROFILER_CATEGORY("Enemy walker Update", Profiler::Color::Black);
+
 	bool ret = true;
 	// testing map swap
 
@@ -61,6 +66,8 @@ bool j1Enemy_Walker::Draw() {
 }
 
 void j1Enemy_Walker::Follow_Path() {
+
+	BROFILER_CATEGORY("Enemy walker Pathfinding", Profiler::Color::BlanchedAlmond);
 
 	// j1Entity::Follow_Path();
 
@@ -136,6 +143,9 @@ void j1Enemy_Walker::Path_Dir_Logic() {
 
 void j1Enemy_Walker::OnCollision(Collider* c1, Collider* c2) {                                     // extracted from player
 
+
+	BROFILER_CATEGORY("Enemy walker OnCollision", Profiler::Color::Blue);
+
 	// Onplat = true;
 
 	LOG("________________________ An enemy is colliding !!! _____________________________");
@@ -190,6 +200,7 @@ void j1Enemy_Walker::OnCollision(Collider* c1, Collider* c2) {                  
 
 
 bool j1Enemy_Walker::CleanUp() {
+	BROFILER_CATEGORY("Enemy walker OnCollision", Profiler::Color::BlueViolet);
 	collider->to_delete = true;
 	App->tex->UnLoad(tex);
 	return true;

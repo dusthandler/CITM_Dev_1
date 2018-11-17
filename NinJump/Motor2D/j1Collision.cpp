@@ -3,6 +3,8 @@
 #include "j1Render.h"
 #include "j1Collision.h"
 #include "p2Log.h"
+#include "Brofiler/Brofiler.h"
+
 
 j1Collision::j1Collision()
 {
@@ -59,6 +61,7 @@ j1Collision::~j1Collision()
 
 bool j1Collision::PreUpdate()
 {
+	BROFILER_CATEGORY("Collision PreUpdate", Profiler::Color::DarkSeaGreen);
 	bool ret = true; 
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -113,7 +116,7 @@ bool j1Collision::PreUpdate()
 // Called before render is available
 bool j1Collision::Update(float dt)
 {
-
+	BROFILER_CATEGORY("Collision Update", Profiler::Color::DarkSlateBlue);
 	bool ret = true;
 	
 	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT) {
@@ -125,6 +128,7 @@ bool j1Collision::Update(float dt)
 
 void j1Collision::DebugDraw()
 {
+	BROFILER_CATEGORY("Collision DebugDraw", Profiler::Color::DarkSlateGray);
 	/*if (App->input->keyboard[SDL_SCANCODE_1] == KEY_DOWN) {
 		if (debug == false) debug = true;
 		else debug = false;
@@ -172,6 +176,7 @@ void j1Collision::DebugDraw()
 // Called before quitting
 bool j1Collision::CleanUp()
 {
+	BROFILER_CATEGORY("Collision CleanUp", Profiler::Color::DarkTurquoise);
 	bool ret = true;
 	LOG("Freeing all colliders");
 
@@ -190,6 +195,7 @@ bool j1Collision::CleanUp()
 
 bool j1Collision::CleanWallDeath()
 {
+	BROFILER_CATEGORY("Collision CleanWallDeath", Profiler::Color::DarkViolet);
 	bool ret = true;
 	LOG("Freeing wall and death colliders");
 
@@ -212,6 +218,7 @@ bool j1Collision::CleanWallDeath()
 
 Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
+	BROFILER_CATEGORY("Collision AddCollider", Profiler::Color::DeepPink);
 	Collider* ret = nullptr;
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -230,6 +237,7 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
+	BROFILER_CATEGORY("Collision CheckCollision", Profiler::Color::DeepSkyBlue);
 	bool ret = true;
 
 	if (r.x + r.w < rect.x) ret = false;

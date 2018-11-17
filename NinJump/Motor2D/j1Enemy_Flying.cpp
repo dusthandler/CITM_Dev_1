@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include "j1Scene.h"
+#include "Brofiler/Brofiler.h"
+
 
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
@@ -23,6 +25,8 @@ j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, 
 }
 
 bool j1Enemy_Flying::Update(float dt) {
+
+	BROFILER_CATEGORY("Enemy fly Update", Profiler::Color::Beige); 
 	bool ret = true;
 
 	/*if (!Reached_Player)
@@ -49,7 +53,8 @@ bool j1Enemy_Flying::Draw() {
 
 void j1Enemy_Flying::Follow_Path() {
 
-	
+	BROFILER_CATEGORY("Enemy fly Pathfinding", Profiler::Color::Bisque);
+
 	iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
 	iPoint dest = App->map->WorldToMap(GetPlayerPos().x, GetPlayerPos().y);                                           // change for player position
 
@@ -126,6 +131,7 @@ void j1Enemy_Flying::Path_Dir_Logic() {
 
 
 bool j1Enemy_Flying::CleanUp() {
+	BROFILER_CATEGORY("Enemy fly CleanUp", Profiler::Color::Bisque);
 	collider->to_delete = true;
 	App->tex->UnLoad(tex);
 	return true;

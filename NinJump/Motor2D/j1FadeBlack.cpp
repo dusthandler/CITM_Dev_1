@@ -5,6 +5,8 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "Brofiler/Brofiler.h"
+
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -19,6 +21,7 @@ j1FB::~j1FB()
 // Load assets
 bool j1FB::Start()
 {
+	BROFILER_CATEGORY("FadeBlack Start", Profiler::Color::DimGray);
 	LOG("Preparing Fade Screen");
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
 	screen = { 0, 0, (int)App->win->width * 1, (int)App->win->height * 1 };
@@ -28,6 +31,7 @@ bool j1FB::Start()
 // Update: draw background
 bool j1FB::Update(float dt)
 {
+	BROFILER_CATEGORY("FadeBlack Update", Profiler::Color::DodgerBlue);
 	bool ret = true;
 	if (current_step == fade_step::none) {
 		return ret;
@@ -74,6 +78,7 @@ bool j1FB::Update(float dt)
 // Fade to black. At mid point deactivate one module, then activate the other
 bool j1FB::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
 {
+	BROFILER_CATEGORY("FadeBlack FadeToBlack", Profiler::Color::Gold);
 	bool ret = false;
 	LOG("INIT FADE");
 	

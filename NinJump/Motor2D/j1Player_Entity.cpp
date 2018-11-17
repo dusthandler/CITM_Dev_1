@@ -11,6 +11,8 @@
 #include "j1FadeBlack.h"
 #include "j1Window.h"
 #include "j1Player_Entity.h"
+#include "Brofiler/Brofiler.h"
+
 
 
 j1Player_Entity::j1Player_Entity(iPoint position, Type type) : j1Entity(position, type) 
@@ -63,6 +65,7 @@ j1Player_Entity::~j1Player_Entity()
 
 
 bool j1Player_Entity::PreUpdate() {
+	BROFILER_CATEGORY("Player PreUpdate", Profiler::Color::Cyan);
 	//We move the collider first.
 	collider->SetPos(position.x, position.y);
 	return true;
@@ -72,7 +75,7 @@ bool j1Player_Entity::PreUpdate() {
 void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 
-
+	BROFILER_CATEGORY("Player OnCollision", Profiler::Color::DarkCyan);
 
 
 	if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
@@ -162,6 +165,8 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 
 bool j1Player_Entity::Update(float dt) {
+
+	BROFILER_CATEGORY("Player Update", Profiler::Color::DarkBlue);
 
 	Get_Player_State();
 	Debug_Keys();
@@ -501,7 +506,7 @@ void j1Player_Entity::Solve_Move(float dt) {
 
 
 bool j1Player_Entity::PostUpdate() {
-
+	BROFILER_CATEGORY("Player PostUpdate", Profiler::Color::DarkGoldenRod);
 	Onplat = false;
 
 	return true;
@@ -509,7 +514,7 @@ bool j1Player_Entity::PostUpdate() {
 }
 
 bool j1Player_Entity::CleanUp() {
-
+	BROFILER_CATEGORY("Player CleanUp", Profiler::Color::DarkGray);
 	App->tex->UnLoad(tex);
 	// Player_Animation = &None;
 	tex = nullptr;
