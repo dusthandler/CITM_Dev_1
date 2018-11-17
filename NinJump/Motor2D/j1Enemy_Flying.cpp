@@ -36,8 +36,6 @@ bool j1Enemy_Flying::Update(float dt) {
 	}
 
 
-
-	LOG("Flyer pos is %i", position.x);
 	return ret;
 }
 
