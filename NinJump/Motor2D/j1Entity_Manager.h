@@ -32,7 +32,7 @@ public:
 	bool Update(float dt);
 	bool UpdateAll(float dt, bool do_logic);
 	iPoint GetPlayerPos();
-
+	bool Get_Gravity_Reverse();
 	bool PostUpdate();
 	
 	

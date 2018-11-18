@@ -93,8 +93,7 @@ public:
 	bool Respawning = true;
 
 
-	// gravity
-	bool gravity_reverse = false;
+	
 
 
 	// fx

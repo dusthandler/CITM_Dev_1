@@ -4,6 +4,8 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Collision.h"
+#include "j1Entity_Manager.h"
+
 #include "Brofiler/Brofiler.h"
 
 
@@ -172,42 +174,6 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		pivot.y = pivot_y;
 		p = &pivot;
 	}
-
-	/*bool blit = true;
-=======
-	bool blit = true;
-
-	/* if (type == "bg") {
-
-		 if (!reset_init_x) {
-			 init_x = x; 
-			 reset_init_x = true; 
-		 }
-
-		 if (!reset_init_y) {
-			 init_y = y;
-			 reset_init_y = true;
-		 }
-
-		 x = init_x + camera.x;                // the blit position moves as fast as the camera
-	     // y = init_y + camera.y; 
->>>>>>> 5f85bf7ceb5004479d929842aa6e75ad65d4f469
-
-	// if (special) {
-		if (camera.x + camera.w < x) blit = false;
-		else if (camera.x > x + section->w) blit = false;
-		else if (camera.y + camera.h < y) blit = false;
-		else if (camera.y > section->h + y) blit = false;
-<<<<<<< HEAD
-//	}
-=======
-
-		
-    }*/
-
-	
-
-
 	
 
 	if (type == "player") {
@@ -216,17 +182,11 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 		}
 	}
 
-	if (type == "bg" || (type == "player")){
+	else {
 		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0) {
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		}
 	 }
-	
-
-			
-		
-	 
-	
 
 	return ret;
 }

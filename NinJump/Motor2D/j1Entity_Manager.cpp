@@ -72,7 +72,13 @@ void j1Entity_Manager::Draw() {
 	{
 
 		Rect = item->data->animation->GetCurrentFrame();
-		App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
+		if (item->data->type == Type::PLAYER && Get_Gravity_Reverse()) {
+			App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
+		}
+		else {
+			App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
+		}
+		
 		
 	}
 
@@ -163,7 +169,7 @@ bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this functi
 
 void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 
-	bool ret = true;
+	bool ret = true;                                                   // REMAKE THIS
 	p2List_item<j1Entity*>* item;
 
 	item = entities.start;
@@ -219,6 +225,30 @@ iPoint j1Entity_Manager::GetPlayerPos() {
 	}
 	return pos;
 }
+
+
+bool j1Entity_Manager::Get_Gravity_Reverse() {
+	bool ret = false;
+	
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+
+	for (; item != NULL; item = item->next)
+	{
+		if (item->data->type == Type::PLAYER) {
+			if (item->data->gravity_reverse) {
+				ret = true; 
+			}
+			else {
+				ret = false; 
+			}
+		}
+
+	}
+	return ret;
+}
+
+
 
 bool j1Entity_Manager::Load(pugi::xml_node &data) //New: Save and Load methods, now are not working 
 {

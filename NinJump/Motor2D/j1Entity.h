@@ -71,8 +71,11 @@ public:
 	bool to_delete = false;
 	bool Reached_Player = false;
 	bool following_player = false; 
+
+	// gravity
+	bool gravity_reverse = false;
 	           
-	// nullptr's
+	                                        // nullptr's
 	SDL_Texture* tex;
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;

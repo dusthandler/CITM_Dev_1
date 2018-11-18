@@ -14,7 +14,7 @@
 
 j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, type) {
 
-	collider = App->collision->AddCollider({ position.x, position.y,70,70 }, COLLIDER_ENEMY, this);  // "this" works, "entity manager" does not
+	collider = App->collision->AddCollider({ position.x, position.y,70,70 }, COLLIDER_ENEMY, this); 
 	tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	animation = &Idle;
 	Idle.PushBack({ 30, 2, 35, 45 });  // width and height now are 35 and 45
