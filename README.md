@@ -81,3 +81,4 @@ SOFTWARE.
 ## Work done by members
 
 Kevin Muñoz - Pathfinding, art and level design
+Marc Doctor - Entity system, code enemy animations and pathfinding, entity gravity reverse, framerate cap, brofiler

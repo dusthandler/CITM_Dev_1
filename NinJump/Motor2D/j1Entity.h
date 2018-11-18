@@ -76,7 +76,7 @@ public:
 	bool gravity_reverse = false;
 	           
 	                                        // nullptr's
-	SDL_Texture* tex;
+	SDL_Texture* tex = nullptr;
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 
