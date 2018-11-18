@@ -14,7 +14,7 @@
 
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
-	collider = App->collision->AddCollider({ position.x, position.y,20,20 }, COLLIDER_ENEMY, this);
+	collider = App->collision->AddCollider({ position.x, position.y,Fly_Width,45 }, COLLIDER_ENEMY, this);
 	tex = App->tex->Load("Maps/Enemies/Flyer/Fly.png");
 	animation = &Idle;
 	Idle.PushBack({ 55, 2, 35, 45 });
