@@ -250,7 +250,7 @@ void j1App::FinishUpdate()
 	
 	
 
-	if (input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {  // change to F11
+	if (input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {  // change to F11
 		if (!cap) {
 			cap = true; 
 		}
