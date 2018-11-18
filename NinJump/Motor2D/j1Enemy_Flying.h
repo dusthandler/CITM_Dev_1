@@ -22,6 +22,7 @@ public:
 	void Follow_Path() override;
 	void Move(float dt); 
 	void Set_Anim(); 
+	void Draw_Path();
 	
 	// void Start_Follow()    TODO: only if enemy is near player, start following path
 
@@ -32,8 +33,12 @@ private:
 	Animation Right;
 
 	bool Path_Generated = false; 
+	bool Drawing_Path = false; 
 	iPoint Target_Map_Pos; 
 	iPoint Enemy_Map_Pos; 
+
+
+	p2DynArray<iPoint>* Path;
 };
 
 #endif // __j1ENEMY_FLYING_H__ 

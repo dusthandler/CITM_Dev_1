@@ -8,6 +8,7 @@
 
 struct Collider;
 
+
 enum LayerType {
 	LAYER_NONE = -1,
 	LAYER_MAIN,
@@ -21,6 +22,35 @@ enum LayerType {
 
 };
 // ----------------------------------------------------
+
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
+
+
 struct MapLayer
 {
 	p2SString	name;
@@ -28,6 +58,7 @@ struct MapLayer
 	int			height;
 	float		Parallaxspeed;
 	uint*		data;
+	Properties	properties;
 	LayerType	type1 = LAYER_NONE;
 
 	MapLayer() : data(NULL)
@@ -130,6 +161,7 @@ public:
 
 	bool Load_Object(pugi::xml_node& node, MapObject* MapObject);
 	bool Set_Colliders(pugi::xml_node& node, MapObject* MapObject);
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
 
@@ -137,9 +169,9 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
-
-
+	TileSet* GetTilesetFromTileId(int id) const;
 public:
 
 	MapData data;
