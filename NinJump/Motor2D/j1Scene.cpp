@@ -41,14 +41,15 @@ bool j1Scene::Start()
 {
 	BROFILER_CATEGORY("Scene Start", Profiler::Color::LightSlateGray);
 	// Create walkability map 
-
+/*
 	uchar* flag = NULL;
 	int w, h; 
 	
 	if (App->map->CreateWalkabilityMap(w, h, &flag)) {
 		App->pathfinding->SetMap(w,h, flag);
 		RELEASE_ARRAY(flag);
-	}
+	}*/
+
 
 	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
