@@ -37,6 +37,8 @@ public:
 
 	bool MapSwap(int);
 	int SwitchM = 0;
+	bool Player_Alive = true;
+	bool Player_Win;
 
 private:
 	bool Map_Loaded = false; 

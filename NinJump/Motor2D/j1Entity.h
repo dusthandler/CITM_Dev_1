@@ -52,6 +52,14 @@ public:
 
 	virtual void Follow_Path();
 
+	bool Load(pugi::xml_node& node){
+		return true;
+	}
+	bool Save(pugi::xml_node& node) const {
+		return true;
+
+	}
+
 	virtual void Path_Dir_Logic() {};
 
 public:

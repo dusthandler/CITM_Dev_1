@@ -41,7 +41,7 @@ j1Player_Entity::j1Player_Entity(iPoint position, Type type) : j1Entity(position
 	Death.PushBack({ 149, 1, PLAYER_WIDTH, PLAYER_HEIGHT });
 
 	Falling.PushBack({ 56, 143,PLAYER_WIDTH, PLAYER_HEIGHT });
-	Alive = true;
+	App->scene->Player_Alive = true;
 	Reset_Fx_2 = true; 
 
 	////After the Fx TODO:clean the fx.
@@ -127,7 +127,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 		if (!God_Mode) {
 
-			Alive = false;
+			App->scene->Player_Alive = false;
 
 			if (Reset_Fx_2) {
 
@@ -157,7 +157,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 
 	if (c2->type == COLLIDER_WIN) {
-		Level_Win = true;
+		App->scene->Player_Win= true;
 	}
 
 
@@ -194,9 +194,9 @@ bool j1Player_Entity::Update(float dt) {
 }
 
 PlayerStat j1Player_Entity::Get_Player_State() {
-	if (Alive) {
+	if (App->scene->Player_Alive) {
 
-		if (!Level_Win) {   // IN THE LEVEL 
+		if (!App->scene->Player_Win) {   // IN THE LEVEL 
 
 			if (!Onplat) {   // IN THE AIR
 
@@ -299,24 +299,7 @@ PlayerStat j1Player_Entity::Get_Player_State() {
 void j1Player_Entity::Debug_Keys() {
 
 	//TDO: Mirar la logica para que funcione bien.
-	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN || Level_Win) {
-
-
-		Level_Win = false;
-		/*Disable();*/
-		/*App->player->Disable(); */          // disable player before swapping maps
-		App->scene->MapSwap(1);
-		Map_Switch = 1;
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN || (!Alive)) {
-		/*Disable();*/
-		/*App->player->Disable();    */       // disable player before swapping maps
-		App->scene->MapSwap(0);
-		Map_Switch = 0;
-
-	}
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_DOWN) {   // CHANGE TO F10	
 
@@ -476,7 +459,7 @@ void j1Player_Entity::Movey(float dt) {
 void j1Player_Entity::Solve_Move(float dt) {
 
 	if (position.y < -PLAYER_HEIGHT && gravity_reverse) {      // sky limit
-		Alive = false;
+		App->scene->Player_Alive = false;
 		gravity_reverse = false;
 		Respawning = true;
 	}
@@ -535,97 +518,83 @@ bool j1Player_Entity::CleanUp() {
 
 
 
+bool j1Player_Entity::Load(pugi::xml_node& node) {
+	bool ret = true;
 
 
-//
-//bool j1Player::Load(pugi::xml_node& node)
-//{
-//	bool ret = true;
-//
-//
-//
-//
-//	mapLo = node.child("position").attribute("Map_Logic").as_int(0);
-//	App->scene->MapSwap(mapLo);
-//
-//
-//
-//	Pos.x = node.child("position").attribute("x").as_float(0);
-//	Pos.y = node.child("position").attribute("y").as_float(0);
-//	Vel.x = node.child("velocity").attribute("x").as_float(0);
-//	Vel.y = node.child("velocity").attribute("y").as_float(0);
-//	Acc.x = node.child("acceleration").attribute("x").as_float(0);
-//	Acc.y = node.child("acceleration").attribute("y").as_float(0);
-//
-//	Jumping = node.child("var").attribute("Jumping").as_bool(false);
-//	Onplat = node.child("var").attribute("Onplat").as_bool(false);
-//	Alive = node.child("var").attribute("Alive").as_bool(true);
-//	Cont = node.child("cont").attribute("Cont").as_float(0);
-//	Cont_X = node.child("cont").attribute("Cont_X").as_float(0);
-//	God_Mode = node.child("var").attribute("God_Mode").as_bool(false);
-//
-//
-//
-//
-//
-//	p2SString collider(node.child("state").attribute("collider_type").as_string(""));
-//
-//	if (collider == "collider_player")
-//	{
-//		Player_Collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
-//	}
-//	else if (collider == "collider_god")
-//	{
-//		Player_Collider->type = COLLIDER_TYPE::COLLIDER_GOD;
-//	}
-//
-//	return ret;
-//
-//}
-//
-//bool j1Player::Save(pugi::xml_node& node) const
-//{
-//	bool ret = true;
-//
-//	pugi::xml_node pos = node.append_child("position");
-//
-//	pos.append_attribute("x") = Pos.x;
-//	pos.append_attribute("y") = Pos.y;
-//	pos.append_attribute("Map_Logic") = mapLo;
-//
-//	pugi::xml_node vel = node.append_child("velocity");
-//
-//	vel.append_attribute("x") = Vel.x;
-//	vel.append_attribute("y") = Vel.y;
-//
-//	pugi::xml_node cont = node.append_child("Cont");
-//
-//	cont.append_attribute("Cont") = Cont;
-//	cont.append_attribute("Cont_X") = Cont_X;
-//
-//	pugi::xml_node var = node.append_child("Cont");
-//
-//	var.append_attribute("Jumping") = Jumping;
-//	var.append_attribute("Onplat") = Onplat;
-//	var.append_attribute("Alive") = Alive;
-//	var.append_attribute("God_Mode") = God_Mode;
-//
-//
-//
-//	pugi::xml_node coll = node.append_child("state");
-//
-//	p2SString collider;
-//	switch (Player_Collider->type)
-//	{
-//	case COLLIDER_TYPE::COLLIDER_PLAYER:
-//		collider.create("collider_player");
-//		break;
-//	case COLLIDER_TYPE::COLLIDER_GOD:
-//		collider.create("collider_god");
-//		break;
-//	}
-//
-//	coll.append_attribute("collider_type") = collider.GetString();
-//
-//	return ret;
-//}
+
+	position.x = node.child("Position").attribute("x").as_float(0);
+    position.y = node.child("Position").attribute("y").as_float(0);
+	Vel.x = node.child("Velocity").attribute("x").as_float(0);
+	Vel.y = node.child("Velocity").attribute("y").as_float(0);
+	Acc.x = node.child("Acceleration").attribute("x").as_float(0);
+	Acc.y = node.child("Acceleration").attribute("y").as_float(0);
+	
+	Jumping = node.child("Var").attribute("Jumping").as_bool(false);
+	Onplat = node.child("Var").attribute("Onplat").as_bool(false);
+	Cont = node.child("cont").attribute("Cont").as_float(0);
+	Cont_X = node.child("cont").attribute("Cont_X").as_float(0);
+	God_Mode = node.child("Var").attribute("God_Mode").as_bool(false);
+	
+	
+	
+	
+	
+	p2SString Collider(node.child("State").attribute("collider_type").as_string(""));
+	
+	if (Collider == "collider_player")
+	{
+		this->collider->type = COLLIDER_TYPE::COLLIDER_PLAYER;
+	}
+	else if (Collider == "collider_god")
+	{
+		this->collider->type = COLLIDER_TYPE::COLLIDER_GOD;
+	}
+	
+	return ret;
+}
+
+bool j1Player_Entity::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	pugi::xml_node pos = node.append_child("Position");
+
+	pos.append_attribute("x") = this->position.x;
+	pos.append_attribute("y") = this->position.y;
+
+	pugi::xml_node vel = node.append_child("Velocity");
+
+	vel.append_attribute("x") = this->Vel.x;
+	vel.append_attribute("y") = this->Vel.y;
+
+	pugi::xml_node cont = node.append_child("cont");
+
+	cont.append_attribute("Cont") = this->Cont;
+	cont.append_attribute("Cont_X") = this->Cont_X;
+
+	pugi::xml_node var = node.append_child("cont");
+
+	var.append_attribute("Jumping") = this->Jumping;
+	var.append_attribute("Onplat") = this->Onplat;
+	var.append_attribute("God_Mode") = this->God_Mode;
+
+
+
+	pugi::xml_node coll = node.append_child("State");
+
+	p2SString Collider;
+	switch (this->collider->type)
+	{
+	case COLLIDER_TYPE::COLLIDER_PLAYER:
+		Collider.create("collider_player");
+		break;
+	case COLLIDER_TYPE::COLLIDER_GOD:
+		Collider.create("collider_god");
+		break;
+	}
+
+	coll.append_attribute("collider_type") = Collider.GetString();
+
+	return ret;
+}

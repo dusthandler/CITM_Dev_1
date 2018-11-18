@@ -28,8 +28,8 @@ bool j1Entity_Manager::Start(){
 
 	bool ret = true; // Scene->Switch Para cambiar la posicion de los enemigos.
 	//New: We will create the entyties here, that way is more easy to do the respawn.
-	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
-	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
+	//j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
+	//App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 	
 
 	iPoint Pos;
@@ -221,20 +221,35 @@ iPoint j1Entity_Manager::GetPlayerPos() {
 		}
 
 	}
-
 	return pos;
 }
 
-bool j1Entity_Manager::Load(pugi::xml_node &) //New: Save and Load methods, now are not working 
+bool j1Entity_Manager::Load(pugi::xml_node &data) //New: Save and Load methods, now are not working 
 {
-	// add brofiler category
-	return false;
+	p2List_item<j1Entity*>* item;
+	
+	item = entities.start;
+
+	for (; item != NULL; item = item->next)
+	{
+		item->data->Load(data);
+	}
+	return true;
 }
 
-bool j1Entity_Manager::Save(pugi::xml_node &) const
+bool j1Entity_Manager::Save(pugi::xml_node &data) const
 {
 	// add brofiler category
-	return false;
+
+	p2List_item<j1Entity*>* item;
+
+	item = entities.start;
+
+	for (; item != NULL; item = item->next)
+	{
+		item->data->Save(data);
+	}
+	return true;
 }
 
 

@@ -111,18 +111,16 @@ bool j1Scene::Update(float dt)
 
 	else if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 40;
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
-
-
-		
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || Player_Win) {
 		/*Disable();*/
 		/*App->player->Disable(); */          // disable player before swapping maps
 		MapSwap(1);
+		Player_Win = false;
 		
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || !Player_Alive) {
 		/*Disable();*/
 		/*App->player->Disable();    */       // disable player before swapping maps
 		MapSwap(0);
