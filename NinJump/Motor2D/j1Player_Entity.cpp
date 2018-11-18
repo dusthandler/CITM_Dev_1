@@ -202,12 +202,12 @@ PlayerStat j1Player_Entity::Get_Player_State() {
 
 				if (Vel.y < 0) {                 // GOING UP 
 
-					if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+					if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 						State = JUMPING_LEFTT;
 						animation = &Jumping_Left;
 					}
 
-					else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) {
+					else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 						State = JUMPING_RIGHTT;
 						animation = &Jumping_Right;
 					}
@@ -219,12 +219,12 @@ PlayerStat j1Player_Entity::Get_Player_State() {
 
 				else {                            // GOING DOWN
 
-					if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+					if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 						State = FALLING_LEFTT;
 						animation = &Falling_Left;
 					}
 
-					else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) {
+					else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 						State = FALLING_RIGHTT;
 						animation = &Falling_Right;
 					}
@@ -239,7 +239,7 @@ PlayerStat j1Player_Entity::Get_Player_State() {
 			else {    // IN THE GROUND
 
 
-				if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
 					State = WALKING_LEFTT;
 
@@ -254,7 +254,7 @@ PlayerStat j1Player_Entity::Get_Player_State() {
 				}
 
 
-				else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) {
+				else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
 					State = WALKING_RIGHTT;
 
@@ -341,7 +341,7 @@ void j1Player_Entity::Debug_Keys() {
 void j1Player_Entity::Movex(float dt) {
 
 	if (!Respawning) {
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 
 			if (position.x <= 0) {
 				Vel.x = 0;
@@ -368,7 +368,7 @@ void j1Player_Entity::Movex(float dt) {
 			}
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) {
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 
 			if (Vel.x == 0) {
 				Cont_X = 0;
