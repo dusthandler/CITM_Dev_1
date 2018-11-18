@@ -224,16 +224,32 @@ iPoint j1Entity_Manager::GetPlayerPos() {
 	return pos;
 }
 
-bool j1Entity_Manager::Load(pugi::xml_node &) //New: Save and Load methods, now are not working 
+bool j1Entity_Manager::Load(pugi::xml_node &data) //New: Save and Load methods, now are not working 
 {
-	// add brofiler category
-	return false;
+	p2List_item<j1Entity*>* item;
+	
+	item = entities.start;
+
+	for (; item != NULL; item = item->next)
+	{
+		item->data->Load(data);
+	}
+	return true;
 }
 
-bool j1Entity_Manager::Save(pugi::xml_node &) const
+bool j1Entity_Manager::Save(pugi::xml_node &data) const
 {
 	// add brofiler category
-	return false;
+
+	p2List_item<j1Entity*>* item;
+
+	item = entities.start;
+
+	for (; item != NULL; item = item->next)
+	{
+		item->data->Save(data);
+	}
+	return true;
 }
 
 

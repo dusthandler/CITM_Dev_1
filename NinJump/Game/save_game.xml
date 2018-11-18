@@ -6,17 +6,17 @@
 	<audio />
 	<map />
 	<pathfinding />
+	<:anonymous>
+		<Position x="87" y="532" />
+		<Velocity x="0" y="0" />
+		<cont Cont="-4.74863322e-20" Cont_X="16.7000008" />
+		<cont Jumping="false" Onplat="false" God_Mode="false" />
+		<State collider_type="collider_player" />
+	</:anonymous>
 	<scene />
-	<player>
-		<position x="605" y="851" Map_Logic="0" />
-		<velocity x="0" y="0" />
-		<Cont Cont="1.29999995" Cont_X="10" />
-		<Cont Jumping="false" Onplat="false" Alive="true" God_Mode="false" />
-		<state collider_type="collider_player" />
-	</player>
 	<fadeToBlack />
 	<:anonymous />
 	<renderer>
-		<camera x="-305" y="-320" />
+		<camera x="0" y="-232" />
 	</renderer>
 </game_state>

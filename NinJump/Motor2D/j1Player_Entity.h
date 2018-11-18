@@ -51,6 +51,8 @@ public:
 	void Solve_Move(float dt);
 	bool PostUpdate();
 	bool CleanUp();
+	bool Load(pugi::xml_node& node);
+	bool Save(pugi::xml_node& node) const;
 
 
 private:
