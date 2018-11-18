@@ -21,7 +21,9 @@ public:
 	void Follow_Path(); 
 	void OnCollision(Collider* c1, Collider* c2);
 	void Move(float dt);
-	void Draw_Path(); 
+	/*void Draw_Path(); 
+	bool Load(pugi::xml_node& node);
+	bool Save(pugi::xml_node& node) const;*/
 private:
 
 	Animation Idle;
