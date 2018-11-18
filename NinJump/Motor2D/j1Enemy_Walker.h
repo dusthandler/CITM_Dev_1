@@ -22,6 +22,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	void Move(float dt);
 	//void Draw_Path(); 
+	void Set_Anim();
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 private:
@@ -29,6 +30,7 @@ private:
 	Animation Iddle_Left;
 	Animation Walking_Left;
 	Animation Pushing_Left;
+	Animation Pushing_Right;
 	Animation Iddle_Right;
 	Animation Walking_Right;
 	Animation Kicked_Left;

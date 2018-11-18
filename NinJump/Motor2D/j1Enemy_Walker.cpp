@@ -16,12 +16,18 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 
 	collider = App->collision->AddCollider({ position.x, position.y,70,70 }, COLLIDER_ENEMY, this); 
 	tex = App->tex->Load("Maps/Enemies/Floor/floor_enemy.png");
-	animation = &Idle;
+	animation = &Iddle_Left;
 	Iddle_Left.PushBack({ 0, 0, 35, 49 });
 	Iddle_Left.PushBack({ 37, 0, 46, 49 });
+	Iddle_Left.loop = true; 
+	Iddle_Left.speed = 0.2f; 
+
 	Walking_Left.PushBack({ 84, 0, 42, 49 });
 	Walking_Left.PushBack({ 126, 0, 35, 49 });
 	Walking_Left.PushBack({ 162, 0, 36, 49 });
+	Walking_Left.loop = true; 
+	Walking_Left.speed = 0.05f;
+
 	Pushing_Left.PushBack({ 198, 0, 43, 49 });
 
 	Iddle_Right.PushBack({ 0, 56, 35, 49 });
@@ -29,6 +35,9 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 	Walking_Right.PushBack({ 84, 56, 42, 49 });
 	Walking_Right.PushBack({ 126, 56, 35, 49 });
 	Walking_Right.PushBack({ 162, 56, 36, 49 });
+	Walking_Right.loop = true;
+	Walking_Right.speed = 0.05f;
+
 	Pushing_Right.PushBack({ 198, 56, 43, 49 });
 
 	Kicked_Left.PushBack({ 0, 115, 46, 49 });
@@ -42,7 +51,7 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, 
 	Falling_Left.PushBack({ 189, 115, 40, 49 });
 	Falling_Right.PushBack({ 190, 178, 40, 49 });
 
-	dir_multiplier = 10;
+	dir_multiplier = 4;
 
 	// testing
 	
@@ -59,6 +68,7 @@ bool j1Enemy_Walker::Update(float dt) {
 	Move(dt);
 
 	collider->SetPos(position.x, position.y);
+	Set_Anim();
 
 	return ret;
 }
@@ -116,6 +126,18 @@ void j1Enemy_Walker::Move(float dt) {
 }
 
 
+void j1Enemy_Walker::Set_Anim() {
+
+	if (App->entity_manager->GetPlayerPos().x <= position.x) {
+		animation = &Walking_Left;
+	}
+	else {
+		animation = &Walking_Right;
+	}
+
+
+
+}
 
 
 void j1Enemy_Walker::OnCollision(Collider* c1, Collider* c2) {                                     // extracted from player
