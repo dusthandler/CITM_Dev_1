@@ -159,12 +159,12 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 
-	bool Load_Object(pugi::xml_node& node, MapObject* MapObject);
-	bool Set_Colliders(pugi::xml_node& node, MapObject* MapObject);
+	
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
-
+	bool Load_Object(pugi::xml_node& node, MapObject* MapObject);
+	bool Set_Colliders(pugi::xml_node& node, MapObject* MapObject);
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
