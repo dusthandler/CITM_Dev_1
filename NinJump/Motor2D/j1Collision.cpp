@@ -119,7 +119,7 @@ bool j1Collision::Update(float dt)
 	BROFILER_CATEGORY("Collision Update", Profiler::Color::DarkSlateBlue);
 	bool ret = true;
 	
-	if (App->input->GetKey(SDL_SCANCODE_9) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_REPEAT) {
 		DebugDraw();
 	}
 

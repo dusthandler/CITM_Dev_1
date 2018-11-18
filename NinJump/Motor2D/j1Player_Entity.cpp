@@ -123,7 +123,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
-	if (c2->type == COLLIDER_DEATH) {
+	if (c2->type == COLLIDER_DEATH || c2->type == COLLIDER_ENEMY) {
 
 		if (!God_Mode) {
 

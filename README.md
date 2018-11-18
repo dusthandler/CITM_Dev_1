@@ -81,3 +81,5 @@ SOFTWARE.
 ## Work done by members
 
 Kevin Muñoz - Pathfinding, art and level design
+
+Guillem Sanchez - delivery 1 (bugs), Entity_System, Movement-normalized, Save-Load entity

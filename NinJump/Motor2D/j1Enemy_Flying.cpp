@@ -79,7 +79,7 @@ void j1Enemy_Flying::Follow_Path() {
 		dir.x = Target_Map_Pos.x - Enemy_Map_Pos.x; 
 		dir.y = Target_Map_Pos.y - Enemy_Map_Pos.y;
 
-		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {   // change to F9
+		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {   // change to F9
 
 		if(!Drawing_Path)
 			Drawing_Path = true; 
@@ -151,7 +151,7 @@ void j1Enemy_Flying::Draw_Path() {
 
 void j1Enemy_Flying::OnCollision(Collider* c1, Collider* c2) {
 
-
+	
 
 	
 	if (c2->type == COLLIDER_WALL) {
