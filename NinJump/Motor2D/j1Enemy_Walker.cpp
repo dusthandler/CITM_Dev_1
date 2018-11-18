@@ -157,5 +157,78 @@ bool j1Enemy_Walker::CleanUp() {
 	return true;
 }
 
+bool j1Enemy_Walker::Load(pugi::xml_node& node) {
+	bool ret = true;
+
+
+	position.x = node.child("Enemy_walker").attribute("x").as_int(0);
+	position.y = node.child("Enemy_walker").attribute("y").as_int(0);
+	Vel.x = node.child("Enemy_walker").attribute("vx").as_int(0);
+	Vel.y = node.child("Enemy_walker").attribute("vy").as_int(0);
+	Acc.x = node.child("Enemy_walker").attribute("ax").as_int(0);
+	Acc.y = node.child("Enemy_walker").attribute("ay").as_int(0);
+	dir.x = node.child("Enemy_walker").attribute("dirx").as_int(0);
+	dir.y = node.child("Enemy_walker").attribute("diry").as_int(0);
+	Path_Pos.x = node.child("Enemy_walker").attribute("pathx").as_int(0);
+	Path_Pos.y = node.child("Enemy_walker").attribute("pathy").as_int(0);
+	dir_multiplier = node.child("Enemy_walker").attribute("dir_m").as_uint(0);
+	active = node.child("Enemy_walker").attribute("active").as_bool(false);
+	to_delete = node.child("Enemy_walker").attribute("delet").as_bool(false);
+	following_player = node.child("Enemy_walker").attribute("foll_pla").as_bool(false);
+	Reached_Player = node.child("Enemy_walker").attribute("reached").as_bool(false);
+
+	collider->type = COLLIDER_ENEMY;
+	type = Type::ENEMY_LAND;
+
+
+	//ene.append_attribute("dir_m") = dir_multiplier;
+	//ene.append_attribute("act") = active;
+
+	//ene.append_attribute("delet") = to_delete;
+	//ene.append_attribute("foll_pla") = following_player;
+
+
+
+	return ret;
+}
+
+
+bool j1Enemy_Walker::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	pugi::xml_node ene = node.append_child("Enemy_walker");
+
+	ene.append_attribute("x") = position.x;
+	ene.append_attribute("y") = position.y;
+
+	ene.append_attribute("vx") = Vel.x;
+	ene.append_attribute("vy") = Vel.y;
+
+	ene.append_attribute("ax") = Acc.x;
+	ene.append_attribute("ay") = Acc.y;
+
+	ene.append_attribute("dirx") = dir.x;
+	ene.append_attribute("diry") = dir.y;
+
+	ene.append_attribute("pathx") = Path_Pos.x;
+	ene.append_attribute("pathy") = Path_Pos.y;
+
+	ene.append_attribute("dir_m") = dir_multiplier;
+	ene.append_attribute("act") = active;
+	ene.append_attribute("reached") = Reached_Player;
+
+	ene.append_attribute("delet") = to_delete;
+	ene.append_attribute("foll_pla") = following_player;
+
+
+
+	return ret;
+}
+
+
+
+
+
 
 

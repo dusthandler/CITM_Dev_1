@@ -23,6 +23,9 @@ public:
 	void Move(float dt); 
 	void Set_Anim(); 
 	void Draw_Path();
+	bool Load(pugi::xml_node& node);
+	bool Save(pugi::xml_node& node) const;
+	
 	
 	// void Start_Follow()    TODO: only if enemy is near player, start following path
 

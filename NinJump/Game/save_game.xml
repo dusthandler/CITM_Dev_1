@@ -12,10 +12,10 @@
 	<fadeToBlack />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-168" />
+		<camera x="0" y="-106" />
 	</renderer>
 	<Entity_Manager>
-		<Player_Entity x="135" y="468" xv="0" yv="0" Cont="0" Cont_X="60.0000076" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
+		<Player_Entity x="186" y="407" xv="4" yv="101" Cont="-7.51758321e+35" Cont_X="77.9999847" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
 		<State collider_type="collider_player" />
 	</Entity_Manager>
 </game_state>
