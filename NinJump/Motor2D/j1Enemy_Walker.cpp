@@ -75,7 +75,7 @@ bool j1Enemy_Walker::Update(float dt) {
 
 bool j1Enemy_Walker::PostUpdate() {
 
-	// Onplat = false;  // same as player
+	 Onplat = false;  // same as player
 
 	return true;
 }
