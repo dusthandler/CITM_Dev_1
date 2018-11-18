@@ -32,8 +32,8 @@ bool j1Enemy_Walker::Update(float dt) {
 
 	bool ret = true;
 	
-	/*Follow_Path();
-	Move(dt);*/
+	Follow_Path();
+	Move(dt);
 
 	collider->SetPos(position.x, position.y);
 

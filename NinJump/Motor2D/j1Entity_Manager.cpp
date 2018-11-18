@@ -28,8 +28,8 @@ bool j1Entity_Manager::Start(){
 
 	bool ret = true; // Scene->Switch Para cambiar la posicion de los enemigos.
 	//New: We will create the entyties here, that way is more easy to do the respawn.
-	j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
-	//App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
+	// j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
+	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 	
 
 	iPoint Pos;
@@ -60,30 +60,6 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 	return ret;
 }
 
-void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
-
-	p2List_item<j1Entity*>* item;
-	item = entities.start;
-	j1Entity* pEntity = NULL;
-
-	for (item = entities.start; item != NULL; item = item->next)
-	{
-		if (item->data == entity && entity != nullptr && entity->to_delete) {
-
-			if (entity->tex != nullptr) {
-				App->tex->UnLoad(item->data->tex);                      
-			}
-			if (entity->collider != nullptr) {
-				entity->collider->to_delete = true;
-			}
-		
-			delete entity;                                                 
-			entity = nullptr;                          
-		}
-		
-	}
-
-}
 
 void j1Entity_Manager::Draw() {
 	BROFILER_CATEGORY("Entity Manager Draw", Profiler::Color::BurlyWood);
@@ -184,6 +160,26 @@ bool j1Entity_Manager::PostUpdate() {
 bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this function is like DoUpdate() in App
 	
 }
+
+void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
+
+	bool ret = true;
+	p2List_item<j1Entity*>* item;
+
+	item = entities.start;
+
+	for (item = entities.start; item != NULL && ret == true; item = item->next)
+	{
+		if(item->data == entity){
+		ret = item->data->CleanUp();
+		delete item->data;
+		item->data = nullptr;
+		}
+	}
+	entities.del(item); 
+
+}
+
 
 
 bool j1Entity_Manager::CleanUp()      // as in App
