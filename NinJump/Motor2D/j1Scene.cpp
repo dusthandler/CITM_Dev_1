@@ -77,7 +77,6 @@ bool j1Scene::Start()
 	
 	
 	
-	
 	//if (!App->player->Alive) {
 	//	App->player->Enable(); 
 	//	App->player->Pos.x = 15; //TODO: parche para que el player no desaparezca
@@ -93,6 +92,13 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	if (Restart && Second_Start) {
+		App->LoadGame("save_game.xml");
+		Restart = false;
+		Second_Start = false;
+	}
+
+	Second_Start = true;
 	return true;
 }
 
@@ -199,23 +205,27 @@ bool j1Scene::CleanUp()
 }
 
 
-bool j1Scene::MapSwap(int SwitchM)
+bool j1Scene::MapSwap(int Mapsw)
 {
 	BROFILER_CATEGORY("Scene MapSwap", Profiler::Color::LimeGreen);
 	bool ret = true;
+	
 	App->entity_manager->CleanUp();
-	if (SwitchM == 0)
+	
+	
+	if (Mapsw == 0)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
 		App->collision->CleanWallDeath();
 		App->map->CleanUp();
 	
 		App->map->Load("Level_1.tmx");
+		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
 		
 	}
-	else if (SwitchM == 1)
+	else if (Mapsw == 1)
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
 		App->collision->CleanWallDeath();
@@ -223,10 +233,50 @@ bool j1Scene::MapSwap(int SwitchM)
 	
 		App->map->Load("Level_2.tmx");
 		Mus_Id = 2; 
+		this->SwitchM = 1;
 	}
-	this->SwitchM = SwitchM;
+	
 	// enable player after swapping maps
+	
 	App->entity_manager->restart = true;
+
+	
+
+
+	return ret;
+}
+
+
+bool j1Scene::Load(pugi::xml_node& node) {
+	bool ret = true;
+
+
+
+	SwitchM = node.child("Scene_vars").attribute("Switch").as_int(0);
+	Player_Alive = node.child("Scene_vars").attribute("Alive").as_bool(true);
+	Player_Win = node.child("Scene_vars").attribute("Win").as_bool(false);
+	Restart = true;
+	MapSwap(SwitchM);
+	
+
+
+	return ret;
+}
+
+
+
+
+
+
+bool j1Scene::Save(pugi::xml_node& node) const
+{
+	bool ret = true;
+
+	pugi::xml_node posi = node.append_child("Scene_vars");
+
+	posi.append_attribute("Switch") = SwitchM;
+	posi.append_attribute("Alive") = Player_Alive;
+	posi.append_attribute("Win") = Player_Win;
 
 	return ret;
 }

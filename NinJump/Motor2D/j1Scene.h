@@ -35,10 +35,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Load(pugi::xml_node& node);
+	bool Save(pugi::xml_node& node) const;
+
 	bool MapSwap(int);
 	int SwitchM = 0;
 	bool Player_Alive = true;
 	bool Player_Win;
+	bool Restart = false;
+	bool Second_Start = false;
 
 private:
 	bool Map_Loaded = false; 

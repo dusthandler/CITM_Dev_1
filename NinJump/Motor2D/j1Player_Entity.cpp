@@ -533,6 +533,9 @@ bool j1Player_Entity::Load(pugi::xml_node& node) {
 	Cont = node.child("Player_Entity").attribute("Cont").as_float(0);
 	Cont_X = node.child("Player_Entity").attribute("Cont_X").as_float(0);
 	God_Mode = node.child("Player_Entity").attribute("God_Mode").as_bool(false);
+	p2SString Player(node.child("Player_Entity").attribute("PType").as_string(""));
+
+	type = Type::PLAYER;
 	
 	
 	
@@ -570,7 +573,9 @@ bool j1Player_Entity::Save(pugi::xml_node& node) const
 	posi.append_attribute("Jumping") = Jumping;
 	posi.append_attribute("Onplat") = Onplat;
 	posi.append_attribute("God_Mode") = God_Mode;
-
+	p2SString PlayerType;
+	PlayerType.create("PLAYER");
+	posi.append_attribute("PType") = PlayerType.GetString();
 
 
 	pugi::xml_node coll = node.append_child("State");
@@ -587,6 +592,9 @@ bool j1Player_Entity::Save(pugi::xml_node& node) const
 	}
 
 	coll.append_attribute("collider_type") = Collider.GetString();
+
+
+	
 
 	return ret;
 }

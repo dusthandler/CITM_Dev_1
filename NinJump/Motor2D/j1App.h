@@ -80,6 +80,7 @@ private:
 
 	// Load / Save
 	bool LoadGameNow();
+	bool LoadManager();
 	bool SavegameNow() const;
 
 public:
@@ -110,6 +111,7 @@ private:
 
 	mutable bool		want_to_save;
 	bool				want_to_load;
+	bool				want_to_load_manager;
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
