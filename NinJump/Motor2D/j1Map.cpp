@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1PathFinding.h"
 #include <math.h>
 
 #include "Brofiler/Brofiler.h"
@@ -499,6 +500,15 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		{
 			layer->data[i++] = tile.attribute("gid").as_int(0);
 		}
+	}
+
+	// Create walkability map 
+	 
+	if (layer->name == "Platforms") {                                // now platform layer is the reference
+		uchar* map = new uchar[layer->width*layer->height];
+		memset(map, 1, layer->width*layer->height);
+		App->pathfinding->SetMap(layer->width, layer->height, map);
+		delete map;
 	}
 
 	return ret;

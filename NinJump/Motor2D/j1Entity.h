@@ -50,7 +50,7 @@ public:
 		return true;
 	}
 
-	virtual void Follow_Path();
+	virtual void Follow_Path() {};
 
 	bool Load(pugi::xml_node& node){
 		return true;
@@ -60,7 +60,7 @@ public:
 
 	}
 
-	virtual void Path_Dir_Logic() {};
+	virtual void Move(float dt) {};
 
 public:
 

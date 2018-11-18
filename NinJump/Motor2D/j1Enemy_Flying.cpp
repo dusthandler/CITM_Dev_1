@@ -29,8 +29,8 @@ bool j1Enemy_Flying::Update(float dt) {
 	BROFILER_CATEGORY("Enemy fly Update", Profiler::Color::Beige); 
 	bool ret = true;
 
-	if (!Reached_Player)
-		Follow_Path(); 
+	Follow_Path(); 
+	Move(dt);
 
 	collider->SetPos(position.x, position.y);
 
@@ -52,19 +52,24 @@ void j1Enemy_Flying::Follow_Path() {
 	iPoint origin = App->map->WorldToMap(position.x, position.y);
 	iPoint dest = App->map->WorldToMap(GetPlayerPos().x, GetPlayerPos().y);                                           // change for player position
 
-	// if () {
-		App->pathfinding->CreatePath(origin, dest);            // create path 
-	//}
+	 if (App->scene->Player_Alive) {
+		App->pathfinding->CreatePath(origin, dest);     
+		Path = App->pathfinding->GetLastPath();                  // create path 
 
-	Path = App->pathfinding->GetLastPath();       // capture the path
+     }
+	 else {
+		 dir.x = 1 / dir_multiplier; 
+		 dir.y = 1 / dir_multiplier; 
+	 }
+	 
+	      // capture the path*/
 
 	/*for (uint i = 0; i < Path->Count(); ++i) {
 		position = App->map->MapToWorld(Path->At(i)->x, Path->At(i)->y);    // move according to path
 	}*/
 
 
-
-	Path_Dir_Logic();
+	
 }
 
 
@@ -72,8 +77,8 @@ void j1Enemy_Flying::Follow_Path() {
 void j1Enemy_Flying::Move(float dt) {
 
 
-	position.x += dir.x*dir_multiplier;      
-	position.y += dir.y*dir_multiplier;
+	position.x += dir.x*dir_multiplier;      // *dt
+	position.y += dir.y*dir_multiplier;      // *dt
 
 
 	// LOG("Enemy flying is moving in this direction: %i,%i", dir.x, dir.y); 
