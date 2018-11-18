@@ -26,8 +26,15 @@ public:
 	bool Save(pugi::xml_node& node) const;
 private:
 
-	Animation Idle;
-	
+	Animation Iddle_Left;
+	Animation Walking_Left;
+	Animation Pushing_Left;
+	Animation Iddle_Right;
+	Animation Walking_Right;
+	Animation Kicked_Left;
+	Animation Kicked_Right;
+	Animation Falling_Left;
+	Animation Falling_Right;
 
 	bool Onplat = false;
 	uint Gravity = 10;
