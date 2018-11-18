@@ -29,7 +29,7 @@ bool j1Entity_Manager::Start(){
 	bool ret = true;
 	//New: We will create the entyties here, that way is more easy to do the respawn.
 
-	 //CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
+	 CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
 	// App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 
 	
@@ -168,7 +168,7 @@ bool j1Entity_Manager::PostUpdate() {
 	return ret;
 }
 bool j1Entity_Manager::UpdateAll(float dt, bool do_logic) {       // this function is like DoUpdate() in App
-	
+	return true;
 }
 
 void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
