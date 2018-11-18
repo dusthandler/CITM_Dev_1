@@ -84,6 +84,5 @@ Kevin Muñoz - Pathfinding, art and level design
 
 Marc Doctor - Entity system, code enemy animations and pathfinding, player gravity reverse, framerate cap, brofiler
 
-
 Guillem Sanchez - delivery 1 (bugs), Entity_System, Movement-normalized, Save-Load entity
 
