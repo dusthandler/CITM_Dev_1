@@ -19,7 +19,8 @@ public:
 
 	bool Update(float dt);
 	bool CleanUp(); 
-	void Follow_Path() override;
+	void Follow_Path();
+	void OnCollision(Collider* c1, Collider* c2);
 	void Move(float dt); 
 	void Set_Anim(); 
 	void Draw_Path();
