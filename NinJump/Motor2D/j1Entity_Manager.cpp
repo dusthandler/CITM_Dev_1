@@ -26,7 +26,7 @@ j1Entity_Manager::~j1Entity_Manager()
 bool j1Entity_Manager::Start(){
 	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::Brown);
 
-	bool ret = true; // Scene->Switch Para cambiar la posicion de los enemigos.
+	bool ret = true;
 	//New: We will create the entyties here, that way is more easy to do the respawn.
 /*	 CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));*/  //New: You can create a entity both ways.
 	// App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
@@ -121,6 +121,7 @@ bool j1Entity_Manager::PreUpdate() {
 	bool ret = true;                                              // TODO: add "do_logic" condition
 	p2List_item<j1Entity*>* item;
 	item = entities.start;
+	
 
 
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
@@ -136,7 +137,7 @@ bool j1Entity_Manager::PreUpdate() {
 		and all modules that use update */
 		ret = item->data->PreUpdate();
 	}
-
+	
 	return ret;
 }
 
@@ -160,6 +161,7 @@ bool j1Entity_Manager::PostUpdate() {
 		and all modules that use update */
 		ret = item->data->PostUpdate();
 	}
+	
 
 	return ret;
 }

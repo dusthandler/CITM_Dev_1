@@ -27,7 +27,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	PERF_START(ptimer);
 
 	frames = 0;
-	want_to_save = want_to_load = false;
+	want_to_save = want_to_load = want_to_load_manager = false;
 
 	render = new j1Render();
 	input = new j1Input();
@@ -51,11 +51,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-
 	AddModule(pathfinding);
 	AddModule(entity_manager);
 	AddModule(scene);
-
 	AddModule(fade);
 	AddModule(collision);
 
@@ -217,6 +215,9 @@ void j1App::FinishUpdate()
 
 	if (want_to_load == true)
 		LoadGameNow();
+
+	if (want_to_load_manager == true)
+		LoadManager();
 
 	// Framerate calculations --
 
@@ -391,10 +392,14 @@ void j1App::LoadGame(const char* file)
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
-
-	
+	if (App->scene->Restart && App->scene->Second_Start) {
+		want_to_load_manager = true;
+	}
+	else {
+		want_to_load = true;
+	}
 	 
-	want_to_load = true;
+	
 	LOG("LOADING FILE");
 
 }
@@ -437,10 +442,15 @@ bool j1App::LoadGameNow()
 
 		while(item != NULL && ret == true)
 		{
-			ret = item->data->Load(root.child(item->data->name.GetString()));
-			item = item->next;
+			if (item->data->name == "Entity_Manager") {
+				item = item->next;
+			}
+			else {
+				ret = item->data->Load(root.child(item->data->name.GetString()));
+				item = item->next;
+			}
+			
 		}
-
 		data.reset();
 		if(ret == true)
 			LOG("...finished loading");
@@ -472,10 +482,23 @@ bool j1App::SavegameNow() const
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Save(root.append_child(item->data->name.GetString()));
+		if (item->data->name == "Entity_Manager") {
+			item = item->next;
+		}
+		else {
+			ret = item->data->Save(root.append_child(item->data->name.GetString()));
+			item = item->next;
+		}
+	}
+	
+	item = modules.start;
+	while (item != NULL && ret == true)
+	{
+		if (item->data->name == "Entity_Manager") {
+			ret = item->data->Save(root.append_child(item->data->name.GetString()));
+		}
 		item = item->next;
 	}
-
 	if(ret == true)
 	{
 		std::stringstream stream;
@@ -492,4 +515,46 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
+}
+
+bool j1App::LoadManager()
+{
+	bool ret = false;
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	pugi::xml_parse_result result = data.load_file("save_game.xml");
+
+	if (result != NULL)
+	{
+		LOG("Loading new Game State from %s...", load_game.GetString());
+
+		root = data.child("game_state");
+
+		p2List_item<j1Module*>* item = modules.start;
+		ret = true;
+		item = modules.start;
+		while (item != NULL && ret == true)
+		{
+			if (item->data->name == "Entity_Manager") {
+				ret = item->data->Load(root.child(item->data->name.GetString()));
+			}
+			item = item->next;
+		}
+
+		data.reset();
+
+		if (ret == true)
+			LOG("...finished loading");
+		else
+			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
+	}
+	else
+		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
+
+	want_to_load_manager = false;
+	return ret;
+
+
 }

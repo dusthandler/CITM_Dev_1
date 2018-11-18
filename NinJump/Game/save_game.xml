@@ -6,14 +6,16 @@
 	<audio />
 	<map />
 	<pathfinding />
-	<Entity_Manager>
-		<Player_Entity x="155" y="532" xv="0" yv="40" Cont="1.10936697e+27" Cont_X="74.9999924" Jumping="false" Onplat="false" God_Mode="false" />
-		<State collider_type="collider_player" />
-	</Entity_Manager>
-	<scene />
+	<scene>
+		<Scene_vars Switch="1" Alive="true" Win="false" />
+	</scene>
 	<fadeToBlack />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="-232" />
+		<camera x="0" y="-168" />
 	</renderer>
+	<Entity_Manager>
+		<Player_Entity x="135" y="468" xv="0" yv="0" Cont="0" Cont_X="60.0000076" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
+		<State collider_type="collider_player" />
+	</Entity_Manager>
 </game_state>
