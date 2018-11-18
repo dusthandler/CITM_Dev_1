@@ -14,7 +14,7 @@
 
 j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, type) {
 
-	collider = App->collision->AddCollider({ position.x, position.y,70,70 }, COLLIDER_ENEMY, this); 
+	collider = App->collision->AddCollider({ position.x, position.y,40,49 }, COLLIDER_ENEMY, this); 
 	tex = App->tex->Load("Maps/Enemies/Floor/floor_enemy.png");
 	animation = &Iddle_Left;
 	Iddle_Left.PushBack({ 0, 0, 35, 49 });
