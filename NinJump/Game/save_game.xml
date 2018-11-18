@@ -12,11 +12,10 @@
 	<fadeToBlack />
 	<:anonymous />
 	<renderer>
-		<camera x="-331" y="0" />
+		<camera x="0" y="-106" />
 	</renderer>
 	<Entity_Manager>
-		<Enemy_Flying x="430" y="161" vx="24" vy="28" ax="23" ay="28" dirx="1" diry="0" pathx="26" pathy="31" dir_m="3" act="false" reached="false" delet="false" foll_pla="true" />
-		<Player_Entity x="636" y="171" xv="5" yv="74" Cont="2.73067883e-35" Cont_X="115.299927" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
+		<Player_Entity x="186" y="407" xv="4" yv="101" Cont="-7.51758321e+35" Cont_X="77.9999847" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
 		<State collider_type="collider_player" />
 	</Entity_Manager>
 </game_state>
