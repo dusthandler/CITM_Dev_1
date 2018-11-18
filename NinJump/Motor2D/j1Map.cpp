@@ -179,6 +179,9 @@ bool j1Map::CleanUp()
 	}
 
 	data.objects.clear();
+
+
+
 	
 	// Clean up the pugui tree
 	map_file.reset();
@@ -475,7 +478,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	layer->name = node.attribute("name").as_string();
 
-	
+	LoadProperties(node, layer->properties);
 
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
@@ -500,15 +503,9 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		}
 	}
 
-	// Create walkability map 
+	
 
-	if (layer->name == "Platforms") {        
-		// 170 x 34, the whole map
-		uchar* map = new uchar[layer->width*layer->height];
-		memset(map, 1, layer->width*layer->height);
-		App->pathfinding->SetMap(layer->width, layer->height, map);
-		delete map;
-	}
+	
 
 	return ret;
 }
