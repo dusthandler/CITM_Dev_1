@@ -25,6 +25,8 @@ public:
 private:
 
 	Animation Idle;
+	
+
 	bool Onplat = false;
 	uint Gravity = 10;
 	iPoint Target_Map_Pos;

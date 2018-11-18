@@ -4,14 +4,14 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Pathfinding.h"
-
+#include "p2Log.h"
 
 j1Entity::j1Entity(iPoint pos, Type type): position(pos), type(type)
 {
 }
 
 
-Direction_State* j1Entity::Get_Direction_State(){
+void j1Entity::Get_Direction_State(){
 
 	if (dir.x == 0 && dir.y == 0) {                       // know the direction
 		m_state = Direction_State::STOP;
@@ -28,4 +28,7 @@ Direction_State* j1Entity::Get_Direction_State(){
 	else if (dir.x == 0 && dir.y < 0) {
 		m_state = Direction_State::UP;
 	}
+
+
+	// LOG("Enemy with direction: (%i,%i)", dir.x, dir.y); 
 }

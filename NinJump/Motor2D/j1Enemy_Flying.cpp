@@ -15,9 +15,26 @@
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
 	collider = App->collision->AddCollider({ position.x, position.y,20,20 }, COLLIDER_ENEMY, this);
-	tex = App->tex->Load("Maps/Ninja/Ninja.png");
+	tex = App->tex->Load("Maps/Enemies/Flyer/Fly.png");
 	animation = &Idle;
 	Idle.PushBack({ 55, 2, 35, 45 });
+
+
+	Right.PushBack({ 566, 21, Fly_Width, 45 });
+	Right.PushBack({ 483, 17, Fly_Width, 50 });
+	Right.PushBack({ 404, 21, Fly_Width, 47 });
+	Right.PushBack({ 329, 28, Fly_Width, 39 });
+	Right.loop = true; 
+	Right.speed = 0.2f; 
+
+	Left.PushBack({ 10, 21, Fly_Width, 45 });
+	Left.PushBack({ 91, 17, Fly_Width, 50 });
+	Left.PushBack({ 172, 21, Fly_Width, 47 });
+	Left.PushBack({ 248, 28, Fly_Width, 39 });
+	Left.loop = true;
+	Left.speed = 0.2f;
+
+
 	this->position = position;
 
 	// logic stuff
@@ -34,6 +51,8 @@ bool j1Enemy_Flying::Update(float dt) {
 	Move(dt);
 
 	collider->SetPos(position.x, position.y);
+	Set_Anim();
+	
 
 	return ret;
 }
@@ -79,6 +98,17 @@ void j1Enemy_Flying::Move(float dt) {
 
 }
 
+
+void j1Enemy_Flying::Set_Anim() {
+
+	if (App->entity_manager->GetPlayerPos().x <= position.x) {
+		animation = &Left; 
+	}
+	else {
+		animation = &Right; 
+	}
+
+}
 
 
 bool j1Enemy_Flying::CleanUp() {

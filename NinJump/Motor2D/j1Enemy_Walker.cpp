@@ -32,8 +32,8 @@ bool j1Enemy_Walker::Update(float dt) {
 
 	bool ret = true;
 	
-	Follow_Path();
-	Move(dt);
+	/*Follow_Path();
+	Move(dt);*/
 
 	collider->SetPos(position.x, position.y);
 
@@ -42,7 +42,7 @@ bool j1Enemy_Walker::Update(float dt) {
 
 bool j1Enemy_Walker::PostUpdate() {
 
-	//Onplat = false;  // same as player
+	Onplat = false;  // same as player
 
 	return true;
 }
@@ -82,7 +82,7 @@ void j1Enemy_Walker::Move(float dt) {
 
 	if (Onplat) {
 		position.x += dir.x*dir_multiplier;      // *dt
-		position.y += dir.y*dir_multiplier;     // *dt
+		// position.y += dir.y*dir_multiplier;     // *dt
 	}
 	else {
 		this->position.y += Gravity;          //*dt
@@ -97,7 +97,7 @@ void j1Enemy_Walker::OnCollision(Collider* c1, Collider* c2) {                  
 
 	BROFILER_CATEGORY("Enemy walker OnCollision", Profiler::Color::Blue);
 
-	LOG("________________________ An enemy is colliding !!! _____________________________");
+	// LOG("________________________ An enemy is colliding !!! _____________________________");
 
 	if (c2->type == COLLIDER_WALL) {
 

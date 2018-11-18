@@ -28,8 +28,8 @@ bool j1Entity_Manager::Start(){
 
 	bool ret = true; // Scene->Switch Para cambiar la posicion de los enemigos.
 	//New: We will create the entyties here, that way is more easy to do the respawn.
-	// j1Enemy_Flying* fly = (j1Enemy_Flying*)App->entity_manager->CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
-	App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
+	 CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
+	// App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 	
 
 	iPoint Pos;
@@ -38,7 +38,7 @@ bool j1Entity_Manager::Start(){
 	// we need to load this from tiled 
 	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_uint();
 	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
-	App->entity_manager->CreateEntity(Type::PLAYER, Pos);
+	CreateEntity(Type::PLAYER, Pos);
 
 
 	return ret;

@@ -173,8 +173,6 @@ bool j1Map::CleanUp()
 
 	while (Object_item != NULL)
 	{
-		LOG("Liberando objeto %s", Object_item->data->name.GetString());
-		// TODO : A veces al intentar liberar un objeto del mapa da error, como si la lista contuviese un objeto nulo o lago así. 
 		RELEASE(Object_item->data);
 		Object_item = Object_item->next;
 
@@ -381,7 +379,7 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 		set->offset_x = 0;
 		set->offset_y = 0;
 	}
-
+	
 	return ret;
 }
 
@@ -510,7 +508,6 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		App->pathfinding->SetMap(layer->width, layer->height, map);
 		delete map;
 	}
-
 
 	return ret;
 }

@@ -55,7 +55,7 @@ public:
 
 	virtual void Move(float dt) {};
 	
-	Direction_State* Get_Direction_State(); 
+	void Get_Direction_State(); 
 
 
 public:
