@@ -100,7 +100,6 @@ void j1Enemy_Flying::Follow_Path() {
 	 
 	 if(Drawing_Path)
 	 Draw_Path();
-	 LOG("pPathfinding is being SHOWED"); 
 
 
 	 // LOG("POSITIONS IN MAP ARE player %i, %i  and  enemy %i, %i", dest.x, dest.y, origin.x, origin.y);
