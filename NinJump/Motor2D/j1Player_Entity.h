@@ -11,7 +11,7 @@
 #define PLAYER_HEIGHT 45
 #define MAX_SPEED_X 5
 #define MAX_ACCELERATION_Y 2
-#define MAX_SPEED_Y 700
+#define MAX_SPEED_Y 400
 #define MAX_TOTAL_SPEED 20
 
 struct SDL_Texture;

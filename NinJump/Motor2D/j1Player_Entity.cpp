@@ -413,13 +413,9 @@ void j1Player_Entity::Movey(float dt) {
 				Cont = 20;
 				Jumping = true;
 				App->audio->PlayFx(1, 0);
-			}								//Danger:
-											//We should *dt every counter or we wont get the same result in diferent fps.
-											//We should *dt every counter or we wont get the same result in diferent fps.
-											//We should *dt every counter or we wont get the same result in diferent fps.
-											//We should *dt every counter or we wont get the same result in diferent fps.
+			}								
 			else if (Jump_Count < 2) {
-				Vel.y = -400;
+				Vel.y = -200;
 
 				Jumping = true;
 				App->audio->PlayFx(1, 0);
@@ -428,16 +424,16 @@ void j1Player_Entity::Movey(float dt) {
 
 		else if (Jumping) {
 			if (Vel.y <= -70) {
-				Vel.y += 150 * dt;
+				Vel.y += 200 * dt;
 			}
 			else {
-				Cont += 100 * dt;
+				Cont += 200 * dt;
 				Vel.y += Cont*dt;
 			}
 		}
 		else if (!Onplat && !Jumping) {
 
-			Vel.y += 150 * dt;
+			Vel.y += 200 * dt;
 		}
 	}
 
