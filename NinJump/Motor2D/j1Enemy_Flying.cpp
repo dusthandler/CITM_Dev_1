@@ -10,7 +10,7 @@
 #include "j1Input.h"
 #include "j1Scene.h"
 #include "Brofiler/Brofiler.h"
-
+#include "j1Render.h"
 
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
 
@@ -44,9 +44,12 @@ j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, 
 bool j1Enemy_Flying::Update(float dt) {
 
 	BROFILER_CATEGORY("Enemy fly Update", Profiler::Color::Beige); 
-	bool ret = true;
-	
+	bool ret = true;            
 
+
+	iPoint surface_pos;
+
+	
 	Follow_Path(); 
 	Move(dt);
 
@@ -75,6 +78,18 @@ void j1Enemy_Flying::Follow_Path() {
 		Enemy_Map_Pos = App->map->WorldToMap(position.x, position.y);           // position logic
 		dir.x = Target_Map_Pos.x - Enemy_Map_Pos.x; 
 		dir.y = Target_Map_Pos.y - Enemy_Map_Pos.y;
+
+		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {   // change to F9
+
+		if(!Drawing_Path)
+			Drawing_Path = true; 
+
+			else {
+				Drawing_Path = false; 
+			}
+			LOG("Draw path autorized"); 
+		}
+
      }
 	 else {
 		 following_player = false;
@@ -83,9 +98,12 @@ void j1Enemy_Flying::Follow_Path() {
 		 dir.y = 1 / dir_multiplier; 
 	 }
 	 
-	 
+	 if(Drawing_Path)
+	 Draw_Path();
+	 LOG("pPathfinding is being SHOWED"); 
 
-	 LOG("POSITIONS IN MAP ARE player %i, %i  and  enemy %i, %i", dest.x, dest.y, origin.x, origin.y);
+
+	 // LOG("POSITIONS IN MAP ARE player %i, %i  and  enemy %i, %i", dest.x, dest.y, origin.x, origin.y);
 	
 }
 
@@ -107,6 +125,28 @@ void j1Enemy_Flying::Set_Anim() {
 	else {
 		animation = &Right; 
 	}
+
+}
+
+void j1Enemy_Flying::Draw_Path() {
+
+	LOG("Draw path doing");
+
+	// drawing not working now
+	iPoint surface_pos; 
+
+	for (uint i = 0; i < Path->Count(); ++i) {
+
+		surface_pos = App->map->MapToWorld(Path->At(i)->x, Path->At(i)->y);
+		SDL_Rect rect;
+		rect.x = surface_pos.x; 
+		rect.y = surface_pos.y; 
+		rect.h = App->map->data.tile_height; 
+		rect.w = App->map->data.tile_width; 
+
+		App->render->DrawQuad(rect, 0, 255, 255, 50, true, true); 
+		}
+
 
 }
 

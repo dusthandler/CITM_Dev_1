@@ -7,7 +7,6 @@
 
   #define VSYNC true
 
-#define STANDARD_FRAME_TIME_MS 50
 
 class j1Render : public j1Module
 {

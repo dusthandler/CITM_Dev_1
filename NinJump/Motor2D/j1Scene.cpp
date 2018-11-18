@@ -12,6 +12,7 @@
 #include "j1Collision.h"
 #include "j1Entity_Manager.h"
 #include "j1Player_Entity.h"
+#include "j1PathFinding.h"
 
 #include "Brofiler/Brofiler.h"
 j1Scene::j1Scene() : j1Module()
@@ -39,10 +40,17 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	BROFILER_CATEGORY("Scene Start", Profiler::Color::LightSlateGray);
-	
+	// Create walkability map 
 
-	// we should order this
+	uchar* flag = NULL;
+	int w, h; 
 	
+	if (App->map->CreateWalkabilityMap(w, h, &flag)) {
+		App->pathfinding->SetMap(w,h, flag);
+		RELEASE_ARRAY(flag);
+	}
+
+	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
 	mus2 = App->audio->LoadMus("Sound/Music/level_2.ogg");
 

@@ -66,6 +66,8 @@ void j1Enemy_Walker::Follow_Path() {
 		Enemy_Map_Pos = App->map->WorldToMap(position.x, position.y);           // position logic
 		dir.x = Target_Map_Pos.x - Enemy_Map_Pos.x;
 		dir.y = Target_Map_Pos.y - Enemy_Map_Pos.y;
+
+		
 	}
 	else {
 		following_player = false; 

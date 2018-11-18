@@ -21,7 +21,7 @@ public:
 	void Follow_Path(); 
 	void OnCollision(Collider* c1, Collider* c2);
 	void Move(float dt);
-
+	void Draw_Path(); 
 private:
 
 	Animation Idle;
