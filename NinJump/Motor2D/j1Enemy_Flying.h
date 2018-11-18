@@ -28,6 +28,8 @@ private:
 
 	Animation Idle;
 	bool Path_Generated = false; 
+	iPoint Target_Map_Pos; 
+	iPoint Enemy_Map_Pos; 
 };
 
 #endif // __j1ENEMY_FLYING_H__ 

@@ -28,6 +28,7 @@ bool j1Enemy_Flying::Update(float dt) {
 
 	BROFILER_CATEGORY("Enemy fly Update", Profiler::Color::Beige); 
 	bool ret = true;
+	
 
 	Follow_Path(); 
 	Move(dt);
@@ -50,18 +51,27 @@ void j1Enemy_Flying::Follow_Path() {
 	BROFILER_CATEGORY("Enemy fly Pathfinding", Profiler::Color::Bisque);
 
 	iPoint origin = App->map->WorldToMap(position.x, position.y);
-	iPoint dest = App->map->WorldToMap(GetPlayerPos().x, GetPlayerPos().y);                                           // change for player position
+	iPoint dest = App->map->WorldToMap(App->entity_manager->GetPlayerPos().x, App->entity_manager->GetPlayerPos().y);                                           // change for player position
 
 	 if (App->scene->Player_Alive) {
+		 
 		App->pathfinding->CreatePath(origin, dest);     
 		Path = App->pathfinding->GetLastPath();                  // create path 
 
+		Target_Map_Pos = iPoint(Path->At(0)->x, Path->At(0)->y);
+		Enemy_Map_Pos = App->map->WorldToMap(position.x, position.y);           // position logic
+		dir.x = Target_Map_Pos.x - Enemy_Map_Pos.x; 
+		dir.y = Target_Map_Pos.y - Enemy_Map_Pos.y;
      }
 	 else {
+
 		 dir.x = 1 / dir_multiplier; 
 		 dir.y = 1 / dir_multiplier; 
 	 }
 	 
+	 
+
+	 LOG("POSITIONS IN MAP ARE player %i, %i  and  enemy %i, %i", dest.x, dest.y, origin.x, origin.y);
 	      // capture the path*/
 
 	/*for (uint i = 0; i < Path->Count(); ++i) {
@@ -78,7 +88,7 @@ void j1Enemy_Flying::Move(float dt) {
 
 
 	position.x += dir.x*dir_multiplier;      // *dt
-	position.y += dir.y*dir_multiplier;      // *dt
+	position.y += dir.y*dir_multiplier;     // *dt
 
 
 	// LOG("Enemy flying is moving in this direction: %i,%i", dir.x, dir.y); 
