@@ -20,7 +20,8 @@ public:
 	bool CleanUp(); 
 	//bool HandleInput(); 
 	void Follow_Path() override;
-	void Path_Dir_Logic();
+	void Move(float dt); 
+	
 	// void Start_Follow()    TODO: only if enemy is near player, start following path
 
 private:

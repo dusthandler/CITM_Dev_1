@@ -18,7 +18,7 @@ j1Entity::j1Entity(iPoint pos, Type type): position(pos), type(type)
 
 void j1Entity::Follow_Path() {
 
-	iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
+	/*iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
 	iPoint dest = App->map->WorldToMap(1000, 100);                                           // change for player position
 
 	App->pathfinding->CreatePath(origin, dest);            // create path 
@@ -51,5 +51,5 @@ void j1Entity::Follow_Path() {
 	}
 	else if (dir.x == 0 && dir.y == -1) {
 		m_state = Movement_State::UP;
-	}
+	}*/
 }

@@ -71,7 +71,7 @@ void j1Enemy_Walker::Follow_Path() {
 
 	// j1Entity::Follow_Path();
 
-	iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
+	/*iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
 	iPoint dest = App->map->WorldToMap(GetPlayerPos().x, GetPlayerPos().y);                                           // change for player position
 
 	App->pathfinding->CreatePath(origin, dest);            // create path 
@@ -106,7 +106,7 @@ void j1Enemy_Walker::Follow_Path() {
 		m_state = Movement_State::UP;
 	}
 
-	Path_Dir_Logic();
+	Path_Dir_Logic();*/
 }
 
 void j1Enemy_Walker::Path_Dir_Logic() {

@@ -29,16 +29,10 @@ bool j1Enemy_Flying::Update(float dt) {
 	BROFILER_CATEGORY("Enemy fly Update", Profiler::Color::Beige); 
 	bool ret = true;
 
-	/*if (!Reached_Player)
-		Follow_Path();*/
+	if (!Reached_Player)
+		Follow_Path(); 
 
-	collider->SetPos(this->position.x, this->position.y);
-
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {                                // testing DestroyEntity
-		to_delete = true;
-		App->entity_manager->DestroyEntity(this);                // right now destroys ALL entites of this type
-	}
-
+	collider->SetPos(position.x, position.y);
 
 	return ret;
 }
@@ -55,75 +49,34 @@ void j1Enemy_Flying::Follow_Path() {
 
 	BROFILER_CATEGORY("Enemy fly Pathfinding", Profiler::Color::Bisque);
 
-	iPoint origin = App->map->WorldToMap(this->position.x, this->position.y);
+	iPoint origin = App->map->WorldToMap(position.x, position.y);
 	iPoint dest = App->map->WorldToMap(GetPlayerPos().x, GetPlayerPos().y);                                           // change for player position
 
-	App->pathfinding->CreatePath(origin, dest);            // create path 
+	// if () {
+		App->pathfinding->CreatePath(origin, dest);            // create path 
+	//}
 
-	this->Path = App->pathfinding->GetLastPath();       // capture the path
+	Path = App->pathfinding->GetLastPath();       // capture the path
 
-	if (Path_Generated == false) {
-		for (uint i = 0; i < this->Path->Count(); ++i) {
-			if (i > 0) {
-				this->dir.x = Path->At(i)->x - Path->At(i - 1)->x;             // direction between path nodes
-				this->dir.y = Path->At(i)->y - Path->At(i - 1)->y;
-			}
-			else if (i == 0) {
-				this->dir.x = Path->At(i)->x;   // this should be 0 at th start ?? 
-				this->dir.y = Path->At(i)->y;
-			}
-			//	LOG("Enemy dir x is %i and y is %i", dir.x, dir.y);
-		}
-		Path_Generated = true; 
-	}
+	/*for (uint i = 0; i < Path->Count(); ++i) {
+		position = App->map->MapToWorld(Path->At(i)->x, Path->At(i)->y);    // move according to path
+	}*/
 
-	if (dir.x == 0 && dir.y == 0) {                       // know the direction
-		m_state = Movement_State::STOP;
-	}
-	else if (dir.x == 1 && dir.y == 0) {
-		m_state = Movement_State::RIGHT;
-	}
-	else if (dir.x == -1 && dir.y == 0) {
-		m_state = Movement_State::LEFT;
-	}
-	else if (dir.x == 0 && dir.y == 1) {
-		m_state = Movement_State::DOWN;
-	}
-	else if (dir.x == 0 && dir.y == -1) {
-		m_state = Movement_State::UP;
-	}
+
 
 	Path_Dir_Logic();
 }
 
 
 
-void j1Enemy_Flying::Path_Dir_Logic() {
+void j1Enemy_Flying::Move(float dt) {
 
 
-	switch (m_state) {
-	case Movement_State::RIGHT:
-
-		break;
-	case Movement_State::LEFT:
-
-		break;
-	case Movement_State::UP:
-
-		break;
-	case Movement_State::DOWN:
-
-		break;
-	case Movement_State::STOP:
-
-		break;
-	}
-
-	this->position.x += dir.x*dir_multiplier;        // LATER, it can be changed to player pos - enemy pos (easier)
-	this->position.y += dir.y*dir_multiplier;
+	position.x += dir.x*dir_multiplier;      
+	position.y += dir.y*dir_multiplier;
 
 
-	LOG("Enemy flying is moving in this direction: %i,%i", dir.x, dir.y); 
+	// LOG("Enemy flying is moving in this direction: %i,%i", dir.x, dir.y); 
 }
 
 

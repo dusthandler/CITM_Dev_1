@@ -60,6 +60,7 @@ public:
 	iPoint Vel;
 	iPoint Acc;
 	iPoint dir;
+	iPoint Path_Pos; 
 	uint dir_multiplier;
 	Type type;
 	bool active = false;
