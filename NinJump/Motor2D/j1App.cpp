@@ -259,7 +259,7 @@ void j1App::FinishUpdate()
 		}
 	}
 
-	if (cap) {
+	if (cap && Frame_Rate < avg_fps) {
 			 SDL_Delay((1 / float(Frame_Rate))*1000  - last_frame_ms);         // waits between the frame time and the default fps 
 	}
 	
