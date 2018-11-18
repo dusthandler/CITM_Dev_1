@@ -15,9 +15,32 @@
 j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type) : j1Entity(position, type) {
 
 	collider = App->collision->AddCollider({ position.x, position.y,70,70 }, COLLIDER_ENEMY, this); 
-	tex = App->tex->Load("Maps/Ninja/Ninja.png");
+	tex = App->tex->Load("Maps/Enemies/Floor/floor_enemy.png");
 	animation = &Idle;
-	Idle.PushBack({ 30, 2, 35, 45 });  // width and height now are 35 and 45
+	Iddle_Left.PushBack({ 0, 0, 35, 49 });
+	Iddle_Left.PushBack({ 37, 0, 46, 49 });
+	Walking_Left.PushBack({ 84, 0, 42, 49 });
+	Walking_Left.PushBack({ 126, 0, 35, 49 });
+	Walking_Left.PushBack({ 162, 0, 36, 49 });
+	Pushing_Left.PushBack({ 198, 0, 43, 49 });
+
+	Iddle_Right.PushBack({ 0, 56, 35, 49 });
+	Iddle_Right.PushBack({ 37, 56, 46, 49 });
+	Walking_Right.PushBack({ 84, 56, 42, 49 });
+	Walking_Right.PushBack({ 126, 56, 35, 49 });
+	Walking_Right.PushBack({ 162, 56, 36, 49 });
+	Pushing_Right.PushBack({ 198, 56, 43, 49 });
+
+	Kicked_Left.PushBack({ 0, 115, 46, 49 });
+	Kicked_Left.PushBack({ 50, 115, 45, 49 });
+	Kicked_Left.PushBack({ 113, 115, 56, 34 });
+
+	Kicked_Right.PushBack({ 0, 178, 46, 49 });
+	Kicked_Right.PushBack({ 50, 178, 45, 49 });
+	Kicked_Right.PushBack({ 113, 178, 56, 34 });
+
+	Falling_Left.PushBack({ 189, 115, 40, 49 });
+	Falling_Right.PushBack({ 190, 178, 40, 49 });
 
 	dir_multiplier = 10;
 
