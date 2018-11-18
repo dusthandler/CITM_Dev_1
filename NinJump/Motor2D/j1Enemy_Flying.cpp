@@ -21,7 +21,7 @@ j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, 
 	this->position = position;
 
 	// logic stuff
-	dir_multiplier = 5;
+	dir_multiplier = 3;
 }
 
 bool j1Enemy_Flying::Update(float dt) {
@@ -38,13 +38,6 @@ bool j1Enemy_Flying::Update(float dt) {
 	return ret;
 }
 
-bool j1Enemy_Flying::Draw() {
-	bool ret = true;
-
-
-
-	return ret;
-}
 
 void j1Enemy_Flying::Follow_Path() {
 
@@ -54,7 +47,8 @@ void j1Enemy_Flying::Follow_Path() {
 	iPoint dest = App->map->WorldToMap(App->entity_manager->GetPlayerPos().x, App->entity_manager->GetPlayerPos().y);                                           // change for player position
 
 	 if (App->scene->Player_Alive) {
-		 
+		 following_player = true; 
+
 		App->pathfinding->CreatePath(origin, dest);     
 		Path = App->pathfinding->GetLastPath();                  // create path 
 
@@ -64,6 +58,7 @@ void j1Enemy_Flying::Follow_Path() {
 		dir.y = Target_Map_Pos.y - Enemy_Map_Pos.y;
      }
 	 else {
+		 following_player = false;
 
 		 dir.x = 1 / dir_multiplier; 
 		 dir.y = 1 / dir_multiplier; 
@@ -72,16 +67,8 @@ void j1Enemy_Flying::Follow_Path() {
 	 
 
 	 LOG("POSITIONS IN MAP ARE player %i, %i  and  enemy %i, %i", dest.x, dest.y, origin.x, origin.y);
-	      // capture the path*/
-
-	/*for (uint i = 0; i < Path->Count(); ++i) {
-		position = App->map->MapToWorld(Path->At(i)->x, Path->At(i)->y);    // move according to path
-	}*/
-
-
 	
 }
-
 
 
 void j1Enemy_Flying::Move(float dt) {
@@ -90,11 +77,7 @@ void j1Enemy_Flying::Move(float dt) {
 	position.x += dir.x*dir_multiplier;      // *dt
 	position.y += dir.y*dir_multiplier;     // *dt
 
-
-	// LOG("Enemy flying is moving in this direction: %i,%i", dir.x, dir.y); 
 }
-
-
 
 
 

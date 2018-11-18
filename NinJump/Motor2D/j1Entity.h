@@ -10,7 +10,7 @@ struct SDL_Texture;
 struct Collider;
 struct SDL_Rect;
 
-enum Movement_State {
+enum Direction_State {
 	RIGHT,
 	LEFT,
 	DOWN,
@@ -42,13 +42,6 @@ public:
 		return true;
 	}
 
-	virtual bool Draw() {
-		return true;
-	}
-
-	virtual bool Handle_Input() {
-		return true;
-	}
 
 	virtual void Follow_Path() {};
 
@@ -61,6 +54,9 @@ public:
 	}
 
 	virtual void Move(float dt) {};
+	
+	Direction_State* Get_Direction_State(); 
+
 
 public:
 
@@ -74,13 +70,15 @@ public:
 	bool active = false;
 	bool to_delete = false;
 	bool Reached_Player = false;
-
+	bool following_player = false; 
+	           
+	// nullptr's
 	SDL_Texture* tex;
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 
 	p2DynArray<iPoint>* Path;
-	Movement_State m_state;
+	Direction_State m_state;
 
 };
 
