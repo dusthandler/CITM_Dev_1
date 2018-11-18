@@ -14,7 +14,7 @@
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
-
+	name.create("Entity_Manager");
 }
 
 // Destructor
@@ -28,7 +28,7 @@ bool j1Entity_Manager::Start(){
 
 	bool ret = true; // Scene->Switch Para cambiar la posicion de los enemigos.
 	//New: We will create the entyties here, that way is more easy to do the respawn.
-	 CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
+/*	 CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));*/  //New: You can create a entity both ways.
 	// App->entity_manager->CreateEntity(Type::ENEMY_LAND, iPoint(350, 50));
 	
 
@@ -250,7 +250,7 @@ bool j1Entity_Manager::Get_Gravity_Reverse() {
 
 
 
-bool j1Entity_Manager::Load(pugi::xml_node &data) //New: Save and Load methods, now are not working 
+bool j1Entity_Manager::Load(pugi::xml_node &node) //New: Save and Load methods, now are not working 
 {
 	p2List_item<j1Entity*>* item;
 	
@@ -258,12 +258,12 @@ bool j1Entity_Manager::Load(pugi::xml_node &data) //New: Save and Load methods, 
 
 	for (; item != NULL; item = item->next)
 	{
-		item->data->Load(data);
+		item->data->Load(node);
 	}
 	return true;
 }
 
-bool j1Entity_Manager::Save(pugi::xml_node &data) const
+bool j1Entity_Manager::Save(pugi::xml_node &node) const
 {
 	// add brofiler category
 
@@ -273,7 +273,7 @@ bool j1Entity_Manager::Save(pugi::xml_node &data) const
 
 	for (; item != NULL; item = item->next)
 	{
-		item->data->Save(data);
+		item->data->Save(node);
 	}
 	return true;
 }

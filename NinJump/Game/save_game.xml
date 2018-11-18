@@ -6,13 +6,10 @@
 	<audio />
 	<map />
 	<pathfinding />
-	<:anonymous>
-		<Position x="87" y="532" />
-		<Velocity x="0" y="0" />
-		<cont Cont="-4.74863322e-20" Cont_X="16.7000008" />
-		<cont Jumping="false" Onplat="false" God_Mode="false" />
+	<Entity_Manager>
+		<Player_Entity x="155" y="532" xv="0" yv="40" Cont="1.10936697e+27" Cont_X="74.9999924" Jumping="false" Onplat="false" God_Mode="false" />
 		<State collider_type="collider_player" />
-	</:anonymous>
+	</Entity_Manager>
 	<scene />
 	<fadeToBlack />
 	<:anonymous />

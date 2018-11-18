@@ -523,18 +523,16 @@ bool j1Player_Entity::Load(pugi::xml_node& node) {
 
 
 
-	position.x = node.child("Position").attribute("x").as_float(0);
-    position.y = node.child("Position").attribute("y").as_float(0);
-	Vel.x = node.child("Velocity").attribute("x").as_float(0);
-	Vel.y = node.child("Velocity").attribute("y").as_float(0);
-	Acc.x = node.child("Acceleration").attribute("x").as_float(0);
-	Acc.y = node.child("Acceleration").attribute("y").as_float(0);
+	position.x = node.child("Player_Entity").attribute("x").as_int(0);
+    position.y = node.child("Player_Entity").attribute("y").as_int(0);
+	Vel.x = node.child("Player_Entity").attribute("xv").as_int(0);
+	Vel.y = node.child("Player_Entity").attribute("yv").as_int(0);
 	
-	Jumping = node.child("Var").attribute("Jumping").as_bool(false);
-	Onplat = node.child("Var").attribute("Onplat").as_bool(false);
-	Cont = node.child("cont").attribute("Cont").as_float(0);
-	Cont_X = node.child("cont").attribute("Cont_X").as_float(0);
-	God_Mode = node.child("Var").attribute("God_Mode").as_bool(false);
+	Jumping = node.child("Player_Entity").attribute("Jumping").as_bool(false);
+	Onplat = node.child("Player_Entity").attribute("Onplat").as_bool(false);
+	Cont = node.child("Player_Entity").attribute("Cont").as_float(0);
+	Cont_X = node.child("Player_Entity").attribute("Cont_X").as_float(0);
+	God_Mode = node.child("Player_Entity").attribute("God_Mode").as_bool(false);
 	
 	
 	
@@ -558,33 +556,27 @@ bool j1Player_Entity::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
 
-	pugi::xml_node pos = node.append_child("Position");
+	pugi::xml_node posi = node.append_child("Player_Entity");
 
-	pos.append_attribute("x") = this->position.x;
-	pos.append_attribute("y") = this->position.y;
+	posi.append_attribute("x") = position.x;
+	posi.append_attribute("y") = position.y;
 
-	pugi::xml_node vel = node.append_child("Velocity");
+	posi.append_attribute("xv") = Vel.x;
+	posi.append_attribute("yv") = Vel.y;
 
-	vel.append_attribute("x") = this->Vel.x;
-	vel.append_attribute("y") = this->Vel.y;
+	posi.append_attribute("Cont") = Cont;
+	posi.append_attribute("Cont_X") = Cont_X;
 
-	pugi::xml_node cont = node.append_child("cont");
-
-	cont.append_attribute("Cont") = this->Cont;
-	cont.append_attribute("Cont_X") = this->Cont_X;
-
-	pugi::xml_node var = node.append_child("cont");
-
-	var.append_attribute("Jumping") = this->Jumping;
-	var.append_attribute("Onplat") = this->Onplat;
-	var.append_attribute("God_Mode") = this->God_Mode;
+	posi.append_attribute("Jumping") = Jumping;
+	posi.append_attribute("Onplat") = Onplat;
+	posi.append_attribute("God_Mode") = God_Mode;
 
 
 
 	pugi::xml_node coll = node.append_child("State");
 
 	p2SString Collider;
-	switch (this->collider->type)
+	switch (collider->type)
 	{
 	case COLLIDER_TYPE::COLLIDER_PLAYER:
 		Collider.create("collider_player");
