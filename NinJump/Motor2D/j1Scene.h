@@ -48,6 +48,7 @@ public:
 private:
 	bool Map_Loaded = false; 
 	iPoint Player_act_pos;
+	int camera_relative_x = 0; 
 	
 	_Mix_Music* mus = nullptr;
 	_Mix_Music* mus2 = nullptr;

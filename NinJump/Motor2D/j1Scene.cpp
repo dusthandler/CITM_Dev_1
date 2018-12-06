@@ -146,6 +146,7 @@ bool j1Scene::Update(float dt)
 	
 
 	else {
+
 		App->render->camera.y = (int)(Player_act_pos.y - 300) * (-1) * App->win->GetScale();
 		App->render->camera.x = (int)(Player_act_pos.x - 300) * (-1) * App->win->GetScale();
 
@@ -162,7 +163,7 @@ bool j1Scene::Update(float dt)
 		else if (App->render->camera.x <= -4401) { //Right Limit
 			App->render->camera.x = -4401;
 		}
-
+	
 	}
 	
 	// draw everything

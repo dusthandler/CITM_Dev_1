@@ -18,6 +18,12 @@ enum Direction_State {
 	STOP
 };
 
+struct Camera_Limits {
+	bool left_x; 
+	bool top_y;
+	bool bottom_y;
+};
+
 class j1Entity : public j1Entity_Manager
 {
 public:
@@ -41,6 +47,8 @@ public:
 	virtual bool PostUpdate() {
 		return true;
 	}
+
+	struct Camera_Limits Inside_Camera_Limits();
 
 
 	virtual void Follow_Path() {};
@@ -71,7 +79,7 @@ public:
 	bool to_delete = false;
 	bool Reached_Player = false;
 	bool following_player = false; 
-
+	bool inside_limits = false; 
 	// gravity
 	bool gravity_reverse = false;
 	           

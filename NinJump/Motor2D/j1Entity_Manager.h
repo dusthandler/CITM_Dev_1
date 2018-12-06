@@ -34,8 +34,7 @@ public:
 	iPoint GetPlayerPos();
 	bool Get_Gravity_Reverse();
 	bool PostUpdate();
-	
-	
+
 
 
 	j1Entity* CreateEntity(Type, iPoint); 

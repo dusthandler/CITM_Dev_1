@@ -49,13 +49,19 @@ bool j1Enemy_Flying::Update(float dt) {
 
 	iPoint surface_pos;
 
+	Inside_Camera_Limits(); 
+	if (inside_limits) {
+		Follow_Path();
+	}
+		Move(dt);
 	
-	Follow_Path(); 
-	Move(dt);
 
 	collider->SetPos(position.x, position.y);
 	Set_Anim();
 	
+	LOG("Camera x -------------> %i", App->render->camera.x);
+	LOG("Player x -------------> %i", App->entity_manager->GetPlayerPos().x);
+	LOG("Enemy x -------------> %i", position.x);
 
 	return ret;
 }
@@ -109,10 +115,11 @@ void j1Enemy_Flying::Follow_Path() {
 
 void j1Enemy_Flying::Move(float dt) {
 
-
+	if (!inside_limits) {
+		position.x += 10; 
+	}
 	position.x += dir.x*dir_multiplier;      // *dt
 	position.y += dir.y*dir_multiplier;     // *dt
-
 }
 
 

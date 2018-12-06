@@ -33,7 +33,7 @@ bool j1Entity_Manager::Start(){
 
 	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
 
-	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
+	// CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 		
 	
  
@@ -257,6 +257,7 @@ bool j1Entity_Manager::Get_Gravity_Reverse() {
 	}
 	return ret;
 }
+
 
 
 
