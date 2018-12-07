@@ -12,8 +12,11 @@ enum class Type
 	ENEMY_FLYING,
 	ENEMY_LAND,
 	COIN,
+	SHURIKEN,
 	UNKNOWN
 };
+
+
 
 class j1Entity;
 
@@ -33,6 +36,8 @@ public:
 	bool Update(float dt);
 	bool UpdateAll(float dt, bool do_logic);
 	iPoint GetPlayerPos();
+	
+
 	bool Get_Gravity_Reverse();
 	bool PostUpdate();
 

@@ -192,6 +192,10 @@ void j1Enemy_Flying::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
+	if (c2->type == COLLIDER_SHOT) {
+		CleanUp(); 
+	}
+
 }
 
 bool j1Enemy_Flying::CleanUp() {

@@ -12,6 +12,7 @@
 #include "j1Entity_Coin.h"
 #include "Brofiler/Brofiler.h"
 #include "j1Audio.h"
+#include "j1Shuriken.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -29,7 +30,7 @@ bool j1Entity_Manager::Start(){
 
 	bool ret = true;
 	
-	// CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
 
 	// CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 		
@@ -47,7 +48,7 @@ bool j1Entity_Manager::Start(){
 	// coins and stuff
 	App->audio->LoadFx("Sound/Fx/coin.wav");
 
-	CreateEntity(Type::COIN, iPoint(350, 870));        // after player !
+	CreateEntity(Type::SHURIKEN, iPoint(350, 870));        // after player !
 	CreateEntity(Type::COIN, iPoint(450, 870));
 	CreateEntity(Type::COIN, iPoint(550, 870));
 	CreateEntity(Type::COIN, iPoint(650, 870));
@@ -63,6 +64,7 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
 	case Type::PLAYER: ret = new j1Player_Entity(pos, type); break;
 	case Type::COIN: ret = new j1Entity_Coin(pos, type); break;
+	case Type::SHURIKEN: ret = new j1Shuriken(pos, type); break;
 	}
 	
 	if (ret != nullptr) {
@@ -243,6 +245,7 @@ iPoint j1Entity_Manager::GetPlayerPos() {
 	}
 	return pos;
 }
+
 
 
 bool j1Entity_Manager::Get_Gravity_Reverse() {

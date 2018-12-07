@@ -18,6 +18,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WALL][COLLIDER_WIN] = false;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_COIN] = false;
+	matrix[COLLIDER_WALL][COLLIDER_SHOT] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
@@ -26,6 +27,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_PLAYER][COLLIDER_WIN] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_COIN] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_SHOT] = true;
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
@@ -34,6 +36,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_DEATH][COLLIDER_WIN] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_COIN] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_SHOT] = false;
 
 	matrix[COLLIDER_GOD][COLLIDER_GOD] = false;
 	matrix[COLLIDER_GOD][COLLIDER_PLAYER] = false;
@@ -42,7 +45,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_GOD][COLLIDER_WIN] = true;
 	matrix[COLLIDER_GOD][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_GOD][COLLIDER_COIN] = true;
-
+	matrix[COLLIDER_GOD][COLLIDER_SHOT] = true;
 
 	matrix[COLLIDER_WIN][COLLIDER_WIN] = false;
 	matrix[COLLIDER_WIN][COLLIDER_GOD] = true;
@@ -51,6 +54,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_WIN][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_WIN][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_WIN][COLLIDER_COIN] = false;
+	matrix[COLLIDER_WIN][COLLIDER_SHOT] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_WIN] = false;
@@ -59,6 +63,7 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_COIN] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_SHOT] = true;
 
 
 	matrix[COLLIDER_COIN][COLLIDER_COIN] = false;
@@ -68,8 +73,16 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_COIN][COLLIDER_GOD] = true;
 	matrix[COLLIDER_COIN][COLLIDER_WALL] = false;
 	matrix[COLLIDER_COIN][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_COIN][COLLIDER_SHOT] = false;
 
-
+	matrix[COLLIDER_SHOT][COLLIDER_SHOT] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_COIN] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_SHOT][COLLIDER_WIN] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_GOD] = true;
+	matrix[COLLIDER_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_SHOT][COLLIDER_ENEMY] = true;
 	
 }
 
@@ -187,6 +200,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_COIN:
 			App->render->DrawQuad(colliders[i]->rect, 100, 50, 200, alpha);
+			break;
+		case COLLIDER_SHOT:
+			App->render->DrawQuad(colliders[i]->rect, 200, 150, 75, alpha);
 			break;
 
 		}

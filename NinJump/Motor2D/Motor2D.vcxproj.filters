@@ -67,6 +67,9 @@
     <ClCompile Include="j1Entity_Coin.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1Shuriken.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h">
@@ -151,6 +154,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="j1Entity_Coin.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Shuriken.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>

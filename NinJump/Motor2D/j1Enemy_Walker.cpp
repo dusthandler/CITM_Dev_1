@@ -178,18 +178,10 @@ void j1Enemy_Walker::OnCollision(Collider* c1, Collider* c2) {                  
 
 	}
 
-
-	/*
-	if (c2->type == COLLIDER_DEATH) {
-
-
+	if (c2->type == COLLIDER_SHOT) {
+		CleanUp();
 	}
 
-
-	if (c2->type == COLLIDER_PLAYER) {
-
-
-	}*/
 
 }
 
