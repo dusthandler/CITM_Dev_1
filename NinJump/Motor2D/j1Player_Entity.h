@@ -101,6 +101,8 @@ public:
 	bool Reset_Fx_3 = true;
 	bool Reset_Fx_Gravity = true;
 
+
+
 };
 	
 #endif

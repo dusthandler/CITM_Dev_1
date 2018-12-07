@@ -317,20 +317,23 @@ void j1Player_Entity::Debug_Keys() {
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {  // change for a tiled variable
 
-			if (!gravity_reverse) {
+			gravity_times++; 
+			if (gravity_times < 3) {
+				if (!gravity_reverse) {
 
-				gravity_reverse = true;
-				if (Reset_Fx_Gravity) {
-					App->audio->PlayFx(4, 0);
-					Reset_Fx_Gravity = false;
+					gravity_reverse = true;
+					if (Reset_Fx_Gravity) {
+						App->audio->PlayFx(4, 0);
+						Reset_Fx_Gravity = false;
+					}
 				}
-			}
 
-			else {
-				gravity_reverse = false;
-				if (!Reset_Fx_Gravity) {
-					App->audio->PlayFx(4, 0);
-					Reset_Fx_Gravity = true;
+				else {
+					gravity_reverse = false;
+					if (!Reset_Fx_Gravity) {
+						App->audio->PlayFx(4, 0);
+						Reset_Fx_Gravity = true;
+					}
 				}
 			}
 		}

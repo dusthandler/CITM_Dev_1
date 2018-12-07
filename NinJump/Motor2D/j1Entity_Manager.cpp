@@ -11,7 +11,7 @@
 #include "j1Map.h"
 #include "j1Entity_Coin.h"
 #include "Brofiler/Brofiler.h"
-
+#include "j1Audio.h"
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -45,6 +45,8 @@ bool j1Entity_Manager::Start(){
 	CreateEntity(Type::PLAYER, Pos);
 
 	// coins and stuff
+	App->audio->LoadFx("Sound/Fx/coin.wav");
+
 	CreateEntity(Type::COIN, iPoint(350, 870));        // after player !
 	CreateEntity(Type::COIN, iPoint(450, 870));
 	CreateEntity(Type::COIN, iPoint(550, 870));
@@ -215,6 +217,10 @@ bool j1Entity_Manager::CleanUp()      // as in App
 		item->data = nullptr;
 	}
 	entities.clear();
+
+	// unload coin fxs at the end
+
+	App->audio->UnloadFx(5);
 
 
 

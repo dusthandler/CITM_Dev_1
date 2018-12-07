@@ -82,7 +82,7 @@ public:
 	bool inside_limits = false; 
 	// gravity
 	bool gravity_reverse = false;
-	           
+	uint gravity_times = 0; 
 	                                        // nullptr's
 	SDL_Texture* tex = nullptr;
 	Animation* animation = nullptr;
