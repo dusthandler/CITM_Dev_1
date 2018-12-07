@@ -1,4 +1,5 @@
 #include "j1Entity_Coin.h"
+#include "j1Entity_Manager.h"
 #include "j1Collision.h"
 #include "j1App.h"
 #include "j1Textures.h"
@@ -26,6 +27,7 @@ void j1Entity_Coin::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c2->type == COLLIDER_PLAYER || c2->type == COLLIDER_GOD) {
 		App->audio->PlayFx(5, 0); 
+		Coin_Score++;
 		CleanUp(); 
 	}
 
@@ -34,6 +36,8 @@ void j1Entity_Coin::OnCollision(Collider* c1, Collider* c2) {
 bool j1Entity_Coin::CleanUp() {
 	collider->to_delete = true;
 	App->tex->UnLoad(tex);
+	App->audio->UnloadFx(5);
+
 	return true;
 }
 
