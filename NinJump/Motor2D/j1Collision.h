@@ -5,7 +5,7 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 
-#define MAX_COLLIDERS 150
+#define MAX_COLLIDERS 200
 
 enum COLLIDER_TYPE
 {
@@ -16,6 +16,7 @@ enum COLLIDER_TYPE
 	COLLIDER_GOD,
 	COLLIDER_WIN,
 	COLLIDER_ENEMY,
+	COLLIDER_COIN,
 	COLLIDER_MAX
 };
 

@@ -9,6 +9,7 @@
 #include "j1Input.h"
 #include "j1Scene.h"
 #include "j1Map.h"
+#include "j1Entity_Coin.h"
 #include "Brofiler/Brofiler.h"
 
 
@@ -27,18 +28,13 @@ bool j1Entity_Manager::Start(){
 	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::Brown);
 
 	bool ret = true;
-	//New: We will create the entyties here, that way is more easy to do the respawn.
-
-	// CreateEntity(Type::ENEMY_FLYING, iPoint(250, 50));  //New: You can create a entity both ways.
-
-	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
+	
+	// CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
 
 	// CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 		
 	
- 
-
-	
+  
 
 	iPoint Pos;
 	pugi::xml_node InitPos = App->map->map_file.child("map");
@@ -48,6 +44,11 @@ bool j1Entity_Manager::Start(){
 	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
 	CreateEntity(Type::PLAYER, Pos);
 
+	// coins and stuff
+	CreateEntity(Type::COIN, iPoint(350, 870));        // after player !
+	CreateEntity(Type::COIN, iPoint(450, 870));
+	CreateEntity(Type::COIN, iPoint(550, 870));
+	CreateEntity(Type::COIN, iPoint(650, 870));
 
 	return ret;
 }
@@ -59,6 +60,7 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos)
 	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor
 	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
 	case Type::PLAYER: ret = new j1Player_Entity(pos, type); break;
+	case Type::COIN: ret = new j1Entity_Coin(pos, type); break;
 	}
 	
 	if (ret != nullptr) {

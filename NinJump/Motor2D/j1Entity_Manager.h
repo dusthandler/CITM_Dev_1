@@ -11,6 +11,7 @@ enum class Type
 	PLAYER,
 	ENEMY_FLYING,
 	ENEMY_LAND,
+	COIN,
 	UNKNOWN
 };
 
@@ -54,6 +55,8 @@ private:
 	float accumulated_time = 0.0f; 
 	float update_ms_cycle = 0.0f;  // time of a frame in ms ? 
 	bool do_logic = false; 
+
+
 	
 	
 }; 
