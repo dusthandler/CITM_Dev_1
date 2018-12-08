@@ -21,6 +21,10 @@
 #include "j1Pathfinding.h"
 #include "j1Entity_Manager.h"
 
+#include "j1Fonts.h"
+#include "j1Gui.h"
+
+
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
@@ -36,6 +40,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
+	font = new j1Fonts();
+ 	gui = new j1Gui();
 
 	fade = new j1FB();
 	collision = new j1Collision();
@@ -56,7 +62,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(fade);
 	AddModule(collision);
-
+	AddModule(font);
+	AddModule(gui);
 
 	// render last to swap buffer
 	AddModule(render);

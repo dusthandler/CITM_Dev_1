@@ -21,6 +21,8 @@ class j1FB;
 class j1Collision;
 class j1PathFinding;
 class j1Entity_Manager; 
+class j1Fonts;
+class j1Gui;
 
 
 class j1App
@@ -96,7 +98,9 @@ public:
 	j1FB*				fade;
 	j1Collision*  		collision;
 	j1PathFinding*		pathfinding;
-	j1Entity_Manager*   entity_manager; 
+	j1Entity_Manager*   entity_manager;
+	j1Fonts*			font;
+	j1Gui*				gui;
 
 private:
 

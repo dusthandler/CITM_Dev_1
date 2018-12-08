@@ -25,7 +25,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	LOG("Loading GUI atlas");
 	bool ret = true;
 
-	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
+	// atlas_file_name = conf.child("atlas").attribute("file").as_string("");
 
 	return ret;
 }
@@ -33,13 +33,13 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
-	atlas = App->tex->Load(atlas_file_name.GetString());
+	/*atlas = App->tex->Load(atlas_file_name.GetString());
 
 	SDL_Rect r = { 485, 830, 328, 101 };                 // spaceship in atlas
 	Create_Image(atlas, iPoint(500, 100), r); 
 
 	_TTF_Font* font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 12);
-	Create_Label(iPoint(500, 50), font, "Hello World");
+	Create_Label(iPoint(500, 50), font, "Hello World");*/
 
 	return true;
 }
@@ -85,6 +85,7 @@ void j1Gui::Delete_Object() {
 
 };*/
 
+
 void j1Gui::Blit(){
 
 	p2List_item<j1Gui_Object*>* item;
@@ -94,9 +95,7 @@ void j1Gui::Blit(){
 	for (item = objects.start; item != NULL; item = item->next)
 	{
 		   
-		/*	App->render->Blit(atlas, item->data->pos.x, item->data->pos.y, &item->data->rect, 1);
-			LOG("Printing GUI object !!!"); */
-		item->data->Blit(); 
+		// item->data->Blit(); 
 	}
 
 };
