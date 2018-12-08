@@ -59,7 +59,7 @@ bool j1Entity_Manager::Start(){
 
 	coin_tex =  App->tex->Load("Maps/Objects/coins.png");
 
-	// CreateEntity(Type::SHURIKEN, iPoint(350, 870));        // after player !
+	CreateEntity(Type::SHURIKEN, iPoint(350, 870));        // after player !
 	CreateEntity(Type::COIN, iPoint(450, 870));
 	CreateEntity(Type::COIN, iPoint(550, 870));
 	CreateEntity(Type::COIN, iPoint(650, 870));
