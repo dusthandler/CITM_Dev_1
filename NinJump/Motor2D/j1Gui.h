@@ -11,10 +11,13 @@
 // TODO 1: Create your structure of classes
 
 class j1Gui_Object; 
+class j1Gui_Image; 
+class j1Gui_Label; 
 struct SDL_Texture; 
 struct SDL_Rect; 
 struct SDL_Color;
 struct _TTF_Font; 
+
 
 enum TYPE {
 	Label,
@@ -54,10 +57,10 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	void Create_Image(SDL_Texture*, iPoint, SDL_Rect&);  
+	j1Gui_Image* Create_Image(SDL_Texture*, iPoint, SDL_Rect&);
 
 
-	void Create_Label(iPoint, _TTF_Font*, char*);
+	j1Gui_Label* Create_Label(iPoint, _TTF_Font*, char*);
 
 	// void Delete_Object();
 
@@ -70,7 +73,8 @@ private:
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
-	
+	j1Gui_Image* UI_coin = nullptr; 
+	j1Gui_Label* coin_score = nullptr; 
 
 };
 
