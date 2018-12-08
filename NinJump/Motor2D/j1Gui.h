@@ -80,7 +80,7 @@ private:
 	j1Gui_Label* live_count = nullptr;
 
 public: 
-	uint coins_collected_by_player = 0;                  // Where should this be?
+	uint coins_collected = 0;                  // Where should this be?
 
 };
 

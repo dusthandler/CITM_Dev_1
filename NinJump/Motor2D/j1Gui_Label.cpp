@@ -32,7 +32,7 @@ void j1Gui_Label::Blit() {
 	if (ID == "coin_score") {
 		char buffer[20];
 
-		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected_by_player);
+		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected);
 
 		text = buffer; 
 

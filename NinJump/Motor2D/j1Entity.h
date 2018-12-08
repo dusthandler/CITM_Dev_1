@@ -76,7 +76,7 @@ public:
 	iPoint Path_Pos; 
 	uint dir_multiplier;
 	Type type;
-	bool active = false;
+	bool active = true;
 	bool to_delete = false;
 	bool Reached_Player = false;
 	bool following_player = false; 

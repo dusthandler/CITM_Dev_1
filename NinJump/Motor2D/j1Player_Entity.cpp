@@ -12,7 +12,7 @@
 #include "j1Window.h"
 #include "j1Player_Entity.h"
 #include "Brofiler/Brofiler.h"
-
+#include "j1Gui.h"
 
 
 j1Player_Entity::j1Player_Entity(iPoint position, Type type) : j1Entity(position, type) 
@@ -54,6 +54,8 @@ j1Player_Entity::j1Player_Entity(iPoint position, Type type) : j1Entity(position
 	Respawning = false;
 	////Last we create the collider.
 	collider = App->collision->AddCollider({ position.x, position.y, 35, 45 }, COLLIDER_PLAYER, this);
+
+	App->gui->coins_collected = 0;
 
 }
 
@@ -125,9 +127,10 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c2->type == COLLIDER_DEATH || c2->type == COLLIDER_ENEMY) {
 
-		App->entity_manager->player_live_count--;          // substract life total
 
 		if (!God_Mode) {
+
+			App->entity_manager->player_live_count--;          // substract life total
 
 			App->scene->Player_Alive = false;
 
@@ -159,6 +162,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 
 	if (c2->type == COLLIDER_WIN) {
+		App->entity_manager->player_live_count = 3; 
 		App->scene->Player_Win= true;
 	}
 
