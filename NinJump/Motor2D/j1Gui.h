@@ -73,6 +73,7 @@ private:
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
 	j1Gui_Image* UI_coin = nullptr; 
+	j1Gui_Image* UI_coin = nullptr;
 	j1Gui_Label* coin_score = nullptr; 
 
 public: 
