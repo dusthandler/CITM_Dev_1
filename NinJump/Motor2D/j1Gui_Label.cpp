@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Input.h"
+#include "j1Entity_Manager.h"
 
 // Called before render is available
 j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID) : j1Gui_Object(pos) {
@@ -37,6 +38,20 @@ void j1Gui_Label::Blit() {
 
 		App->font->CalcSize(text, rect.w, rect.h, font);
 		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
+	}
+
+	else if (ID == "life_count") {
+
+		char buffer[20];
+
+		snprintf(buffer, sizeof(buffer), "X%i", App->entity_manager->player_live_count);
+
+		text = buffer;
+
+		App->font->CalcSize(text, rect.w, rect.h, font);
+		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
+
+
 	}
 
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f); 

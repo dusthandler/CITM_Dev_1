@@ -64,6 +64,7 @@ private:
 
 public: 
 	SDL_Texture* path_tex = nullptr;
+	uint player_live_count = 3; 
 	
 }; 
 

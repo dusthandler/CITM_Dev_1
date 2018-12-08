@@ -38,11 +38,20 @@ bool j1Gui::Start()
 	                                                           
 	// UI COINS                                            // do this in scene? 
 	SDL_Rect r = { 0, 0, 32, 32 };
-	UI_coin = Create_Image(atlas, iPoint(850, 25), r);
+	UI_coin = Create_Image(atlas, iPoint(820, 25), r);
 
 	_TTF_Font* font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 36);
 	char* ID = "coin_score"; 
-	coin_score = Create_Label(iPoint(890, 15), font, "X0", ID);
+	coin_score = Create_Label(iPoint(860, 15), font, "X0", ID);
+
+
+	// UI LIVES 
+
+    r = { 33, 0, 36, 32 };
+	UI_lives = Create_Image(atlas, iPoint(940, 25), r);
+
+	ID = "life_count";
+	live_count = Create_Label(iPoint(980, 15), font, "X3", ID);
 
 	return true;
 }

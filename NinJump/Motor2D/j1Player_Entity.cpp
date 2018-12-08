@@ -125,6 +125,8 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c2->type == COLLIDER_DEATH || c2->type == COLLIDER_ENEMY) {
 
+		App->entity_manager->player_live_count--;          // substract life total
+
 		if (!God_Mode) {
 
 			App->scene->Player_Alive = false;

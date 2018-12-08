@@ -35,7 +35,8 @@ void j1Entity_Coin::OnCollision(Collider* c1, Collider* c2) {
 
 bool j1Entity_Coin::CleanUp() {
 	collider->to_delete = true;
-	App->tex->UnLoad(tex);
+    App->tex->UnLoad(tex);
+
 
 	return true;
 }
