@@ -60,9 +60,9 @@ bool j1Entity_Manager::Start(){
 	coin_tex =  App->tex->Load("Maps/Objects/coins.png");
 
 	// CreateEntity(Type::SHURIKEN, iPoint(350, 870));        // after player !
-	/*CreateEntity(Type::COIN, iPoint(450, 870));
+	CreateEntity(Type::COIN, iPoint(450, 870));
 	CreateEntity(Type::COIN, iPoint(550, 870));
-	CreateEntity(Type::COIN, iPoint(650, 870));*/
+	CreateEntity(Type::COIN, iPoint(650, 870));
 
 	return ret;
 }
@@ -103,7 +103,7 @@ void j1Entity_Manager::Draw() {
 		else if (item->data->type == Type::COIN && item->data->active) {
 			App->render->Blit(coin_tex, item->data->position.x, item->data->position.y, &Rect, 1);
 		}
-		else {
+		else if(item->data->type != Type::COIN){             // change with other types
 			App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
 		}
 		
@@ -235,7 +235,6 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	entities.clear();
 
 	// fxs
-
 	App->audio->UnloadFx(5);    // coin
 	App->audio->UnloadFx(6);    // shuriken
 

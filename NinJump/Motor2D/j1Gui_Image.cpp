@@ -24,10 +24,10 @@ void j1Gui_Image::Blit() {
 
 		switch (App->entity_manager->player_live_count) {
 		case 2: 
-			rect.x = 68; 
+			rect.x = 68;             // half life heart
 			break; 
 		case 0: 
-			rect.x = 104; 
+			rect.x = 104;            // no life heart
 			break; 
 		}
 
