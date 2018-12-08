@@ -11,7 +11,7 @@ class j1Gui_Image : public j1Gui_Object
 {
 public:
 
-	j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect); 
+	j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char* ID); 
 
 
 	// Destructor
@@ -21,7 +21,7 @@ public:
 
 private:
 
-	
+	char* ID = nullptr; 
 	
 };
 

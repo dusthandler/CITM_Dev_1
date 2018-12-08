@@ -57,9 +57,9 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	j1Gui_Image* Create_Image(SDL_Texture*, iPoint, SDL_Rect&);
+	j1Gui_Image* Create_Image(SDL_Texture*, iPoint, SDL_Rect&, char* ID = nullptr);
 
-	j1Gui_Label* Create_Label(iPoint, _TTF_Font*, char*, char*);
+	j1Gui_Label* Create_Label(iPoint, _TTF_Font*, char*, char* ID = nullptr);
 
 	// void Delete_Object();
 

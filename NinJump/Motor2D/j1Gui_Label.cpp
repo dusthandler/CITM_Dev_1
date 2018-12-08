@@ -28,31 +28,23 @@ void j1Gui_Label::Init_Text() {
 
 void j1Gui_Label::Blit() {
 
+	char buffer[20];
 
 	if (ID == "coin_score") {
-		char buffer[20];
 
 		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected);
-
-		text = buffer; 
-
-		App->font->CalcSize(text, rect.w, rect.h, font);
-		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 	}
 
 	else if (ID == "life_count") {
-
-		char buffer[20];
-
+	
 		snprintf(buffer, sizeof(buffer), "X%i", App->entity_manager->player_live_count);
 
-		text = buffer;
-
-		App->font->CalcSize(text, rect.w, rect.h, font);
-		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
-
-
 	}
+
+	text = buffer;
+
+	App->font->CalcSize(text, rect.w, rect.h, font);
+	tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f); 
 

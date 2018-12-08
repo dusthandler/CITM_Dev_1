@@ -46,9 +46,9 @@ bool j1Gui::Start()
 
 
 	// UI LIVES 
-
+	ID = "UI_lives"; 
     r = { 33, 0, 36, 32 };
-	UI_lives = Create_Image(atlas, iPoint(940, 25), r);
+	UI_lives = Create_Image(atlas, iPoint(940, 25), r, ID);
 
 	ID = "life_count";
 	live_count = Create_Label(iPoint(980, 15), font, "X3", ID);
@@ -74,9 +74,9 @@ bool j1Gui::PostUpdate()
 	return true;
 }
 
-j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_rect) {
+j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_rect, char* ID) {
 
-     j1Gui_Image* ret = new j1Gui_Image(tex, pos, atlas_rect);
+     j1Gui_Image* ret = new j1Gui_Image(tex, pos, atlas_rect, ID);
 
 	 if(ret != nullptr)
      objects.add(ret); 
