@@ -18,6 +18,7 @@ Ninjump is a platformer game where you will have to use your skills and reflexes
 - A · Go left
 - D · Go right
 - Space · Jump/Double Jump
+- J · Shoot
 
 ###For the next release:
 - Shift · Jump to roof
@@ -33,8 +34,9 @@ Ninjump is a platformer game where you will have to use your skills and reflexes
 
 ## Innovation:
 
-- You can jump to walk on the roof. When you are in that state you cannot jump against the gravity, if you jump you will fall, but you will still be able to use the double jump. 
-
+- You can jump invert gravity and walk on the roof (limited times)
+- After shooting, shuriken comes back and stays with player
+- double jump
 ## Interesting stuff about how the levels have been designed
 https://github.com/dusthandler/CITM_Dev_1/blob/master/Dev_class6_handout/Graphics_Kev_shits/Level%20Design/Level_1_2_Design.png
 
