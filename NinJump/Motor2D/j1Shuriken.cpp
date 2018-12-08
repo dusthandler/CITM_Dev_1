@@ -22,6 +22,10 @@ bool j1Shuriken::Update(float dt) {
 
 	switch (state) {
 	case ShuriState::WITH_PLAYER:
+		     
+	    	if (collider->type == COLLIDER_SHOT) {
+				collider->type = COLLIDER_NONE; 
+			}
 
 	     	position.x = App->entity_manager->GetPlayerPos().x + 35;
 		    position.y = App->entity_manager->GetPlayerPos().y + 15;
@@ -32,7 +36,12 @@ bool j1Shuriken::Update(float dt) {
 			break; 
 
 	case ShuriState::LAUNCHED:
-		position.x += 10;
+
+		if (collider->type == COLLIDER_NONE) {
+			collider->type = COLLIDER_SHOT;
+		}
+
+		position.x += 20;
 		break; 
 
 	case ShuriState::RETURNING:
