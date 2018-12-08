@@ -19,6 +19,7 @@ enum class Type
 
 
 class j1Entity;
+struct SDL_Texture; 
 
 class j1Entity_Manager: public j1Module
 {
@@ -63,7 +64,7 @@ private:
 
 public: 
 	uint Coin_Score = 0;                  // Where should this be?
-	
+	SDL_Texture* path_tex = nullptr;
 	
 }; 
 

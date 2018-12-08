@@ -29,13 +29,15 @@ bool j1Entity_Manager::Start(){
 	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::Brown);
 
 	bool ret = true;
+	// path texture
+	path_tex = App->tex->Load("Maps/Textures/path_tex.png"); 
 	
 	// CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
-	CreateEntity(Type::ENEMY_FLYING, iPoint(1300, 400));
+	/*CreateEntity(Type::ENEMY_FLYING, iPoint(1300, 400));
 	CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 400));
 	CreateEntity(Type::ENEMY_FLYING, iPoint(1700, 400));
 	CreateEntity(Type::ENEMY_FLYING, iPoint(1900, 400));
-	CreateEntity(Type::ENEMY_FLYING, iPoint(2100, 400));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(2100, 400));*/
 
 	// CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 		
@@ -230,6 +232,9 @@ bool j1Entity_Manager::CleanUp()      // as in App
 
 	App->audio->UnloadFx(5);
 	App->audio->UnloadFx(6);
+
+	// path tex
+	App->tex->UnLoad(path_tex); 
 
 
 	return ret;

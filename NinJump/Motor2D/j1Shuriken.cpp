@@ -15,6 +15,17 @@ j1Shuriken::j1Shuriken(iPoint position, Type type) : j1Entity(position, type) {
 	Idle.PushBack({ 18, 0, shuriken_size, shuriken_size });
 	Idle_Left.PushBack({ 0, 0, shuriken_size, shuriken_size });
 
+	Shot_Right.PushBack({ 18, 0, shuriken_size, shuriken_size });
+	Shot_Right.PushBack({ 54, 0, shuriken_size, shuriken_size });
+	Shot_Right.loop = true; 
+	Shot_Right.speed = 0.1f; 
+
+	Shot_Left.PushBack({ 0, 0, shuriken_size, shuriken_size });
+	Shot_Left.PushBack({ 36, 0, shuriken_size, shuriken_size });
+	Shot_Left.loop = true;
+	Shot_Left.speed = 0.1f;
+
+
 	state = ShuriState::IDLE; 
 	this->position = position;
 }
@@ -61,6 +72,8 @@ void j1Shuriken::Movement() {
 			collider->type = COLLIDER_SHOT;
 		}
 
+		animation = &Shot_Right; 
+
 		position.x += 20;
 		break;
 
@@ -72,8 +85,16 @@ void j1Shuriken::Movement() {
 		dir.x = return_pos.x - position.x;
 		dir.y = return_pos.y - position.y;
 
-		position.x += dir.x* 0.05f;
-		position.y += dir.y* 0.05f;
+		/*if (dir.x > 0) {
+			animation = &Shot_Right; 
+		}
+		else {*/
+			animation = &Shot_Left;
+	//	}
+			float return_speed = 0.1f; 
+		position.x += dir.x* return_speed;
+		position.y += dir.y* return_speed;
+		
 
 		break;
 
@@ -98,6 +119,10 @@ void j1Shuriken::Set_Anim_and_Collider() {
 void j1Shuriken::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c2->type == COLLIDER_PLAYER || c2->type == COLLIDER_GOD) {
+
+		if (animation != &Idle) {
+			animation = &Idle; 
+		}
 
 		if (state == ShuriState::RETURNING) {
 			obtained = false; 

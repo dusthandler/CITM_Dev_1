@@ -88,7 +88,7 @@ void j1Enemy_Flying::Follow_Path() {
 		dir.x = Target_Map_Pos.x - Enemy_Map_Pos.x; 
 		dir.y = Target_Map_Pos.y - Enemy_Map_Pos.y;
 
-		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {   // change to F9
+		if (App->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {   // change to F9
 
 		if(!Drawing_Path)
 			Drawing_Path = true; 
@@ -153,21 +153,16 @@ void j1Enemy_Flying::Draw_Path() {
 
 	LOG("Draw path doing");
 
+
 	// drawing not working now
 	iPoint surface_pos; 
 
 	for (uint i = 0; i < Path->Count(); ++i) {
 
 		surface_pos = App->map->MapToWorld(Path->At(i)->x, Path->At(i)->y);
-		SDL_Rect rect;
-		rect.x = surface_pos.x; 
-		rect.y = surface_pos.y; 
-		rect.h = App->map->data.tile_height; 
-		rect.w = App->map->data.tile_width; 
-
-		App->render->DrawQuad(rect, 0, 255, 255, 50, true, true); 
+    	App->render->Blit(path_tex, surface_pos.x, surface_pos.y); 
 		}
-
+	
 
 }
 

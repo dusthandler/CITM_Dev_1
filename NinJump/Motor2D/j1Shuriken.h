@@ -38,9 +38,11 @@ public:
 private:
 	Animation Idle;
 	Animation Idle_Left;
+	Animation Shot_Right; 
+	Animation Shot_Left; 
 	bool obtained = false; 
 	iPoint return_pos; 
-	ShuriState state; 
+	ShuriState state = IDLE; 
 };
 
 #endif // __j1SHURIKEN_H__ 
