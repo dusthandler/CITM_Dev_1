@@ -40,8 +40,9 @@ bool j1Gui::Start()
 	SDL_Rect r = { 0, 0, 40, 40 };                 
 	UI_coin = Create_Image(atlas, iPoint(850, 25), r);
 
-	_TTF_Font* font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 60);
-	coin_score = Create_Label(iPoint(875, 50), font, "Hello world");
+	_TTF_Font* font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 36);
+	char* ID = "coin_score"; 
+	coin_score = Create_Label(iPoint(890, 25), font, "X0", ID);
 
 	return true;
 }
@@ -75,9 +76,9 @@ j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_r
 };
 
 
-j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text) {
+j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* ID) {
 	
-	j1Gui_Label* ret = new j1Gui_Label(pos, font, text);
+	j1Gui_Label* ret = new j1Gui_Label(pos, font, text, ID);
 
 	if (ret != nullptr)
 	objects.add(ret); 

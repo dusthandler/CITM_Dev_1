@@ -63,7 +63,6 @@ private:
 	bool do_logic = false; 
 
 public: 
-	uint Coin_Score = 0;                  // Where should this be?
 	SDL_Texture* path_tex = nullptr;
 	
 }; 

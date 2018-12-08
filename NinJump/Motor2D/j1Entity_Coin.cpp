@@ -4,6 +4,7 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
+#include "j1Gui.h"
 #include "p2Log.h"
 
 j1Entity_Coin::j1Entity_Coin(iPoint position, Type type) : j1Entity(position, type) {
@@ -26,7 +27,7 @@ void j1Entity_Coin::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c2->type == COLLIDER_PLAYER || c2->type == COLLIDER_GOD) {
 		App->audio->PlayFx(5, 0); 
-		Coin_Score++;
+		App->gui->coins_collected_by_player++; 
 		CleanUp(); 
 	}
 

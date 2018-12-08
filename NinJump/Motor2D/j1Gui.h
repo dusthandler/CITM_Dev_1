@@ -59,8 +59,7 @@ public:
 
 	j1Gui_Image* Create_Image(SDL_Texture*, iPoint, SDL_Rect&);
 
-
-	j1Gui_Label* Create_Label(iPoint, _TTF_Font*, char*);
+	j1Gui_Label* Create_Label(iPoint, _TTF_Font*, char*, char*);
 
 	// void Delete_Object();
 
@@ -75,6 +74,9 @@ private:
 	p2List<j1Gui_Object*> objects; 
 	j1Gui_Image* UI_coin = nullptr; 
 	j1Gui_Label* coin_score = nullptr; 
+
+public: 
+	uint coins_collected_by_player = 0;                  // Where should this be?
 
 };
 

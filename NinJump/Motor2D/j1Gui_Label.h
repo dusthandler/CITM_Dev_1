@@ -12,7 +12,7 @@ class j1Gui_Label : public j1Gui_Object
 {
 public:
 
-	j1Gui_Label(iPoint pos, _TTF_Font* f, char* text); 
+	j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID); 
 
 	// Destructor
 	virtual ~j1Gui_Label() {};
@@ -24,7 +24,7 @@ public:
 private:
 	_TTF_Font* font; 
 	char* text = nullptr; 
-	
+	char* ID = nullptr; 
 };
 
 
