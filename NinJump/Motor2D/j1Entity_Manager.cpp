@@ -30,7 +30,12 @@ bool j1Entity_Manager::Start(){
 
 	bool ret = true;
 	
-	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
+	// CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(1300, 400));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 400));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(1700, 400));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(1900, 400));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(2100, 400));
 
 	// CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 		

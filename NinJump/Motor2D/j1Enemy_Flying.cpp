@@ -46,22 +46,25 @@ bool j1Enemy_Flying::Update(float dt) {
 	BROFILER_CATEGORY("Enemy fly Update", Profiler::Color::Beige); 
 	bool ret = true;            
 
+	uint activation_distance = App->map->MapToWorld(31, 0).x; 
 
-	iPoint surface_pos;
-
-	Inside_Camera_Limits(); 
-	if (inside_limits) {
-		Follow_Path();
+	if (!start_following && position.x - App->entity_manager->GetPlayerPos().x < activation_distance) {
+		start_following = true; 
+		LOG("Enemy ready to follow player "); 
 	}
+
+	if (start_following) {
+		Inside_Camera_Limits();
+		if (inside_limits) {
+			LOG("Enemy is pathfinding ... ... ... ... ... ... "); 
+			Follow_Path();
+		}
 		Move(dt);
-	
+	}
 
 	collider->SetPos(position.x, position.y);
 	Set_Anim();
 	
-	LOG("Camera x -------------> %i", App->render->camera.x);
-	LOG("Player x -------------> %i", App->entity_manager->GetPlayerPos().x);
-	LOG("Enemy x -------------> %i", position.x);
 
 	return ret;
 }
@@ -115,14 +118,23 @@ void j1Enemy_Flying::Follow_Path() {
 
 void j1Enemy_Flying::Move(float dt) {
 
-	if (!Inside_Camera_Limits().left_x) {
+	if (!Inside_Camera_Limits().left_x) {           // x
 		position.x += 3; 
 	}
 	else if (!Inside_Camera_Limits().right_x) {
 		position.x -= 3;
 	}
-	position.x += dir.x*dir_multiplier;      // *dt
-	position.y += dir.y*dir_multiplier;     // *dt
+	else if (!Inside_Camera_Limits().top_y) {                                   // y
+		position.y += 20;
+	}
+	else if (!Inside_Camera_Limits().bottom_y) {
+		position.y -= 20;
+	}
+
+	else {
+		position.x += dir.x*dir_multiplier;      // *dt
+		position.y += dir.y*dir_multiplier;     // *dt
+	}
 }
 
 

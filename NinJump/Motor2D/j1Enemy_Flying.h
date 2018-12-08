@@ -41,6 +41,7 @@ private:
 	iPoint Target_Map_Pos; 
 	iPoint Enemy_Map_Pos; 
 
+	bool start_following = false; 
 
 	p2DynArray<iPoint>* Path;
 };
