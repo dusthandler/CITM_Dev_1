@@ -20,6 +20,7 @@ enum Direction_State {
 
 struct Camera_Limits {
 	bool left_x; 
+	bool right_x; 
 	bool top_y;
 	bool bottom_y;
 };

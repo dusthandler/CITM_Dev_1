@@ -39,7 +39,7 @@ void j1Entity::Get_Direction_State(){
 
 Camera_Limits j1Entity::Inside_Camera_Limits() {
 
-	struct Camera_Limits limits = { true, true, true }; 
+	struct Camera_Limits limits = { true, true, true, true}; 
 
 	if (App->render->camera.x == 0) {
 		if (position.x < App->render->camera.x) {
@@ -49,8 +49,11 @@ Camera_Limits j1Entity::Inside_Camera_Limits() {
 	else if(-position.x > App->render->camera.x){
 		limits.left_x = false;
 	}
+	else if (-position.x < App->render->camera.x - App->render->camera.w) {
+		limits.right_x = false; 
+	}
 	
-	if (!limits.left_x || !limits.top_y || !limits.bottom_y) {
+	if (!limits.left_x || !limits.right_x || !limits.top_y || !limits.bottom_y) {
 		inside_limits = false; 
 	}
 	else {

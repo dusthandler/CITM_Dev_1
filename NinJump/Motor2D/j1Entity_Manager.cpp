@@ -46,7 +46,8 @@ bool j1Entity_Manager::Start(){
 	CreateEntity(Type::PLAYER, Pos);
 
 	// coins and stuff
-	App->audio->LoadFx("Sound/Fx/coin.wav");
+	App->audio->LoadFx("Sound/Fx/coin.wav");  // 5
+	App->audio->LoadFx("Sound/Fx/shot.wav");  // 6
 
 	CreateEntity(Type::SHURIKEN, iPoint(350, 870));        // after player !
 	CreateEntity(Type::COIN, iPoint(450, 870));
@@ -220,10 +221,10 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	}
 	entities.clear();
 
-	// unload coin fxs at the end
+	// unload coin and shot fxs at the end
 
 	App->audio->UnloadFx(5);
-
+	App->audio->UnloadFx(6);
 
 
 	return ret;
@@ -246,6 +247,31 @@ iPoint j1Entity_Manager::GetPlayerPos() {
 	return pos;
 }
 
+
+int j1Entity_Manager::GetPlayerDir() {
+	int dir = 0; 
+
+	p2List_item<j1Entity*>* item;
+	item = entities.start;
+
+	for (; item != NULL; item = item->next)
+	{
+
+		if (item->data->type == Type::PLAYER) {
+			
+			if (item->data->Vel.x < 0) {
+				dir = -1; 
+			}
+			else if (item->data->Vel.x > 0) {
+				dir = 1; 
+			}
+		}
+
+	}
+	return dir;
+
+
+}
 
 
 bool j1Entity_Manager::Get_Gravity_Reverse() {

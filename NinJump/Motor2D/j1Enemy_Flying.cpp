@@ -115,8 +115,11 @@ void j1Enemy_Flying::Follow_Path() {
 
 void j1Enemy_Flying::Move(float dt) {
 
-	if (!inside_limits) {
-		position.x += 10; 
+	if (!Inside_Camera_Limits().left_x) {
+		position.x += 3; 
+	}
+	else if (!Inside_Camera_Limits().right_x) {
+		position.x -= 3;
 	}
 	position.x += dir.x*dir_multiplier;      // *dt
 	position.y += dir.y*dir_multiplier;     // *dt
