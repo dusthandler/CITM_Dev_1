@@ -10,7 +10,7 @@
 j1Entity_Coin::j1Entity_Coin(iPoint position, Type type) : j1Entity(position, type) {
 
 	collider = App->collision->AddCollider({ position.x, position.y, coin_size, coin_size }, COLLIDER_COIN, this);
-	// tex = App->tex->Load("Maps/Objects/coins.png");
+	tex = App->tex->Load("Maps/Objects/coins.png");
 	animation = &Idle;
 	Idle.PushBack({ 0, 0, coin_size, coin_size });
 	Idle.PushBack({ 0, 22, coin_size, coin_size });
@@ -36,8 +36,8 @@ void j1Entity_Coin::OnCollision(Collider* c1, Collider* c2) {
 bool j1Entity_Coin::CleanUp() {
 	collider->to_delete = true;
 	active = false; 
-   // App->tex->UnLoad(tex);
-
+    App->tex->UnLoad(tex);
+	tex = nullptr; 
 
 	return true;
 }

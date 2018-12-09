@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1Entity_Manager.h"
+#include "p2Log.h"
 
 // Called before render is available
 j1Gui_Image::j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char* ID) : j1Gui_Object(pos) {
@@ -12,6 +13,8 @@ j1Gui_Image::j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char
 	rect = atlas_rect; 
 	this->pos = pos; 
 	this->ID = ID; 
+
+	hierarchy = (Hierarchy)4; 
 };
 
 
@@ -32,6 +35,16 @@ void j1Gui_Image::Blit() {
 		}
 
 	}
+
+
+	if (hover_state == Hover_State::CLICK) {
+		LOG("We are draggin an object                  ... ... ..."); 
+		App->input->GetMousePosition(pos.x, pos.y); 
+
+	}
+	
+	LOG("Hover state >>>>>>>>>>>>>>>>>>>>>> %s", (int)hover_state); 
+
 
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
 

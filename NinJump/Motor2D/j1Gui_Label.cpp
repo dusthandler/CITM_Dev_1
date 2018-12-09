@@ -13,6 +13,9 @@ j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID) : j1Gui
 
 	Init_Text(); 
 
+	hierarchy = Hierarchy::LABEL; 
+	hierarchy = (Hierarchy)3; 
+
 };
 
 void j1Gui_Label::Init_Text() {

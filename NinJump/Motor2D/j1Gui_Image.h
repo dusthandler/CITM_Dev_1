@@ -17,7 +17,7 @@ public:
 	// Destructor
 	virtual ~j1Gui_Image() {};
 	void Blit();
-
+	
 
 private:
 

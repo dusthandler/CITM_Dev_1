@@ -63,10 +63,9 @@ private:
 	bool do_logic = false; 
 
 private: 
-	SDL_Texture* coin_tex = nullptr; 
-
-public: 
 	SDL_Texture* path_tex = nullptr;
+public: 
+	
 	uint player_live_count = 3; 
 	
 }; 

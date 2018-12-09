@@ -27,6 +27,24 @@ enum TYPE {
 	Checkbox
 }; 
 
+enum Hover_State {
+	IDLE, 
+	HOVER,
+	CLICK,
+	DRAG,
+	OUTSIDE
+};
+
+enum Hierarchy {
+	SCREEN = 1,
+	PANEL = 2,
+	LABEL = 3,
+	IMAGE = 4,
+	BUTTON = 5,
+	BUTTON_LABEL = 6,
+	BUTTON_IMAGE = 7
+};
+
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -61,6 +79,10 @@ public:
 
 	j1Gui_Label* Create_Label(iPoint, _TTF_Font*, char*, char* ID = nullptr);
 
+	void Select_Clicked_Object(); 
+	j1Gui_Object* Get_Clicked_Object(); 
+	void Move_Clicked_Object();
+
 	// void Delete_Object();
 
 	virtual void Blit();
@@ -78,6 +100,11 @@ private:
 
 	j1Gui_Image* UI_lives = nullptr;
 	j1Gui_Label* live_count = nullptr;
+
+	// hovering and clicking
+
+	uint hover_objects_queue = 0; 
+	j1Gui_Object* clicked_object = nullptr; 
 
 public: 
 	uint coins_collected = 0;                  // Where should this be?

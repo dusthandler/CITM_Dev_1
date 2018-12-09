@@ -32,6 +32,9 @@ public:
 	TYPE type; 
 	Animation* anim; 
 	SDL_Texture* tex; 
+	bool selected = false; 
+	Hierarchy hierarchy; 
+	Hover_State hover_state; 
 };
 
 

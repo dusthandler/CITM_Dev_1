@@ -59,6 +59,7 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	Select_Clicked_Object(); 
 	return true;
 }
 
@@ -94,6 +95,95 @@ j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* 
 
 	return ret;
 }; 
+
+
+void j1Gui::Select_Clicked_Object() {
+
+	int x, y; 
+	p2List<j1Gui_Object*> selected_objects;
+	
+
+		App->input->GetMousePosition(x, y); 
+
+		p2List_item<j1Gui_Object*>* item;
+		item = objects.start;
+
+		SDL_Rect obj_r; 
+
+		for (item = objects.start; item != NULL; item = item->next)
+		{
+			
+			obj_r.x = item->data->pos.x;
+			obj_r.y = item->data->pos.y;
+			obj_r.w = item->data->rect.w;
+			obj_r.h = item->data->rect.h;
+
+			LOG("Mouse coordinates ----> %i, %i", x, y); 
+			LOG("Object coordinates ----> (%i, %i) , (%i %i)", obj_r.x, obj_r.y, obj_r.x + obj_r.w, obj_r.y + obj_r.h); 
+
+			if (x > obj_r.x && x < obj_r.x + obj_r.w && y > obj_r.y && y < obj_r.y + obj_r.h) {
+
+				if (item->data->hover_state != Hover_State::HOVER) {
+					hover_objects_queue++;
+					item->data->hover_state = Hover_State::HOVER;
+				}
+
+				if (App->input->GetMouseButtonDown(1)) {
+					item->data->hover_state == Hover_State::CLICK;
+					selected_objects.add(item->data);
+				}
+
+				if (App->input->GetMouseButtonDown(2)) {
+					item->data->hover_state == Hover_State::DRAG;
+				}
+
+			}
+			else {
+				item->data->hover_state == Hover_State::OUTSIDE;
+			}
+
+			
+		}
+
+	LOG("Selected objects -------> %i", hover_objects_queue);
+
+	
+	/*p2List_item<j1Gui_Object*>* item_s;
+	j1Gui_Object* resolve_selected; 
+
+	int index = 666;
+
+	for (item_s = selected_objects.start; item_s != NULL; item_s = item_s->next)
+	{
+		
+
+		if (item_s->data->hierarchy < item_s->prev->data->hierarchy) {
+			
+			resolve_selected = item->data; 
+
+		}
+
+	
+
+	}*/
+
+	// resolve_selected = selected_objects.At(index)->data;
+
+
+}
+
+
+j1Gui_Object* j1Gui::Get_Clicked_Object() {
+
+	return clicked_object; 
+}
+
+
+void j1Gui::Move_Clicked_Object() {
+
+
+
+}
 
 /*
 void j1Gui::Delete_Object() {

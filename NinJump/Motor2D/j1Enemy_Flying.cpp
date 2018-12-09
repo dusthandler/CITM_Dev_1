@@ -160,7 +160,7 @@ void j1Enemy_Flying::Draw_Path() {
 	for (uint i = 0; i < Path->Count(); ++i) {
 
 		surface_pos = App->map->MapToWorld(Path->At(i)->x, Path->At(i)->y);
-    	App->render->Blit(path_tex, surface_pos.x, surface_pos.y); 
+//    	App->render->Blit(path_tex, surface_pos.x, surface_pos.y); 
 		}
 	
 
