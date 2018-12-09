@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Window.h"
+#include "j1Gui_Object.h"
 #include "SDL/include/SDL.h"
 
 #include "Brofiler/Brofiler.h"
@@ -162,4 +163,11 @@ void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
+}
+
+void j1Input::GetCenteredMousePosition(int &x, int &y, j1Gui_Object* obj) {
+	
+	x = mouse_x - obj->rect.w / 2; 
+	y = mouse_y - obj->rect.h / 2; 
+	
 }

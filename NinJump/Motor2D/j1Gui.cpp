@@ -133,24 +133,35 @@ void j1Gui::Select_Clicked_Object() {
 				case Hover_State::HOVER:
 					LOG("_____________________________________________________________hover"); 
 
+
+					if (App->input->GetMouseButtonDown(2)) {
+						LOG("_____________________________________________________________drag");
+						item->data->hover_state = Hover_State::DRAG;
+					}
+
 					if (App->input->GetMouseButtonDown(1)) {
 						LOG("________________________________________________________next should be click"); 
 						item->data->hover_state = Hover_State::CLICK;
 					}
+
+
 					break;
 
 				case Hover_State::CLICK:
 					LOG("_____________________________________________________________click");
+
+					// this should be at "drag" state, but does not work right now
+
 					move_object = true; 
 
-					if (clicked_object == nullptr) {
+					if (item->data != nullptr) {         
 						clicked_object = item->data;
-					}
+					 }
 
-					if (App->input->GetMouseButtonDown(2)) {
-						item->data->hover_state = Hover_State::DRAG;
+					if (App->input->GetMouseButtonDown(3)) {
+						move_object = false; 
+						item->data->hover_state = Hover_State::HOVER; 
 					}
-			
 					break;
 
 				case Hover_State::DRAG:
@@ -177,7 +188,7 @@ void j1Gui::Select_Clicked_Object() {
 		
 		if (move_object && clicked_object != nullptr) {
 			Move_Clicked_Object(clicked_object); 
-		}
+		}  
 			
 
 
@@ -217,9 +228,9 @@ j1Gui_Object* j1Gui::Get_Clicked_Object() {
 
 void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 
-	LOG("Moving obj yeheaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	LOG("Moving obj yeheaaaaaaaaaaaaaaaaaaaaaaaaaaa"); 
 
-	App->input->GetMousePosition(obj->pos.x, obj->pos.y);
+	App->input->GetCenteredMousePosition(obj->pos.x, obj->pos.y, obj);
 }
 
 

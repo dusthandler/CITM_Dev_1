@@ -8,6 +8,7 @@
 //#define LAST_KEYS_PRESSED_BUFFER 50
 
 struct SDL_Rect;
+class j1Gui_Object;
 
 enum j1EventWindow
 {
@@ -66,6 +67,8 @@ public:
 
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
+	void GetCenteredMousePosition(int &x, int &y,j1Gui_Object*);
+
 	void GetMouseMotion(int& x, int& y);
 
 private:
