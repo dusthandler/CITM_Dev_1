@@ -28,7 +28,6 @@ enum TYPE {
 }; 
 
 enum Hover_State {
-	IDLE, 
 	HOVER,
 	CLICK,
 	DRAG,
@@ -81,7 +80,7 @@ public:
 
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 
-	void Move_Clicked_Object();
+	void Move_Clicked_Object(j1Gui_Object*);
 
 	// void Delete_Object();
 
@@ -105,6 +104,9 @@ private:
 
 	uint hover_objects_queue = 0; 
 	j1Gui_Object* clicked_object = nullptr; 
+	bool move_object = false; 
+public: 
+	
 
 public: 
 	uint coins_collected = 0;                  // Where should this be?

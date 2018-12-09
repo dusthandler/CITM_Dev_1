@@ -65,7 +65,7 @@ bool j1Gui::PreUpdate()
 
 bool j1Gui::Update(float dt) {
 	Blit(); 
-	LOG("GUI update ... ... ..."); 
+	
 	return true; 
 }
 
@@ -118,34 +118,70 @@ void j1Gui::Select_Clicked_Object() {
 			obj_r.w = item->data->rect.w;
 			obj_r.h = item->data->rect.h;
 
-			LOG("Mouse coordinates ----> %i, %i", x, y); 
-			LOG("Object coordinates ----> (%i, %i) , (%i %i)", obj_r.x, obj_r.y, obj_r.x + obj_r.w, obj_r.y + obj_r.h); 
+			// LOG("Mouse coordinates ----> %i, %i", x, y); 
+			// LOG("Object coordinates ----> (%i, %i) , (%i %i)", obj_r.x, obj_r.y, obj_r.x + obj_r.w, obj_r.y + obj_r.h); 
 
 			if (x > obj_r.x && x < obj_r.x + obj_r.w && y > obj_r.y && y < obj_r.y + obj_r.h) {
+				
+				switch (item->data->hover_state) {
 
-				if (item->data->hover_state != Hover_State::HOVER) {
-					hover_objects_queue++;
+				case Hover_State::OUTSIDE:
+				    LOG("_____________________________________________________________outside    1");
 					item->data->hover_state = Hover_State::HOVER;
+					break; 
+
+				case Hover_State::HOVER:
+					LOG("_____________________________________________________________hover"); 
+
+					if (App->input->GetMouseButtonDown(1)) {
+						LOG("________________________________________________________next should be click"); 
+						item->data->hover_state = Hover_State::CLICK;
+					}
+					break;
+
+				case Hover_State::CLICK:
+					LOG("_____________________________________________________________click");
+					move_object = true; 
+
+					if (clicked_object == nullptr) {
+						clicked_object = item->data;
+					}
+
+					if (App->input->GetMouseButtonDown(2)) {
+						item->data->hover_state = Hover_State::DRAG;
+					}
+			
+					break;
+
+				case Hover_State::DRAG:
+					LOG("_____________________________________________________________drag");
+					break;
+
 				}
 
-				if (App->input->GetMouseButtonDown(1)) {
-					item->data->hover_state == Hover_State::CLICK;
-					selected_objects.add(item->data);
-				}
-
-				if (App->input->GetMouseButtonDown(2)) {
+				
+				
+				/*if (App->input->GetMouseButtonDown(2)) {
 					item->data->hover_state == Hover_State::DRAG;
-				}
+				}*/
 
 			}
-			else {
-				item->data->hover_state == Hover_State::OUTSIDE;
-			}
+		  /* else {
+				LOG("_____________________________________________________________outside");
+				item->data->hover_state = Hover_State::OUTSIDE;
+			}*/
 
 			
 		}
+		
+		
+		if (move_object && clicked_object != nullptr) {
+			Move_Clicked_Object(clicked_object); 
+		}
+			
 
-	LOG("Selected objects -------> %i", hover_objects_queue);
+
+	
 
 	
 	/*p2List_item<j1Gui_Object*>* item_s;
@@ -175,15 +211,19 @@ void j1Gui::Select_Clicked_Object() {
 
 j1Gui_Object* j1Gui::Get_Clicked_Object() {
 
-	return clicked_object; 
+	return clicked_object;
 }
 
 
-void j1Gui::Move_Clicked_Object() {
+void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 
+	LOG("Moving obj yeheaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-
+	App->input->GetMousePosition(obj->pos.x, obj->pos.y);
 }
+
+
+
 
 /*
 void j1Gui::Delete_Object() {

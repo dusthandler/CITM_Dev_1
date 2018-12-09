@@ -34,7 +34,7 @@ public:
 	SDL_Texture* tex; 
 	bool selected = false; 
 	Hierarchy hierarchy; 
-	Hover_State hover_state; 
+	Hover_State hover_state = Hover_State::OUTSIDE; 
 };
 
 

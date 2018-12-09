@@ -15,6 +15,7 @@ j1Gui_Image::j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char
 	this->ID = ID; 
 
 	hierarchy = (Hierarchy)4; 
+	// hover_state = Hover_State::OUTSIDE; 
 };
 
 
@@ -37,13 +38,12 @@ void j1Gui_Image::Blit() {
 	}
 
 
-	if (hover_state == Hover_State::CLICK) {
-		LOG("We are draggin an object                  ... ... ..."); 
+	/*if (hover_state == Hover_State::DRAG) {
+		LOG("We are dragging an object                  ... ... ..."); 
 		App->input->GetMousePosition(pos.x, pos.y); 
 
-	}
+	}*/
 	
-	LOG("Hover state >>>>>>>>>>>>>>>>>>>>>> %s", (int)hover_state); 
 
 
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
