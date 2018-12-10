@@ -134,10 +134,7 @@ void j1Gui::Select_Clicked_Object() {
 					LOG("_____________________________________________________________hover"); 
 
 
-					if (App->input->GetMouseButtonDown(2)) {
-						LOG("_____________________________________________________________drag");
-						item->data->hover_state = Hover_State::DRAG;
-					}
+			
 
 					if (App->input->GetMouseButtonDown(1)) {
 						LOG("________________________________________________________next should be click"); 
@@ -150,21 +147,31 @@ void j1Gui::Select_Clicked_Object() {
 				case Hover_State::CLICK:
 					LOG("_____________________________________________________________click");
 
+					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+						item->data->hover_state = Hover_State::HOVER;
+					}
+
+                    else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+						item->data->hover_state = Hover_State::DRAG;
+					}
+
 					// this should be at "drag" state, but does not work right now
 
-					move_object = true; 
-
-					if (item->data != nullptr) {         
-						clicked_object = item->data;
-					 }
-
-					if (App->input->GetMouseButtonDown(3)) {
-						move_object = false; 
-						item->data->hover_state = Hover_State::HOVER; 
-					}
 					break;
 
 				case Hover_State::DRAG:
+
+					move_object = true;
+
+					if (item->data != nullptr) {
+						clicked_object = item->data;
+					}
+
+					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+						move_object = false;
+						item->data->hover_state = Hover_State::HOVER;
+					}
+
 					LOG("_____________________________________________________________drag");
 					break;
 
@@ -172,12 +179,10 @@ void j1Gui::Select_Clicked_Object() {
 
 				
 				
-				/*if (App->input->GetMouseButtonDown(2)) {
-					item->data->hover_state == Hover_State::DRAG;
-				}*/
+			
 
 			}
-		  /* else {
+		   /*else {
 				LOG("_____________________________________________________________outside");
 				item->data->hover_state = Hover_State::OUTSIDE;
 			}*/
@@ -187,7 +192,11 @@ void j1Gui::Select_Clicked_Object() {
 		
 		
 		if (move_object && clicked_object != nullptr) {
+
+
 			Move_Clicked_Object(clicked_object); 
+
+
 		}  
 			
 
