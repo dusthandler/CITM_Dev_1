@@ -23,6 +23,7 @@ class j1PathFinding;
 class j1Entity_Manager; 
 class j1Fonts;
 class j1Gui;
+class j1Main_Menu;
 
 
 class j1App
@@ -101,6 +102,7 @@ public:
 	j1Entity_Manager*   entity_manager;
 	j1Fonts*			font;
 	j1Gui*				gui;
+	j1Main_Menu*        main_menu; 
 
 private:
 

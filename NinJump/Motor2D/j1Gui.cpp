@@ -158,10 +158,10 @@ void j1Gui::Select_Clicked_Object() {
 						clicked_object = item->data;
 					 }
 
-					if (App->input->GetMouseButtonDown(3)) {
+					/*if (App->input->GetMouseButtonDown(3)) {
 						move_object = false; 
 						item->data->hover_state = Hover_State::HOVER; 
-					}
+					}*/
 					break;
 
 				case Hover_State::DRAG:
@@ -187,6 +187,13 @@ void j1Gui::Select_Clicked_Object() {
 		
 		
 		if (move_object && clicked_object != nullptr) {
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == 1) {
+				LOG("_____________________________________________________________release");
+				move_object = false;
+				item->data->hover_state = Hover_State::HOVER;
+			}
+
 			Move_Clicked_Object(clicked_object); 
 		}  
 			

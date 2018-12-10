@@ -74,9 +74,9 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	j1Gui_Image* Create_Image(SDL_Texture*, iPoint, SDL_Rect&, char* ID = nullptr);
+	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr);
 
-	j1Gui_Label* Create_Label(iPoint, _TTF_Font*, char*, char* ID = nullptr);
+	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr);
 
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 
@@ -88,9 +88,11 @@ public:
 
      const SDL_Texture* GetAtlas() const;
 
-private:
 
+protected: 
 	SDL_Texture* atlas;
+
+private:
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
 

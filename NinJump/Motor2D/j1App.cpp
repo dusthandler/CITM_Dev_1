@@ -23,6 +23,7 @@
 
 #include "j1Fonts.h"
 #include "j1Gui.h"
+#include "j1Main_Menu.h"
 
 
 // Constructor
@@ -39,14 +40,15 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
+	main_menu = new j1Main_Menu();
 	map = new j1Map();
 	font = new j1Fonts();
  	gui = new j1Gui();
-
 	fade = new j1FB();
 	collision = new j1Collision();
 	pathfinding = new j1PathFinding();
 	entity_manager = new j1Entity_Manager(); 
+	
     // render = new j1Render();
 
 
@@ -59,7 +61,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(entity_manager);
-	AddModule(scene);
+	// AddModule(scene);               // first main menu, then scene
+	AddModule(main_menu);
 	AddModule(fade);
 	AddModule(collision);
 	AddModule(font);

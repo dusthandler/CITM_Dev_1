@@ -21,6 +21,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Update(float dt); 
 	// Changae title
 	void SetTitle(const char* new_title);
 
@@ -38,6 +39,8 @@ public:
 	SDL_Surface* screen_surface;
 	uint		width;
 	uint		height;
+	int capture_width; 
+	int capture_height; 
 private:
 	p2SString	title;
 	

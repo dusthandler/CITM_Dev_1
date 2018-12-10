@@ -1,5 +1,5 @@
-#ifndef __j1SCENE_H__
-#define __j1SCENE_H__
+#ifndef __j1MAIN_MENU_H__
+#define __j1MAIN_MENU_H__
 
 #include "j1Module.h"
 #include "j1PerfTimer.h"
@@ -8,14 +8,16 @@
 struct SDL_Texture;
 struct _Mix_Music;
 
-class j1Scene : public j1Module
+class j1Gui_Image;
+
+class j1Main_Menu : public j1Module
 {
 public:
 
-	j1Scene();
+	j1Main_Menu();
 
 	// Destructor
-	virtual ~j1Scene();
+	virtual ~j1Main_Menu();
 
 	// Called before render is available
 	bool Awake();
@@ -38,24 +40,14 @@ public:
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 
-	bool MapSwap(int);
-	int SwitchM = 0;
-	bool Player_Alive = true;
-	bool Player_Win;
-	bool Restart = false;
-	bool Second_Start = false;
-	bool Player_lvl_2 = false; 
-private:
-	bool Map_Loaded = false; 
-	iPoint Player_act_pos;
-	int camera_relative_x = 0; 
 	
+private:
 	_Mix_Music* mus = nullptr;
-	_Mix_Music* mus2 = nullptr;
-	bool Mus_1 = true; 
-	uint Mus_Id = 1; 
-	j1PerfTimer			ptimer;
 
+	// ------- GUI objects --------
+
+	j1Gui_Image* bg_image = nullptr; 
+	SDL_Texture* bg_image_tex = nullptr; 
 };
 
-#endif // __j1SCENE_H__
+#endif // __j1MAIN_MENU_H__

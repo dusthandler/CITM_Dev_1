@@ -2,6 +2,8 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
+#include "j1Main_Menu.h"
+#include "j1Render.h"
 
 #include "SDL/include/SDL.h"
 #include "Brofiler/Brofiler.h"
@@ -44,6 +46,12 @@ bool j1Window::Awake(pugi::xml_node& config)
 		height = config.child("resolution").attribute("height").as_int(480);
 		scale = config.child("resolution").attribute("scale").as_int(1);
 
+		capture_width = (int)width;
+		capture_height = (int)height;
+
+		SDL_GetWindowSize(window, &capture_width, &capture_height);
+
+
 		if(fullscreen == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
@@ -79,6 +87,18 @@ bool j1Window::Awake(pugi::xml_node& config)
 	}
 
 	return ret;
+}
+
+bool j1Window::Update(float dt) {
+
+	if (App->main_menu->active) {
+		SDL_SetWindowSize(window, 800, 800); // bg tex size
+	}
+	else {
+		SDL_SetWindowSize(window, capture_width, capture_height);
+	}
+	return true; 
+
 }
 
 // Called before quitting

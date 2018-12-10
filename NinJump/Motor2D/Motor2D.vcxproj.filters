@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="j1App.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="j1Audio.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -82,11 +79,14 @@
     <ClCompile Include="j1Gui_Label.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="j1App.cpp">
+      <Filter>App / Module</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Main_Menu.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="j1App.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="j1Audio.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -100,9 +100,6 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Map.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Module.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h">
@@ -186,6 +183,15 @@
     <ClInclude Include="J1Gui_Object.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="j1App.h">
+      <Filter>App / Module</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Module.h">
+      <Filter>App / Module</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Main_Menu.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -205,6 +211,9 @@
     </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{442c727e-30c1-4da2-9ad3-85a0cad662bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App / Module">
+      <UniqueIdentifier>{6e2b67a8-4317-4f35-90ed-99400da0fb95}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
