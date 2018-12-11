@@ -36,7 +36,7 @@ class j1Player_Entity : public j1Entity
 
 {
 public:
-	j1Player_Entity(iPoint pos, Type type);
+	j1Player_Entity(iPoint pos, Type type, int id);
 
 	~j1Player_Entity();
 

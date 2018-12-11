@@ -28,7 +28,7 @@ struct Camera_Limits {
 class j1Entity : public j1Entity_Manager
 {
 public:
-	j1Entity(iPoint pos, Type type);
+	j1Entity(iPoint pos, Type type,int id);
 
 	// Destructor
 	virtual ~j1Entity() {
@@ -68,7 +68,8 @@ public:
 
 
 public:
-
+	
+	int my_id;
 	iPoint position;
 	iPoint Vel;
 	iPoint Acc;

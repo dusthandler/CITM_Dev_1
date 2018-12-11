@@ -60,9 +60,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(pathfinding);
-    // AddModule(entity_manager);
-	// AddModule(scene);               // first main menu, then scene
-	AddModule(main_menu);
+    AddModule(entity_manager);
+	AddModule(scene);               // first main menu, then scene
+	//AddModule(main_menu);
 	AddModule(fade);
 	AddModule(collision);
 	AddModule(font);

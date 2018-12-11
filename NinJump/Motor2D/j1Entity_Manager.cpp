@@ -32,25 +32,19 @@ bool j1Entity_Manager::Start(){
 	// path texture
 	path_tex = App->tex->Load("Maps/Textures/path_tex.png"); 
 	
-	// CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
-	/*CreateEntity(Type::ENEMY_FLYING, iPoint(1300, 400));
-	CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 400));
-	CreateEntity(Type::ENEMY_FLYING, iPoint(1700, 400));
-	CreateEntity(Type::ENEMY_FLYING, iPoint(1900, 400));
-	CreateEntity(Type::ENEMY_FLYING, iPoint(2100, 400));*/
-
-	// CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
-		
 	
+	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),1);
+	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),2);
+	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200),3);
+	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200), 4);
   
 
 	iPoint Pos;
 	pugi::xml_node InitPos = App->map->map_file.child("map");
 
-	// we need to load this from tiled 
 	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_uint();
 	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
-	CreateEntity(Type::PLAYER, Pos);
+	CreateEntity(Type::PLAYER, Pos,0);
 
 	// coins and stuff
 	App->audio->LoadFx("Sound/Fx/coin.wav");  // 5
@@ -59,23 +53,23 @@ bool j1Entity_Manager::Start(){
 
 
 
-	CreateEntity(Type::SHURIKEN, iPoint(350, 870));        // after player !
-	CreateEntity(Type::COIN, iPoint(450, 870));
-	CreateEntity(Type::COIN, iPoint(550, 870));
-	CreateEntity(Type::COIN, iPoint(650, 870));
+	/*CreateEntity(Type::SHURIKEN, iPoint(350, 870));  */      // after player !
+	//CreateEntity(Type::COIN, iPoint(450, 870),3);
+	//CreateEntity(Type::COIN, iPoint(550, 870),2);
+	//CreateEntity(Type::COIN, iPoint(650, 870),1);
 
 	return ret;
 }
-j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos) 
+j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos, int id) 
 {
 // 	static_assert(Type::UNKNOWN == (Type)3, "code needs update");
 	j1Entity* ret = nullptr;
 	switch (type) {
-	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type); break; //New: Now we pass to paremeters to constructor
-	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type); break; //New: Land enemie :D
-	case Type::PLAYER: ret = new j1Player_Entity(pos, type); break;
-	case Type::COIN: ret = new j1Entity_Coin(pos, type); break;
-	case Type::SHURIKEN: ret = new j1Shuriken(pos, type); break;
+	case Type::ENEMY_FLYING: ret = new j1Enemy_Flying(pos,type,id); break; //New: Now we pass to paremeters to constructor
+	case Type::ENEMY_LAND: ret = new j1Enemy_Walker(pos, type,id); break; //New: Land enemie :D
+	case Type::PLAYER: ret = new j1Player_Entity(pos, type,id); break;
+	case Type::COIN: ret = new j1Entity_Coin(pos, type,id); break;
+	case Type::SHURIKEN: ret = new j1Shuriken(pos, type,id); break;
 	}
 	
 	if (ret != nullptr) {

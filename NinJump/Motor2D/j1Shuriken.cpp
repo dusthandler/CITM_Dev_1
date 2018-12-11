@@ -7,7 +7,7 @@
 #include "j1Audio.h"
 #include "p2Log.h"
 
-j1Shuriken::j1Shuriken(iPoint position, Type type) : j1Entity(position, type) {
+j1Shuriken::j1Shuriken(iPoint position, Type type,int id) : j1Entity(position, type, id) {
 
 	collider = App->collision->AddCollider({ position.x, position.y, shuriken_size, shuriken_size }, COLLIDER_SHOT, this);
 	tex = App->tex->Load("Maps/Objects/shuriken.png");
@@ -25,7 +25,7 @@ j1Shuriken::j1Shuriken(iPoint position, Type type) : j1Entity(position, type) {
 	Shot_Left.loop = true;
 	Shot_Left.speed = 0.1f;
 
-
+	this->my_id = id;
 	state = ShuriState::IDLE; 
 	this->position = position;
 }

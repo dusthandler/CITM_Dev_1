@@ -105,6 +105,8 @@ j1Gui_Button* j1Gui::Create_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect 
 	if (ret != nullptr)
 		objects.add(ret);
 
+	return ret;
+
 }; 
 
 void j1Gui::Select_Clicked_Object() {

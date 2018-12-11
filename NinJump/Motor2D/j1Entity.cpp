@@ -9,7 +9,7 @@
 #include "p2Log.h"
 
 
-j1Entity::j1Entity(iPoint pos, Type type): position(pos), type(type)
+j1Entity::j1Entity(iPoint pos, Type type,int id): position(pos), type(type), my_id(id)
 {
 }
 

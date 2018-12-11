@@ -11,7 +11,7 @@ struct SDL_Texture;
 class j1Entity_Coin : public j1Entity
 {
 public:
-	j1Entity_Coin(iPoint pos, Type type);
+	j1Entity_Coin(iPoint pos, Type type,int id);
 
 	// Destructor
 	virtual ~j1Entity_Coin() {
@@ -29,6 +29,7 @@ public:
 
 private:
 	Animation Idle;
+	
 
 };
 

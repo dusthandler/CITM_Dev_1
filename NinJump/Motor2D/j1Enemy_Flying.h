@@ -10,7 +10,7 @@ struct SDL_Texture;
 class j1Enemy_Flying : public j1Entity
 {
 public:
-	j1Enemy_Flying(iPoint pos, Type type);
+	j1Enemy_Flying(iPoint pos, Type type,int id);
 
 	// Destructor
 	virtual ~j1Enemy_Flying() {

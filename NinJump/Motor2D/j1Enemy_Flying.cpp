@@ -12,7 +12,7 @@
 #include "Brofiler/Brofiler.h"
 #include "j1Render.h"
 
-j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, type) {
+j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type,int id) : j1Entity(position, type,id) {
 
 	collider = App->collision->AddCollider({ position.x, position.y,Fly_Width,45 }, COLLIDER_ENEMY, this);
 	tex = App->tex->Load("Maps/Enemies/Flyer/Fly.png");
@@ -36,6 +36,7 @@ j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type) : j1Entity(position, 
 
 
 	this->position = position;
+	this->my_id = id;
 
 	// logic stuff
 	dir_multiplier = 3;
@@ -218,23 +219,24 @@ bool j1Enemy_Flying::CleanUp() {
 
 bool j1Enemy_Flying::Load(pugi::xml_node& node) {
 	bool ret = true;
+	p2SString EntityName;
+	EntityName.create("Enemie_Fliying_%i", my_id);
 
-
-	position.x = node.child("Enemy_Flying").attribute("x").as_int(0);
-	position.y = node.child("Enemy_Flying").attribute("y").as_int(0);
-	Vel.x = node.child("Enemy_Flying").attribute("vx").as_int(0);
-	Vel.y = node.child("Enemy_Flying").attribute("vy").as_int(0);
-	Acc.x = node.child("Enemy_Flying").attribute("ax").as_int(0);
-	Acc.y = node.child("Enemy_Flying").attribute("ay").as_int(0);
-	dir.x = node.child("Enemy_Flying").attribute("dirx").as_int(0);
-	dir.y = node.child("Enemy_Flying").attribute("diry").as_int(0);
-	Path_Pos.x = node.child("Enemy_Flying").attribute("pathx").as_int(0);
-	Path_Pos.y = node.child("Enemy_Flying").attribute("pathy").as_int(0);
-	dir_multiplier = node.child("Enemy_Flying").attribute("dir_m").as_uint(0);
-	active = node.child("Enemy_Flying").attribute("active").as_bool(false);
-	to_delete = node.child("Enemy_Flying").attribute("delet").as_bool(false);
-	following_player = node.child("Enemy_Flying").attribute("foll_pla").as_bool(false);
-	Reached_Player = node.child("Enemy_Flying").attribute("reached").as_bool(false);
+	position.x = node.child(EntityName.GetString()).attribute("x").as_int(0);
+	position.y = node.child(EntityName.GetString()).attribute("y").as_int(0);
+	Vel.x = node.child(EntityName.GetString()).attribute("vx").as_int(0);
+	Vel.y = node.child(EntityName.GetString()).attribute("vy").as_int(0);
+	Acc.x = node.child(EntityName.GetString()).attribute("ax").as_int(0);
+	Acc.y = node.child(EntityName.GetString()).attribute("ay").as_int(0);
+	dir.x = node.child(EntityName.GetString()).attribute("dirx").as_int(0);
+	dir.y = node.child(EntityName.GetString()).attribute("diry").as_int(0);
+	Path_Pos.x = node.child(EntityName.GetString()).attribute("pathx").as_int(0);
+	Path_Pos.y = node.child(EntityName.GetString()).attribute("pathy").as_int(0);
+	dir_multiplier = node.child(EntityName.GetString()).attribute("dir_m").as_uint(0);
+	active = node.child(EntityName.GetString()).attribute("active").as_bool(false);
+	to_delete = node.child(EntityName.GetString()).attribute("delet").as_bool(false);
+	following_player = node.child(EntityName.GetString()).attribute("foll_pla").as_bool(false);
+	Reached_Player = node.child(EntityName.GetString()).attribute("reached").as_bool(false);
 
 	collider->type = COLLIDER_ENEMY;
 	type = Type::ENEMY_FLYING;
@@ -255,8 +257,10 @@ bool j1Enemy_Flying::Load(pugi::xml_node& node) {
 bool j1Enemy_Flying::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
-
-	pugi::xml_node ene = node.append_child("Enemy_Flying");
+	p2SString EntityName;
+	EntityName.create("Enemie_Fliying_%i", my_id);
+	LOG(EntityName.GetString());
+	pugi::xml_node ene = node.append_child(EntityName.GetString());
 
 	ene.append_attribute("x") = position.x;
 	ene.append_attribute("y") = position.y;
