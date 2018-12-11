@@ -39,13 +39,14 @@ bool j1Gui::Start()
 	// atlas = App->tex->Load(atlas_file_name.GetString());
 	atlas = App->tex->Load("gui/atlas.png");                      // do this properly
 	menu_image_tex = App->tex->Load("Maps/Textures/bg_menu.png");
+	menu_font = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai.ttf", 36);
+	level_font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 36);
 
 	return true;
 }
 
 
 
-// Update all guis
 bool j1Gui::PreUpdate()
 {
 	Select_Clicked_Object(); 
@@ -79,6 +80,19 @@ void j1Gui::Generate_Menu_GUI() {
 	menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 800, 735 }, NULL, Menu_Level::Menu);
 	menu_label = Create_Image(atlas, iPoint(230, 10), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Menu);
 
+
+	
+	
+
+	/*Hover_Anim anim_rects; 
+	anim_rects.a_Idle = { 3, 43, 65, 79 }; 
+	anim_rects.a_Hover = {72, 41, 170, 95};
+	anim_rects->a_Click = { 1000, 1000, 1000, 1000 };*/
+
+	play_button = Create_Button(/*&anim_rects, */atlas, iPoint(350, 20), "play_button", Menu_Level::Menu);
+	play_button_label = Create_Label(iPoint(420, 55), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
+	
+
 }
 
 
@@ -89,9 +103,9 @@ void j1Gui::Generate_Level_GUI() {
 	SDL_Rect r = { 0, 0, 32, 32 };
 	UI_coin = Create_Image(atlas, iPoint(820, 25), r, NULL, Menu_Level::Level);
 
-	_TTF_Font* font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 36);
+	
 	char* ID = "coin_score";
-	coin_score = Create_Label(iPoint(860, 15), font, "X0", ID, Menu_Level::Level);
+	coin_score = Create_Label(iPoint(860, 15), level_font, "X0", ID, Menu_Level::Level);
 
 	
 	// UI LIVES 
@@ -100,7 +114,7 @@ void j1Gui::Generate_Level_GUI() {
 	UI_lives = Create_Image(atlas, iPoint(940, 25), r, ID, Menu_Level::Level);
 
 	ID = "life_count";
-	live_count = Create_Label(iPoint(980, 15), font, "X3", ID, Menu_Level::Level);
+	live_count = Create_Label(iPoint(980, 15), level_font, "X3", ID, Menu_Level::Level);
 
 }
 
@@ -149,9 +163,9 @@ bool j1Gui::PostUpdate()
 	return true;
 }
 
-j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_rect, char* ID, Menu_Level menu_level) {
+j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_rect, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
 
-     j1Gui_Image* ret = new j1Gui_Image(tex, pos, atlas_rect, ID, menu_level);
+     j1Gui_Image* ret = new j1Gui_Image(tex, pos, atlas_rect, ID, menu_level, parent);
 
 	 if(ret != nullptr)
      objects.add(ret); 
@@ -160,9 +174,9 @@ j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_r
 };
 
 
-j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* ID, Menu_Level menu_level) {
+j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
 	
-	j1Gui_Label* ret = new j1Gui_Label(pos, font, text, ID, menu_level);
+	j1Gui_Label* ret = new j1Gui_Label(pos, font, text, ID, menu_level, parent);
 
 	if (ret != nullptr)
 	objects.add(ret); 
@@ -171,12 +185,14 @@ j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* 
 }; 
 
 
-j1Gui_Button* j1Gui::Create_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level) {
+j1Gui_Button* j1Gui::Create_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
 
-	j1Gui_Button* ret = new j1Gui_Button(anim, tex, atlas_rect, pos, f, text, ID, menu_level);
+	j1Gui_Button* ret = new j1Gui_Button(/*hover_rects,*/ tex, pos, ID, menu_level, parent);
 
 	if (ret != nullptr)
 		objects.add(ret);
+
+	return ret; 
 
 }; 
 
@@ -337,6 +353,7 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 	LOG("Moving obj yeheaaaaaaaaaaaaaaaaaaaaaaaaaaa"); 
 
 	App->input->GetCenteredMousePosition(obj->pos.x, obj->pos.y, obj);
+	
 }
 
 
@@ -359,12 +376,12 @@ void j1Gui::Blit(){
 
 	for (item = objects.start; item != NULL; item = item->next)
 	{
-		if (App->main_menu->active && item->data->menu_level == Menu_Level::Menu) {
+	//	if (App->main_menu->active && item->data->menu_level == Menu_Level::Menu) {
 			 item->data->Blit(); 
-		 }
-		else if (App->scene->active && item->data->menu_level == Menu_Level::Level) {
-			item->data->Blit();
-		}
+		// }
+		//else if (App->scene->active && item->data->menu_level == Menu_Level::Level) {
+		//	item->data->Blit();
+	//	}
 		
 	}
 

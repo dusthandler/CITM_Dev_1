@@ -7,7 +7,7 @@
 #include "p2Log.h"
 
 // Called before render is available
-j1Gui_Image::j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char* ID, Menu_Level menu_level) : j1Gui_Object(pos) {
+j1Gui_Image::j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char* ID, Menu_Level menu_level, j1Gui_Object* parent) : j1Gui_Object(pos) {
 
 	this->tex = tex; 
 	rect = atlas_rect; 
@@ -15,7 +15,7 @@ j1Gui_Image::j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char
 	this->ID = ID;
 	this->menu_level = menu_level;
 
-
+	this->parent = parent;
 	hierarchy = (Hierarchy)4; 
 	// hover_state = Hover_State::OUTSIDE; 
 };

@@ -6,13 +6,13 @@
 #include "j1Entity_Manager.h"
 
 // Called before render is available
-j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level) : j1Gui_Object(pos) {
+j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level, j1Gui_Object* parent) : j1Gui_Object(pos) {
 	this->text = text;
 	font = f;
 	this->ID = ID; 
 	this->menu_level = menu_level;
 
-
+	this->parent = parent;
 	Init_Text(); 
 
 	hierarchy = (Hierarchy)3; 
@@ -37,19 +37,22 @@ void j1Gui_Label::Blit() {
 	if (ID == "coin_score") {
 
 		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected);
+		text = buffer;
 	}
 
 	else if (ID == "life_count") {
 	
 		snprintf(buffer, sizeof(buffer), "X%i", App->entity_manager->player_live_count);
+		text = buffer;
 
 	}
 
-	text = buffer;
+	
 
 	App->font->CalcSize(text, rect.w, rect.h, font);
 	tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 
+	if(parent->hover_state != Hover_State::OUTSIDE)
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f); 
-
+	
 }

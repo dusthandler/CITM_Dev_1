@@ -7,19 +7,17 @@
 #include "p2Log.h"
 
 // Called before render is available
-j1Gui_Button::j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level) : j1Gui_Object(pos) {
+j1Gui_Button::j1Gui_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent) : j1Gui_Object(pos) {
 
-	this->anim = anim; 
+	//this->hover_rects = hover_rects;
+	// rect = hover_rects->a_Idle;
 	this->tex = tex;
-	rect = atlas_rect;
 	this->pos = pos;
-	this->text = text;
-	font = f;
 	this->ID = ID;
 	this->menu_level = menu_level; 
-
-
-
+	
+	
+	this->parent = parent; 
 	hierarchy = (Hierarchy)5;
 	// hover_state = Hover_State::OUTSIDE; 
 };
@@ -28,6 +26,24 @@ j1Gui_Button::j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_re
 
 void j1Gui_Button::Blit() {
 
-	App->render->Blit(tex, pos.x, pos.y, &current_anim->GetCurrentFrame(), 0.0f);
+/*	if (ID == "play_button") {
+		rect = { 3, 43, 65, 79 };
+		rect = { 72, 41, 170, 95 };
+		rect = { 1000, 1000, 1000, 1000 }; 
+	}; */
+
+
+	if (hover_state == Hover_State::OUTSIDE) {
+		// rect = hover_rects->a_Idle;
+		rect = { 3, 43, 65, 79 };
+	}
+	else if (hover_state == Hover_State::HOVER) {
+		rect = { 72, 41, 170, 95 };
+		// rect = hover_rects->a_Hover;
+	}
+	else if (hover_state == Hover_State::CLICK) {
+		// rect = hover_rects->a_Hover;                // change to click
+	}
+	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
 
 }

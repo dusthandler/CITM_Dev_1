@@ -9,12 +9,11 @@ struct _TTF_Font;
 struct SDL_Color;
 
 
-
 class j1Gui_Button : public j1Gui_Object
 {
 public:
 
-	j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level);
+	j1Gui_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent);
 
 	// Destructor
 	virtual ~j1Gui_Button() {};
@@ -27,8 +26,7 @@ private:
 	_TTF_Font* font;
 	char* text = nullptr;
 	char* ID = nullptr;
-	Animation* current_anim; 
-	Hover_Anim* anim;
+	
 
 };
 

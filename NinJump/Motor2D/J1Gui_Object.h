@@ -30,12 +30,13 @@ public:
 	iPoint pos; 
 	SDL_Rect rect; 
 	TYPE type; 
-	Animation* anim; 
 	SDL_Texture* tex; 
 	bool selected = false; 
 	Hierarchy hierarchy; 
 	Hover_State hover_state = Hover_State::OUTSIDE; 
 	Menu_Level menu_level; 
+	j1Gui_Object* parent = nullptr; 
+	Hover_Anim* hover_rects = nullptr;
 };
 
 

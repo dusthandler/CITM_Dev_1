@@ -40,9 +40,9 @@ enum Hover_State {
 
 
 struct Hover_Anim {
-	Animation a_Idle;
-	Animation a_Hover;
-	Animation a_Click;
+	SDL_Rect a_Idle;
+	SDL_Rect a_Hover;
+	SDL_Rect a_Click;
 };
 
 enum Hierarchy {
@@ -91,11 +91,11 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level);
+	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
 
-	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level);
+	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
 
-	j1Gui_Button* Create_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level);
+	j1Gui_Button* Create_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint pos, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
 
 	
 
@@ -119,7 +119,12 @@ private:
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
 
-	// objects
+	// fonts
+
+	_TTF_Font* menu_font = nullptr; 
+	_TTF_Font* level_font = nullptr;
+
+	// level objects
 
 	j1Gui_Image* UI_coin = nullptr; 
 	j1Gui_Label* coin_score = nullptr; 
@@ -127,10 +132,16 @@ private:
 	j1Gui_Image* UI_lives = nullptr;
 	j1Gui_Label* live_count = nullptr;
 
+	// menu objects 
+
 	j1Gui_Image* menu_image = nullptr;
-	SDL_Texture* menu_image_tex = nullptr;
+	SDL_Texture* menu_image_tex = nullptr;  // put in atlas maybe
 
 	j1Gui_Image* menu_label = nullptr;
+
+	j1Gui_Button* play_button = nullptr; 
+	j1Gui_Label* play_button_label = nullptr; 
+
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 
