@@ -85,6 +85,9 @@
     <ClCompile Include="j1Main_Menu.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="j1Gui_Button.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Audio.h">
@@ -190,6 +193,9 @@
       <Filter>App / Module</Filter>
     </ClInclude>
     <ClInclude Include="j1Main_Menu.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui_Button.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>

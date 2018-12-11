@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "p2List.h"
 #include "p2Point.h"
-
+#include "Animation.h"  
 
 #define CURSOR_WIDTH 2
 
@@ -13,6 +13,7 @@
 class j1Gui_Object; 
 class j1Gui_Image; 
 class j1Gui_Label; 
+class j1Gui_Button;
 struct SDL_Texture; 
 struct SDL_Rect; 
 struct SDL_Color;
@@ -32,6 +33,13 @@ enum Hover_State {
 	CLICK,
 	DRAG,
 	OUTSIDE
+};
+
+
+struct Hover_Anim {
+	Animation a_Idle;
+	Animation a_Hover;
+	Animation a_Click;
 };
 
 enum Hierarchy {
@@ -77,6 +85,8 @@ public:
 	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr);
 
 	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr);
+
+	j1Gui_Button* Create_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID);
 
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 

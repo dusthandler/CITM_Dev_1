@@ -68,8 +68,6 @@ bool j1Main_Menu::Update(float dt)
 	BROFILER_CATEGORY("Main Menu Update", Profiler::Color::PaleVioletRed);
 
 	
-	App->entity_manager->Enable();
-	App->fade->FadeToBlack(this, App->scene, 1.5f); 
 
 	return true;
 }

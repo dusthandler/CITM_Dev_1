@@ -50,7 +50,7 @@ bool j1Scene::Start()
 		RELEASE_ARRAY(flag);
 	}*/
 
-	App->entity_manager->Enable();
+	
 
 	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    

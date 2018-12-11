@@ -9,6 +9,7 @@
 #include "j1Gui_Label.h"
 #include "j1Gui_Image.h"
 #include "j1Gui_Object.h"
+#include "j1Gui_Button.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -96,6 +97,15 @@ j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* 
 	return ret;
 }; 
 
+
+j1Gui_Button* j1Gui::Create_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID) {
+
+	j1Gui_Button* ret = new j1Gui_Button(anim, tex, atlas_rect, pos, f, text, ID);
+
+	if (ret != nullptr)
+		objects.add(ret);
+
+}; 
 
 void j1Gui::Select_Clicked_Object() {
 
