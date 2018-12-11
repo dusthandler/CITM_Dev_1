@@ -7,7 +7,7 @@
 #include "j1Gui.h"
 #include "p2Log.h"
 
-j1Entity_Coin::j1Entity_Coin(iPoint position, Type type) : j1Entity(position, type) {
+j1Entity_Coin::j1Entity_Coin(iPoint position, Type type,int id) : j1Entity(position, type,id) {
 
 	collider = App->collision->AddCollider({ position.x, position.y, coin_size, coin_size }, COLLIDER_COIN, this);
 	tex = App->tex->Load("Maps/Objects/coins.png");
@@ -19,7 +19,7 @@ j1Entity_Coin::j1Entity_Coin(iPoint position, Type type) : j1Entity(position, ty
 	Idle.loop = true; 
 	Idle.speed = 0.14f; 
 
-	
+	this->my_id = id;
 	this->position = position;
 }
 

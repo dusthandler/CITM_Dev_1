@@ -15,13 +15,13 @@
 #include "j1Gui.h"
 
 
-j1Player_Entity::j1Player_Entity(iPoint position, Type type) : j1Entity(position, type) 
+j1Player_Entity::j1Player_Entity(iPoint position, Type type, int id) : j1Entity(position, type,id) 
 {
 	//First we load the tex and the animations.
 
 	this->position = position;
 	this->type = type;
-
+	this->my_id = id;
 	tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	animation = &Idle;
 	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });       

@@ -17,7 +17,7 @@ enum ShuriState {
 class j1Shuriken : public j1Entity
 {
 public:
-	j1Shuriken(iPoint pos, Type type);
+	j1Shuriken(iPoint pos, Type type, int id);
 
 	// Destructor
 	virtual ~j1Shuriken() {

@@ -8,7 +8,7 @@ struct SDL_Texture;
 class j1Enemy_Walker : public j1Entity
 {
 public:
-	j1Enemy_Walker(iPoint pos, Type type);
+	j1Enemy_Walker(iPoint pos, Type type,int id);
 
 	// Destructor
 	virtual ~j1Enemy_Walker() {

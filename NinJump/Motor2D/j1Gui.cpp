@@ -192,7 +192,11 @@ j1Gui_Button* j1Gui::Create_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex
 	if (ret != nullptr)
 		objects.add(ret);
 
+<<<<<<< HEAD
 	return ret; 
+=======
+	return ret;
+>>>>>>> 12ff4fd0a8d076805fdb00568227b0ea900b4fac
 
 }; 
 
