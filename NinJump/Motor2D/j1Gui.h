@@ -119,6 +119,8 @@ private:
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
 
+	// objects
+
 	j1Gui_Image* UI_coin = nullptr; 
 	j1Gui_Label* coin_score = nullptr; 
 
@@ -127,6 +129,8 @@ private:
 
 	j1Gui_Image* menu_image = nullptr;
 	SDL_Texture* menu_image_tex = nullptr;
+
+	j1Gui_Image* menu_label = nullptr;
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 

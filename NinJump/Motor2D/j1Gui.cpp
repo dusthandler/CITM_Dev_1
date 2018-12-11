@@ -76,7 +76,9 @@ bool j1Gui::Update(float dt) {
 
 
 void j1Gui::Generate_Menu_GUI() {
-	// menu_image = App->gui->Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 800, 800 }, NULL, Menu_Level::Menu);
+	menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 800, 735 }, NULL, Menu_Level::Menu);
+	menu_label = Create_Image(atlas, iPoint(230, 10), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Menu);
+
 }
 
 
@@ -241,7 +243,7 @@ void j1Gui::Select_Clicked_Object() {
 					break;
 
 				case Hover_State::DRAG:
-
+					// LOG("_____________________________________________________________drag");
 					move_object = true;
 
 					if (item->data != nullptr) {
