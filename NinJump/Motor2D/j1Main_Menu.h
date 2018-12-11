@@ -46,8 +46,7 @@ private:
 
 	// ------- GUI objects --------
 
-	j1Gui_Image* bg_image = nullptr; 
-	SDL_Texture* bg_image_tex = nullptr; 
+	
 };
 
 #endif // __j1MAIN_MENU_H__

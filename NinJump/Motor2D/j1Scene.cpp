@@ -13,6 +13,7 @@
 #include "j1Entity_Manager.h"
 #include "j1Player_Entity.h"
 #include "j1PathFinding.h"
+#include "j1Gui.h"
 
 #include "Brofiler/Brofiler.h"
 j1Scene::j1Scene() : j1Module()
@@ -49,8 +50,11 @@ bool j1Scene::Start()
 		App->pathfinding->SetMap(w,h, flag);
 		RELEASE_ARRAY(flag);
 	}*/
+	LOG("------------------------------------------- SCENE START ---------------------"); 
 
-	
+
+	App->gui->create_level_GUI = true;
+	LOG("_________________________________________________________________________%s", App->gui->create_level_GUI ? "true" : "false");
 
 	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
@@ -75,16 +79,6 @@ bool j1Scene::Start()
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true;
 	}
-
-	
-	
-	
-	//if (!App->player->Alive) {
-	//	App->player->Enable(); 
-	//	App->player->Pos.x = 15; //TODO: parche para que el player no desaparezca
-	//	LOG("PLAYER RESPAWNED"); 
-	//}
-	////App->player->Enable();
 
 
 	
@@ -202,6 +196,8 @@ bool j1Scene::CleanUp()
 {
 	BROFILER_CATEGORY("Scene CleanUp", Profiler::Color::Lime);
 	LOG("Freeing scene");
+
+
 	App->audio->UnloadMus(mus);                        // Clean Up Music
 	App->audio->UnloadMus(mus2); 
 	return true;

@@ -35,6 +35,7 @@ public:
 	bool selected = false; 
 	Hierarchy hierarchy; 
 	Hover_State hover_state = Hover_State::OUTSIDE; 
+	Menu_Level menu_level; 
 };
 
 

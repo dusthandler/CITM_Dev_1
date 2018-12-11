@@ -6,10 +6,12 @@
 #include "j1Entity_Manager.h"
 
 // Called before render is available
-j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID) : j1Gui_Object(pos) {
+j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level) : j1Gui_Object(pos) {
 	this->text = text;
 	font = f;
 	this->ID = ID; 
+	this->menu_level = menu_level;
+
 
 	Init_Text(); 
 
