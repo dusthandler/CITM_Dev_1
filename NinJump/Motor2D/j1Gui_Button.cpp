@@ -7,7 +7,7 @@
 #include "p2Log.h"
 
 // Called before render is available
-j1Gui_Button::j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID) : j1Gui_Object(pos) {
+j1Gui_Button::j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level) : j1Gui_Object(pos) {
 
 	this->anim = anim; 
 	this->tex = tex;
@@ -16,7 +16,7 @@ j1Gui_Button::j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_re
 	this->text = text;
 	font = f;
 	this->ID = ID;
-
+	this->menu_level = menu_level; 
 
 
 

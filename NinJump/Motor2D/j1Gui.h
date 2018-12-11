@@ -19,7 +19,10 @@ struct SDL_Rect;
 struct SDL_Color;
 struct _TTF_Font; 
 
-
+enum Menu_Level {
+	Menu,
+	Level
+};
 enum TYPE {
 	Label,
 	Button,
@@ -76,30 +79,40 @@ public:
 	// Called after all Updates
 	bool PostUpdate();
 
+
+	void Clean_Menu_GUI();
+	void Clean_Level_GUI();
+
 	// Called before quitting
 	bool CleanUp();
+	
+
 
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr);
+	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level);
 
-	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr);
+	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level);
 
-	j1Gui_Button* Create_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID);
+	j1Gui_Button* Create_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level);
+
+	
 
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 
 	void Move_Clicked_Object(j1Gui_Object*);
 
-	// void Delete_Object();
+	
 
 	virtual void Blit();
+	void Generate_Menu_GUI(); 
+	void Generate_Level_GUI();
 
      const SDL_Texture* GetAtlas() const;
 
 
-protected: 
+public: 
 	SDL_Texture* atlas;
 
 private:
@@ -112,13 +125,18 @@ private:
 	j1Gui_Image* UI_lives = nullptr;
 	j1Gui_Label* live_count = nullptr;
 
+	j1Gui_Image* menu_image = nullptr;
+	SDL_Texture* menu_image_tex = nullptr;
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 
 	j1Gui_Object* clicked_object = nullptr; 
 	bool move_object = false; 
+
 public: 
-	
+	bool create_menu_GUI = true; 
+	bool create_level_GUI = false;
+
 
 public: 
 	uint coins_collected = 0;                  // Where should this be?

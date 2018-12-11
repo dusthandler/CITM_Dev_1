@@ -42,14 +42,15 @@ bool j1Main_Menu::Awake()
 bool j1Main_Menu::Start()
 {
 	BROFILER_CATEGORY("Main Menu Start", Profiler::Color::PaleGreen);
+   
+	LOG("------------------------------------------- MAIN MENU START ---------------------");
 
+	App->gui->create_menu_GUI = true;
 
 	mus = App->audio->LoadMus("Sound/Music/main_menu.ogg");
 	App->audio->PlayMus(mus);
 
-	bg_image_tex = App->tex->Load("Maps/Textures/bg_menu.png");
-
-	bg_image = App->gui->Create_Image(bg_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 800, 800 });
+	
 
 	return true;
 }
@@ -67,7 +68,14 @@ bool j1Main_Menu::Update(float dt)
 {
 	BROFILER_CATEGORY("Main Menu Update", Profiler::Color::PaleVioletRed);
 
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		LOG(" +++++++++++++++++++++++++++++++++++++ Fading from menu to level"); 
 	
+		App->entity_manager->Activate(); 
+		App->scene->Activate(); 
+
+		App->fade->FadeToBlack(this, App->scene, 1.5f);  
+	}
 
 	return true;
 }
@@ -84,10 +92,11 @@ bool j1Main_Menu::PostUpdate()
 bool j1Main_Menu::CleanUp()
 {
 	BROFILER_CATEGORY("Main Menu CleanUp", Profiler::Color::PeachPuff);
-	App->audio->UnloadMus(mus);
 
-	if(bg_image_tex != nullptr)
-	App->tex->UnLoad(bg_image_tex); 
+	
+
+	App->audio->UnloadMus(mus);
+	
 
 	return true;
 }

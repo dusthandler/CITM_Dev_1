@@ -14,7 +14,7 @@ class j1Gui_Button : public j1Gui_Object
 {
 public:
 
-	j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID);
+	j1Gui_Button(Hover_Anim* anim, SDL_Texture* tex, SDL_Rect atlas_rect, iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level);
 
 	// Destructor
 	virtual ~j1Gui_Button() {};
