@@ -91,7 +91,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 
 bool j1Window::Update(float dt) {
 
-	if (App->main_menu->active) {
+	if (App->main_menu->IsEnabled()) {
 		SDL_SetWindowSize(window, 800, 800); // bg tex size
 	}
 	else {

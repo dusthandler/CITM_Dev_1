@@ -62,13 +62,12 @@ bool j1Gui::Update(float dt) {
 			create_menu_GUI = false;
 		}
 		else if (create_level_GUI) {
-
 			// Clean_Menu_GUI();
 			Generate_Level_GUI();
 			create_level_GUI = false;
 		}
 
-	
+
 
 	Blit(); 
 	
@@ -77,11 +76,12 @@ bool j1Gui::Update(float dt) {
 
 
 void j1Gui::Generate_Menu_GUI() {
-	menu_image = App->gui->Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 800, 800 }, NULL, Menu_Level::Menu);
+	// menu_image = App->gui->Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 800, 800 }, NULL, Menu_Level::Menu);
 }
 
 
 void j1Gui::Generate_Level_GUI() {
+	LOG("----------------------------------------------- creating lvl GUI");
 
 	// UI COINS                                            // do this in scene? 
 	SDL_Rect r = { 0, 0, 32, 32 };
@@ -91,7 +91,7 @@ void j1Gui::Generate_Level_GUI() {
 	char* ID = "coin_score";
 	coin_score = Create_Label(iPoint(860, 15), font, "X0", ID, Menu_Level::Level);
 
-
+	
 	// UI LIVES 
 	ID = "UI_lives";
 	r = { 33, 0, 36, 32 };
@@ -99,7 +99,6 @@ void j1Gui::Generate_Level_GUI() {
 
 	ID = "life_count";
 	live_count = Create_Label(iPoint(980, 15), font, "X3", ID, Menu_Level::Level);
-
 
 }
 
@@ -367,6 +366,7 @@ void j1Gui::Blit(){
 		
 	}
 
+	
 };
 
 // Called before quitting

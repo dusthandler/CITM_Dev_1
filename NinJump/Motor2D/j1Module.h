@@ -123,6 +123,15 @@ public:
 		}
 	}
 
+	bool IsEnabled() {
+
+		bool ret = false; 
+
+		if (enabled)
+			ret = true; 
+
+		return ret; 
+	}
 
 
 	

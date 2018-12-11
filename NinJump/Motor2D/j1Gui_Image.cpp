@@ -39,15 +39,6 @@ void j1Gui_Image::Blit() {
 
 	}
 
-
-	/*if (hover_state == Hover_State::DRAG) {
-		LOG("We are dragging an object                  ... ... ..."); 
-		App->input->GetMousePosition(pos.x, pos.y); 
-
-	}*/
-	
-
-
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
 
 }
