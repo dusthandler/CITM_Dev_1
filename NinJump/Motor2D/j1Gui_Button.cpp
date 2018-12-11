@@ -3,6 +3,8 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Input.h"
+#include "j1Scene.h"
+#include "j1FadeBlack.h"
 #include "j1Entity_Manager.h"
 #include "p2Log.h"
 
@@ -26,10 +28,11 @@ j1Gui_Button::j1Gui_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint
 
 void j1Gui_Button::Blit() {
 
-/*	if (ID == "play_button") {
-		rect = { 3, 43, 65, 79 };
-		rect = { 72, 41, 170, 95 };
-		rect = { 1000, 1000, 1000, 1000 }; 
+	/*if (ID == "play_button" && hover_state == Hover_State::CLICK) {
+		App->entity_manager->Activate();
+		App->scene->Activate();
+
+		App->fade->FadeToBlack(this, App->scene, 1.5f);
 	}; */
 
 

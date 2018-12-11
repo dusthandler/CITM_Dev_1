@@ -192,11 +192,8 @@ j1Gui_Button* j1Gui::Create_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex
 	if (ret != nullptr)
 		objects.add(ret);
 
-<<<<<<< HEAD
+
 	return ret; 
-=======
-	return ret;
->>>>>>> 12ff4fd0a8d076805fdb00568227b0ea900b4fac
 
 }; 
 
@@ -229,18 +226,18 @@ void j1Gui::Select_Clicked_Object() {
 				switch (item->data->hover_state) {
 
 				case Hover_State::OUTSIDE:
-				   // LOG("_____________________________________________________________outside    1");
+				   LOG("_____________________________________________________________outside    1");
 					item->data->hover_state = Hover_State::HOVER;
 					break; 
 
 				case Hover_State::HOVER:
-					// LOG("_____________________________________________________________hover"); 
+				 LOG("_____________________________________________________________hover"); 
 
 
 			
 
 					if (App->input->GetMouseButtonDown(1)) {
-						// LOG("________________________________________________________next should be click"); 
+					 LOG("________________________________________________________next should be click"); 
 						item->data->hover_state = Hover_State::CLICK;
 					}
 
@@ -248,7 +245,7 @@ void j1Gui::Select_Clicked_Object() {
 					break;
 
 				case Hover_State::CLICK:
-					// LOG("_____________________________________________________________click");
+					LOG("_____________________________________________________________click");
 
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
@@ -263,7 +260,7 @@ void j1Gui::Select_Clicked_Object() {
 					break;
 
 				case Hover_State::DRAG:
-					// LOG("_____________________________________________________________drag");
+					LOG("_____________________________________________________________drag");
 					move_object = true;
 
 					if (item->data != nullptr) {
@@ -283,7 +280,6 @@ void j1Gui::Select_Clicked_Object() {
 					}
 
 
-					LOG("_____________________________________________________________drag");
 					break;
 
 				}
