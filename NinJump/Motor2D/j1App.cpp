@@ -49,7 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	entity_manager = new j1Entity_Manager(); 
 	
-    // render = new j1Render();
+   
 
 
 	// Ordered for awake / Start / Update
@@ -60,8 +60,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(pathfinding);
-	AddModule(entity_manager);
-	// AddModule(scene);               // first main menu, then scene
+    AddModule(entity_manager, true);
+	AddModule(scene, true);               // first main menu, then scene
 	AddModule(main_menu);
 	AddModule(fade);
 	AddModule(collision);
@@ -89,10 +89,11 @@ j1App::~j1App()
 	modules.clear();
 }
 
-void j1App::AddModule(j1Module* module)
+void j1App::AddModule(j1Module* module, bool sleep)
 {
-	
+	    if(!sleep)
 		module->Init();
+
 		modules.add(module);
 
 }

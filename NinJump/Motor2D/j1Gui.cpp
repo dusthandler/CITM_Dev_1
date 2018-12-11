@@ -167,18 +167,18 @@ void j1Gui::Select_Clicked_Object() {
 						clicked_object = item->data;
 					}
 
-<<<<<<< HEAD
+
 					/*if (App->input->GetMouseButtonDown(3)) {
 						move_object = false; 
 						item->data->hover_state = Hover_State::HOVER; 
 					}*/
 					break;
-=======
+
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						move_object = false;
 						item->data->hover_state = Hover_State::HOVER;
 					}
->>>>>>> fa12c5f7f7d339a1cfc54c6233f1c958167235e1
+
 
 					LOG("_____________________________________________________________drag");
 					break;
@@ -201,14 +201,12 @@ void j1Gui::Select_Clicked_Object() {
 		
 		if (move_object && clicked_object != nullptr) {
 
-<<<<<<< HEAD
+
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == 1) {
 				LOG("_____________________________________________________________release");
 				move_object = false;
 				item->data->hover_state = Hover_State::HOVER;
 			}
-=======
->>>>>>> fa12c5f7f7d339a1cfc54c6233f1c958167235e1
 
 			Move_Clicked_Object(clicked_object); 
 
