@@ -67,9 +67,6 @@
     <ClCompile Include="j1Shuriken.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1Fonts.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="j1Gui.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
@@ -82,11 +79,14 @@
     <ClCompile Include="j1App.cpp">
       <Filter>App / Module</Filter>
     </ClCompile>
-    <ClCompile Include="j1Main_Menu.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="j1Gui_Button.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Main_Menu.cpp">
+      <Filter>GUI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>GUI\help</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +171,6 @@
     <ClInclude Include="j1Shuriken.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="j1Fonts.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="j1Gui.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -192,11 +189,14 @@
     <ClInclude Include="j1Module.h">
       <Filter>App / Module</Filter>
     </ClInclude>
-    <ClInclude Include="j1Main_Menu.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="j1Gui_Button.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Main_Menu.h">
+      <Filter>GUI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>GUI\help</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +220,12 @@
     </Filter>
     <Filter Include="App / Module">
       <UniqueIdentifier>{6e2b67a8-4317-4f35-90ed-99400da0fb95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Menu">
+      <UniqueIdentifier>{616ef565-0119-4cf4-8a6d-cf3058d872ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\help">
+      <UniqueIdentifier>{1dd74d68-9497-450f-bad2-29dd476b322b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

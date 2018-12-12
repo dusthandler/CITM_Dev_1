@@ -69,63 +69,93 @@ bool j1Gui::PreUpdate()
 bool j1Gui::Update(float dt) {
 
 	
-		if (create_menu_GUI) {
-
-			Clean_Level_GUI();
-			Generate_Menu_GUI();
-			create_menu_GUI = false;
-		}
-		else if (create_level_GUI) {
-			Clean_Menu_GUI();
-			Generate_Level_GUI();
-			create_level_GUI = false;
-		}
 
 
-
+	Menu_Level_GUI_Manager(); 
 	Blit(); 
 	
 	return true; 
 }
 
 
+void j1Gui::Menu_Level_GUI_Manager() {
+
+	if (create_menu_GUI.Do) {  // CREATE MENU
+		if (first_start) {                                              
+			create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;                
+			Generate_Menu_GUI();
+			create_menu_GUI.Do = false;
+			first_start = false;
+		}
+		else {
+			if (App->main_menu->active_menu == Active_Menu::NONE) { // level to menu
+				Clean_Level_GUI();
+			}
+			else {
+				Clean_Menu_GUI(App->main_menu->active_menu);  // menu to menu
+			}
+
+			Generate_Menu_GUI();
+			create_menu_GUI.Do = false;
+		}
+	}
+	else if (create_level_GUI) {                           // CREATE LEVEL
+
+		if (App->main_menu->active_menu != Active_Menu::NONE) {      // (from menu, optional)
+			Clean_Menu_GUI(App->main_menu->active_menu);
+		}
+
+		App->main_menu->active_menu = Active_Menu::NONE;  // to level
+		Generate_Level_GUI();
+		create_level_GUI = false;
+	}
+}
+
 
 void j1Gui::Generate_Menu_GUI() {
-	// images
 
-	menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 965 }, NULL, Menu_Level::Menu);
-	menu_label = Create_Image(atlas, iPoint(450, 30), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Menu);
+	if (create_menu_GUI.next_menu == Next_Menu::MAIN_NEXT) {
+		// images
+
+		menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 965 }, NULL, Menu_Level::Main_Menu);
+		menu_label = Create_Image(atlas, iPoint(450, 30), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Main_Menu);
 
 
+		// buttons
+
+		Hover_Anim anim_rects;
+		anim_rects.a_Idle = { 3, 43, 65, 79 };
+		anim_rects.a_Hover = { 72, 37, 173, 114 };
+		anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
+
+		play_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "play_button", Menu_Level::Main_Menu);
+		continue_button = Create_Button(anim_rects, atlas, iPoint(570, 130), "continue_button", Menu_Level::Main_Menu);
+		settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Main_Menu);
+
+		anim_rects.a_Idle = { 252, 71, 111, 76 };
+		anim_rects.a_Hover = { 364, 41, 113, 111 };
+		anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
+
+		credits_button = Create_Button(anim_rects, atlas, iPoint(850, 600), "credits_button", Menu_Level::Main_Menu);
+		exit_button = Create_Button(anim_rects, atlas, iPoint(20, 600), "exit_button", Menu_Level::Main_Menu);
+
+		// labels
+
+		play_button_label = Create_Label(iPoint(640, 75), menu_font, "PLAY", NULL, Menu_Level::Main_Menu, play_button);
+		continue_button_label = Create_Label(iPoint(615, 165), menu_font, "CONTINUE", NULL, Menu_Level::Main_Menu, continue_button);
+		settings_button_label = Create_Label(iPoint(618, 255), menu_font, "SETTINGS", NULL, Menu_Level::Main_Menu, settings_button);
+
+		credits_button_label = Create_Label(iPoint(880, 640), menu_font_2, "credits", NULL, Menu_Level::Main_Menu, credits_button);
+		exit_button_label = Create_Label(iPoint(60, 640), menu_font_2, "exit", NULL, Menu_Level::Main_Menu, exit_button);
+	}
+
+	else if (create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
+
+	}
+	else if (create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
 
 
-	// buttons
-
-	Hover_Anim anim_rects;
-	anim_rects.a_Idle = { 3, 43, 65, 79 };
-	anim_rects.a_Hover = { 72, 37, 173, 114 };
-	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
-
-	play_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "play_button", Menu_Level::Menu);
-	continue_button = Create_Button(anim_rects, atlas, iPoint(570, 130), "continue_button", Menu_Level::Menu);
-	settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Menu);
-
-	anim_rects.a_Idle = { 252, 71, 111, 76 };
-	anim_rects.a_Hover = { 364, 41, 113, 111 };
-	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
-
-	credits_button = Create_Button(anim_rects, atlas, iPoint(850, 600), "credits_button", Menu_Level::Menu);
-	exit_button = Create_Button(anim_rects, atlas, iPoint(20, 600), "exit_button", Menu_Level::Menu);
-
-	// labels
-
-	play_button_label = Create_Label(iPoint(640, 75), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
-	continue_button_label = Create_Label(iPoint(615, 165), menu_font, "CONTINUE", NULL, Menu_Level::Menu, continue_button);
-	settings_button_label = Create_Label(iPoint(618, 255), menu_font, "SETTINGS", NULL, Menu_Level::Menu, settings_button);
-
-	credits_button_label = Create_Label(iPoint(880, 640), menu_font_2, "credits", NULL, Menu_Level::Menu, credits_button);
-	exit_button_label = Create_Label(iPoint(60, 640), menu_font_2, "exit", NULL, Menu_Level::Menu, exit_button);
-
+	}
 
 
 }
@@ -158,7 +188,7 @@ void j1Gui::Do_Logic_Hovered(j1Gui_Object* object) {
 
 	if (object->type == GUI_TYPE::Button) {
 		if (!reset_hover_fx) {
-			App->audio->PlayFx(1, 0);
+		//	App->audio->PlayFx(1, 0);
 			reset_hover_fx = true;
 		}
 	}
@@ -190,13 +220,27 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 
 	// menu buttons 
 	if (object->type == GUI_TYPE::Button) {
+		LOG("...................................   Clicked button fx   .........");
 		App->audio->PlayFx(2, 0); 
 	}
 
-	if (object->ID == "play_button") {
+	if (object->ID == "play_button") {   // go to level
 		App->entity_manager->Activate();
 		App->scene->Activate();
+		App->gui->create_level_GUI = true; 
 		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f);
+	}
+	else if (object->ID == "settings_button") { // go to settings menu
+		
+		App->gui->create_menu_GUI.Do = true;
+		App->gui->create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
+		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
+	}
+	else if (object->ID == "credits_button") { // go to credits menu
+
+		App->gui->create_menu_GUI.Do = true;
+		App->gui->create_menu_GUI.next_menu = Next_Menu::CREDITS_NEXT;
+		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 	}
 
 	else if (object->ID == "exit_button") {
@@ -206,23 +250,39 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 
 
 
-void j1Gui::Clean_Menu_GUI(){
-
+void j1Gui::Clean_Menu_GUI(Active_Menu acitve_menu){
+	
 	bool ret = true;
 	p2List_item<j1Gui_Object*>* item;
 	item = objects.start;
 
+	bool do_it = false; 
+	uint counter = 0; 
+
 	for (item = objects.start; item != NULL; item = item->next)
 	{
-		if (item->data->menu_level == Menu_Level::Menu) {
+		LOG("Menu cleaning                                    GUI!!!!!");
+		if (item->data->menu_level == Menu_Level::Main_Menu && acitve_menu == Active_Menu::MAIN) {
+			do_it = true; 
+		}
+		else if (item->data->menu_level == Menu_Level::Settings_Menu && acitve_menu == Active_Menu::SETTINGS) {
+			do_it = true;
+		}
+		else if (item->data->menu_level == Menu_Level::Credits_Menu && acitve_menu == Active_Menu::CREDITS) {
+			do_it = true;
+		}
+	
+
+		if (do_it) {
+			counter++; 
 			ret = item->data->CleanUp();
 			delete item->data;
 			item->data = nullptr;
+			objects.del(item);
 		}
-		objects.del(item);
 	}
 	
-
+	LOG("Free --------------------------------------------------------->   %i gui objs", counter); 
 }
 
 void j1Gui::Clean_Level_GUI() {
@@ -328,7 +388,7 @@ void j1Gui::Select_Clicked_Object() {
 					}
 					break;
 
-				case Hover_State::CLICK:
+				case Hover_State::CLICK: 
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
 					}

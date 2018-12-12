@@ -5,6 +5,13 @@
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
 
+enum Active_Menu {
+	MAIN,
+    SETTINGS,
+	CREDITS,
+	NONE
+};
+
 struct SDL_Texture;
 struct _Mix_Music;
 
@@ -19,20 +26,10 @@ public:
 	// Destructor
 	virtual ~j1Main_Menu();
 
-	// Called before render is available
-	bool Awake();
+
 
 	// Called before the first frame
 	bool Start();
-
-	// Called before all Updates
-	bool PreUpdate();
-
-	// Called each loop iteration
-	bool Update(float dt);
-
-	// Called before all Updates
-	bool PostUpdate();
 
 	// Called before quitting
 	bool CleanUp();
@@ -40,11 +37,16 @@ public:
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 
+public: 
+	Active_Menu active_menu = Active_Menu::MAIN;
 	
 private:
+	// main
 	_Mix_Music* mus = nullptr;
-
-	// ------- GUI objects --------
+	// settings
+	_Mix_Music* mus2 = nullptr;
+	// credits
+	_Mix_Music* mus3 = nullptr;
 
 	
 };

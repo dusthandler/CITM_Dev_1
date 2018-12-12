@@ -2,6 +2,7 @@
 #define __j1GUI_H__
 
 #include "j1Module.h"
+#include "j1Main_Menu.h"
 #include "p2List.h"
 #include "p2Point.h"
 #include "Animation.h"  
@@ -20,9 +21,23 @@ struct SDL_Color;
 struct _TTF_Font; 
 
 enum Menu_Level {
-	Menu,
+	Main_Menu,
+	Settings_Menu,
+	Credits_Menu,
 	Level
 };
+
+enum Next_Menu {
+	MAIN_NEXT,
+	SETTINGS_NEXT,
+	CREDITS_NEXT
+};
+
+struct create_menu_GUI {
+	bool Do = true; 
+	Next_Menu next_menu; 
+};
+
 enum GUI_TYPE {
 	Label,
 	Button,
@@ -79,13 +94,15 @@ public:
 	// Called after all Updates
 	bool PostUpdate();
 
-
-	void Clean_Menu_GUI();
+	// GUI global
+	void Menu_Level_GUI_Manager(); 
+	void Clean_Menu_GUI(Active_Menu active_menu);
 	void Clean_Level_GUI();
 
 	// Called before quitting
 	bool CleanUp();
 	
+	// GUI Objects
 	void Check_Clicked(); 
 	void Do_Logic_Hovered(j1Gui_Object*);
 	void Do_Logic_Clicked(j1Gui_Object*);
@@ -168,10 +185,13 @@ private:
 	bool reset_hover_fx = false; 
 
 public: 
-	bool create_menu_GUI = true; 
+	// bool create_menu_GUI = true; 
+	create_menu_GUI create_menu_GUI; 
 	bool create_level_GUI = false;
+	bool first_start = true; 
 
 	bool Exit_Quits_App = false; 
+
 
 public: 
 	uint coins_collected = 0;                  // Where should this be?

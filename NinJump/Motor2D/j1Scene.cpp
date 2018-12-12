@@ -14,6 +14,7 @@
 #include "j1Player_Entity.h"
 #include "j1PathFinding.h"
 #include "j1Gui.h"
+#include "j1Main_Menu.h"
 
 #include "Brofiler/Brofiler.h"
 j1Scene::j1Scene() : j1Module()
@@ -54,6 +55,8 @@ bool j1Scene::Start()
 
 
 	App->gui->create_level_GUI = true;
+	
+
 	LOG("_________________________________________________________________________%s", App->gui->create_level_GUI ? "true" : "false");
 
 	// load info
@@ -138,6 +141,9 @@ bool j1Scene::Update(float dt)
 
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		MapSwap(2); 
+	}
 	
 
 	else {
@@ -222,7 +228,7 @@ bool j1Scene::MapSwap(int Mapsw)
 		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
-		
+		App->entity_manager->restart = true;
 	}
 	else if (Mapsw == 1)
 	{
@@ -233,11 +239,24 @@ bool j1Scene::MapSwap(int Mapsw)
 		App->map->Load("Level_2.tmx");
 		Mus_Id = 2; 
 		this->SwitchM = 1;
+		App->entity_manager->restart = true;
+	}
+
+	else if (Mapsw == 2) {
+		App->gui->create_menu_GUI.Do = true; 
+		App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT; 
+
+		App->fade->FadeToBlack(this, App->main_menu, 0.5f);
+		App->collision->CleanWallDeath();
+		App->map->CleanUp();
+
+
+
 	}
 	
 	// enable player after swapping maps
 	
-	App->entity_manager->restart = true;
+	// App->entity_manager->restart = true;
 
 	
 
