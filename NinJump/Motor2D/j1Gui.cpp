@@ -44,6 +44,8 @@ bool j1Gui::Start()
 	menu_font = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai.ttf", 36);
 	level_font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 36);
 
+	// extra font for settings/exit (smaller)
+
 	return true;
 }
 
@@ -134,14 +136,12 @@ void j1Gui::Generate_Menu_GUI() {
 	continue_button = Create_Button(anim_rects, atlas, iPoint(570, 130), "continue_button", Menu_Level::Menu);
 	settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Menu);
 
-
-
-	/*anim_rects.a_Idle = { 3, 43, 65, 79 };
-	anim_rects.a_Hover = { 72, 41, 170, 95 };
+	anim_rects.a_Idle = { 252, 71, 111, 76 };
+	anim_rects.a_Hover = { 364, 41, 113, 111 };
 	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
 
-	credits_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "credits_button", Menu_Level::Menu);
-	exit_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "exit_button", Menu_Level::Menu);*/
+	credits_button = Create_Button(anim_rects, atlas, iPoint(850, 600), "credits_button", Menu_Level::Menu);
+	exit_button = Create_Button(anim_rects, atlas, iPoint(20, 600), "exit_button", Menu_Level::Menu);
 
     play_button_label = Create_Label(iPoint(640, 75), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
 	continue_button_label = Create_Label(iPoint(615, 165), menu_font, "CONTINUE", NULL, Menu_Level::Menu, continue_button);
