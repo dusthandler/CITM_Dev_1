@@ -15,8 +15,6 @@
 j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type,int id) : j1Entity(position, type, id) {
 
 	collider = App->collision->AddCollider({ position.x, position.y,40,49 }, COLLIDER_ENEMY, this); 
-	// tex = App->tex->Load("Maps/Enemies/Floor/floor_enemy.png");
-	//tex = enemy_walk_tex; 
 	animation = &Iddle_Left;
 	Iddle_Left.PushBack({ 0, 0, 35, 49 });
 	Iddle_Left.PushBack({ 37, 0, 46, 49 });
@@ -192,7 +190,6 @@ bool j1Enemy_Walker::CleanUp() {
 	BROFILER_CATEGORY("Enemy walker OnCollision", Profiler::Color::BlueViolet);
 	collider->to_delete = true;
 	active = false;
-	// App->tex->UnLoad(tex);
 	return true;
 }
 

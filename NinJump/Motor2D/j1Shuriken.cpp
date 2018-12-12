@@ -9,9 +9,7 @@
 
 j1Shuriken::j1Shuriken(iPoint position, Type type,int id) : j1Entity(position, type, id) {
 
-	collider = App->collision->AddCollider({ position.x, position.y, shuriken_size, shuriken_size }, COLLIDER_COIN, this);
-	// tex = App->tex->Load("Maps/Objects/shuriken.png");
-	// tex = shuriken_tex; 
+	collider = App->collision->AddCollider({ position.x, position.y, shuriken_size, shuriken_size }, COLLIDER_COIN, this); 
 	animation = &Idle;
 	Idle.PushBack({ 18, 0, shuriken_size, shuriken_size });
 	Idle_Left.PushBack({ 0, 0, shuriken_size, shuriken_size });
@@ -86,17 +84,12 @@ void j1Shuriken::Movement() {
 		dir.x = return_pos.x - position.x;
 		dir.y = return_pos.y - position.y;
 
-		/*if (dir.x > 0) {
-			animation = &Shot_Right; 
-		}
-		else {*/
-			animation = &Shot_Left;
-	//	}
-			float return_speed = 0.1f; 
+		animation = &Shot_Left;
+	
+		float return_speed = 0.1f; 
 		position.x += dir.x* return_speed;
 		position.y += dir.y* return_speed;
 		
-
 		break;
 
 	}
@@ -149,7 +142,6 @@ void j1Shuriken::OnCollision(Collider* c1, Collider* c2) {
 
 bool j1Shuriken::CleanUp() {
 	collider->to_delete = true;
-	//App->tex->UnLoad(tex);
 	active = false; 
 	return true;
 }

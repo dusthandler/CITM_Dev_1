@@ -51,12 +51,12 @@ bool j1Entity_Manager::Start(){
 	CreateEntity(Type::PLAYER, Pos,0);
 
 	// fxs
-	/*App->audio->LoadFx("Sound/Fx/jump.wav");
+	App->audio->LoadFx("Sound/Fx/jump.wav");
 	App->audio->LoadFx("Sound/Fx/death.wav");
 	App->audio->LoadFx("Sound/Fx/landing.wav");
 	App->audio->LoadFx("Sound/Fx/gravity_reverse.wav");
 	App->audio->LoadFx("Sound/Fx/coin.wav");  // 5
-	App->audio->LoadFx("Sound/Fx/shot.wav");  // 6*/
+	App->audio->LoadFx("Sound/Fx/shot.wav");  // 6
 
 
 
@@ -250,12 +250,12 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	entities.clear();
 
 	// fxs
-	/*App->audio->UnloadFx(6);
+	App->audio->UnloadFx(0);
 	App->audio->UnloadFx(5);           
 	App->audio->UnloadFx(4);
 	App->audio->UnloadFx(3);
 	App->audio->UnloadFx(2);   
-	App->audio->UnloadFx(1);  */ 
+	App->audio->UnloadFx(1);  
 
 	// textures
 	App->tex->UnLoad(player_tex);
