@@ -37,10 +37,10 @@ bool j1Entity_Manager::Start(){
 	shuriken_tex = App->tex->Load("Maps/Objects/shuriken.png");
 	player_tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	
-	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),1);
+	/*CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),1);
 	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),2);
 	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200),3);
-	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200), 4);
+	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200), 4);*/
   
 
 	iPoint Pos;
@@ -98,19 +98,20 @@ void j1Entity_Manager::Draw() {
 	for (item = entities.start; item != NULL; item = item->next)
 	{
 
-		Rect = item->data->animation->GetCurrentFrame();                                         // gravity reverse player
-		switch (item->data->type) {
-			case Type::PLAYER :
+		Rect = item->data->animation->GetCurrentFrame(); 
+		if (item->data->active) {
+			switch (item->data->type) {
+			case Type::PLAYER:
 				if (Get_Gravity_Reverse()) {
 					App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
 				}
 				else {
 					App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1);
 				}
-				break; 
+				break;
 			case Type::COIN:
 				App->render->Blit(coin_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-				break; 
+				break;
 			case Type::ENEMY_FLYING:
 				App->render->Blit(enemy_fly_tex, item->data->position.x, item->data->position.y, &Rect, 1);
 				break;
@@ -120,6 +121,7 @@ void j1Entity_Manager::Draw() {
 			case Type::SHURIKEN:
 				App->render->Blit(shuriken_tex, item->data->position.x, item->data->position.y, &Rect, 1);
 				break;
+			}
 		}
 	}
 

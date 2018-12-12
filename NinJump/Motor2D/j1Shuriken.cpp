@@ -48,7 +48,7 @@ void j1Shuriken::Movement() {
 	switch (state) {
 	case ShuriState::WITH_PLAYER:
 
-		if (collider->type == COLLIDER_SHOT) {
+		if (collider->type == COLLIDER_SHOT || collider->type == COLLIDER_COIN) {
 			collider->type = COLLIDER_NONE;
 		}
 		
@@ -69,7 +69,7 @@ void j1Shuriken::Movement() {
 
 	case ShuriState::LAUNCHED:
 
-		if (collider->type == COLLIDER_NONE) {
+		if (collider->type == COLLIDER_NONE || collider->type == COLLIDER_COIN) {
 			collider->type = COLLIDER_SHOT;
 		}
 
