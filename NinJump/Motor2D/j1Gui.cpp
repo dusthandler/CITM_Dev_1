@@ -63,7 +63,7 @@ bool j1Gui::Update(float dt) {
 			create_menu_GUI = false;
 		}
 		else if (create_level_GUI) {
-			// Clean_Menu_GUI();
+			Clean_Menu_GUI();
 			Generate_Level_GUI();
 			create_level_GUI = false;
 		}
@@ -131,9 +131,9 @@ void j1Gui::Clean_Menu_GUI(){
 			delete item->data;
 			item->data = nullptr;
 		}
-
+		objects.del(item);
 	}
-	objects.del(item); 
+	
 
 }
 
@@ -150,9 +150,9 @@ void j1Gui::Clean_Level_GUI() {
 			delete item->data;
 			item->data = nullptr;
 		}
-
+		objects.del(item);
 	}
-	objects.del(item);
+
 
 }
 

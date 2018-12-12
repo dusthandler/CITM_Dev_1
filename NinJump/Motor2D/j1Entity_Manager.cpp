@@ -35,8 +35,8 @@ bool j1Entity_Manager::Start(){
 	
 	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),1);
 	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),2);
-	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200),3);
-	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200), 4);
+	/*CreateEntity(Type::ENEMY_LAND, iPoint(350, 200),3);
+	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200), 4);*/
   
 
 	iPoint Pos;
@@ -205,8 +205,9 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 		delete item->data;
 		item->data = nullptr;
 		}
+		entities.del(item);
 	}
-	entities.del(item); 
+	
 }
 
 
