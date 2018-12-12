@@ -49,11 +49,7 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 bool j1PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	// return t != INVALID_WALK_CODE && t > 0;
-	if (t != INVALID_WALK_CODE && t > 0) {
-		//	LOG("Position %i %i is a waaaaaaaaaaaalkable tile", pos.x, pos.y); 
-	}
-	return true;
+	return t != INVALID_WALK_CODE && t > 0;
 }
 
 // Utility: return the walkability value of a tile

@@ -378,17 +378,39 @@ void j1Gui::Select_Clicked_Object() {
 				switch (item->data->hover_state) {
 
 				case Hover_State::OUTSIDE:
+
+				   //LOG("_____________________________________________________________outside    1");
+
 					item->data->hover_state = Hover_State::HOVER;
 					break; 
 
 				case Hover_State::HOVER:
-				    move_object = false; 
+
+				// LOG("_____________________________________________________________hover"); 
+
+				 
+				 move_object = false; 
+
+				 if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
+					 // LOG("________________________________________________________next should be click"); 
+
+					 move_object = false;
+				 }
 					if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
+
 						item->data->hover_state = Hover_State::CLICK;
 					}
 					break;
 
+<<<<<<< HEAD
 				case Hover_State::CLICK: 
+=======
+				case Hover_State::CLICK:
+
+					//LOG("_____________________________________________________________click");
+
+
+>>>>>>> bf0595d4d009f8837ded294f7b470b5629a5ed5e
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
 					}
@@ -399,6 +421,10 @@ void j1Gui::Select_Clicked_Object() {
 					break;
 
 				case Hover_State::DRAG:
+
+					//LOG("_____________________________________________________________drag");
+
+
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
 					}
@@ -414,6 +440,10 @@ void j1Gui::Select_Clicked_Object() {
 				}
 			}
 		   else {
+
+			//	LOG("_____________________________________________________________outside");
+
+
 				item->data->hover_state = Hover_State::OUTSIDE;
 			}
 

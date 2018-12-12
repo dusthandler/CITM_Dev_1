@@ -57,6 +57,7 @@ struct MapLayer
 	int			width;
 	int			height;
 	float		Parallaxspeed;
+	int			Navigation = 0;
 	uint*		data;
 	Properties	properties;
 	LayerType	type1 = LAYER_NONE;

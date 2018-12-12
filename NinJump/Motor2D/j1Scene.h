@@ -55,6 +55,7 @@ private:
 	bool Mus_1 = true; 
 	uint Mus_Id = 1; 
 	j1PerfTimer			ptimer;
+	SDL_Texture* debug_tex;
 
 };
 
