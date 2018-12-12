@@ -38,16 +38,17 @@ void j1Gui_Label::Init_Text() {
 
 void j1Gui_Label::Blit() {
 
-	char buffer[20];
+	
 
 	if (ID == "coin_score") {
 
+		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected);
 		text = buffer;
 	}
 
 	else if (ID == "life_count") {
-	
+		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->entity_manager->player_live_count);
 		text = buffer;
 

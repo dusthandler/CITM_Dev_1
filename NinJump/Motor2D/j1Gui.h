@@ -144,6 +144,18 @@ private:
 	j1Gui_Button* play_button = nullptr; 
 	j1Gui_Label* play_button_label = nullptr; 
 
+	j1Gui_Button* continue_button = nullptr;
+	j1Gui_Label* continue_button_label = nullptr;
+
+	j1Gui_Button* settings_button = nullptr;
+	j1Gui_Label* settings_button_label = nullptr;
+
+	j1Gui_Button* credits_button = nullptr;
+	j1Gui_Label* credits_button_label = nullptr;
+
+	j1Gui_Button* exit_button = nullptr;
+	j1Gui_Label* exit_button_label = nullptr;
+
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 

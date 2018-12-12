@@ -118,8 +118,8 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 
 
 void j1Gui::Generate_Menu_GUI() {
-	menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 800, 735 }, NULL, Menu_Level::Menu);
-	menu_label = Create_Image(atlas, iPoint(230, 10), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Menu);
+	menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 965 }, NULL, Menu_Level::Menu);
+	menu_label = Create_Image(atlas, iPoint(450, 30), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Menu);
 
 
 	
@@ -130,8 +130,24 @@ void j1Gui::Generate_Menu_GUI() {
 	anim_rects.a_Hover = {72, 41, 170, 95};
 	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
 
-	play_button = Create_Button(anim_rects, atlas, iPoint(350, 20), "play_button", Menu_Level::Menu);
-    play_button_label = Create_Label(iPoint(420, 55), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
+	play_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "play_button", Menu_Level::Menu);
+	continue_button = Create_Button(anim_rects, atlas, iPoint(570, 130), "continue_button", Menu_Level::Menu);
+	settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Menu);
+
+
+
+	/*anim_rects.a_Idle = { 3, 43, 65, 79 };
+	anim_rects.a_Hover = { 72, 41, 170, 95 };
+	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
+
+	credits_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "credits_button", Menu_Level::Menu);
+	exit_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "exit_button", Menu_Level::Menu);*/
+
+    play_button_label = Create_Label(iPoint(640, 75), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
+	continue_button_label = Create_Label(iPoint(615, 165), menu_font, "CONTINUE", NULL, Menu_Level::Menu, continue_button);
+	settings_button_label = Create_Label(iPoint(618, 255), menu_font, "SETTINGS", NULL, Menu_Level::Menu, settings_button);
+
+
 	
 
 }
