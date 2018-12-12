@@ -124,6 +124,7 @@ private:
 	// fonts
 
 	_TTF_Font* menu_font = nullptr; 
+	_TTF_Font* menu_font_2 = nullptr;
 	_TTF_Font* level_font = nullptr;
 
 	// level objects

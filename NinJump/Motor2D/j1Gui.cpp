@@ -43,7 +43,7 @@ bool j1Gui::Start()
 	menu_image_tex = App->tex->Load("Maps/Textures/bg_menu.png");
 	menu_font = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai.ttf", 36);
 	level_font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 36);
-
+	menu_font_2 = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai.ttf", 24);
 	// extra font for settings/exit (smaller)
 
 	return true;
@@ -120,12 +120,15 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 
 
 void j1Gui::Generate_Menu_GUI() {
+	// images
+
 	menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 965 }, NULL, Menu_Level::Menu);
 	menu_label = Create_Image(atlas, iPoint(450, 30), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Menu);
 
 
 	
 	
+	// buttons
 
 	Hover_Anim anim_rects; 
 	anim_rects.a_Idle = { 3, 43, 65, 79 }; 
@@ -143,10 +146,14 @@ void j1Gui::Generate_Menu_GUI() {
 	credits_button = Create_Button(anim_rects, atlas, iPoint(850, 600), "credits_button", Menu_Level::Menu);
 	exit_button = Create_Button(anim_rects, atlas, iPoint(20, 600), "exit_button", Menu_Level::Menu);
 
+	// labels
+
     play_button_label = Create_Label(iPoint(640, 75), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
 	continue_button_label = Create_Label(iPoint(615, 165), menu_font, "CONTINUE", NULL, Menu_Level::Menu, continue_button);
 	settings_button_label = Create_Label(iPoint(618, 255), menu_font, "SETTINGS", NULL, Menu_Level::Menu, settings_button);
 
+	credits_button_label = Create_Label(iPoint(880, 640), menu_font_2, "credits", NULL, Menu_Level::Menu, credits_button);
+	exit_button_label = Create_Label(iPoint(60, 640), menu_font_2, "exit", NULL, Menu_Level::Menu, exit_button);
 
 	
 
