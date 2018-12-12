@@ -21,7 +21,6 @@ public:
 
 private:
 
-	char* ID = nullptr; 
 	
 };
 

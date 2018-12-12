@@ -52,11 +52,11 @@ void j1Gui_Button::Blit() {
 
 
 	
-	if (ID == "play_button" && hover_state == Hover_State::CLICK) {
+	/*if (ID == "play_button" && hover_state == Hover_State::CLICK) {
 		App->entity_manager->Activate();
 		App->scene->Activate();
 		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f); 
-	}
+	}*/
 
 
 

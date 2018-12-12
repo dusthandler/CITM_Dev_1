@@ -86,6 +86,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 	
+	void Check_Clicked(); 
+	void Do_Logic_Clicked(j1Gui_Object*);
 
 
 	// TODO 2: Create the factory methods

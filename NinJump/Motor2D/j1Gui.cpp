@@ -12,6 +12,8 @@
 #include "j1Gui_Button.h"
 #include "j1Main_Menu.h"
 #include "j1Scene.h"
+#include "j1FadeBlack.h"
+#include "j1Entity_Manager.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -50,6 +52,7 @@ bool j1Gui::Start()
 bool j1Gui::PreUpdate()
 {
 	Select_Clicked_Object(); 
+	Check_Clicked(); 
 	return true;
 }
 
@@ -58,7 +61,7 @@ bool j1Gui::Update(float dt) {
 	
 		if (create_menu_GUI) {
 
-			// Clean_Level_GUI();
+			Clean_Level_GUI();
 			Generate_Menu_GUI();
 			create_menu_GUI = false;
 		}
@@ -74,6 +77,39 @@ bool j1Gui::Update(float dt) {
 	
 	return true; 
 }
+
+
+void j1Gui::Check_Clicked() {
+
+	p2List_item<j1Gui_Object*>* item;
+	item = objects.start;
+
+	for (item = objects.start; item != NULL; item = item->next)
+	{
+		
+		
+		if (item->data->hover_state == Hover_State::CLICK) {
+
+			Do_Logic_Clicked(item->data); 
+		}
+
+
+
+	}
+}
+
+void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
+
+	if (object->ID == "play_button") {
+		App->entity_manager->Activate();
+		App->scene->Activate();
+		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f);
+	}
+
+}
+
+
+
 
 
 void j1Gui::Generate_Menu_GUI() {
@@ -99,7 +135,7 @@ void j1Gui::Generate_Menu_GUI() {
 void j1Gui::Generate_Level_GUI() {
 	LOG("----------------------------------------------- creating lvl GUI");
 
-	// UI COINS                                            // do this in scene? 
+	// UI COINS                                            // labels should go after images
 	SDL_Rect r = { 0, 0, 32, 32 };
 	UI_coin = Create_Image(atlas, iPoint(820, 25), r, NULL, Menu_Level::Level);
 

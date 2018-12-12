@@ -37,6 +37,7 @@ public:
 	Menu_Level menu_level; 
 	j1Gui_Object* parent = nullptr; 
 	Hover_Anim* hover_rects = nullptr;
+	char* ID = nullptr;
 };
 
 
