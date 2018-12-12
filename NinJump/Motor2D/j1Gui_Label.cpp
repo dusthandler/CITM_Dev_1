@@ -12,7 +12,13 @@ j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Le
 	this->ID = ID; 
 	this->menu_level = menu_level;
 
-	this->parent = parent;
+	if (parent != nullptr) {
+		has_button = true; 
+		this->parent = parent;
+	}
+	
+
+	
 	Init_Text(); 
 
 	hierarchy = (Hierarchy)3; 
@@ -52,7 +58,10 @@ void j1Gui_Label::Blit() {
 	App->font->CalcSize(text, rect.w, rect.h, font);
 	tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 
-	if(parent->hover_state != Hover_State::OUTSIDE)
+	if (!has_button) {
+		App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
+	}
+	else if(parent->hover_state != Hover_State::OUTSIDE && parent != nullptr)
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f); 
 	
 }

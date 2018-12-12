@@ -90,7 +90,7 @@ void j1Gui::Generate_Menu_GUI() {
 	anim_rects->a_Click = { 1000, 1000, 1000, 1000 };*/
 
 	play_button = Create_Button(/*&anim_rects, */atlas, iPoint(350, 20), "play_button", Menu_Level::Menu);
-	play_button_label = Create_Label(iPoint(420, 55), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
+    play_button_label = Create_Label(iPoint(420, 55), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
 	
 
 }
@@ -298,17 +298,7 @@ void j1Gui::Select_Clicked_Object() {
 		
 		
 		if (move_object && clicked_object != nullptr) {
-
-
-			if (App->input->GetKey(SDL_SCANCODE_DOWN) == 1) {
-				LOG("_____________________________________________________________release");
-				move_object = false;
-				item->data->hover_state = Hover_State::HOVER;
-			}
-
 			Move_Clicked_Object(clicked_object); 
-
-
 		}  
 			
 
@@ -349,8 +339,8 @@ j1Gui_Object* j1Gui::Get_Clicked_Object() {
 
 void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 
-	LOG("Moving obj yeheaaaaaaaaaaaaaaaaaaaaaaaaaaa"); 
 
+	LOG(" *******************************   moving obj   *******************************"); 
 	App->input->GetCenteredMousePosition(obj->pos.x, obj->pos.y, obj);
 	
 }

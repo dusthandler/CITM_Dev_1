@@ -25,7 +25,7 @@ private:
 	_TTF_Font* font; 
 	char* text = nullptr; 
 	char* ID = nullptr; 
-	
+	bool has_button = false; 
 };
 
 

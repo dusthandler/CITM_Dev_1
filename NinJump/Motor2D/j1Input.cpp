@@ -168,6 +168,23 @@ void j1Input::GetMouseMotion(int& x, int& y)
 void j1Input::GetCenteredMousePosition(int &x, int &y, j1Gui_Object* obj) {
 	
 	x = mouse_x - obj->rect.w / 2; 
-	y = mouse_y - obj->rect.h / 2; 
+	y = mouse_y - obj->rect.h / 2;
+
+
+
+   /*	int dist_x = mouse_x - x;
+	int dist_y = mouse_y - y;
 	
+	x = mouse_x - dist_x;
+	y = mouse_y - dist_y;
+
+	
+	LOG("-------------------------------------------------- mouse %i %i", mouse_x, mouse_y);
+	LOG("-------------------------------------------------- obj %i %i", obj->pos.x, obj->pos.y);
+	LOG("-------------------------------------------------- dist %i %i", dist_x, dist_y);
+	LOG("-------------------------------------------------- new obj pos %i %i", mouse_x - dist_x, mouse_y - dist_y);   */
+
+
+
+
 }

@@ -207,7 +207,6 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 		}
 	}
 	entities.del(item); 
-
 }
 
 
