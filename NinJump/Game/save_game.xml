@@ -7,21 +7,13 @@
 	<map />
 	<pathfinding />
 	<scene>
-		<Scene_vars Switch="1" Alive="true" Win="false" />
+		<Scene_vars Switch="0" Alive="true" Win="false" />
 	</scene>
 	<fadeToBlack />
 	<:anonymous />
 	<fonts />
 	<gui />
 	<renderer>
-		<camera x="-134" y="-300" />
+		<camera x="0" y="0" />
 	</renderer>
-	<Entity_Manager>
-		<Enemie_Fliying_1 x="286" y="174" vx="0" vy="0" ax="0" ay="0" dirx="1" diry="0" pathx="0" pathy="0" dir_m="3" act="false" reached="false" delet="false" foll_pla="true" />
-		<Enemie_Fliying_2 x="281" y="311" vx="0" vy="0" ax="0" ay="0" dirx="1" diry="0" pathx="0" pathy="0" dir_m="3" act="false" reached="false" delet="false" foll_pla="true" />
-		<Enemie_Walker_3 x="362" y="851" vx="0" vy="0" ax="0" ay="0" dirx="1" diry="0" pathx="0" pathy="0" dir_m="4" act="false" reached="false" delet="false" foll_pla="true" />
-		<Enemie_Walker_4 x="270" y="851" vx="0" vy="0" ax="0" ay="0" dirx="1" diry="0" pathx="0" pathy="0" dir_m="4" act="false" reached="false" delet="false" foll_pla="true" />
-		<Player_Entity x="448" y="616" xv="14" yv="237" Cont="0" Cont_X="7.4000001" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
-		<State collider_type="collider_player" />
-	</Entity_Manager>
 </game_state>

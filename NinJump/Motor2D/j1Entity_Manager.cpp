@@ -38,8 +38,8 @@ bool j1Entity_Manager::Start(){
 	player_tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	
 	/*CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),1);
-	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),2);
-	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200),3);
+	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),2);*/
+	/*CreateEntity(Type::ENEMY_LAND, iPoint(350, 200),3);
 	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200), 4);*/
   
 

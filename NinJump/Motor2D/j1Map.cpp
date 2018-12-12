@@ -483,6 +483,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
 	layer->Parallaxspeed = node.child("properties").child("property").attribute("value").as_float();
+	layer->Navigation = node.child("properties").child("property").next_sibling("property").attribute("value").as_int();
 	pugi::xml_node layer_data = node.child("data");
 
 	if(layer_data == NULL)
@@ -505,12 +506,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 //WALKABILITY MAP
 
-	if (layer->name == "Platforms") {                                // 170 x 34, the whole map
-		uchar* map = new uchar[layer->width*layer->height];
-		memset(map, 1, layer->width*layer->height);
-		App->pathfinding->SetMap(layer->width, layer->height, map);
-		delete map;
-	}
+	
 	
 
 	return ret;

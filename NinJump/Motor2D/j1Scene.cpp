@@ -41,6 +41,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	BROFILER_CATEGORY("Scene Start", Profiler::Color::LightSlateGray);
+	debug_tex = App->tex->Load("maps/Textures/path_tex.png");
 	// Create walkability map 
 /*
 	uchar* flag = NULL;
@@ -54,7 +55,7 @@ bool j1Scene::Start()
 
 
 	App->gui->create_level_GUI = true;
-	LOG("_________________________________________________________________________%s", App->gui->create_level_GUI ? "true" : "false");
+	//LOG("_________________________________________________________________________%s", App->gui->create_level_GUI ? "true" : "false");
 
 	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
@@ -75,9 +76,15 @@ bool j1Scene::Start()
 	}
 
 	if (!Map_Loaded) {
-		App->map->Load("Level_1.tmx");
+		App->map->Load("Level_1_pureba.tmx");
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true;
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
 	}
 
 
@@ -95,6 +102,30 @@ bool j1Scene::PreUpdate()
 	}
 
 	Second_Start = true;
+
+
+
+	/*static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}*/
 	return true;
 }
 
@@ -171,7 +202,54 @@ bool j1Scene::Update(float dt)
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
+	//if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	//	App->LoadGame("save_game.xml");
 
+	//if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	//	App->SaveGame("save_game.xml");
+
+	//// TODO 6: Make the camera movement independent of framerate
+	//if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	//	App->render->camera.y += 20;
+
+	//if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	//	App->render->camera.y -= 20;
+
+	//if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	//	App->render->camera.x += 20;
+
+	//if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	//	App->render->camera.x -= 20;
+
+	//App->map->Draw();
+
+	//int x, y;
+	//App->input->GetMousePosition(x, y);
+	//iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+	//p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
+	//	App->map->data.width, App->map->data.height,
+	//	App->map->data.tile_width, App->map->data.tile_height,
+	//	App->map->data.tilesets.count(),
+	//	map_coordinates.x, map_coordinates.y);
+
+	////App->win->SetTitle(title.GetString());
+
+	//// Debug pathfinding ------------------------------
+	////int x, y;
+	//App->input->GetMousePosition(x, y);
+	//iPoint p = App->render->ScreenToWorld(x, y);
+	//p = App->map->WorldToMap(p.x, p.y);
+	//p = App->map->MapToWorld(p.x, p.y);
+
+	//App->render->Blit(debug_tex, p.x, p.y);
+
+	//const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	//for (uint i = 0; i < path->Count(); ++i)
+	//{
+	//	iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+	//	App->render->Blit(debug_tex, pos.x, pos.y);
+	//}
 	PERF_PEEK(ptimer);           // update takes more than 100 ms :/
 
 
@@ -218,7 +296,7 @@ bool j1Scene::MapSwap(int Mapsw)
 		App->collision->CleanWallDeath();
 		App->map->CleanUp();
 	
-		App->map->Load("Level_1.tmx");
+		App->map->Load("Level_1_pureba.tmx");
 		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
