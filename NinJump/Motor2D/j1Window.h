@@ -21,7 +21,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool Update(float dt); 
 	// Changae title
 	void SetTitle(const char* new_title);
 
