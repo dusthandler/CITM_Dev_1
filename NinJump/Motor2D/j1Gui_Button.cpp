@@ -29,13 +29,7 @@ j1Gui_Button::j1Gui_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint
 
 void j1Gui_Button::Blit() {
 
-	/*if (ID == "play_button" && hover_state == Hover_State::CLICK) {
-		App->entity_manager->Activate();
-		App->scene->Activate();
-
-		App->fade->FadeToBlack(this, App->scene, 1.5f);
-	}; */
-
+	
 
 	if (hover_state == Hover_State::OUTSIDE) {
 		// rect = hover_rects->a_Idle;
@@ -52,11 +46,7 @@ void j1Gui_Button::Blit() {
 
 
 	
-	/*if (ID == "play_button" && hover_state == Hover_State::CLICK) {
-		App->entity_manager->Activate();
-		App->scene->Activate();
-		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f); 
-	}*/
+	
 
 
 

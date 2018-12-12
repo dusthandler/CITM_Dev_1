@@ -88,7 +88,7 @@ void j1Gui::Check_Clicked() {
 	{
 		
 		
-		if (item->data->hover_state == Hover_State::CLICK) {
+		if (item->data->hover_state == Hover_State::CLICK && item->data->menu_level != Menu_Level::Level) {
 
 			Do_Logic_Clicked(item->data); 
 		}
@@ -100,11 +100,16 @@ void j1Gui::Check_Clicked() {
 
 void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 
+	// buttons 
+
 	if (object->ID == "play_button") {
 		App->entity_manager->Activate();
 		App->scene->Activate();
 		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f);
 	}
+
+
+
 
 }
 
@@ -324,10 +329,10 @@ void j1Gui::Select_Clicked_Object() {
 			
 
 			}
-		   /*else {
+		   else {
 				LOG("_____________________________________________________________outside");
 				item->data->hover_state = Hover_State::OUTSIDE;
-			}*/
+			}
 
 			
 		}
