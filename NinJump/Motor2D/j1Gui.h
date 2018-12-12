@@ -97,7 +97,7 @@ public:
 
 	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
 
-	j1Gui_Button* Create_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint pos, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
+	j1Gui_Button* Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iPoint pos, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
 
 	
 

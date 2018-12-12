@@ -125,12 +125,12 @@ void j1Gui::Generate_Menu_GUI() {
 	
 	
 
-	/*Hover_Anim anim_rects; 
+	Hover_Anim anim_rects; 
 	anim_rects.a_Idle = { 3, 43, 65, 79 }; 
 	anim_rects.a_Hover = {72, 41, 170, 95};
-	anim_rects->a_Click = { 1000, 1000, 1000, 1000 };*/
+	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
 
-	play_button = Create_Button(/*&anim_rects, */atlas, iPoint(350, 20), "play_button", Menu_Level::Menu);
+	play_button = Create_Button(anim_rects, atlas, iPoint(350, 20), "play_button", Menu_Level::Menu);
     play_button_label = Create_Label(iPoint(420, 55), menu_font, "PLAY", NULL, Menu_Level::Menu, play_button);
 	
 
@@ -226,9 +226,9 @@ j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* 
 }; 
 
 
-j1Gui_Button* j1Gui::Create_Button(/*Hover_Anim* hover_rects,*/ SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
+j1Gui_Button* j1Gui::Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
 
-	j1Gui_Button* ret = new j1Gui_Button(/*hover_rects,*/ tex, pos, ID, menu_level, parent);
+	j1Gui_Button* ret = new j1Gui_Button(hover_rects, tex, pos, ID, menu_level, parent);
 
 	if (ret != nullptr)
 		objects.add(ret);

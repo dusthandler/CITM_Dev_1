@@ -36,7 +36,7 @@ public:
 	Hover_State hover_state = Hover_State::OUTSIDE; 
 	Menu_Level menu_level; 
 	j1Gui_Object* parent = nullptr; 
-	Hover_Anim* hover_rects = nullptr;
+	Hover_Anim hover_rects;
 	char* ID = nullptr;
 };
 
