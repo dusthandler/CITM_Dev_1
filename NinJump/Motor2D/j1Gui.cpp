@@ -233,10 +233,10 @@ void j1Gui::Select_Clicked_Object() {
 				case Hover_State::HOVER:
 				 LOG("_____________________________________________________________hover"); 
 
+				 
+				 move_object = false; 
 
-			
-
-					if (App->input->GetMouseButtonDown(1)) {
+					if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
 					 LOG("________________________________________________________next should be click"); 
 						item->data->hover_state = Hover_State::CLICK;
 					}
@@ -261,6 +261,11 @@ void j1Gui::Select_Clicked_Object() {
 
 				case Hover_State::DRAG:
 					LOG("_____________________________________________________________drag");
+
+					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+						item->data->hover_state = Hover_State::HOVER;
+					}
+
 					move_object = true;
 
 					if (item->data != nullptr) {
@@ -272,12 +277,6 @@ void j1Gui::Select_Clicked_Object() {
 						move_object = false; 
 						item->data->hover_state = Hover_State::HOVER; 
 					}*/
-					break;
-
-					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
-						move_object = false;
-						item->data->hover_state = Hover_State::HOVER;
-					}
 
 
 					break;
