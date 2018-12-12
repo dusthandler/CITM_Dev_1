@@ -71,3 +71,6 @@ Camera_Limits j1Entity::Inside_Camera_Limits() {
 
 	return limits; 
 }
+
+
+

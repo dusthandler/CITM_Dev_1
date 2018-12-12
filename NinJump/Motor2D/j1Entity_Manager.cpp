@@ -29,9 +29,13 @@ bool j1Entity_Manager::Start(){
 	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::Brown);
 
 	bool ret = true;
-	// path texture
-	path_tex = App->tex->Load("Maps/Textures/path_tex.png"); 
-	
+	// textures
+	path_tex = App->tex->Load("Maps/Textures/path_tex.png");                // in tiled
+    enemy_fly_tex = App->tex->Load("Maps/Enemies/Flyer/Fly.png");
+    enemy_walk_tex = App->tex->Load("Maps/Enemies/Floor/floor_enemy.png");
+	coin_tex = App->tex->Load("Maps/Objects/coins.png");
+	shuriken_tex = App->tex->Load("Maps/Objects/shuriken.png");
+	player_tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	
 	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),1);
 	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),2);
@@ -46,14 +50,18 @@ bool j1Entity_Manager::Start(){
 	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
 	CreateEntity(Type::PLAYER, Pos,0);
 
-	// coins and stuff
+	// fxs
+	/*App->audio->LoadFx("Sound/Fx/jump.wav");
+	App->audio->LoadFx("Sound/Fx/death.wav");
+	App->audio->LoadFx("Sound/Fx/landing.wav");
+	App->audio->LoadFx("Sound/Fx/gravity_reverse.wav");
 	App->audio->LoadFx("Sound/Fx/coin.wav");  // 5
-	App->audio->LoadFx("Sound/Fx/shot.wav");  // 6
+	App->audio->LoadFx("Sound/Fx/shot.wav");  // 6*/
 
 
 
 
-	CreateEntity(Type::SHURIKEN, iPoint(350, 870));       // after player !
+    CreateEntity(Type::SHURIKEN, iPoint(350, 870));       // after player !
     CreateEntity(Type::COIN, iPoint(450, 870),3);
 	CreateEntity(Type::COIN, iPoint(550, 870),2);
 	CreateEntity(Type::COIN, iPoint(650, 870),1);
@@ -90,18 +98,29 @@ void j1Entity_Manager::Draw() {
 	for (item = entities.start; item != NULL; item = item->next)
 	{
 
-		Rect = item->data->animation->GetCurrentFrame();
-		if (item->data->type == Type::PLAYER && Get_Gravity_Reverse()) {
-			App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
+		Rect = item->data->animation->GetCurrentFrame();                                         // gravity reverse player
+		switch (item->data->type) {
+			case Type::PLAYER :
+				if (Get_Gravity_Reverse()) {
+					App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
+				}
+				else {
+					App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+				}
+				break; 
+			case Type::COIN:
+				App->render->Blit(coin_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+				break; 
+			case Type::ENEMY_FLYING:
+				App->render->Blit(enemy_fly_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+				break;
+			case Type::ENEMY_LAND:
+				App->render->Blit(enemy_walk_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+				break;
+			case Type::SHURIKEN:
+				App->render->Blit(shuriken_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+				break;
 		}
-		else if (item->data->type == Type::COIN && item->data->active) {
-			App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
-		}
-		else if(item->data->type != Type::COIN){             // change with other types
-			App->render->Blit(item->data->tex, item->data->position.x, item->data->position.y, &Rect, 1);
-		}
-		
-		
 	}
 
 }
@@ -229,12 +248,21 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	entities.clear();
 
 	// fxs
-	App->audio->UnloadFx(5);    // coin
-	App->audio->UnloadFx(6);    // shuriken
+	/*App->audio->UnloadFx(6);
+	App->audio->UnloadFx(5);           
+	App->audio->UnloadFx(4);
+	App->audio->UnloadFx(3);
+	App->audio->UnloadFx(2);   
+	App->audio->UnloadFx(1);  */ 
 
 	// textures
-	App->tex->UnLoad(path_tex); 
-	
+	App->tex->UnLoad(player_tex);
+
+	App->tex->UnLoad(shuriken_tex); 
+	App->tex->UnLoad(coin_tex);
+	App->tex->UnLoad(enemy_walk_tex);
+	App->tex->UnLoad(enemy_fly_tex);
+	App->tex->UnLoad(path_tex);
 
 	return ret;
 }

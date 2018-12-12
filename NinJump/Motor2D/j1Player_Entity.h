@@ -50,6 +50,7 @@ public:
 	void Movey(float dt);
 	void Solve_Move(float dt);
 	bool PostUpdate();
+	void Blit(); 
 	bool CleanUp();
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;

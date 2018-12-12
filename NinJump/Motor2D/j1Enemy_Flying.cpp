@@ -15,7 +15,8 @@
 j1Enemy_Flying::j1Enemy_Flying(iPoint position, Type type,int id) : j1Entity(position, type,id) {
 
 	collider = App->collision->AddCollider({ position.x, position.y,Fly_Width,45 }, COLLIDER_ENEMY, this);
-	tex = App->tex->Load("Maps/Enemies/Flyer/Fly.png");
+	// tex = App->tex->Load("Maps/Enemies/Flyer/Fly.png");
+	// tex = enemy_fly_tex; 
 	animation = &Idle;
 	Idle.PushBack({ 55, 2, 35, 45 });
 
@@ -212,7 +213,8 @@ void j1Enemy_Flying::OnCollision(Collider* c1, Collider* c2) {
 bool j1Enemy_Flying::CleanUp() {
 	BROFILER_CATEGORY("Enemy fly CleanUp", Profiler::Color::Bisque);
 	collider->to_delete = true;
-	App->tex->UnLoad(tex);
+	active = false; 
+	// App->tex->UnLoad(tex);
 	return true;
 }
 

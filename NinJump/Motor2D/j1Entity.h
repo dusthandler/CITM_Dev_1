@@ -39,7 +39,9 @@ public:
 		return true;
 	}
 
+	virtual void Blit() {
 
+	}
 
 	virtual bool Update(float dt) {
 		return true;

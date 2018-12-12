@@ -62,8 +62,16 @@ private:
 	float update_ms_cycle = 0.0f;  
 	bool do_logic = false; 
 
-private: 
 	SDL_Texture* path_tex = nullptr;
+protected: 
+
+	SDL_Texture* enemy_fly_tex = nullptr;
+	SDL_Texture* enemy_walk_tex = nullptr;
+	SDL_Texture* player_tex = nullptr;
+	SDL_Texture* coin_tex = nullptr;
+	SDL_Texture* shuriken_tex = nullptr;
+
+
 public: 
 	
 	uint player_live_count = 3; 

@@ -22,7 +22,8 @@ j1Player_Entity::j1Player_Entity(iPoint position, Type type, int id) : j1Entity(
 	this->position = position;
 	this->type = type;
 	this->my_id = id;
-	tex = App->tex->Load("Maps/Ninja/Ninja.png");
+	// tex = App->tex->Load("Maps/Ninja/Ninja.png");
+	// tex = player_tex; 
 	animation = &Idle;
 	Idle.PushBack({ 55, 2, PLAYER_WIDTH, PLAYER_HEIGHT });       
 	Walking_Right.PushBack({ 3, 96, 44, 45 });
@@ -44,15 +45,11 @@ j1Player_Entity::j1Player_Entity(iPoint position, Type type, int id) : j1Entity(
 	App->scene->Player_Alive = true;
 	Reset_Fx_2 = true; 
 
-	////After the Fx TODO:clean the fx.
 
-	App->audio->LoadFx("Sound/Fx/jump.wav");
-	App->audio->LoadFx("Sound/Fx/death.wav");
-	App->audio->LoadFx("Sound/Fx/landing.wav");
-	App->audio->LoadFx("Sound/Fx/gravity_reverse.wav");
 
+	
 	Respawning = false;
-	////Last we create the collider.
+	
 	collider = App->collision->AddCollider({ position.x, position.y, 35, 45 }, COLLIDER_PLAYER, this);
 
 	App->gui->coins_collected = 0;
@@ -501,20 +498,26 @@ bool j1Player_Entity::PostUpdate() {
 
 }
 
+void j1Player_Entity::Blit() {
+	SDL_Rect r = animation->GetCurrentFrame();
+
+	App->render->Blit(player_tex, position.x, position.y, &r, 1);
+}
+
 bool j1Player_Entity::CleanUp() {
 	BROFILER_CATEGORY("Player CleanUp", Profiler::Color::DarkGray);
-	App->tex->UnLoad(tex);
+	// App->tex->UnLoad(tex);
 	// Player_Animation = &None;
-	tex = nullptr;
+	// tex = nullptr;
 	/*Player_Animation = nullptr;*/
 	collider->to_delete = true;
-
+	active = false;
 	
 
-	App->audio->UnloadFx(1);
+	/*App->audio->UnloadFx(1);
 	App->audio->UnloadFx(2);           // CLEAN FXs
 	App->audio->UnloadFx(3);
-	App->audio->UnloadFx(4);
+	App->audio->UnloadFx(4);*/
 
 	return true;
 
