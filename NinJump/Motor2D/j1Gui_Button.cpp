@@ -21,6 +21,7 @@ j1Gui_Button::j1Gui_Button(Hover_Anim hover_rects, SDL_Texture* tex, iPoint pos,
 	
 	
 	this->parent = parent; 
+	type = GUI_TYPE::Button;
 	hierarchy = (Hierarchy)5;
 	// hover_state = Hover_State::OUTSIDE; 
 };

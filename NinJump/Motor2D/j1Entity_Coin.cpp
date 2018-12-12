@@ -25,7 +25,7 @@ j1Entity_Coin::j1Entity_Coin(iPoint position, Type type,int id) : j1Entity(posit
 void j1Entity_Coin::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c2->type == COLLIDER_PLAYER || c2->type == COLLIDER_GOD) {
-		App->audio->PlayFx(5, 0); 
+		App->audio->PlayFx(7, 0); 
 		App->gui->coins_collected++; 
 		CleanUp(); 
 	}

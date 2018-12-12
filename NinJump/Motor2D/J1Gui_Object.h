@@ -29,7 +29,7 @@ public:
 
 	iPoint pos; 
 	SDL_Rect rect; 
-	TYPE type; 
+	GUI_TYPE type;
 	SDL_Texture* tex; 
 	bool selected = false; 
 	Hierarchy hierarchy; 

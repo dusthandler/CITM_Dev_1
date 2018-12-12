@@ -23,7 +23,7 @@ enum Menu_Level {
 	Menu,
 	Level
 };
-enum TYPE {
+enum GUI_TYPE {
 	Label,
 	Button,
 	Input_Text,
@@ -87,6 +87,7 @@ public:
 	bool CleanUp();
 	
 	void Check_Clicked(); 
+	void Do_Logic_Hovered(j1Gui_Object*);
 	void Do_Logic_Clicked(j1Gui_Object*);
 
 
@@ -162,6 +163,9 @@ private:
 	uint hover_objects_queue = 0; 
 	j1Gui_Object* clicked_object = nullptr; 
 	bool move_object = false; 
+
+private: 
+	bool reset_hover_fx = false; 
 
 public: 
 	bool create_menu_GUI = true; 

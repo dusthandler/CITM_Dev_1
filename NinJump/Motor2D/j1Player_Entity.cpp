@@ -78,7 +78,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 	if ((c1->type == COLLIDER_PLAYER || c1->type == COLLIDER_GOD) && c2->type == COLLIDER_WALL) {
 
 		if (Reset_Fx_3 && Vel.y > 0) {
-			App->audio->PlayFx(3, 0);
+			App->audio->PlayFx(5, 0);
 			Reset_Fx_3 = false;
 		}
 
@@ -131,7 +131,7 @@ void  j1Player_Entity::OnCollision(Collider* c1, Collider* c2) {
 
 			if (Reset_Fx_2) {
 
-				App->audio->PlayFx(2, 0);
+				App->audio->PlayFx(4, 0);
 				Reset_Fx_2 = false;
 				Vel.y = 0;
 			}
@@ -324,7 +324,7 @@ void j1Player_Entity::Debug_Keys() {
 
 					gravity_reverse = true;
 					if (Reset_Fx_Gravity) {
-						App->audio->PlayFx(4, 0);
+						App->audio->PlayFx(6, 0);
 						Reset_Fx_Gravity = false;
 					}
 				}
@@ -332,7 +332,7 @@ void j1Player_Entity::Debug_Keys() {
 				else {
 					gravity_reverse = false;
 					if (!Reset_Fx_Gravity) {
-						App->audio->PlayFx(4, 0);
+						App->audio->PlayFx(6, 0);
 						Reset_Fx_Gravity = true;
 					}
 				}
@@ -416,13 +416,13 @@ void j1Player_Entity::Movey(float dt) {
 				Vel.y = -800;
 				Cont = 20;
 				Jumping = true;
-				App->audio->PlayFx(1, 0);
+				App->audio->PlayFx(3, 0);
 			}								
 			else if (Jump_Count < 2) {
 				Vel.y = -200;
 
 				Jumping = true;
-				App->audio->PlayFx(1, 0);
+				App->audio->PlayFx(3, 0);
 			}
 		}
 
