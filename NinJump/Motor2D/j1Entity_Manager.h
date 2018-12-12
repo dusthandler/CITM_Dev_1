@@ -44,7 +44,7 @@ public:
 
 
 
-	j1Entity* CreateEntity(Type, iPoint, int); 
+	j1Entity* CreateEntity(Type, iPoint, int ID = NULL); 
 	void DestroyEntity(j1Entity* entity);
   
 	void Draw(); 

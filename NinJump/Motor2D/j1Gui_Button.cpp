@@ -6,6 +6,7 @@
 #include "j1Scene.h"
 #include "j1FadeBlack.h"
 #include "j1Entity_Manager.h"
+#include "j1Main_Menu.h"
 #include "p2Log.h"
 
 // Called before render is available
@@ -48,5 +49,15 @@ void j1Gui_Button::Blit() {
 		// rect = hover_rects->a_Hover;                // change to click
 	}
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
+
+
+	
+	if (ID == "play_button" && hover_state == Hover_State::CLICK) {
+		App->entity_manager->Activate();
+		App->scene->Activate();
+		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f); 
+	}
+
+
 
 }
