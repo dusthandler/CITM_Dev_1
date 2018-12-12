@@ -14,6 +14,7 @@
 #include "j1Scene.h"
 #include "j1FadeBlack.h"
 #include "j1Entity_Manager.h"
+#include "j1App.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -96,13 +97,13 @@ void j1Gui::Check_Clicked() {
 		}
 
 
-
+		
 	}
 }
 
 void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 
-	// buttons 
+	// menu buttons 
 
 	if (object->ID == "play_button") {
 		App->entity_manager->Activate();
@@ -110,9 +111,9 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f);
 	}
 
-
-
-
+	else if (object->ID == "exit_button") {
+		Exit_Quits_App = true; 
+	}
 }
 
 
@@ -132,7 +133,7 @@ void j1Gui::Generate_Menu_GUI() {
 
 	Hover_Anim anim_rects; 
 	anim_rects.a_Idle = { 3, 43, 65, 79 }; 
-	anim_rects.a_Hover = {72, 41, 170, 95};
+	anim_rects.a_Hover = {72, 37, 173, 114};
 	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
 
 	play_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "play_button", Menu_Level::Menu);

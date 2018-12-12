@@ -167,6 +167,7 @@ public:
 	bool create_menu_GUI = true; 
 	bool create_level_GUI = false;
 
+	bool Exit_Quits_App = false; 
 
 public: 
 	uint coins_collected = 0;                  // Where should this be?
