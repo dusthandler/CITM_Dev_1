@@ -65,9 +65,14 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);*/               // first main menu, then scene
 	//AddModule(main_menu);
 
+
     //AddModule(entity_manager);
-	AddModule(scene);               // first main menu, then scene
+/*	AddModule(scene);  */             // first main menu, then scene
 	//AddModule(main_menu, true);
+	AddModule(entity_manager,true);
+	AddModule(scene,true);               // first main menu, then scene
+	AddModule(main_menu);
+
 
 	AddModule(fade);
 	AddModule(collision);
@@ -176,7 +181,7 @@ bool j1App::Update()
 	bool ret = true;
 	PrepareUpdate();
 
-	if(input->GetWindowEvent(WE_QUIT) == true)
+	if(input->GetWindowEvent(WE_QUIT) == true || gui->Exit_Quits_App)
 		ret = false;
 
 	if(ret == true)

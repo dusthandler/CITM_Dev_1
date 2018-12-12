@@ -194,7 +194,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 
 
-bool j1Audio::UnloadFx(unsigned int Fx)
+/*bool j1Audio::UnloadFx(unsigned int Fx)
 {
 
 	BROFILER_CATEGORY("Audio UnloadFx", Profiler::Color::DarkSalmon);
@@ -207,7 +207,6 @@ bool j1Audio::UnloadFx(unsigned int Fx)
 			Mix_FreeChunk(item->data);
 		}
 
-
 	}
 	LOG("FX HAS BEEN UNLOADED PROPERLY"); 
 
@@ -215,4 +214,4 @@ bool j1Audio::UnloadFx(unsigned int Fx)
 	
 	return true; 
 
-}
+}*/

@@ -23,7 +23,7 @@ enum Menu_Level {
 	Menu,
 	Level
 };
-enum TYPE {
+enum GUI_TYPE {
 	Label,
 	Button,
 	Input_Text,
@@ -87,6 +87,7 @@ public:
 	bool CleanUp();
 	
 	void Check_Clicked(); 
+	void Do_Logic_Hovered(j1Gui_Object*);
 	void Do_Logic_Clicked(j1Gui_Object*);
 
 
@@ -124,6 +125,7 @@ private:
 	// fonts
 
 	_TTF_Font* menu_font = nullptr; 
+	_TTF_Font* menu_font_2 = nullptr;
 	_TTF_Font* level_font = nullptr;
 
 	// level objects
@@ -144,16 +146,32 @@ private:
 	j1Gui_Button* play_button = nullptr; 
 	j1Gui_Label* play_button_label = nullptr; 
 
+	j1Gui_Button* continue_button = nullptr;
+	j1Gui_Label* continue_button_label = nullptr;
+
+	j1Gui_Button* settings_button = nullptr;
+	j1Gui_Label* settings_button_label = nullptr;
+
+	j1Gui_Button* credits_button = nullptr;
+	j1Gui_Label* credits_button_label = nullptr;
+
+	j1Gui_Button* exit_button = nullptr;
+	j1Gui_Label* exit_button_label = nullptr;
+
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 
 	j1Gui_Object* clicked_object = nullptr; 
 	bool move_object = false; 
 
+private: 
+	bool reset_hover_fx = false; 
+
 public: 
 	bool create_menu_GUI = true; 
 	bool create_level_GUI = false;
 
+	bool Exit_Quits_App = false; 
 
 public: 
 	uint coins_collected = 0;                  // Where should this be?

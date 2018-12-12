@@ -60,7 +60,7 @@ void j1Shuriken::Movement() {
 		position.y = App->entity_manager->GetPlayerPos().y + 15;
 
 		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-			App->audio->PlayFx(6);
+			App->audio->PlayFx(8, 0);
 			state = ShuriState::LAUNCHED;
 		}
 		break;
