@@ -318,15 +318,17 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		App->entity_manager->restart = true;
 	}
 
-	else if (Mapsw == 2) {                                       // from level to main menu (press 'M')
+	else if (Mapsw == 2) {     
+		App->collision->CleanWallDeath();                           // from level to main menu (press 'M')
+		App->map->CleanUp();                        
 		App->gui->create_menu_GUI.Do = true; 
 		App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT; 
 
 		App->fade->FadeToBlack(this, App->main_menu, 0.5f);
-		App->collision->CleanWallDeath();
-		App->map->CleanUp();
+		
 
-		// right now, entity manager has not been restarted; 
+		// do not restart entities now, menu is active: 
+		// restart when swapping to level again
 
 	}
 

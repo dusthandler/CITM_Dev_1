@@ -81,7 +81,7 @@ bool j1Gui::Update(float dt) {
 
 void j1Gui::Menu_Level_GUI_Manager() {
 
-	if (create_menu_GUI.Do) {  // CREATE MENU
+	if (create_menu_GUI.Do) {        /// CREATE MENU
 		if (first_start) {                                              
 			create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;                
 			Generate_Menu_GUI();
@@ -95,16 +95,15 @@ void j1Gui::Menu_Level_GUI_Manager() {
 			else {
 				Clean_Menu_GUI(App->main_menu->active_menu);  // menu to menu
 			}
-			LOG("___________________________________________ Creating menu GUI __________________"); 
 			Generate_Menu_GUI();
 			create_menu_GUI.Do = false;
 		}
 	}
-	else if (create_level_GUI) {                           // CREATE LEVEL
+	else if (create_level_GUI) {         /// CREATE LEVEL
 
-		if (App->main_menu->active_menu != Active_Menu::NONE) {      // menu to level
+		if (App->main_menu->active_menu != Active_Menu::NONE) {    // menu to level
 			Clean_Menu_GUI(App->main_menu->active_menu);
-			Restart_Level_Entities_and_Map();
+			// Restart_Level_Entities_and_Map();
 		}
 		else {
 			Clean_Level_GUI();       // level to level
@@ -118,8 +117,8 @@ void j1Gui::Menu_Level_GUI_Manager() {
 
 void j1Gui::Restart_Level_Entities_and_Map() {
 
-	App->scene->Map_Loaded = false;        // restart scene map; 
-	App->entity_manager->restart = true;
+	App->scene->Map_Loaded = false;        // restart scene map
+	App->entity_manager->restart = true;     // restart entities 
 
 }
 
@@ -243,8 +242,14 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 	}
 
 	if (object->ID == "play_button") {   // go to level
-		App->entity_manager->Activate();
-		App->scene->Activate();
+		if (!App->entity_manager->active && !App->scene->active) {     // first time, entities and scene are not active
+			App->entity_manager->Activate();
+			App->scene->Activate();
+		}
+		else {
+			Restart_Level_Entities_and_Map();
+		}
+
 		App->gui->create_level_GUI = true; 
 		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f);
 	}

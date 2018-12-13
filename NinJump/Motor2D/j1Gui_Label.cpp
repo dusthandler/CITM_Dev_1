@@ -30,6 +30,7 @@ void j1Gui_Label::Init_Text() {
 	rect.x = 0; 
 	rect.y = 0; 
 	App->font->CalcSize(text, rect.w, rect.h, font);
+
 	tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font); 
 
 	

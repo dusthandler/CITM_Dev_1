@@ -189,6 +189,7 @@ public:
 	// bool create_menu_GUI = true; 
 	create_menu_GUI create_menu_GUI; 
 	bool create_level_GUI = false;
+
 	bool first_start = true; 
 
 	bool Exit_Quits_App = false; 
