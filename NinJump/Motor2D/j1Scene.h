@@ -45,15 +45,19 @@ public:
 	bool Restart = false;
 	bool Second_Start = false;
 	bool Player_lvl_2 = false; 
-private:
 	bool Map_Loaded = false; 
+
+private:
 	iPoint Player_act_pos;
-	int camera_relative_x = 0; 
+    // int camera_relative_x = 0; 
 	
+	// music
 	_Mix_Music* mus = nullptr;
 	_Mix_Music* mus2 = nullptr;
 	bool Mus_1 = true; 
 	uint Mus_Id = 1; 
+
+	// extra
 	j1PerfTimer			ptimer;
 	SDL_Texture* debug_tex;
 

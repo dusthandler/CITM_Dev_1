@@ -56,13 +56,7 @@ bool j1Scene::Start()
 
 
 	App->gui->create_level_GUI = true;
-<<<<<<< HEAD
-	
 
-	LOG("_________________________________________________________________________%s", App->gui->create_level_GUI ? "true" : "false");
-=======
-	//LOG("_________________________________________________________________________%s", App->gui->create_level_GUI ? "true" : "false");
->>>>>>> bf0595d4d009f8837ded294f7b470b5629a5ed5e
 
 	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
@@ -292,7 +286,7 @@ bool j1Scene::CleanUp()
 }
 
 
-bool j1Scene::MapSwap(int Mapsw)
+bool j1Scene::MapSwap(int Mapsw)                        // Method to handle level cleaning and Fades
 {
 	BROFILER_CATEGORY("Scene MapSwap", Profiler::Color::LimeGreen);
 	bool ret = true;
@@ -300,7 +294,7 @@ bool j1Scene::MapSwap(int Mapsw)
 	App->entity_manager->CleanUp();
 	
 	
-	if (Mapsw == 0)
+	if (Mapsw == 0)                                           
 	{
 		App->fade->FadeToBlack(this, this, 0.5f);
 		App->collision->CleanWallDeath();
@@ -324,7 +318,7 @@ bool j1Scene::MapSwap(int Mapsw)
 		App->entity_manager->restart = true;
 	}
 
-	else if (Mapsw == 2) {
+	else if (Mapsw == 2) {                                       // from level to main menu (press 'M')
 		App->gui->create_menu_GUI.Do = true; 
 		App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT; 
 
@@ -332,11 +326,10 @@ bool j1Scene::MapSwap(int Mapsw)
 		App->collision->CleanWallDeath();
 		App->map->CleanUp();
 
-
+		// right now, entity manager has not been restarted; 
 
 	}
-	
-	// enable player after swapping maps
+
 	
 	// App->entity_manager->restart = true;
 

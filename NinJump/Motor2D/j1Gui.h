@@ -98,6 +98,7 @@ public:
 	void Menu_Level_GUI_Manager(); 
 	void Clean_Menu_GUI(Active_Menu active_menu);
 	void Clean_Level_GUI();
+	void Restart_Level_Entities_and_Map(); 
 
 	// Called before quitting
 	bool CleanUp();

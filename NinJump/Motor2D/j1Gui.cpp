@@ -16,6 +16,7 @@
 #include "j1Entity_Manager.h"
 #include "j1Audio.h"
 #include "j1App.h"
+#include "j1Map.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -94,29 +95,42 @@ void j1Gui::Menu_Level_GUI_Manager() {
 			else {
 				Clean_Menu_GUI(App->main_menu->active_menu);  // menu to menu
 			}
-
+			LOG("___________________________________________ Creating menu GUI __________________"); 
 			Generate_Menu_GUI();
 			create_menu_GUI.Do = false;
 		}
 	}
 	else if (create_level_GUI) {                           // CREATE LEVEL
 
-		if (App->main_menu->active_menu != Active_Menu::NONE) {      // (from menu, optional)
+		if (App->main_menu->active_menu != Active_Menu::NONE) {      // menu to level
 			Clean_Menu_GUI(App->main_menu->active_menu);
+			Restart_Level_Entities_and_Map();
+		}
+		else {
+			Clean_Level_GUI();       // level to level
 		}
 
-		App->main_menu->active_menu = Active_Menu::NONE;  // to level
+		App->main_menu->active_menu = Active_Menu::NONE; 
 		Generate_Level_GUI();
 		create_level_GUI = false;
 	}
 }
 
+void j1Gui::Restart_Level_Entities_and_Map() {
+
+	App->scene->Map_Loaded = false;        // restart scene map; 
+	App->entity_manager->restart = true;
+
+}
 
 void j1Gui::Generate_Menu_GUI() {
 
 	if (create_menu_GUI.next_menu == Next_Menu::MAIN_NEXT) {
-		// images
 
+		// assign menu
+		App->main_menu->active_menu = Active_Menu::MAIN; 
+
+		// images
 		menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 965 }, NULL, Menu_Level::Main_Menu);
 		menu_label = Create_Image(atlas, iPoint(450, 30), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Main_Menu);
 
@@ -150,9 +164,13 @@ void j1Gui::Generate_Menu_GUI() {
 	}
 
 	else if (create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
+		// assign menu
+		App->main_menu->active_menu = Active_Menu::SETTINGS;
 
 	}
 	else if (create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
+		// assign menu
+		App->main_menu->active_menu = Active_Menu::CREDITS;
 
 
 	}
@@ -379,20 +397,14 @@ void j1Gui::Select_Clicked_Object() {
 
 				case Hover_State::OUTSIDE:
 
-				   //LOG("_____________________________________________________________outside    1");
-
 					item->data->hover_state = Hover_State::HOVER;
 					break; 
 
 				case Hover_State::HOVER:
 
-				// LOG("_____________________________________________________________hover"); 
-
-				 
 				 move_object = false; 
 
 				 if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
-					 // LOG("________________________________________________________next should be click"); 
 
 					 move_object = false;
 				 }
@@ -402,15 +414,9 @@ void j1Gui::Select_Clicked_Object() {
 					}
 					break;
 
-<<<<<<< HEAD
-				case Hover_State::CLICK: 
-=======
+
 				case Hover_State::CLICK:
 
-					//LOG("_____________________________________________________________click");
-
-
->>>>>>> bf0595d4d009f8837ded294f7b470b5629a5ed5e
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
 					}
@@ -421,9 +427,6 @@ void j1Gui::Select_Clicked_Object() {
 					break;
 
 				case Hover_State::DRAG:
-
-					//LOG("_____________________________________________________________drag");
-
 
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
@@ -440,10 +443,6 @@ void j1Gui::Select_Clicked_Object() {
 				}
 			}
 		   else {
-
-			//	LOG("_____________________________________________________________outside");
-
-
 				item->data->hover_state = Hover_State::OUTSIDE;
 			}
 
