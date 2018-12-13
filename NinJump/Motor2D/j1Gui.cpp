@@ -46,6 +46,7 @@ bool j1Gui::Start()
 	atlas = App->tex->Load("gui/atlas.png");                      // do this in tiled
 	menu_image_tex = App->tex->Load("Maps/Textures/bg_menu.png");
 	credits_image_tex = App->tex->Load("Maps/Textures/bg_credits.png");
+	settings_image_tex = App->tex->Load("Maps/Textures/bg_settings.png");
 
 	                              // the next elements don't have Clean Up
 	// fonts
@@ -89,6 +90,7 @@ void j1Gui::Menu_Level_GUI_Manager() {
 		if (first_start) {                                              
 			create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;                
 			Generate_Menu_GUI();
+			// create_menu_GUI.next_menu = Next_Menu::NONE_NEXT;
 			create_menu_GUI.Do = false;
 			first_start = false;
 		}
@@ -166,16 +168,23 @@ void j1Gui::Generate_Menu_GUI() {
 		exit_button_label = Create_Label(iPoint(60, 640), menu_font_2, "exit", NULL, Menu_Level::Main_Menu, exit_button);
 	}
 
+
 	else if (create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
 
 		// assign menu
 		App->main_menu->active_menu = Active_Menu::SETTINGS;
 
+		// images
+		settings_image = Create_Image(settings_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 817 }, NULL, Menu_Level::Settings_Menu);
 		
-		
+		// buttons
+		settings_to_main_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "settings_to_main_button", Menu_Level::Settings_Menu);
 
-
+		// labels
+		settings_to_main_label = Create_Label(iPoint(125, 640), standard_font, "BACK", NULL, Menu_Level::Settings_Menu, settings_to_main_button);
 	}
+
+
 	else if (create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
 
 		// assign menu
@@ -280,6 +289,7 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 
 	else {                                                                        // go to any menu
 
+		if(!App->gui->create_menu_GUI.Do)
 		App->gui->create_menu_GUI.Do = true;
 
 		if (object->ID == "settings_button") {                                     // go to settings menu
@@ -293,10 +303,11 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 
 		}
 
-		else if (object->ID == "credits_to_main_button") {                               // go to main from credits
+		else if (object->ID == "credits_to_main_button" || object->ID == "settings_to_main_button") {                               // go to main from credits
 
 			App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
 		}
+
 
 		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 	}
@@ -580,6 +591,7 @@ bool j1Gui::CleanUp()
 	// textures
 	App->tex->UnLoad(menu_image_tex);
 	App->tex->UnLoad(credits_image_tex);
+	App->tex->UnLoad(settings_image_tex);
 	App->tex->UnLoad(atlas); 
 	// App->font->CleanUp(); 
 

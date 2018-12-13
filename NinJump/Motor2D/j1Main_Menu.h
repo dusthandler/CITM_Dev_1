@@ -46,7 +46,10 @@ private:
 	// settings
 	_Mix_Music* mus_cred = nullptr;
 	// credits
-	_Mix_Music* mus_ingame = nullptr;
+	_Mix_Music* mus_set = nullptr;
+
+
+
 
 	
 };

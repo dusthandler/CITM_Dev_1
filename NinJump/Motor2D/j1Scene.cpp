@@ -54,6 +54,9 @@ bool j1Scene::Start()
 	}*/
 	LOG("------------------------------------------- SCENE START ---------------------"); 
 
+	App->main_menu->active_menu = Active_Menu::NONE; 
+	
+	App->gui->create_menu_GUI.Do = false; 
 
 	App->gui->create_level_GUI = true;
 
@@ -320,8 +323,11 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 
 	else if (Mapsw == 2) {     
 		App->collision->CleanWallDeath();                           // from level to main menu (press 'M')
-		App->map->CleanUp();                        
+		App->map->CleanUp();       
+
+		if(!App->gui->create_menu_GUI.Do)
 		App->gui->create_menu_GUI.Do = true; 
+
 		App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT; 
 
 		App->fade->FadeToBlack(this, App->main_menu, 0.5f);

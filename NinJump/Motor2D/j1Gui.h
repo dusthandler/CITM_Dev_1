@@ -30,7 +30,8 @@ enum Menu_Level {
 enum Next_Menu {
 	MAIN_NEXT,
 	SETTINGS_NEXT,
-	CREDITS_NEXT
+	CREDITS_NEXT,
+	NONE_NEXT
 };
 
 struct create_menu_GUI {
@@ -184,6 +185,13 @@ private:
 	j1Gui_Button* credits_to_main_button = nullptr;
 	j1Gui_Label* credits_to_main_label = nullptr;
 
+	//  settings objects
+
+	j1Gui_Image* settings_image = nullptr;
+	SDL_Texture* settings_image_tex = nullptr;
+
+	j1Gui_Button* settings_to_main_button = nullptr;
+	j1Gui_Label* settings_to_main_label = nullptr;
 
 	// hovering and clicking
 
