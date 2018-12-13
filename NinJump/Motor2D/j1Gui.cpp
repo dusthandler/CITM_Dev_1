@@ -129,8 +129,8 @@ void j1Gui::Restart_Level_Entities_and_Map() {
 void j1Gui::Generate_Menu_GUI() {
 
 	Hover_Anim anim_rects;
-	anim_rects.a_Idle = { 3, 43, 65, 79 };
-	anim_rects.a_Hover = { 72, 37, 173, 114 };
+	anim_rects.a_Idle = { 1, 39, 70, 88 };
+	anim_rects.a_Hover = { 71, 31, 180, 115 };
 	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
 
 	if (create_menu_GUI.next_menu == Next_Menu::MAIN_NEXT) {
@@ -158,9 +158,9 @@ void j1Gui::Generate_Menu_GUI() {
 		// labels
 		game_title = Create_Label(iPoint(100, 400), title_font, "NinJump", NULL, Menu_Level::Main_Menu);
 
-		play_button_label = Create_Label(iPoint(640, 75), standard_font, "PLAY", NULL, Menu_Level::Main_Menu, play_button);
-		continue_button_label = Create_Label(iPoint(615, 165), standard_font, "CONTINUE", NULL, Menu_Level::Main_Menu, continue_button);
-		settings_button_label = Create_Label(iPoint(618, 255), standard_font, "SETTINGS", NULL, Menu_Level::Main_Menu, settings_button);
+		play_button_label = Create_Label(iPoint(645, 75), standard_font, "PLAY", NULL, Menu_Level::Main_Menu, play_button);
+		continue_button_label = Create_Label(iPoint(625, 165), standard_font, "CONTINUE", NULL, Menu_Level::Main_Menu, continue_button);
+		settings_button_label = Create_Label(iPoint(628, 255), standard_font, "SETTINGS", NULL, Menu_Level::Main_Menu, settings_button);
 
 		credits_button_label = Create_Label(iPoint(880, 640), menu_font_2, "credits", NULL, Menu_Level::Main_Menu, credits_button);
 		exit_button_label = Create_Label(iPoint(60, 640), menu_font_2, "exit", NULL, Menu_Level::Main_Menu, exit_button);
@@ -188,7 +188,7 @@ void j1Gui::Generate_Menu_GUI() {
 		credits_to_main_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "credits_to_main_button", Menu_Level::Credits_Menu);
 
 		// labels
-		credits_to_main_label = Create_Label(iPoint(110, 640), standard_font, "BACK", NULL, Menu_Level::Credits_Menu, credits_to_main_button);
+		credits_to_main_label = Create_Label(iPoint(125, 640), standard_font, "BACK", NULL, Menu_Level::Credits_Menu, credits_to_main_button);
 
 	}
 
