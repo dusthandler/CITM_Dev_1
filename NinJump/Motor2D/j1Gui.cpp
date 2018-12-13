@@ -45,9 +45,12 @@ bool j1Gui::Start()
 	// atlas = App->tex->Load(atlas_file_name.GetString());
 	atlas = App->tex->Load("gui/atlas.png");                      // do this in tiled
 	menu_image_tex = App->tex->Load("Maps/Textures/bg_menu.png");
-	menu_font = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai.ttf", 36);
-	level_font = App->font->Load("fonts/open_sans/OpenSans-Bold.ttf", 36);
+
+	                              // the next elements don't have Clean Up
+	// fonts
+	standard_font = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai.ttf", 36);
 	menu_font_2 = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai.ttf", 24);
+	title_font = App->font->Load("fonts/shai_fontai/SF_Shai_Fontai_Extended.ttf", 72);
 	
 	// audio
 	App->audio->LoadFx("Sound/Fx/button_hover.wav");
@@ -135,7 +138,6 @@ void j1Gui::Generate_Menu_GUI() {
 
 
 		// buttons
-
 		Hover_Anim anim_rects;
 		anim_rects.a_Idle = { 3, 43, 65, 79 };
 		anim_rects.a_Hover = { 72, 37, 173, 114 };
@@ -153,10 +155,11 @@ void j1Gui::Generate_Menu_GUI() {
 		exit_button = Create_Button(anim_rects, atlas, iPoint(20, 600), "exit_button", Menu_Level::Main_Menu);
 
 		// labels
+		game_title = Create_Label(iPoint(100, 400), title_font, "NinJump", NULL, Menu_Level::Main_Menu);
 
-		play_button_label = Create_Label(iPoint(640, 75), menu_font, "PLAY", NULL, Menu_Level::Main_Menu, play_button);
-		continue_button_label = Create_Label(iPoint(615, 165), menu_font, "CONTINUE", NULL, Menu_Level::Main_Menu, continue_button);
-		settings_button_label = Create_Label(iPoint(618, 255), menu_font, "SETTINGS", NULL, Menu_Level::Main_Menu, settings_button);
+		play_button_label = Create_Label(iPoint(640, 75), standard_font, "PLAY", NULL, Menu_Level::Main_Menu, play_button);
+		continue_button_label = Create_Label(iPoint(615, 165), standard_font, "CONTINUE", NULL, Menu_Level::Main_Menu, continue_button);
+		settings_button_label = Create_Label(iPoint(618, 255), standard_font, "SETTINGS", NULL, Menu_Level::Main_Menu, settings_button);
 
 		credits_button_label = Create_Label(iPoint(880, 640), menu_font_2, "credits", NULL, Menu_Level::Main_Menu, credits_button);
 		exit_button_label = Create_Label(iPoint(60, 640), menu_font_2, "exit", NULL, Menu_Level::Main_Menu, exit_button);
@@ -187,7 +190,7 @@ void j1Gui::Generate_Level_GUI() {
 
 
 	char* ID = "coin_score";
-	coin_score = Create_Label(iPoint(860, 15), level_font, "X0", ID, Menu_Level::Level);
+	coin_score = Create_Label(iPoint(860, 30), standard_font, "X0", ID, Menu_Level::Level);
 
 
 	// UI LIVES 
@@ -196,7 +199,7 @@ void j1Gui::Generate_Level_GUI() {
 	UI_lives = Create_Image(atlas, iPoint(940, 25), r, ID, Menu_Level::Level);
 
 	ID = "life_count";
-	live_count = Create_Label(iPoint(980, 15), level_font, "X3", ID, Menu_Level::Level);
+	live_count = Create_Label(iPoint(980, 30), standard_font, "X3", ID, Menu_Level::Level);
 
 }
 

@@ -29,9 +29,13 @@ void j1Gui_Image::Blit() {
 	if (ID == "UI_lives") {
 
 		switch (App->entity_manager->player_live_count) {
+		case 3: 
+			rect.x = 32; 
 		case 2: 
 			rect.x = 68;             // half life heart
 			break; 
+		case 1: 
+			rect.x = 68;             // half life heart
 		case 0: 
 			rect.x = 104;            // no life heart
 			break; 

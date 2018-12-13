@@ -14,6 +14,7 @@
 
 j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type,int id) : j1Entity(position, type, id) {
 
+	
 	collider = App->collision->AddCollider({ position.x, position.y,40,49 }, COLLIDER_ENEMY, this); 
 	animation = &Iddle_Left;
 	Iddle_Left.PushBack({ 0, 0, 35, 49 });
@@ -50,7 +51,7 @@ j1Enemy_Walker::j1Enemy_Walker(iPoint position, Type type,int id) : j1Entity(pos
 	Falling_Left.PushBack({ 189, 115, 40, 49 });
 	Falling_Right.PushBack({ 190, 178, 40, 49 });
 
-	dir_multiplier = 4;
+	dir_multiplier = rand()%4 + 1;
 	this->my_id = id;
 	// testing
 	
@@ -62,12 +63,26 @@ bool j1Enemy_Walker::Update(float dt) {
 	BROFILER_CATEGORY("Enemy walker Update", Profiler::Color::Black);
 
 	bool ret = true;
-	
-	Follow_Path();
-	Move(dt);
+
+	uint activation_distance = App->map->MapToWorld(31, 0).x;
+
+	if (!start_following && position.x - App->entity_manager->GetPlayerPos().x < activation_distance) {
+		start_following = true;
+		LOG("Enemy ready to follow player ");
+	}
+
+	if (start_following) {
+		Inside_Camera_Limits();
+		if (inside_limits) {
+			LOG("Enemy is pathfinding ... ... ... ... ... ... ");
+			Follow_Path();
+		}
+		Move(dt);
+	}
 
 	collider->SetPos(position.x, position.y);
 	Set_Anim();
+
 
 	return ret;
 }
@@ -113,10 +128,19 @@ void j1Enemy_Walker::Follow_Path() {
 
 void j1Enemy_Walker::Move(float dt) {
 
+	
 
 	if (Onplat) {
-		position.x += dir.x*dir_multiplier;      // *dt
-		// position.y += dir.y*dir_multiplier;     // *dt
+		if (!Inside_Camera_Limits().left_x) {           // x
+			position.x += 3;
+		}
+		else if (!Inside_Camera_Limits().right_x) {
+			position.x -= 3;
+		}
+		else {
+			position.x += dir.x*dir_multiplier;
+		}                                              // *dt
+		
 	}
 	else {
 		this->position.y += Gravity;          //*dt

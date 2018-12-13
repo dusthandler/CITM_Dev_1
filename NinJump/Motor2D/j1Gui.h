@@ -142,9 +142,9 @@ private:
 
 	// fonts
 
-	_TTF_Font* menu_font = nullptr; 
+	_TTF_Font* standard_font = nullptr; 
 	_TTF_Font* menu_font_2 = nullptr;
-	_TTF_Font* level_font = nullptr;
+	_TTF_Font* title_font = nullptr;
 
 	// level objects
 
@@ -155,11 +155,11 @@ private:
 	j1Gui_Label* live_count = nullptr;
 
 	// menu objects 
+	j1Gui_Label* game_title = nullptr;
 
 	j1Gui_Image* menu_image = nullptr;
-	SDL_Texture* menu_image_tex = nullptr;  // put in atlas maybe
-
 	j1Gui_Image* menu_label = nullptr;
+	SDL_Texture* menu_image_tex = nullptr;  // put in atlas maybe
 
 	j1Gui_Button* play_button = nullptr; 
 	j1Gui_Label* play_button_label = nullptr; 

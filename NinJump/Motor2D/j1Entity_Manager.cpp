@@ -13,6 +13,7 @@
 #include "Brofiler/Brofiler.h"
 #include "j1Audio.h"
 #include "j1Shuriken.h"
+#include <time.h>
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
 {
@@ -28,6 +29,10 @@ j1Entity_Manager::~j1Entity_Manager()
 bool j1Entity_Manager::Start(){
 	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::Brown);
 
+
+
+	srand(time(NULL));
+
 	bool ret = true;
 	// textures
 	path_tex = App->tex->Load("Maps/Textures/path_tex.png");                // in tiled
@@ -37,18 +42,6 @@ bool j1Entity_Manager::Start(){
 	shuriken_tex = App->tex->Load("Maps/Objects/shuriken.png");
 	player_tex = App->tex->Load("Maps/Ninja/Ninja.png");
 	
-	/*CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),1);
-	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),2);*/
-	/*CreateEntity(Type::ENEMY_LAND, iPoint(350, 200),3);
-	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200), 4);*/
-  
-
-	iPoint Pos;
-	pugi::xml_node InitPos = App->map->map_file.child("map");
-
-	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_uint();
-	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
-	CreateEntity(Type::PLAYER, Pos,0);
 
 	// fxs
 	App->audio->LoadFx("Sound/Fx/jump.wav"); // 3
@@ -59,13 +52,33 @@ bool j1Entity_Manager::Start(){
 	App->audio->LoadFx("Sound/Fx/shot.wav");  // 8
 
 
+	iPoint Pos;
+	pugi::xml_node InitPos = App->map->map_file.child("map");
+
+	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_uint();
+	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
+	CreateEntity(Type::PLAYER, Pos, 0);
 
 
-    CreateEntity(Type::SHURIKEN, iPoint(350, 870));       // after player !
-    CreateEntity(Type::COIN, iPoint(450, 870),3);
-	CreateEntity(Type::COIN, iPoint(550, 870),2);
-	CreateEntity(Type::COIN, iPoint(650, 870),1);
+	CreateEntity(Type::SHURIKEN, iPoint(450, 870));       // after player !
+   /*CreateEntity(Type::COIN, iPoint(450, 870),3);
+   CreateEntity(Type::COIN, iPoint(550, 870),2);
+   CreateEntity(Type::COIN, iPoint(650, 870),1);*/
 
+
+
+	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
+	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
+	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200));
+  
+
+	
+
+
+
+
+   
 	return ret;
 }
 j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos, int id) 

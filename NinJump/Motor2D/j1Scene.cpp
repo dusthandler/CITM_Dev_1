@@ -170,9 +170,9 @@ bool j1Scene::Update(float dt)
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
 		MapSwap(2); 
-	}
+	} 
 	
 
 	else {

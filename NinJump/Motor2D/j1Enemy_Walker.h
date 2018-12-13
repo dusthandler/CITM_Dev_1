@@ -42,6 +42,13 @@ private:
 	uint Gravity = 10;
 	iPoint Target_Map_Pos;
 	iPoint Enemy_Map_Pos;
+
+
+
+
+	bool Path_Generated = false;
+	bool Drawing_Path = false;
+	bool start_following = false;
 };
 
 #endif // __j1ENEMY_FLYING_H__ 
