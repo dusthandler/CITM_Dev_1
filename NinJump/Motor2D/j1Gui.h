@@ -154,7 +154,7 @@ private:
 	j1Gui_Image* UI_lives = nullptr;
 	j1Gui_Label* live_count = nullptr;
 
-	// menu objects 
+	// main menu objects 
 	j1Gui_Label* game_title = nullptr;
 
 	j1Gui_Image* menu_image = nullptr;
@@ -175,6 +175,15 @@ private:
 
 	j1Gui_Button* exit_button = nullptr;
 	j1Gui_Label* exit_button_label = nullptr;
+
+	//  credits objects
+
+	j1Gui_Image* credits_image = nullptr;
+	SDL_Texture* credits_image_tex = nullptr;
+
+	j1Gui_Button* credits_to_main_button = nullptr;
+	j1Gui_Label* credits_to_main_label = nullptr;
+
 
 	// hovering and clicking
 

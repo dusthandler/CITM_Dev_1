@@ -44,9 +44,9 @@ private:
 	// main
 	_Mix_Music* mus = nullptr;
 	// settings
-	_Mix_Music* mus2 = nullptr;
+	_Mix_Music* mus_cred = nullptr;
 	// credits
-	_Mix_Music* mus3 = nullptr;
+	_Mix_Music* mus_ingame = nullptr;
 
 	
 };

@@ -31,10 +31,11 @@ bool j1Main_Menu::Start()
 		App->audio->PlayMus(mus);
 	}
 	else if (active_menu == Active_Menu::SETTINGS) {
-
+		
 	}
 	else if (active_menu == Active_Menu::CREDITS) {
-
+		mus_cred = App->audio->LoadMus("Sound/Music/credits_mus.ogg");
+		App->audio->PlayMus(mus_cred);
 	}
 	App->gui->create_menu_GUI.Do = true;
 
@@ -48,6 +49,7 @@ bool j1Main_Menu::CleanUp()
 	BROFILER_CATEGORY("Main Menu CleanUp", Profiler::Color::PeachPuff);
 
 	App->audio->UnloadMus(mus);
+	App->audio->UnloadMus(mus_cred);
 
 	return true;
 }

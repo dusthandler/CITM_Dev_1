@@ -10,6 +10,7 @@ j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Le
 	this->text = text;
 	font = f;
 	this->ID = ID; 
+
 	this->menu_level = menu_level;
 
 	if (parent != nullptr) {
@@ -46,19 +47,16 @@ void j1Gui_Label::Blit() {
 		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected);
 		text = buffer;
+
 	}
 
 	else if (ID == "life_count") {
 		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->entity_manager->player_live_count);
 		text = buffer;
-
 	}
 
-	
 
-	App->font->CalcSize(text, rect.w, rect.h, font);
-	tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 
 	if (!has_button) {
 		App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);

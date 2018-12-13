@@ -45,6 +45,7 @@ bool j1Gui::Start()
 	// atlas = App->tex->Load(atlas_file_name.GetString());
 	atlas = App->tex->Load("gui/atlas.png");                      // do this in tiled
 	menu_image_tex = App->tex->Load("Maps/Textures/bg_menu.png");
+	credits_image_tex = App->tex->Load("Maps/Textures/bg_credits.png");
 
 	                              // the next elements don't have Clean Up
 	// fonts
@@ -127,6 +128,11 @@ void j1Gui::Restart_Level_Entities_and_Map() {
 
 void j1Gui::Generate_Menu_GUI() {
 
+	Hover_Anim anim_rects;
+	anim_rects.a_Idle = { 3, 43, 65, 79 };
+	anim_rects.a_Hover = { 72, 37, 173, 114 };
+	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
+
 	if (create_menu_GUI.next_menu == Next_Menu::MAIN_NEXT) {
 
 		// assign menu
@@ -138,11 +144,6 @@ void j1Gui::Generate_Menu_GUI() {
 
 
 		// buttons
-		Hover_Anim anim_rects;
-		anim_rects.a_Idle = { 3, 43, 65, 79 };
-		anim_rects.a_Hover = { 72, 37, 173, 114 };
-		anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
-
 		play_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "play_button", Menu_Level::Main_Menu);
 		continue_button = Create_Button(anim_rects, atlas, iPoint(570, 130), "continue_button", Menu_Level::Main_Menu);
 		settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Main_Menu);
@@ -166,14 +167,28 @@ void j1Gui::Generate_Menu_GUI() {
 	}
 
 	else if (create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
+
 		// assign menu
 		App->main_menu->active_menu = Active_Menu::SETTINGS;
 
+		
+		
+
+
 	}
 	else if (create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
+
 		// assign menu
 		App->main_menu->active_menu = Active_Menu::CREDITS;
 
+		// images
+		credits_image = Create_Image(credits_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 788 }, NULL, Menu_Level::Credits_Menu);
+
+		// buttons
+		credits_to_main_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "credits_to_main_button", Menu_Level::Credits_Menu);
+
+		// labels
+		credits_to_main_label = Create_Label(iPoint(110, 640), standard_font, "BACK", NULL, Menu_Level::Credits_Menu, credits_to_main_button);
 
 	}
 
@@ -236,7 +251,7 @@ void j1Gui::Check_Clicked() {
 
 }
 
-void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
+void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGERS
 
 	// menu buttons 
 	if (object->type == GUI_TYPE::Button) {
@@ -244,7 +259,8 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 		App->audio->PlayFx(2, 0); 
 	}
 
-	if (object->ID == "play_button") {   // go to level
+	if (object->ID == "play_button") {                                 // go to level
+
 		if (!App->entity_manager->active && !App->scene->active) {     // first time, entities and scene are not active
 			App->entity_manager->Activate();
 			App->scene->Activate();
@@ -256,21 +272,33 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {
 		App->gui->create_level_GUI = true; 
 		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f);
 	}
-	else if (object->ID == "settings_button") { // go to settings menu
-		
-		App->gui->create_menu_GUI.Do = true;
-		App->gui->create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
-		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
-	}
-	else if (object->ID == "credits_button") { // go to credits menu
 
-		App->gui->create_menu_GUI.Do = true;
-		App->gui->create_menu_GUI.next_menu = Next_Menu::CREDITS_NEXT;
-		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
+	else if (object->ID == "exit_button") {       // quit game
+
+		Exit_Quits_App = true;
 	}
 
-	else if (object->ID == "exit_button") {
-		Exit_Quits_App = true; 
+	else {                                                                        // go to any menu
+
+		App->gui->create_menu_GUI.Do = true;
+
+		if (object->ID == "settings_button") {                                     // go to settings menu
+
+			App->gui->create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
+		}
+
+		else if (object->ID == "credits_button") {                                       // go to credits menu
+
+			App->gui->create_menu_GUI.next_menu = Next_Menu::CREDITS_NEXT;
+
+		}
+
+		else if (object->ID == "credits_to_main_button") {                               // go to main from credits
+
+			App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
+		}
+
+		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 	}
 }
 
@@ -287,7 +315,6 @@ void j1Gui::Clean_Menu_GUI(Active_Menu acitve_menu){
 
 	for (item = objects.start; item != NULL; item = item->next)
 	{
-		LOG("Menu cleaning                                    GUI!!!!!");
 		if (item->data->menu_level == Menu_Level::Main_Menu && acitve_menu == Active_Menu::MAIN) {
 			do_it = true; 
 		}
@@ -412,10 +439,6 @@ void j1Gui::Select_Clicked_Object() {
 
 				 move_object = false; 
 
-				 if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
-
-					 move_object = false;
-				 }
 					if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
 
 						item->data->hover_state = Hover_State::CLICK;
@@ -556,8 +579,9 @@ bool j1Gui::CleanUp()
 
 	// textures
 	App->tex->UnLoad(menu_image_tex);
+	App->tex->UnLoad(credits_image_tex);
 	App->tex->UnLoad(atlas); 
-//	App->font->CleanUp(); 
+	// App->font->CleanUp(); 
 
 	// audio
 	/*App->audio->UnloadFx(6); 
