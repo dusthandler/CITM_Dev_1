@@ -17,6 +17,7 @@
 #include "j1Audio.h"
 #include "j1App.h"
 #include "j1Map.h"
+#include <string.h>
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -47,6 +48,41 @@ bool j1Gui::Start()
 	menu_image_tex = App->tex->Load("Maps/Textures/bg_menu.png");
 	credits_image_tex = App->tex->Load("Maps/Textures/bg_credits.png");
 	settings_image_tex = App->tex->Load("Maps/Textures/bg_settings.png");
+
+	// credits file 
+	
+	
+
+/*
+// 	char c;
+	char text[5]; 
+	FILE *f;
+	f = fopen("gui/prueba.txt", "r");
+	
+
+	/*while ((c = fgetc(f)) != EOF) {
+		LOG("Charging credtis text character ... ... ... "); 
+
+	}
+	// char line[50]; 
+
+	while ((fgets(line, sizeof(line), f) != NULL)) {
+
+		 val1 = strtok(line, ",");
+		 val2 = strtok(NULL, ",");
+
+	}
+		// puts (text);
+
+
+	
+
+	fclose(f);  */
+
+	
+	
+
+
 
 	                              // the next elements don't have Clean Up
 	// fonts
@@ -201,6 +237,8 @@ void j1Gui::Generate_Menu_GUI() {
 
 		// labels
 		credits_to_main_label = Create_Label(iPoint(125, 640), standard_font, "BACK", NULL, Menu_Level::Credits_Menu, credits_to_main_button);
+		
+		// credits_label = Create_Label(iPoint(125, 100), standard_font, line, NULL, Menu_Level::Credits_Menu);
 
 	}
 
@@ -535,7 +573,8 @@ void j1Gui::Select_Clicked_Object() {
 
 		
 
-	
+
+
 			
 
 
@@ -579,7 +618,11 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 
 	// LOG(" *******************************   moving obj   *******************************"); 
 
+
 	//App->input->GetMousePosition(obj->pos.x, obj->pos.y);
+
+//	App->input->GetMousePosition(obj->pos.x, obj->pos.y);
+
 
 	/*p2List_item<j1Gui_Object*>* item_c;
 	for (item_c = childs.start; item_c != NULL; item_c = item_c->next)
@@ -591,6 +634,10 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 	
 
 	
+
+
+
+
 
 
 	iPoint obj_pos = obj->Get_Pos();
@@ -612,8 +659,13 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 
 	LOG("mouse pos ________________________________________________________ %i %i", mouse_pos.x, mouse_pos.y);
 	LOG("obj pos ________________________________________________________ %i %i", obj_pos.x, obj_pos.y);
-	LOG("New object pos ________________________________________________________ %i %i", obj->pos.x, obj->pos.y); 
+
+	
 	cancer = false;
+
+	LOG("New object pos ________________________________________________________ %i %i", new_pos.x, new_pos.y);
+
+
 
 }
 
