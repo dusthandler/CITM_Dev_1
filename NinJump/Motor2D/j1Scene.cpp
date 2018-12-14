@@ -111,7 +111,7 @@ bool j1Scene::PreUpdate()
 		Restart = false;
 		Second_Start = false;
 	}
-
+	
 	Second_Start = true;
 
 
@@ -180,8 +180,8 @@ bool j1Scene::Update(float dt)
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
-		MapSwap(2); 
-	} 
+		MapSwap(2);
+	}
 	
 
 	else {
@@ -276,6 +276,7 @@ bool j1Scene::PostUpdate()
 	bool ret = true;
 	Player_act_pos = App->entity_manager->GetPlayerPos();
 
+
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
@@ -339,7 +340,7 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 
 		App->collision->CleanWallDeath();                           // from level to main menu (press 'M')
 		App->map->CleanUp();
-
+		App->scene->Map_Loaded = false;
 
 		// do not restart entities now, menu is active: 
 		// restart when swapping to level again
@@ -347,7 +348,7 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 	}
 
 	
-	// App->entity_manager->restart = true;
+	 App->entity_manager->restart = true;
 
 	
 

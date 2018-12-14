@@ -47,6 +47,7 @@ void j1Gui_Label::Blit() {
 		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected);
 		text = buffer;
+		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 
 	}
 
@@ -54,6 +55,7 @@ void j1Gui_Label::Blit() {
 		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->entity_manager->player_live_count);
 		text = buffer;
+		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 	}
 
 

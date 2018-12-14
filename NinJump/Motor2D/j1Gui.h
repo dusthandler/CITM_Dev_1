@@ -204,6 +204,8 @@ private:
 private: 
 	bool reset_hover_fx = false;
 	iPoint mouse_pos; 
+	iPoint last_mouse_pos;
+	bool cancer;
 
 public: 
 	// bool create_menu_GUI = true; 

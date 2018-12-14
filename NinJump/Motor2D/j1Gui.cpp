@@ -110,12 +110,12 @@ void j1Gui::Menu_Level_GUI_Manager() {
 
 		if (App->main_menu->active_menu != Active_Menu::NONE) {    // menu to level
 			Clean_Menu_GUI(App->main_menu->active_menu);
-			Restart_Level_Entities_and_Map();
+			
 		}
 		else {
 			Clean_Level_GUI();       // level to level
 		}
-
+	
 		App->main_menu->active_menu = Active_Menu::NONE; 
 		Generate_Level_GUI();
 		create_level_GUI = false;
@@ -127,8 +127,8 @@ void j1Gui::Restart_Level_Entities_and_Map() {
 	/*App->scene->Map_Loaded = false;        // restart scene map
     App->entity_manager->restart = true;     // restart entities */
 
-	App->entity_manager->Start();        // start entites 
-	App->scene->Map_Loaded = false;
+	App->entity_manager->Start();      // start entites 
+	
 }
 
 void j1Gui::Generate_Menu_GUI() {
@@ -414,6 +414,8 @@ j1Gui_Button* j1Gui::Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iP
 void j1Gui::Select_Clicked_Object() {
 
 	int x, y; 
+
+
 	p2List<j1Gui_Object*> selected_objects;
 	
 
@@ -425,9 +427,9 @@ void j1Gui::Select_Clicked_Object() {
 		SDL_Rect obj_r; 
 
 
-		p2List_item<j1Gui_Object*>* item_c;
+		/*p2List_item<j1Gui_Object*>* item_c;
 		p2List<j1Gui_Object*> childs;
-		uint child_count = 0;
+		uint child_count = 0;*/
 
 
 		for (item = objects.start; item != NULL; item = item->next)
@@ -473,7 +475,7 @@ void j1Gui::Select_Clicked_Object() {
 
 				    if (!reset_child_search) {
 
-						for (item_c = objects.start; item_c != NULL; item_c = item_c->next)
+						/*for (item_c = objects.start; item_c != NULL; item_c = item_c->next)
 						{
 
 							if (item_c->data->parent == clicked_object) {
@@ -482,7 +484,7 @@ void j1Gui::Select_Clicked_Object() {
 								child_count++;
 							}
 
-						}
+						}*/
 						reset_child_search = true;
 					}
 
@@ -493,6 +495,9 @@ void j1Gui::Select_Clicked_Object() {
 
                     else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 						item->data->hover_state = Hover_State::DRAG;
+						/*if (move_object && clicked_object != nullptr &&  && child_count > 0) {*/
+						 //, childs);
+						/*}*/
 					}
 					break;
 
@@ -501,12 +506,19 @@ void j1Gui::Select_Clicked_Object() {
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
 					}
-
-					move_object = true;
-
+					if (!cancer) {
+						last_mouse_pos = App->input->GetActualMousePosition();
+						cancer = true;
+					}
+					/*move_object = true;
+*/
 					if (item->data != nullptr) {
 						clicked_object = item->data;
 					}
+					if (clicked_object->draggable) {
+						Move_Clicked_Object(clicked_object);
+					}
+					
 
 					break;
 
@@ -523,9 +535,7 @@ void j1Gui::Select_Clicked_Object() {
 
 		
 
-		if (move_object && clicked_object != nullptr && clicked_object->draggable && child_count > 0) {
-			Move_Clicked_Object(clicked_object) //, childs);
-		}  
+	
 			
 
 
@@ -569,7 +579,7 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 
 	// LOG(" *******************************   moving obj   *******************************"); 
 
-	App->input->GetMousePosition(obj->pos.x, obj->pos.y);
+	//App->input->GetMousePosition(obj->pos.x, obj->pos.y);
 
 	/*p2List_item<j1Gui_Object*>* item_c;
 	for (item_c = childs.start; item_c != NULL; item_c = item_c->next)
@@ -580,27 +590,30 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 
 	
 
+	
 
 
-
-	/*iPoint obj_pos = obj->Get_Pos();
+	iPoint obj_pos = obj->Get_Pos();
 	mouse_pos = App->input->GetActualMousePosition(); 
+
+
+
 	
 	iPoint dist; 
 	dist.x = mouse_pos.x - obj_pos.x;
 	dist.y = mouse_pos.y - obj_pos.y;
 
 	iPoint new_pos; 
-	new_pos.x = mouse_pos.x - (dist.x);
-	new_pos.y = mouse_pos.y - (dist.y);
+	new_pos.x = last_mouse_pos.x - (dist.x);
+	new_pos.y = last_mouse_pos.y - (dist.y);
 
 	obj->Set_Pos(new_pos.x, new_pos.y);
 
 
 	LOG("mouse pos ________________________________________________________ %i %i", mouse_pos.x, mouse_pos.y);
 	LOG("obj pos ________________________________________________________ %i %i", obj_pos.x, obj_pos.y);
-	LOG("New object pos ________________________________________________________ %i %i", obj->pos.x, obj->pos.y);*/ 
-
+	LOG("New object pos ________________________________________________________ %i %i", obj->pos.x, obj->pos.y); 
+	cancer = false;
 
 }
 
