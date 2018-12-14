@@ -105,69 +105,76 @@ j1Entity* j1Entity_Manager::CreateEntity(Type type, iPoint pos, int id)
 void j1Entity_Manager::Draw() {
 	BROFILER_CATEGORY("Entity Manager Draw", Profiler::Color::BurlyWood);
 
-	p2List_item<j1Entity*>* item;
-	item = entities.start;
-	SDL_Rect Rect; 
-	
-	for (item = entities.start; item != NULL; item = item->next)
-	{
+	// if ( dt != 0) {
+		p2List_item<j1Entity*>* item;
+		item = entities.start;
+		SDL_Rect Rect;
 
-		Rect = item->data->animation->GetCurrentFrame(); 
-		if (item->data->active) {
-			switch (item->data->type) {
-			case Type::PLAYER:
-				if (Get_Gravity_Reverse()) {
-					App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
+		for (item = entities.start; item != NULL; item = item->next)
+		{
+
+			Rect = item->data->animation->GetCurrentFrame();
+			if (item->data->active) {
+				switch (item->data->type) {
+				case Type::PLAYER:
+					if (Get_Gravity_Reverse()) {
+						App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
+					}
+					else {
+						App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+					}
+					break;
+				case Type::COIN:
+					App->render->Blit(coin_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+					break;
+				case Type::ENEMY_FLYING:
+					App->render->Blit(enemy_fly_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+					break;
+				case Type::ENEMY_LAND:
+					App->render->Blit(enemy_walk_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+					break;
+				case Type::SHURIKEN:
+					App->render->Blit(shuriken_tex, item->data->position.x, item->data->position.y, &Rect, 1);
+					break;
 				}
-				else {
-					App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-				}
-				break;
-			case Type::COIN:
-				App->render->Blit(coin_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-				break;
-			case Type::ENEMY_FLYING:
-				App->render->Blit(enemy_fly_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-				break;
-			case Type::ENEMY_LAND:
-				App->render->Blit(enemy_walk_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-				break;
-			case Type::SHURIKEN:
-				App->render->Blit(shuriken_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-				break;
 			}
 		}
-	}
+	// }
 
 }
 
 bool j1Entity_Manager::Update(float dt)
 {
 	BROFILER_CATEGORY("Entity Manager Update", Profiler::Color::CadetBlue);
-	bool ret = true;                                              // TODO: add "do_logic" condition
-	p2List_item<j1Entity*>* item;
-	item = entities.start;
-	j1Entity* pEntity = NULL;
+	bool ret = true;       
+	
+	
+	if (dt != 0) {
+		// TODO: add "do_logic" condition
+		p2List_item<j1Entity*>* item;
+		item = entities.start;
+		j1Entity* pEntity = NULL;
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-		CleanUp();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN || restart) {
-		Start();
-		restart = false;
-	}
-	for (item = entities.start; item != NULL && ret == true; item = item->next)
-	{
-		pEntity = item->data;
+		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+			CleanUp();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN || restart) {
+			Start();
+			restart = false;
+		}
+		for (item = entities.start; item != NULL && ret == true; item = item->next)
+		{
+			pEntity = item->data;
 
-		/*if (pEntity->active == false) {
-		continue;
-		}*/
+			/*if (pEntity->active == false) {
+			continue;
+			}*/
 
-		/* TODO 5: send dt as an argument to all updates
-		you will need to update module parent class
-		and all modules that use update */
-		ret = item->data->Update(dt);
+			/* TODO 5: send dt as an argument to all updates
+			you will need to update module parent class
+			and all modules that use update */
+			ret = item->data->Update(dt);
+		}
 	}
 
 	return ret;

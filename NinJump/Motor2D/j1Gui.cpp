@@ -216,11 +216,20 @@ void j1Gui::Generate_Menu_GUI() {
 		// images
 		settings_image = Create_Image(settings_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 817 }, NULL, Menu_Level::Settings_Menu);
 		
-		// buttons
-		settings_to_main_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "settings_to_main_button", Menu_Level::Settings_Menu);
+		if (!settings_from_level) {
+			// buttons
+			settings_to_main_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "settings_to_main_button", Menu_Level::Settings_Menu);
 
-		// labels
-		settings_to_main_label = Create_Label(iPoint(125, 640), standard_font, "BACK", NULL, Menu_Level::Settings_Menu, settings_to_main_button);
+			// labels
+			settings_to_main_label = Create_Label(iPoint(125, 640), standard_font, "BACK", NULL, Menu_Level::Settings_Menu, settings_to_main_button);
+		}
+		else {
+			// buttons
+			settings_to_level_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "settings_to_level_button", Menu_Level::Settings_Menu);
+
+			// labels
+			settings_to_level_label = Create_Label(iPoint(125, 640), standard_font, "RESUME", NULL, Menu_Level::Settings_Menu, settings_to_level_button);
+		}
 	}
 
 
@@ -329,6 +338,7 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 				App->gui->create_menu_GUI.Do = true;
 
 			App->gui->create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
+			App->gui->settings_from_level = false;                         // flag for settings variant 1 
 			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 		}
 

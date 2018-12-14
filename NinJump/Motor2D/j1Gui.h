@@ -202,6 +202,9 @@ private:
 	j1Gui_Button* settings_to_main_button = nullptr;
 	j1Gui_Label* settings_to_main_label = nullptr;
 
+	j1Gui_Button* settings_to_level_button = nullptr;
+	j1Gui_Label* settings_to_level_label = nullptr;
+
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 
@@ -221,9 +224,8 @@ public:
 	bool create_level_GUI = false;
 
 	bool first_start = true; 
-
 	bool Exit_Quits_App = false; 
-
+	bool settings_from_level = false; 
 
 public: 
 	uint coins_collected = 0;                  // Where should this be?
