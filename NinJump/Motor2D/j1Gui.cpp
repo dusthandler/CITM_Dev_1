@@ -271,7 +271,6 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 	if (object->ID == "play_button") {                                 // go to level
 
 		 if (!App->entity_manager->active && !App->scene->active) {     // first time, entities and scene are not active
-			App->entity_manager->Activate();
 			App->scene->Activate();
 		}
 
