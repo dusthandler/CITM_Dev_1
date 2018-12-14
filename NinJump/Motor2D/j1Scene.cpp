@@ -87,7 +87,7 @@ bool j1Scene::Start()
 	}
 
 	if (!Map_Loaded) {
-		App->map->Load("Level_1_pureba.tmx");
+		App->map->Load("Level_1.tmx");
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true;
 		int w, h;
@@ -309,11 +309,11 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		App->collision->CleanWallDeath();
 		App->map->CleanUp();
 	
-		App->map->Load("Level_1_pureba.tmx");
+		App->map->Load("Level_1.tmx");
 		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
-		// App->entity_manager->restart = true;
+		App->entity_manager->restart = true;
 	}
 	else if (Mapsw == 1)
 	{
@@ -324,7 +324,7 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		App->map->Load("Level_2.tmx");
 		Mus_Id = 2; 
 		this->SwitchM = 1;
-	//	App->entity_manager->restart = true;
+     	App->entity_manager->restart = true;
 	}
 
 	else if (Mapsw == 2) {     
