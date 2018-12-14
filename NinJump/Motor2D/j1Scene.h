@@ -38,7 +38,10 @@ public:
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 
+
 	bool MapSwap(int,bool init = false);
+
+
 	int SwitchM = 0;
 	bool Player_Alive = true;
 	bool Player_Win;
@@ -46,6 +49,7 @@ public:
 	bool Second_Start = false;
 	bool Player_lvl_2 = false; 
 	bool Map_Loaded = false; 
+	bool game_paused = false; 
 
 private:
 	iPoint Player_act_pos;

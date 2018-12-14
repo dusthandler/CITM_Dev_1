@@ -146,123 +146,137 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::LightSteelBlue);
 	PERF_START(ptimer); 
 
-	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
+	if (dt != 0) {
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+			App->LoadGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+			App->SaveGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 40;
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			App->render->camera.y += 40;
 
-	else if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 40;
+		else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			App->render->camera.y -= 40;
 
-	else if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 40;
+		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			App->render->camera.x += 40;
 
-	else if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 40;
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Player_Win) {
-		/*Disable();*/
-		/*App->player->Disable(); */          // disable player before swapping maps
-		MapSwap(1);
-		Player_Win = false;
-		
+		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			App->render->camera.x -= 40;
 
-	}
+		else {
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || !Player_Alive) {      // if playeralive, this condition is repeated all the time. 
-		/*Disable();*/
-		/*App->player->Disable();    */       // disable player before swapping maps
-		MapSwap(0);
+			App->render->camera.y = (int)(Player_act_pos.y - 300) * (-1) * App->win->GetScale();
+			App->render->camera.x = (int)(Player_act_pos.x - 300) * (-1) * App->win->GetScale();
 
-	}
+			if (App->render->camera.y <= -310) { //Bottom Limit
+				App->render->camera.y = -320;
+			}
 
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
-		MapSwap(2);
-	}
-	
+			else if (App->render->camera.y >= 0) { //Top Limit
+				App->render->camera.y = 0;
+			}
+			if (App->render->camera.x >= 0) { //Left Limit
+				App->render->camera.x = 0;
+			}
+			else if (App->render->camera.x <= -4401) { //Right Limit
+				App->render->camera.x = -4401;
+			}
 
-	else {
-
-		App->render->camera.y = (int)(Player_act_pos.y - 300) * (-1) * App->win->GetScale();
-		App->render->camera.x = (int)(Player_act_pos.x - 300) * (-1) * App->win->GetScale();
-
-		if (App->render->camera.y <= -310) { //Bottom Limit
-			App->render->camera.y = -320;
 		}
 
-		else if (App->render->camera.y >= 0) { //Top Limit
-			App->render->camera.y = 0;
+
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Player_Win) {
+			/*Disable();*/
+			/*App->player->Disable(); */          // disable player before swapping maps
+			MapSwap(1);
+			Player_Win = false;
+
+
 		}
-		if (App->render->camera.x >= 0) { //Left Limit
-			App->render->camera.x = 0;
+
+		else if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || !Player_Alive) {      // if playeralive, this condition is repeated all the time. 
+			/*Disable();*/
+			/*App->player->Disable();    */       // disable player before swapping maps
+			MapSwap(0);
+
 		}
-		else if (App->render->camera.x <= -4401) { //Right Limit
-			App->render->camera.x = -4401;
+
+		else if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
+			MapSwap(2);
 		}
-	
+
+		else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
+
+			if (!App->gui->create_menu_GUI.Do)
+				App->gui->create_menu_GUI.Do = true;
+
+			App->gui->create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
+			App->gui->settings_from_level = true; 	                 // flag for settings variant 2
+
+			game_paused = true;
+		}
+
+		// draw everything
+
+		App->map->Draw();
+
+		App->entity_manager->Draw();
+
+
+		int x, y;
+		App->input->GetMousePosition(x, y);
+
+		//if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		//	App->LoadGame("save_game.xml");
+
+		//if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		//	App->SaveGame("save_game.xml");
+
+		//// TODO 6: Make the camera movement independent of framerate
+		//if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		//	App->render->camera.y += 20;
+
+		//if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		//	App->render->camera.y -= 20;
+
+		//if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		//	App->render->camera.x += 20;
+
+		//if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		//	App->render->camera.x -= 20;
+
+		//App->map->Draw();
+
+		//int x, y;
+		//App->input->GetMousePosition(x, y);
+		//iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+		//p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
+		//	App->map->data.width, App->map->data.height,
+		//	App->map->data.tile_width, App->map->data.tile_height,
+		//	App->map->data.tilesets.count(),
+		//	map_coordinates.x, map_coordinates.y);
+
+		////App->win->SetTitle(title.GetString());
+
+		//// Debug pathfinding ------------------------------
+		////int x, y;
+		//App->input->GetMousePosition(x, y);
+		//iPoint p = App->render->ScreenToWorld(x, y);
+		//p = App->map->WorldToMap(p.x, p.y);
+		//p = App->map->MapToWorld(p.x, p.y);
+
+		//App->render->Blit(debug_tex, p.x, p.y);
+
+		//const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+		//for (uint i = 0; i < path->Count(); ++i)
+		//{
+		//	iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		//	App->render->Blit(debug_tex, pos.x, pos.y);
+		//}
 	}
-	
-	// draw everything
-		
-	App->map->Draw();
-
-	App->entity_manager->Draw(); 
-
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-
-	//if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-	//	App->LoadGame("save_game.xml");
-
-	//if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-	//	App->SaveGame("save_game.xml");
-
-	//// TODO 6: Make the camera movement independent of framerate
-	//if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	//	App->render->camera.y += 20;
-
-	//if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	//	App->render->camera.y -= 20;
-
-	//if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	//	App->render->camera.x += 20;
-
-	//if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	//	App->render->camera.x -= 20;
-
-	//App->map->Draw();
-
-	//int x, y;
-	//App->input->GetMousePosition(x, y);
-	//iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	//p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-	//	App->map->data.width, App->map->data.height,
-	//	App->map->data.tile_width, App->map->data.tile_height,
-	//	App->map->data.tilesets.count(),
-	//	map_coordinates.x, map_coordinates.y);
-
-	////App->win->SetTitle(title.GetString());
-
-	//// Debug pathfinding ------------------------------
-	////int x, y;
-	//App->input->GetMousePosition(x, y);
-	//iPoint p = App->render->ScreenToWorld(x, y);
-	//p = App->map->WorldToMap(p.x, p.y);
-	//p = App->map->MapToWorld(p.x, p.y);
-
-	//App->render->Blit(debug_tex, p.x, p.y);
-
-	//const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-
-	//for (uint i = 0; i < path->Count(); ++i)
-	//{
-	//	iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-	//	App->render->Blit(debug_tex, pos.x, pos.y);
-	//}
 	PERF_PEEK(ptimer);           // update takes more than 100 ms :/
 
 
@@ -355,7 +369,9 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 
 	}
 
+
 	App->gui->first = false;
+
 	
 
 	
