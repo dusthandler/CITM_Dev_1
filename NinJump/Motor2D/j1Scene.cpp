@@ -163,26 +163,6 @@ bool j1Scene::Update(float dt)
 
 	else if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 40;
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Player_Win) {
-		/*Disable();*/
-		/*App->player->Disable(); */          // disable player before swapping maps
-		MapSwap(1);
-		Player_Win = false;
-		
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || !Player_Alive) {      // if playeralive, this condition is repeated all the time. 
-		/*Disable();*/
-		/*App->player->Disable();    */       // disable player before swapping maps
-		MapSwap(0);
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
-		MapSwap(2);
-	}
-	
 
 	else {
 
@@ -205,6 +185,31 @@ bool j1Scene::Update(float dt)
 	
 	}
 	
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Player_Win) {
+		/*Disable();*/
+		/*App->player->Disable(); */          // disable player before swapping maps
+		MapSwap(1);
+		Player_Win = false;
+
+
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || !Player_Alive) {      // if playeralive, this condition is repeated all the time. 
+		/*Disable();*/
+		/*App->player->Disable();    */       // disable player before swapping maps
+		MapSwap(0);
+
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
+		MapSwap(2);
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
+		game_paused = true; 
+	}
+
 	// draw everything
 		
 	App->map->Draw();
