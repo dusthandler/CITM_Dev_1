@@ -310,7 +310,7 @@ bool j1Scene::CleanUp()
 }
 
 
-bool j1Scene::MapSwap(int Mapsw)                        // Method to handle level cleaning and Fades
+bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to handle level cleaning and Fades
 {
 	BROFILER_CATEGORY("Scene MapSwap", Profiler::Color::LimeGreen);
 	bool ret = true;
@@ -328,6 +328,10 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
+
+		if (!init) {
+			App->entity_manager->restart = true;
+		}
 		// App->entity_manager->restart = true;
 	}
 	else if (Mapsw == 1)
@@ -340,6 +344,10 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		Mus_Id = 2; 
 		this->SwitchM = 1;
         // App->entity_manager->restart = true;
+
+		if (!init) {
+			App->entity_manager->restart = true;
+		}
 	}
 
 	else if (Mapsw == 2) {     
@@ -360,8 +368,11 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		// restart when swapping to level again
 
 	}
+
+
+	App->gui->first = false;
+
 	
-	 App->entity_manager->restart = true;
 
 	
 

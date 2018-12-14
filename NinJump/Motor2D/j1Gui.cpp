@@ -327,12 +327,10 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 
 	if (object->ID == "play_button") {                                 // go to level
 
-		 if (!App->entity_manager->active && !App->scene->active) {     // first time, entities and scene are not active
-			App->scene->Activate();
-		}
+	
 
 		App->gui->create_level_GUI = true; 
-		App->fade->FadeToBlack(App->main_menu, App->scene, 1.5f);
+		App->scene->MapSwap(0,first);
 	}
 
 	else if (object->ID == "exit_button") {       // quit game

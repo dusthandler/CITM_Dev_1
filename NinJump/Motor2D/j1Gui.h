@@ -229,6 +229,7 @@ public:
 	bool settings_from_level = false; 
 
 public: 
+	bool first = true;
 	uint coins_collected = 0;                  // Where should this be?
 
 };

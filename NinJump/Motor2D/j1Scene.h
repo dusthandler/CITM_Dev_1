@@ -38,8 +38,9 @@ public:
 	bool Load(pugi::xml_node& node);
 	bool Save(pugi::xml_node& node) const;
 
-	bool MapSwap(int);
-	// variables
+
+	bool MapSwap(int,bool init = false);
+
 
 	int SwitchM = 0;
 	bool Player_Alive = true;
