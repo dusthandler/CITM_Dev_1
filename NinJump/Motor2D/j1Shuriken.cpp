@@ -143,6 +143,8 @@ void j1Shuriken::OnCollision(Collider* c1, Collider* c2) {
 bool j1Shuriken::CleanUp() {
 	collider->to_delete = true;
 	active = false; 
+
+	DestroyEntity(this); 
 	return true;
 }
 

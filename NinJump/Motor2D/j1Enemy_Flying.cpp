@@ -212,6 +212,9 @@ bool j1Enemy_Flying::CleanUp() {
 	BROFILER_CATEGORY("Enemy fly CleanUp", Profiler::Color::Bisque);
 	collider->to_delete = true;
 	active = false; 
+
+
+	DestroyEntity(this); 
 	return true;
 }
 

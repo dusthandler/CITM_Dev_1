@@ -37,6 +37,9 @@ bool j1Entity_Coin::CleanUp() {
 	active = false; 
 
 
+	
+	 DestroyEntity(this); 
+
 	return true;
 }
 

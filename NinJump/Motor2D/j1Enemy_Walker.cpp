@@ -214,6 +214,9 @@ bool j1Enemy_Walker::CleanUp() {
 	BROFILER_CATEGORY("Enemy walker OnCollision", Profiler::Color::BlueViolet);
 	collider->to_delete = true;
 	active = false;
+
+
+	DestroyEntity(this); 
 	return true;
 }
 
