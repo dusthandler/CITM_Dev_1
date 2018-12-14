@@ -504,7 +504,7 @@ bool j1Player_Entity::CleanUp() {
 	active = false;
 	
 
-	DestroyEntity(this);
+	// DestroyEntity(this);
 
 	/*App->audio->UnloadFx(1);
 	App->audio->UnloadFx(2);           // CLEAN FXs
