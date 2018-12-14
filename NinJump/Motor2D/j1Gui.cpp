@@ -117,6 +117,8 @@ bool j1Gui::Update(float dt) {
 
 	
 	LOG(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,                     actual DT               ,,,,,,  %f", dt); 
+	LOG(" 888888888888888888888888888888888888888888888888888888     CREATED LEVEL ----> %i times", creation_level_times);
+	LOG(" 888888888888888888888888888888888888888888888888888888     CLEANED LEVEL ----> %i times", cleaned_level_times); 
 
 	Menu_Level_GUI_Manager(); 
 	Blit(); 
@@ -266,6 +268,7 @@ void j1Gui::Generate_Menu_GUI() {
 void j1Gui::Generate_Level_GUI() {
 	LOG("----------------------------------------------- creating lvl GUI");
 
+	creation_level_times++; 
 	// UI COINS                                            // labels should go after images
 	SDL_Rect r = { 0, 0, 32, 32 };
 	UI_coin = Create_Image(atlas, iPoint(820, 25), r, NULL, Menu_Level::Level);
@@ -378,7 +381,8 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 
 
 void j1Gui::Clean_Menu_GUI(Active_Menu acitve_menu){
-	
+
+	cleaned_level_times++; 
 	bool ret = true;
 	p2List_item<j1Gui_Object*>* item;
 	item = objects.start;
@@ -426,8 +430,9 @@ void j1Gui::Clean_Level_GUI() {
 			ret = item->data->CleanUp();
 			delete item->data;
 			item->data = nullptr;
+			objects.del(item);
 		}
-		objects.del(item);
+		
 	}
 
 

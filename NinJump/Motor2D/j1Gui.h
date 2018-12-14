@@ -132,6 +132,7 @@ public:
 	void Generate_Menu_GUI(); 
 	void Generate_Level_GUI();
 
+
      const SDL_Texture* GetAtlas() const;
 
 
@@ -223,6 +224,8 @@ public:
 	// bool create_menu_GUI = true; 
 	create_menu_GUI create_menu_GUI; 
 	bool create_level_GUI = false;
+	uint creation_level_times = 0; 
+	uint cleaned_level_times = 0;
 
 	bool first_start = true; 
 	bool Exit_Quits_App = false; 

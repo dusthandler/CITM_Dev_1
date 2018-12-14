@@ -197,7 +197,7 @@ bool j1Scene::Update(float dt)
 
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || !Player_Alive) {      // if playeralive, this condition is repeated all the time. 
+		else if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || !Player_Alive) {      // if playeralive, this condition is repeated all the time. 
 			/*Disable();*/
 			/*App->player->Disable();    */       // disable player before swapping maps
 			if (map_active == 0) {
