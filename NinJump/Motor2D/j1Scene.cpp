@@ -60,11 +60,13 @@ bool j1Scene::Start()
 
 	App->gui->create_level_GUI = true;
 
-	if(!App->entity_manager->active)      // first time, init entity manager
-	App->entity_manager->Activate();
-	else {
-		App->entity_manager->Start();        // start entites 
+	if (!App->entity_manager->active) {    // first time, init entity manager
+		App->entity_manager->Activate();
 	}
+	/*else if(!App->entity_manager->IsEnabled()){
+		App->entity_manager->Start();        // start entites 
+		App->scene->Map_Loaded = false; 
+	}*/
 
 	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    

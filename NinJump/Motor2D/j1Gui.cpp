@@ -96,6 +96,7 @@ void j1Gui::Menu_Level_GUI_Manager() {
 		}
 		else {
 			if (App->main_menu->active_menu == Active_Menu::NONE) { // level to menu
+				App->map->CleanUp(); 
 				Clean_Level_GUI();
 			}
 			else {
@@ -123,9 +124,11 @@ void j1Gui::Menu_Level_GUI_Manager() {
 
 void j1Gui::Restart_Level_Entities_and_Map() {
 
-	App->scene->Map_Loaded = false;        // restart scene map
-	App->entity_manager->restart = true;     // restart entities 
+	/*App->scene->Map_Loaded = false;        // restart scene map
+    App->entity_manager->restart = true;     // restart entities */
 
+	App->entity_manager->Start();        // start entites 
+	App->scene->Map_Loaded = false;
 }
 
 void j1Gui::Generate_Menu_GUI() {
