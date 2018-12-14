@@ -60,17 +60,17 @@ bool j1Entity_Manager::Start(){
 	CreateEntity(Type::PLAYER, Pos, 0);
 
 
-	// CreateEntity(Type::SHURIKEN, iPoint(450, 870));       // after player !
+CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
    CreateEntity(Type::COIN, iPoint(450, 870),3);
    CreateEntity(Type::COIN, iPoint(550, 870),2);
    CreateEntity(Type::COIN, iPoint(650, 870),1);
 
 
 
-	/*CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
 	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
 	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
-	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200));*/
+	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200));
   
 
 	

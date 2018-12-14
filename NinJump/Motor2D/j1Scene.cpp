@@ -313,7 +313,7 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
-		App->entity_manager->restart = true;
+		//App->entity_manager->restart = true;
 	}
 	else if (Mapsw == 1)
 	{
@@ -324,7 +324,7 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		App->map->Load("Level_2.tmx");
 		Mus_Id = 2; 
 		this->SwitchM = 1;
-     	App->entity_manager->restart = true;
+     //	App->entity_manager->restart = true;
 	}
 
 	else if (Mapsw == 2) {     
