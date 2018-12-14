@@ -220,7 +220,15 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	// TODO 4: Calculate the dt: differential time since last frame
-	dt = frame_time.ReadSec();
+
+	if (!scene->game_paused) {
+		dt = frame_time.ReadSec();
+	}
+	else {
+		dt = 0; 
+	}
+
+
 	frame_time.Start();
 
 
