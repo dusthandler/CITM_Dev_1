@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1Entity_Manager.h"
+#include "j1Textures.h"
 
 // Called before render is available
 j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable) : j1Gui_Object(pos) {
@@ -58,13 +59,18 @@ void j1Gui_Label::Blit() {
 		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 	}
 
-
-
-
 	if (!has_button) {
 		App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
 	}
 	else if(parent->hover_state != Hover_State::OUTSIDE && parent != nullptr)
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f); 
 	
+
+	if (ID == "coin_score" || ID == "life_count") {
+
+		App->tex->UnLoad(tex); 
+		tex = nullptr; 
+
+	}
+
 }

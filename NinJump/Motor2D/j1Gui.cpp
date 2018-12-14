@@ -261,6 +261,8 @@ void j1Gui::Generate_Menu_GUI() {
 
 	}
 
+	if(create_menu_GUI.Do)
+	create_menu_GUI.Do = false;
 
 }
 
@@ -285,6 +287,9 @@ void j1Gui::Generate_Level_GUI() {
 
 	ID = "life_count";
 	live_count = Create_Label(iPoint(980, 30), standard_font, "X3", ID, Menu_Level::Level);
+
+	if(create_level_GUI)
+	create_level_GUI = false; 
 
 }
 
