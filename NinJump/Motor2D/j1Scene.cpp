@@ -88,6 +88,7 @@ bool j1Scene::Start()
 
 	if (!Map_Loaded) {
 		App->map->Load("Level_1.tmx");
+		map_active = 0; 
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true;
 		int w, h;
@@ -199,7 +200,12 @@ bool j1Scene::Update(float dt)
 		else if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || !Player_Alive) {      // if playeralive, this condition is repeated all the time. 
 			/*Disable();*/
 			/*App->player->Disable();    */       // disable player before swapping maps
-			MapSwap(0);
+			if (map_active == 0) {
+				MapSwap(0);
+			}
+			else {
+				MapSwap(1);
+			}
 
 		}
 
@@ -325,6 +331,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 		App->map->CleanUp();
 	
 		App->map->Load("Level_1.tmx");
+		map_active = 0; 
 		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
@@ -341,6 +348,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 		App->map->CleanUp();
 	
 		App->map->Load("Level_2.tmx");
+		map_active = 1;
 		Mus_Id = 2; 
 		this->SwitchM = 1;
         // App->entity_manager->restart = true;

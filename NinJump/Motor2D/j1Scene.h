@@ -50,6 +50,7 @@ public:
 	bool Player_lvl_2 = false; 
 	bool Map_Loaded = false; 
 	bool game_paused = false; 
+	uint map_active = 0; 
 
 private:
 	iPoint Player_act_pos;
