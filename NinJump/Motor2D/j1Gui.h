@@ -113,17 +113,18 @@ public:
 	// TODO 2: Create the factory methods
 	// Gui creation functions
 
-	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
+	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr, bool draggable = false);
 
-	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
+	j1Gui_Label* Create_Label(iPoint pos, _TTF_Font*, char*, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr, bool draggable = true);
 
-	j1Gui_Button* Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iPoint pos, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr);
+	j1Gui_Button* Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iPoint pos, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr, bool draggable = true);
 
 	
 
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 
-	void Move_Clicked_Object(j1Gui_Object*);
+//	void Get_Clicked_Object_Children(); 
+	void Move_Clicked_Object(j1Gui_Object*); // , p2List<j1Gui_Object*> childs);
 
 	
 
@@ -198,9 +199,11 @@ private:
 	uint hover_objects_queue = 0; 
 	j1Gui_Object* clicked_object = nullptr; 
 	bool move_object = false; 
+	bool reset_child_search = false; 
 
 private: 
-	bool reset_hover_fx = false; 
+	bool reset_hover_fx = false;
+	iPoint mouse_pos; 
 
 public: 
 	// bool create_menu_GUI = true; 

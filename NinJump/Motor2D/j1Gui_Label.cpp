@@ -6,7 +6,7 @@
 #include "j1Entity_Manager.h"
 
 // Called before render is available
-j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level, j1Gui_Object* parent) : j1Gui_Object(pos) {
+j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable) : j1Gui_Object(pos) {
 	this->text = text;
 	font = f;
 	this->ID = ID; 
@@ -18,7 +18,7 @@ j1Gui_Label::j1Gui_Label(iPoint pos, _TTF_Font* f, char* text, char* ID, Menu_Le
 		this->parent = parent;
 	}
 	
-
+	this->draggable = draggable;
 	
 	Init_Text(); 
 

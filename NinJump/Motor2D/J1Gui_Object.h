@@ -24,6 +24,15 @@ public:
 		return true; 
 	};
 
+	iPoint Get_Pos() {
+		return pos; 
+	}
+
+	void Set_Pos(int x, int y) {
+		pos.x = x; 
+		pos.y = y; 
+	}
+
 	
 public:
 
@@ -38,6 +47,8 @@ public:
 	j1Gui_Object* parent = nullptr; 
 	Hover_Anim hover_rects;
 	char* ID = nullptr;
+	bool moving_with_parent = false; 
+	bool draggable = false; 
 };
 
 

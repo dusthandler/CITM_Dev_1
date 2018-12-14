@@ -10,7 +10,7 @@
 #include "p2Log.h"
 
 // Called before render is available
-j1Gui_Button::j1Gui_Button(Hover_Anim hover_rects, SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent) : j1Gui_Object(pos) {
+j1Gui_Button::j1Gui_Button(Hover_Anim hover_rects, SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable) : j1Gui_Object(pos) {
 
 	this->hover_rects = hover_rects;
     rect = hover_rects.a_Idle;
@@ -19,7 +19,7 @@ j1Gui_Button::j1Gui_Button(Hover_Anim hover_rects, SDL_Texture* tex, iPoint pos,
 	this->ID = ID;
 	this->menu_level = menu_level; 
 	
-	
+	this->draggable = draggable; 
 	this->parent = parent; 
 	type = GUI_TYPE::Button;
 	hierarchy = (Hierarchy)5;

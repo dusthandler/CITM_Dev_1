@@ -11,7 +11,7 @@ class j1Gui_Image : public j1Gui_Object
 {
 public:
 
-	j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char* ID, Menu_Level menu_level, j1Gui_Object* parent);
+	j1Gui_Image(SDL_Texture* tex, iPoint pos, SDL_Rect atlas_rect, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable);
 
 
 	// Destructor

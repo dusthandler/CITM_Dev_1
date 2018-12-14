@@ -145,13 +145,13 @@ void j1Gui::Generate_Menu_GUI() {
 
 		// images
 		menu_image = Create_Image(menu_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 965 }, NULL, Menu_Level::Main_Menu);
-		menu_label = Create_Image(atlas, iPoint(450, 30), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Main_Menu);
+		menu_label = Create_Image(atlas, iPoint(450, 30), SDL_Rect{ 2, 149, 573, 293 }, NULL, Menu_Level::Main_Menu, nullptr, true);
 
 
 		// buttons
-		play_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "play_button", Menu_Level::Main_Menu);
-		continue_button = Create_Button(anim_rects, atlas, iPoint(570, 130), "continue_button", Menu_Level::Main_Menu);
-		settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Main_Menu);
+		play_button = Create_Button(anim_rects, atlas, iPoint(570, 40), "play_button", Menu_Level::Main_Menu, menu_label);
+		continue_button = Create_Button(anim_rects, atlas, iPoint(570, 130), "continue_button", Menu_Level::Main_Menu, menu_label);
+		settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Main_Menu, menu_label);
 
 		anim_rects.a_Idle = { 252, 71, 111, 76 };
 		anim_rects.a_Hover = { 364, 41, 113, 111 };
@@ -377,9 +377,9 @@ bool j1Gui::PostUpdate()
 	return true;
 }
 
-j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_rect, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
+j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_rect, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable) {
 
-     j1Gui_Image* ret = new j1Gui_Image(tex, pos, atlas_rect, ID, menu_level, parent);
+     j1Gui_Image* ret = new j1Gui_Image(tex, pos, atlas_rect, ID, menu_level, parent, draggable);
 
 	 if(ret != nullptr)
      objects.add(ret); 
@@ -388,9 +388,9 @@ j1Gui_Image* j1Gui::Create_Image(SDL_Texture* tex, iPoint pos, SDL_Rect& atlas_r
 };
 
 
-j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
+j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable) {
 	
-	j1Gui_Label* ret = new j1Gui_Label(pos, font, text, ID, menu_level, parent);
+	j1Gui_Label* ret = new j1Gui_Label(pos, font, text, ID, menu_level, parent, draggable);
 
 	if (ret != nullptr)
 	objects.add(ret); 
@@ -399,9 +399,9 @@ j1Gui_Label* j1Gui::Create_Label(iPoint pos, _TTF_Font* font, char* text, char* 
 }; 
 
 
-j1Gui_Button* j1Gui::Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent) {
+j1Gui_Button* j1Gui::Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable) {
 
-	j1Gui_Button* ret = new j1Gui_Button(hover_rects, tex, pos, ID, menu_level, parent);
+	j1Gui_Button* ret = new j1Gui_Button(hover_rects, tex, pos, ID, menu_level, parent, draggable);
 
 	if (ret != nullptr)
 		objects.add(ret);
@@ -423,6 +423,12 @@ void j1Gui::Select_Clicked_Object() {
 		item = objects.start;
 
 		SDL_Rect obj_r; 
+
+
+		p2List_item<j1Gui_Object*>* item_c;
+		p2List<j1Gui_Object*> childs;
+		uint child_count = 0;
+
 
 		for (item = objects.start; item != NULL; item = item->next)
 		{
@@ -456,10 +462,30 @@ void j1Gui::Select_Clicked_Object() {
 
 						item->data->hover_state = Hover_State::CLICK;
 					}
+
+					if (clicked_object != nullptr) {   
+						reset_child_search = false;
+					}
 					break;
 
 
 				case Hover_State::CLICK:
+
+				    if (!reset_child_search) {
+
+						for (item_c = objects.start; item_c != NULL; item_c = item_c->next)
+						{
+
+							if (item_c->data->parent == clicked_object) {
+								LOG("_________________________________________________________________ - child of clicked obj detected");
+								childs.add(item_c->data);
+								child_count++;
+							}
+
+						}
+						reset_child_search = true;
+					}
+
 
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
@@ -492,14 +518,19 @@ void j1Gui::Select_Clicked_Object() {
 
 		}
 		
+		if(clicked_object != nullptr)
+		LOG("Clicked object is actually ---------------------------------------> %s", clicked_object->ID);
+
 		
-		if (move_object && clicked_object != nullptr) {
-			Move_Clicked_Object(clicked_object); 
+
+		if (move_object && clicked_object != nullptr && clicked_object->draggable && child_count > 0) {
+			Move_Clicked_Object(clicked_object) //, childs);
 		}  
 			
 
 
-	
+		
+
 
 	
 	/*p2List_item<j1Gui_Object*>* item_s;
@@ -533,12 +564,44 @@ j1Gui_Object* j1Gui::Get_Clicked_Object() {
 }
 
 
-void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
+void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> childs) {
 
 
-	LOG(" *******************************   moving obj   *******************************"); 
-	App->input->GetCenteredMousePosition(obj->pos.x, obj->pos.y, obj);
+	// LOG(" *******************************   moving obj   *******************************"); 
+
+	App->input->GetMousePosition(obj->pos.x, obj->pos.y);
+
+	/*p2List_item<j1Gui_Object*>* item_c;
+	for (item_c = childs.start; item_c != NULL; item_c = item_c->next)
+	{
+		App->input->GetMousePosition(item_c->data->pos.x, item_c->data->pos.y);
+	}; */
 	
+
+	
+
+
+
+
+	/*iPoint obj_pos = obj->Get_Pos();
+	mouse_pos = App->input->GetActualMousePosition(); 
+	
+	iPoint dist; 
+	dist.x = mouse_pos.x - obj_pos.x;
+	dist.y = mouse_pos.y - obj_pos.y;
+
+	iPoint new_pos; 
+	new_pos.x = mouse_pos.x - (dist.x);
+	new_pos.y = mouse_pos.y - (dist.y);
+
+	obj->Set_Pos(new_pos.x, new_pos.y);
+
+
+	LOG("mouse pos ________________________________________________________ %i %i", mouse_pos.x, mouse_pos.y);
+	LOG("obj pos ________________________________________________________ %i %i", obj_pos.x, obj_pos.y);
+	LOG("New object pos ________________________________________________________ %i %i", obj->pos.x, obj->pos.y);*/ 
+
+
 }
 
 

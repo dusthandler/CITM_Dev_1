@@ -13,7 +13,7 @@ class j1Gui_Button : public j1Gui_Object
 {
 public:
 
-	j1Gui_Button(Hover_Anim hover_rects, SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent);
+	j1Gui_Button(Hover_Anim hover_rects, SDL_Texture* tex, iPoint pos, char* ID, Menu_Level menu_level, j1Gui_Object* parent, bool draggable);
 
 	// Destructor
 	virtual ~j1Gui_Button() {};
