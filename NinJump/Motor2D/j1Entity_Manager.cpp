@@ -238,8 +238,9 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 		ret = item->data->CleanUp();
 		delete item->data;
 		item->data = nullptr;
-		}
 		entities.del(item);
+		}
+		
 	}
 	
 }

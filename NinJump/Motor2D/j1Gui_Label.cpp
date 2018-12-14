@@ -42,7 +42,7 @@ void j1Gui_Label::Blit() {
 
 	
 
-	/*if (ID == "coin_score") {
+	if (ID == "coin_score") {
 
 		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->gui->coins_collected);
@@ -54,7 +54,7 @@ void j1Gui_Label::Blit() {
 		char buffer[200];
 		snprintf(buffer, sizeof(buffer), "X%i", App->entity_manager->player_live_count);
 		text = buffer;
-	}*/
+	}
 
 
 
