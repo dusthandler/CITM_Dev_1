@@ -88,6 +88,8 @@ bool j1FB::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
 		start_time = SDL_GetTicks();
 		ModuleOff = module_off;
 		ModuleOn = module_on;
+		ModuleOff->Deactivate();
+		ModuleOn->Activate();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		ret = true;
 	}

@@ -296,7 +296,7 @@ bool j1Scene::CleanUp()
 }
 
 
-bool j1Scene::MapSwap(int Mapsw)                        // Method to handle level cleaning and Fades
+bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to handle level cleaning and Fades
 {
 	BROFILER_CATEGORY("Scene MapSwap", Profiler::Color::LimeGreen);
 	bool ret = true;
@@ -347,8 +347,11 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 
 	}
 
+	if (!init) {
+		App->entity_manager->restart = true;
+	}
+	App->gui->first = false;
 	
-	 App->entity_manager->restart = true;
 
 	
 

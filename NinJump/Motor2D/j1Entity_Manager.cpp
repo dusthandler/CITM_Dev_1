@@ -68,9 +68,9 @@ bool j1Entity_Manager::Start(){
 
 
 
-	/*CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
-	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
-	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),17);
+	//CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
+	/*CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200));*/
   
 

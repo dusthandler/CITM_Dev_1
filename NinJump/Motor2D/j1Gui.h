@@ -226,6 +226,7 @@ public:
 
 
 public: 
+	bool first = true;
 	uint coins_collected = 0;                  // Where should this be?
 
 };
