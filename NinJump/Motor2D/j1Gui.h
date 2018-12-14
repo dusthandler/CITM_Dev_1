@@ -216,8 +216,9 @@ private:
 	bool reset_hover_fx = false;
 	iPoint mouse_pos; 
 	iPoint last_mouse_pos;
-	bool cancer;
-
+	bool cancer;  // commnent
+    
+	uint cleaned_times = 0; 
 public: 
 	// bool create_menu_GUI = true; 
 	create_menu_GUI create_menu_GUI; 

@@ -314,7 +314,7 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 {
 	BROFILER_CATEGORY("Scene MapSwap", Profiler::Color::LimeGreen);
 	bool ret = true;
-	
+	LOG(".................... map swap ................. map swap .................... map swap "); 
 	App->entity_manager->CleanUp();
 	
 	

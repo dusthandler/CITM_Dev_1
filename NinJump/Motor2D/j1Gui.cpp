@@ -103,15 +103,20 @@ bool j1Gui::Start()
 
 bool j1Gui::PreUpdate()
 {
+	
 	Select_Clicked_Object(); 
 	Check_Clicked(); 
+	
+	
+
+
 	return true;
 }
 
 bool j1Gui::Update(float dt) {
 
 	
-
+	LOG(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,                     actual DT               ,,,,,,  %f", dt); 
 
 	Menu_Level_GUI_Manager(); 
 	Blit(); 
@@ -132,8 +137,11 @@ void j1Gui::Menu_Level_GUI_Manager() {
 		}
 		else {
 			if (App->main_menu->active_menu == Active_Menu::NONE) { // level to menu
-				App->map->CleanUp(); 
-				Clean_Level_GUI();
+
+				if (!settings_from_level) {          // when you come from level and go to settings, map must not clean up
+					App->map->CleanUp();
+				}
+					Clean_Level_GUI();    // should this be cleaned ? it mmust preserve the state of the gameplay
 			}
 			else {
 				Clean_Menu_GUI(App->main_menu->active_menu);  // menu to menu
@@ -297,15 +305,14 @@ void j1Gui::Check_Clicked() {
 	for (item = objects.start; item != NULL; item = item->next)
 	{
 		
-		if (item->data->menu_level != Menu_Level::Level) {
-
+	 	if (item->data->menu_level != Menu_Level::Level) {
 			if (item->data->hover_state == Hover_State::HOVER) {
 				Do_Logic_Hovered(item->data); 
 			}
 			else if (item->data->hover_state == Hover_State::CLICK) {
 				Do_Logic_Clicked(item->data);
 			}
-		}	
+		 }	
 	}
 
 }
@@ -338,7 +345,7 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 				App->gui->create_menu_GUI.Do = true;
 
 			App->gui->create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
-			App->gui->settings_from_level = false;                         // flag for settings variant 1 
+			settings_from_level = false;                         // flag for settings variant 1 
 			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 		}
 
@@ -360,6 +367,13 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 		}
 
 
+		else if (object->ID == "settings_to_level_button") {                               // go to main from credits
+		App->gui->create_level_GUI = true;
+		App->scene->game_paused = false;                                      // restart dt 
+
+	}
+
+	
 
 }
 
@@ -396,7 +410,10 @@ void j1Gui::Clean_Menu_GUI(Active_Menu acitve_menu){
 		}
 	}
 	
+	cleaned_times++; 
 	LOG("Free --------------------------------------------------------->   %i gui objs", counter); 
+	LOG("Cleaned --------------------------------------------------------->   %i times", cleaned_times);
+
 }
 
 void j1Gui::Clean_Level_GUI() {
@@ -560,10 +577,14 @@ void j1Gui::Select_Clicked_Object() {
 					}
 					/*move_object = true;
 */
-					if (item->data != nullptr) {
+					/*if (App->main_menu->active_menu == Active_Menu::SETTINGS && settings_from_level && item->data->menu_level == Menu_Level::Level) { // do not select an active level object when you are in settings){
+						continue; 
+					}*/
+						if (item->data != nullptr ) {
 						clicked_object = item->data;
 					}
-					if (clicked_object->draggable) {
+
+					if (/*clicked_object->menu_level != Menu_Level::Level &&*/ clicked_object->draggable) {
 						Move_Clicked_Object(clicked_object);
 					}
 					
@@ -642,9 +663,6 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 	
 
 	
-
-	
-
 
 
 
