@@ -142,6 +142,12 @@ private:
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
 
+	// getting credits txt 
+
+/*	char* val1; 
+	char* val2; 
+	char line[50];*/
+
 	// fonts
 
 	_TTF_Font* standard_font = nullptr; 
@@ -185,6 +191,8 @@ private:
 
 	j1Gui_Button* credits_to_main_button = nullptr;
 	j1Gui_Label* credits_to_main_label = nullptr;
+
+	j1Gui_Label* credits_label = nullptr;
 
 	//  settings objects
 
