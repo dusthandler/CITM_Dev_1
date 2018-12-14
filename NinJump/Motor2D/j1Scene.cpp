@@ -54,12 +54,14 @@ bool j1Scene::Start()
 	}*/
 	LOG("------------------------------------------- SCENE START ---------------------"); 
 
-	App->main_menu->active_menu = Active_Menu::NONE; 
+	/*App->main_menu->active_menu = Active_Menu::NONE; 
 	
-	App->gui->create_menu_GUI.Do = false; 
+	App->gui->create_menu_GUI.Do = false; */
 
 	App->gui->create_level_GUI = true;
 
+	if(!App->entity_manager->active)
+	App->entity_manager->Start(); 
 
 	// load info
 	mus = App->audio->LoadMus("Sound/Music/level_1.ogg");    
@@ -307,7 +309,7 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		this->SwitchM = 0;
 		
 		Mus_Id = 1; 
-		App->entity_manager->restart = true;
+		// App->entity_manager->restart = true;
 	}
 	else if (Mapsw == 1)
 	{
@@ -318,13 +320,11 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 		App->map->Load("Level_2.tmx");
 		Mus_Id = 2; 
 		this->SwitchM = 1;
-		App->entity_manager->restart = true;
+	//	App->entity_manager->restart = true;
 	}
 
 	else if (Mapsw == 2) {     
-		App->collision->CleanWallDeath();                           // from level to main menu (press 'M')
-		App->map->CleanUp();       
-
+		
 		if(!App->gui->create_menu_GUI.Do)
 		App->gui->create_menu_GUI.Do = true; 
 
@@ -332,6 +332,10 @@ bool j1Scene::MapSwap(int Mapsw)                        // Method to handle leve
 
 		App->fade->FadeToBlack(this, App->main_menu, 0.5f);
 		
+
+		App->collision->CleanWallDeath();                           // from level to main menu (press 'M')
+		App->map->CleanUp();
+
 
 		// do not restart entities now, menu is active: 
 		// restart when swapping to level again
