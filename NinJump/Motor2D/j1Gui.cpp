@@ -110,9 +110,9 @@ bool j1Gui::PreUpdate()
 bool j1Gui::Update(float dt) {
 
 	
-	LOG("                                                          actual DT                   %f", dt); 
+/*	LOG("                                                          actual DT                   %f", dt); 
 	LOG(" 888888888888888888888888888888888888888888888888888888     CREATED LEVEL ----> %i times", creation_level_times);
-	LOG(" 888888888888888888888888888888888888888888888888888888     CLEANED LEVEL ----> %i times", cleaned_level_times); 
+	LOG(" 888888888888888888888888888888888888888888888888888888     CLEANED LEVEL ----> %i times", cleaned_level_times); */
 
 	Menu_Level_GUI_Manager(); 
 	Blit(); 
@@ -497,6 +497,12 @@ void j1Gui::Select_Clicked_Object() {
 
 		App->input->GetMousePosition(x, y); 
 
+		App->input->GetMousePosition(mouse_pos.x, mouse_pos.y);
+		
+		if (frame_count == 0) {
+			last_mouse_pos = mouse_pos; 
+		}
+
 		p2List_item<j1Gui_Object*>* item;
 		item = objects.start;
 
@@ -513,7 +519,7 @@ void j1Gui::Select_Clicked_Object() {
 			// reset button fxs
 
 			if (item->data->hover_state != Hover_State::HOVER && reset_hover_fx == true) {
-				reset_hover_fx = false; 
+				reset_hover_fx = false;
 			}
 
 			obj_r.x = item->data->pos.x;
@@ -524,24 +530,24 @@ void j1Gui::Select_Clicked_Object() {
 			// check mouse inside object
 
 			if (x > obj_r.x && x < obj_r.x + obj_r.w && y > obj_r.y && y < obj_r.y + obj_r.h) {
-				
+
 				switch (item->data->hover_state) {
 
 				case Hover_State::OUTSIDE:
 
 					item->data->hover_state = Hover_State::HOVER;
-					break; 
+					break;
 
 				case Hover_State::HOVER:
 
-				 move_object = false; 
+					move_object = false;
 
 					if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
 
 						item->data->hover_state = Hover_State::CLICK;
 					}
 
-					if (clicked_object != nullptr) {   
+					if (clicked_object != nullptr) {
 						reset_child_search = false;
 					}
 					break;
@@ -549,7 +555,7 @@ void j1Gui::Select_Clicked_Object() {
 
 				case Hover_State::CLICK:
 
-				    if (!reset_child_search) {
+					if (!reset_child_search) {
 
 						/*for (item_c = objects.start; item_c != NULL; item_c = item_c->next)
 						{
@@ -569,7 +575,7 @@ void j1Gui::Select_Clicked_Object() {
 						item->data->hover_state = Hover_State::HOVER;
 					}
 
-                    else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+					else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 						item->data->hover_state = Hover_State::DRAG;
 						/*if (move_object && clicked_object != nullptr &&  && child_count > 0) {*/
 						 //, childs);
@@ -582,48 +588,38 @@ void j1Gui::Select_Clicked_Object() {
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
 					}
-					if (!cancer) {
-						last_mouse_pos = App->input->GetActualMousePosition();
-						cancer = true;
-					}
+
+
 					/*move_object = true;
 */
-					/*if (App->main_menu->active_menu == Active_Menu::SETTINGS && settings_from_level && item->data->menu_level == Menu_Level::Level) { // do not select an active level object when you are in settings){
-						continue; 
-					}*/
-						if (item->data != nullptr ) {
+/*if (App->main_menu->active_menu == Active_Menu::SETTINGS && settings_from_level && item->data->menu_level == Menu_Level::Level) { // do not select an active level object when you are in settings){
+	continue;
+}*/
+					if (item->data != nullptr) {
 						clicked_object = item->data;
 					}
 
-					if (/*clicked_object->menu_level != Menu_Level::Level &&*/ clicked_object->draggable) {
-						Move_Clicked_Object(clicked_object);
-					}
+				// 	if (clicked_object->menu_level != Menu_Level::Level /*&& clicked_object->draggable*/) {
+
+					if(clicked_object != nullptr && clicked_object->draggable)
+					Move_Clicked_Object(clicked_object);
+
+					//}
+
+					break; 
 					
-
-					break;
-
 				}
 			}
-		   else {
+			else {
 				item->data->hover_state = Hover_State::OUTSIDE;
 			}
 
 		}
 		
-		if(clicked_object != nullptr)
-		LOG("Clicked object is actually ---------------------------------------> %s", clicked_object->ID);
+		// if(clicked_object != nullptr)
+	//	LOG("Clicked object is actually ---------------------------------------> %s", clicked_object->ID);
 
 		
-
-
-
-			
-
-
-		
-
-
-	
 	/*p2List_item<j1Gui_Object*>* item_s;
 	j1Gui_Object* resolve_selected; 
 
@@ -658,7 +654,7 @@ j1Gui_Object* j1Gui::Get_Clicked_Object() {
 void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> childs) {
 
 
-	// LOG(" *******************************   moving obj   *******************************"); 
+	LOG(" *******************************   moving obj   *******************************"); 
 
 
 	//App->input->GetMousePosition(obj->pos.x, obj->pos.y);
@@ -673,36 +669,47 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 	}; */
 	
 
-	
+	frame_count++; 
 
-
-
-
-
-	iPoint obj_pos = obj->Get_Pos();
-	mouse_pos = App->input->GetActualMousePosition(); 
-
-
+	if (frame_count == 5) {
+		last_mouse_pos = mouse_pos; 
+		frame_count = 0; 
+	}
 
 	
-	iPoint dist; 
-	dist.x = mouse_pos.x - obj_pos.x;
-	dist.y = mouse_pos.y - obj_pos.y;
+	if (last_mouse_pos != mouse_pos) {
 
-	iPoint new_pos; 
-	new_pos.x = last_mouse_pos.x - (dist.x);
-	new_pos.y = last_mouse_pos.y - (dist.y);
+		iPoint obj_pos = obj->Get_Pos();
+		mouse_pos = App->input->GetActualMousePosition();
 
-	obj->Set_Pos(new_pos.x, new_pos.y);
+		iPoint dist;
+		dist.x = mouse_pos.x - obj_pos.x;
+		dist.y = mouse_pos.y - obj_pos.y;
 
+		iPoint dist_last_frame_mouse; 
+		dist_last_frame_mouse.x = mouse_pos.x - last_mouse_pos.x; 
+		dist_last_frame_mouse.y = mouse_pos.y - last_mouse_pos.y;
+
+		iPoint new_pos;
+		new_pos.x = (mouse_pos.x) - (dist.x) + dist_last_frame_mouse.x;
+		new_pos.y = (mouse_pos.y) - (dist.y) + dist_last_frame_mouse.y;
+
+		obj->Set_Pos(new_pos.x, new_pos.y);
+
+
+		
+		LOG("mouse pos ________________________________________________________ %i %i", mouse_pos.x, mouse_pos.y);
+		LOG("obj pos ________________________________________________________ %i %i", obj_pos.x, obj_pos.y);
+		LOG("New object pos ________________________________________________________ %i %i", new_pos.x, new_pos.y);
+
+
+	}
 
 	LOG("mouse pos ________________________________________________________ %i %i", mouse_pos.x, mouse_pos.y);
-	LOG("obj pos ________________________________________________________ %i %i", obj_pos.x, obj_pos.y);
+	LOG("last mouse pos ________________________________________________________ %i %i", last_mouse_pos.x, last_mouse_pos.y);
+	LOG("frame count ________________________________________________________ %i", frame_count);
 
-	
-	cancer = false;
 
-	LOG("New object pos ________________________________________________________ %i %i", new_pos.x, new_pos.y);
 
 
 

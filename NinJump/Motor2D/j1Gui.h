@@ -216,8 +216,9 @@ private:
 private: 
 	bool reset_hover_fx = false;
 	iPoint mouse_pos; 
+	iPoint capture_mouse_pos; 
 	iPoint last_mouse_pos;
-	bool cancer;  // commnent
+	uint frame_count = 0; 
     
 	uint cleaned_times = 0; 
 public: 
