@@ -30,6 +30,10 @@ public:
 	void PlayMus(_Mix_Music* mus);
 	bool UnloadMus(_Mix_Music* mus);
 
+
+	void Change_Mus_Volume(int volume); 
+	void Change_Fx_Volume(int volume);
+
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
 
@@ -41,6 +45,9 @@ private:
 
 	_Mix_Music*			musics[MAX_MUSICS];
 	p2List<Mix_Chunk*>	fx;
+	int mus_vol = 15; 
+	int fx_vol = 15;
+
 };
 
 #endif // __j1AUDIO_H__

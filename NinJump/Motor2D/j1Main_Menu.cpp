@@ -2,6 +2,8 @@
 #include "j1App.h"
 #include "j1Audio.h"
 #include "j1Gui.h"
+#include "j1Input.h"
+#include "SDL/include/SDL.h"
 #include "p2Log.h"
 
 #include "Brofiler/Brofiler.h"
@@ -43,10 +45,19 @@ bool j1Main_Menu::Start()
 
 	if(!App->gui->create_menu_GUI.Do)
 	App->gui->create_menu_GUI.Do = true;
-
+	
 	return true;
 }
 
+bool j1Main_Menu::Update(float dt) {
+
+	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+		App->audio->Change_Mus_Volume(100); 
+
+	}
+	return true; 
+		
+}
 
 // Called before quitting
 bool j1Main_Menu::CleanUp()

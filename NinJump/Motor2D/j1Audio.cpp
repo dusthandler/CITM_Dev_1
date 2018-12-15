@@ -18,7 +18,7 @@ j1Audio::j1Audio() : j1Module()
 	name.create("audio");
 }
 
-// Destructor
+// Destructor 
 j1Audio::~j1Audio()
 {}
 
@@ -55,6 +55,11 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		active = false;
 		ret = true;
 	}
+	
+
+	Mix_VolumeMusic(mus_vol);
+	Mix_Volume(-1, fx_vol);
+
 
 	return ret;
 }
@@ -190,6 +195,18 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+void j1Audio::Change_Mus_Volume(int volume) {
+
+	mus_vol = volume; 
+	Mix_VolumeMusic(mus_vol);
+
+}
+
+void j1Audio::Change_Fx_Volume(int volume) {
+	fx_vol = volume;
+	Mix_Volume(-1, fx_vol);
 }
 
 
