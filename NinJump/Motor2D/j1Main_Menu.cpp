@@ -8,7 +8,7 @@
 
 j1Main_Menu::j1Main_Menu() : j1Module()
 {
-	name.create("main menu");
+	name.create("mainmenu");
 
 	
 }

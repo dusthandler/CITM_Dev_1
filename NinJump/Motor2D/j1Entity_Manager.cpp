@@ -97,8 +97,8 @@ bool j1Entity_Manager::Start(){
 
 		// enemies
 
-		CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 500));
-		CreateEntity(Type::ENEMY_LAND, iPoint(2600, 500));
+		CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 500),1);
+		CreateEntity(Type::ENEMY_LAND, iPoint(2600, 500),2);
 	}
 
 
