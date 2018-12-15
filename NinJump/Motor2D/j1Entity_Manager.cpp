@@ -64,7 +64,7 @@ bool j1Entity_Manager::Start(){
 
 
 
-	
+	/*
 	if (App->scene->map_active == 0) {
 		CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
 
@@ -101,7 +101,7 @@ bool j1Entity_Manager::Start(){
 		CreateEntity(Type::ENEMY_LAND, iPoint(2600, 500),2);
 	}
 
-
+	*/
 
 	/*CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
 	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));

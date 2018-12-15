@@ -253,8 +253,8 @@ void j1Gui::Generate_Menu_GUI() {
 		}
 
 
-		Create_Label(iPoint(485, 210), standard_font, "music", NULL, Menu_Level::Settings_Menu);
-		Create_Label(iPoint(485, 270), standard_font, "fx", NULL, Menu_Level::Settings_Menu);
+		Create_Label(iPoint(495, 210), standard_font, "music", NULL, Menu_Level::Settings_Menu);
+		Create_Label(iPoint(495, 270), standard_font, "fx", NULL, Menu_Level::Settings_Menu);
 
 	}
 
@@ -357,11 +357,13 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 	}
 
 	if (object->ID == "play_button") {                                 // go to level
-
-	
-
-		App->gui->create_level_GUI = true; 
+		create_level_GUI = true; 
 		App->scene->MapSwap(0,first);
+	}
+
+	else if (object->ID == "continue_button") {
+		App->LoadGame("save_game.xml");
+		create_level_GUI = true;
 	}
 
 	else if (object->ID == "exit_button") {       // quit game
@@ -370,34 +372,34 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 	}
 
 		else if (object->ID == "settings_button") {                                     // go to settings menu
-			if (!App->gui->create_menu_GUI.Do)
-				App->gui->create_menu_GUI.Do = true;
+			if (!create_menu_GUI.Do)
+				create_menu_GUI.Do = true;
 
-			App->gui->create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
+			create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
 			settings_from_level = false;                         // flag for settings variant 1 
 			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 		}
 
 		else if (object->ID == "credits_button") {                                       // go to credits menu
-			if (!App->gui->create_menu_GUI.Do)
-				App->gui->create_menu_GUI.Do = true;
+			if (!create_menu_GUI.Do)
+				create_menu_GUI.Do = true;
 
-			App->gui->create_menu_GUI.next_menu = Next_Menu::CREDITS_NEXT;
+			create_menu_GUI.next_menu = Next_Menu::CREDITS_NEXT;
 			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 
 		}
 
 		else if (object->ID == "credits_to_main_button" || object->ID == "settings_to_main_button") {                               // go to main from credits
-			if (!App->gui->create_menu_GUI.Do)
-				App->gui->create_menu_GUI.Do = true;
+			if (!create_menu_GUI.Do)
+				create_menu_GUI.Do = true;
 
-			App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
+			create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
 			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 		}
 
 
 		else if (object->ID == "settings_to_level_button") {                               // go to main from credits
-		App->gui->create_level_GUI = true;
+		create_level_GUI = true;
 		App->scene->game_paused = false;                                      // restart dt 
 
 	}
