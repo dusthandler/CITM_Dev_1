@@ -223,8 +223,8 @@ void j1Gui::Generate_Menu_GUI() {
 		// images
 		settings_image = Create_Image(settings_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 817 }, NULL, Menu_Level::Settings_Menu);
 
-		settings_mus_bar = Create_Image(atlas, iPoint(20, 200), SDL_Rect{ 564, 188, 376, 54 }, NULL, Menu_Level::Settings_Menu);
-		settings_mus_slider = Create_Slider(atlas, iPoint(27, 208), SDL_Rect{ 563, 256, 45, 38 }, settings_mus_bar, "mus_slider");
+		settings_mus_bar = Create_Image(atlas, iPoint(20, 200), SDL_Rect{ 594, 188, 376, 54 }, NULL, Menu_Level::Settings_Menu);
+		settings_mus_slider = Create_Slider(atlas, iPoint(27, 208), SDL_Rect{ 593, 256, 45, 38 }, settings_mus_bar, "mus_slider");
 
 
 		
@@ -577,20 +577,6 @@ void j1Gui::Select_Clicked_Object() {
 
 				case Hover_State::CLICK:
 
-				/*	if (!reset_child_search) {
-
-						for (item_c = objects.start; item_c != NULL; item_c = item_c->next)
-						{
-
-							if (item_c->data->parent == clicked_object) {
-								LOG("_________________________________________________________________ - child of clicked obj detected");
-								childs.add(item_c->data);
-								child_count++;
-							}
-
-						}
-						reset_child_search = true;
-					}*/
 
 					clicked_in_this_frame = true; 
 
@@ -600,10 +586,8 @@ void j1Gui::Select_Clicked_Object() {
 
 					else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 						item->data->hover_state = Hover_State::DRAG;
-						/*if (move_object && clicked_object != nullptr &&  && child_count > 0) {*/
-						 //, childs);
-						/*}*/
 					}
+
 					break;
 
 				case Hover_State::DRAG:
@@ -620,12 +604,10 @@ void j1Gui::Select_Clicked_Object() {
 					}
 					
 
-				// 	if (clicked_object->menu_level != Menu_Level::Level /*&& clicked_object->draggable*/) {
-
-					if(clicked_object != nullptr && clicked_object->draggable) //&& clicked_object->type != GUI_TYPE::Slider)
+					if(clicked_object != nullptr && clicked_object->draggable) 
 					Move_Clicked_Object(clicked_object);
 
-					//}
+				
 
 					break; 
 					
@@ -638,6 +620,7 @@ void j1Gui::Select_Clicked_Object() {
 		}
 		 
 	
+		// move slider if slider bar was clicked
 
 		if (clicked_object != nullptr){ 
 
@@ -645,7 +628,7 @@ void j1Gui::Select_Clicked_Object() {
 
 			for (item = objects.start; item != NULL; item = item->next) {
 
-				if (item->data->parent == clicked_object && item->data->type == GUI_TYPE::Slider) { // move slider if slider bar was clicked
+				if (item->data->parent == clicked_object && item->data->type == GUI_TYPE::Slider) { 
 
 					if(clicked_in_this_frame)
 					Move_Slider(item->data, iPoint(x,y));
@@ -658,34 +641,10 @@ void j1Gui::Select_Clicked_Object() {
 
 		clicked_in_this_frame = false; 
 
-		/*if (clicked_object != nullptr && clicked_object->draggable && clicked_object->type == GUI_TYPE::Slider)
-			Move_Clicked_Object(clicked_object);*/
+
+		// move children
 
 
-		// if(clicked_object != nullptr)
-	//	LOG("Clicked object is actually ---------------------------------------> %s", clicked_object->ID);
-
-		
-	/*p2List_item<j1Gui_Object*>* item_s;
-	j1Gui_Object* resolve_selected; 
-
-	int index = 666;
-
-	for (item_s = selected_objects.start; item_s != NULL; item_s = item_s->next)
-	{
-		
-
-		if (item_s->data->hierarchy < item_s->prev->data->hierarchy) {
-			
-			resolve_selected = item->data; 
-
-		}
-
-	
-
-	}*/
-
-	// resolve_selected = selected_objects.At(index)->data;
 
 
 }
@@ -697,7 +656,7 @@ j1Gui_Object* j1Gui::Get_Clicked_Object() {
 }
 
 
-void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> childs) {
+void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { 
 
 
 	LOG(" *******************************   moving obj   *******************************"); 

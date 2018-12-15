@@ -112,7 +112,6 @@ public:
 	void Do_Logic_Clicked(j1Gui_Object*);
 
 
-	// TODO 2: Create the factory methods
 	// Gui creation functions
 
 	j1Gui_Image* Create_Image(SDL_Texture*, iPoint pos, SDL_Rect&, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr, bool draggable = false);
@@ -126,8 +125,8 @@ public:
 
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 
-//	void Get_Clicked_Object_Children(); 
-	void Move_Clicked_Object(j1Gui_Object*); // , p2List<j1Gui_Object*> childs);
+	p2List<j1Gui_Object*> Get_Clicked_Object_Children(j1Gui_Object*);
+	void Move_Clicked_Object(j1Gui_Object*); 
 	void Move_Slider(j1Gui_Object*, iPoint dest_pos);
 	
 
@@ -228,8 +227,8 @@ private:
 	uint frame_count = 0; 
 	uint cleaned_times = 0; 
 	bool clicked_in_this_frame = false; 
+
 public: 
-	// bool create_menu_GUI = true; 
 	create_menu_GUI create_menu_GUI; 
 	bool create_level_GUI = false;
 	uint creation_level_times = 0; 
