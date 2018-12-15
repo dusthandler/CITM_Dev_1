@@ -10,6 +10,7 @@ j1Gui_Slider::j1Gui_Slider(SDL_Texture* tex, iPoint pos, SDL_Rect rect, j1Gui_Ob
 	this->tex = tex;
 	this->rect = rect;
 	this->pos = pos;
+	initial_pos = pos; 
 	this->ID = ID;
 	this->menu_level = menu_level;
 

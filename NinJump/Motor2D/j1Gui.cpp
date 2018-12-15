@@ -223,8 +223,8 @@ void j1Gui::Generate_Menu_GUI() {
 		// images
 		settings_image = Create_Image(settings_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 817 }, NULL, Menu_Level::Settings_Menu);
 
-		settings_mus_bar = Create_Image(atlas, iPoint(20, 200), SDL_Rect{ 564, 186, 383, 64 }, NULL, Menu_Level::Settings_Menu);
-		settings_mus_slider = Create_Slider(atlas, iPoint(25, 210), SDL_Rect{ 563, 256, 45, 38 }, settings_mus_bar, "mus_slider");
+		settings_mus_bar = Create_Image(atlas, iPoint(20, 200), SDL_Rect{ 564, 188, 376, 54 }, NULL, Menu_Level::Settings_Menu);
+		settings_mus_slider = Create_Slider(atlas, iPoint(27, 208), SDL_Rect{ 563, 256, 45, 38 }, settings_mus_bar, "mus_slider");
 
 
 		
@@ -561,6 +561,7 @@ void j1Gui::Select_Clicked_Object() {
 
 				case Hover_State::HOVER:
 
+					if(item->data->type != GUI_TYPE::Slider)
 					move_object = false;
 
 					if (App->input->GetMouseButtonDown(1) == KEY_DOWN && !move_object) {
@@ -622,7 +623,7 @@ void j1Gui::Select_Clicked_Object() {
 
 				// 	if (clicked_object->menu_level != Menu_Level::Level /*&& clicked_object->draggable*/) {
 
-					if(clicked_object != nullptr && clicked_object->draggable)
+					if(clicked_object != nullptr && clicked_object->draggable && clicked_object->type) // != GUI_TYPE::Slider)
 					Move_Clicked_Object(clicked_object);
 
 					//}
@@ -637,6 +638,11 @@ void j1Gui::Select_Clicked_Object() {
 
 		}
 		
+
+		/*if (clicked_object != nullptr && clicked_object->draggable && clicked_object->type == GUI_TYPE::Slider)
+			Move_Clicked_Object(clicked_object);*/
+
+
 		// if(clicked_object != nullptr)
 	//	LOG("Clicked object is actually ---------------------------------------> %s", clicked_object->ID);
 
@@ -723,8 +729,32 @@ void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 
 	// bool move_x = true; 
 
-	if (new_pos.x >= obj->parent->pos.x && new_pos.x <= obj->parent->pos.x + obj->parent->rect.w) {
+	uint right_offset = 48; 
+	uint left_offset = 5;
+
+	uint start_pos;
+	uint end_pos;
+
+
+	if (new_pos.x >= obj->parent->pos.x + left_offset && new_pos.x <= obj->parent->pos.x + obj->parent->rect.w - right_offset) {
 		obj->pos.x = new_pos.x; 
+	}
+
+	start_pos = obj->parent->pos.x + left_offset; 
+	end_pos = obj->parent->pos.x + obj->parent->rect.w - right_offset; 
+
+	uint total_range = end_pos - start_pos;
+	uint range_volume_factor = total_range / 128; // note 128 is max volume
+
+
+	uint volume = (obj->pos.x - obj->initial_pos.x) / range_volume_factor; 
+
+	// music volume
+
+	if (obj->ID == "mus_slider") {
+
+		App->audio->Change_Mus_Volume(volume); 
+
 	}
 
 }

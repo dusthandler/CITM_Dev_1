@@ -37,6 +37,7 @@ public:
 public:
 
 	iPoint pos; 
+	iPoint initial_pos;
 	SDL_Rect rect; 
 	GUI_TYPE type;
 	SDL_Texture* tex; 
