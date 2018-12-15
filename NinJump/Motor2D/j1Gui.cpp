@@ -621,6 +621,7 @@ void j1Gui::Select_Clicked_Object() {
 		 
 	
 		// move slider if slider bar was clicked
+		bool do_it = false; 
 
 		if (clicked_object != nullptr){ 
 
@@ -630,7 +631,11 @@ void j1Gui::Select_Clicked_Object() {
 
 				if (item->data->parent == clicked_object && item->data->type == GUI_TYPE::Slider) { 
 
-					if(clicked_in_this_frame)
+					if (x < item->data->pos.x || x > item->data->pos.x + item->data->rect.w) {
+						do_it = true; 
+					}
+
+					if(clicked_in_this_frame && do_it)
 					Move_Slider(item->data, iPoint(x,y));
 
 				}
