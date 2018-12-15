@@ -75,7 +75,7 @@ void j1Gui_Label::Blit() {
 	
 
 
-
+	
 	if (ID == "coin_score" || ID == "life_count" || ID ==  "time_count") {
 
 		App->tex->UnLoad(tex); 

@@ -91,14 +91,21 @@ bool j1Scene::Start()
 		map_active = 0; 
 		LOG("---------------------------LVEL 1 LOADED------------------------");
 		Map_Loaded = true;
-		int w, h;
+		/*int w, h;
 		uchar* data = NULL;
 		if (App->map->CreateWalkabilityMap(w, h, &data))
 			App->pathfinding->SetMap(w, h, data);
 
-		RELEASE_ARRAY(data);
+		RELEASE_ARRAY(data);*/
 	}
 
+
+	int w, h;
+	uchar* data = NULL;
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
+
+	RELEASE_ARRAY(data);
 
 	
 	return true;
@@ -314,6 +321,7 @@ bool j1Scene::CleanUp()
 	BROFILER_CATEGORY("Scene CleanUp", Profiler::Color::Lime);
 	LOG("Freeing scene");
 
+	App->pathfinding->CleanUp(); 
 
 	App->audio->UnloadMus(mus);                        // Clean Up Music
 	App->audio->UnloadMus(mus2); 

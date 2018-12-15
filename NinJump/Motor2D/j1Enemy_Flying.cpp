@@ -62,7 +62,9 @@ bool j1Enemy_Flying::Update(float dt) {
 		Move(dt);
 	}
 
+	
 	collider->SetPos(position.x, position.y);
+
 	Set_Anim();
 	
 

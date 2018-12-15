@@ -64,7 +64,9 @@ j1Player_Entity::~j1Player_Entity()
 bool j1Player_Entity::PreUpdate() {
 	BROFILER_CATEGORY("Player PreUpdate", Profiler::Color::Cyan);
 	//We move the collider first.
+
 	collider->SetPos(position.x, position.y);
+	
 	return true;
 }
 
@@ -500,7 +502,11 @@ bool j1Player_Entity::PostUpdate() {
 
 bool j1Player_Entity::CleanUp() {
 	BROFILER_CATEGORY("Player CleanUp", Profiler::Color::DarkGray);
+	
 	collider->to_delete = true;
+
+
+
 	active = false;
 	
 

@@ -13,6 +13,7 @@
 #include "Brofiler/Brofiler.h"
 #include "j1Audio.h"
 #include "j1Shuriken.h"
+#include "p2Log.h"
 #include <time.h>
 
 j1Entity_Manager::j1Entity_Manager() : j1Module()
@@ -63,7 +64,7 @@ bool j1Entity_Manager::Start(){
 
 
 
-
+	
 	if (App->scene->map_active == 0) {
 		CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
 
@@ -71,9 +72,6 @@ bool j1Entity_Manager::Start(){
 			CreateEntity(Type::COIN, iPoint(450 + i*coin_dist, 870));
 		}
 
-		for (int i = 1; i < 3; ++i) {
-			CreateEntity(Type::COIN, iPoint(1000 + i * coin_dist, 870));
-		}
 
 	}
 
@@ -151,10 +149,10 @@ void j1Entity_Manager::Draw() {
 		{
 
 			Rect = item->data->animation->GetCurrentFrame();
-			if (!item->data->active) {
+		/*	if (!item->data->active) {
 				Rect = { 0, 0, 0, 0 }; 
-			}
-			// if (item->data->active) {
+			}*/
+		 if (item->data->active) {
 				switch (item->data->type) {
 				case Type::PLAYER:
 					if (Get_Gravity_Reverse()) {
@@ -177,7 +175,7 @@ void j1Entity_Manager::Draw() {
 					App->render->Blit(shuriken_tex, item->data->position.x, item->data->position.y, &Rect, 1);
 					break;
 				}
-			// }
+			}
 		}
 	// }
 
@@ -283,12 +281,11 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
 		if(item->data == entity){
-
-	    
 		// ret = item->data->CleanUp();    // in the entity clean up, we already call destroy
 		delete item->data;                 // so destroy must not call clean up; 
 		item->data = nullptr;
 		entities.del(item);
+		LOG("                                                          !!!! entity destroyed !!!!"); 
 		}
 		
 	}
@@ -307,10 +304,15 @@ bool j1Entity_Manager::CleanUp()      // as in App
 
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
-		ret = item->data->CleanUp();
-		delete item->data;
-		item->data = nullptr;
-	}
+		 if (item->data->active) {
+			
+			 item->data->collider->to_delete = true;    // if an entity was still active, delete collider 
+		 }
+			// ret = item->data->CleanUp();
+			delete item->data;                     // if not, just delete it
+			item->data = nullptr;
+		}
+	
 	entities.clear();
 
 /*	// fxs
@@ -330,7 +332,7 @@ bool j1Entity_Manager::CleanUp()      // as in App
 	App->tex->UnLoad(enemy_fly_tex);
 	App->tex->UnLoad(path_tex);
 
-	return ret;
+	return ret; 
 }
 
 iPoint j1Entity_Manager::GetPlayerPos() {

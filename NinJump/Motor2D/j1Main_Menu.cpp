@@ -22,27 +22,22 @@ j1Main_Menu::~j1Main_Menu()
 // Called before the first frame
 bool j1Main_Menu::Start()
 {
-	BROFILER_CATEGORY("Main Menu Start", Profiler::Color::PaleGreen);
+	BROFILER_CATEGORY("Menu Start", Profiler::Color::PaleGreen);
    
-	LOG("------------------------------------------- MAIN MENU START ---------------------");
-
-
+	LOG("------------------------------------------- MENU START ---------------------");
+	mus = App->audio->LoadMus("Sound/Music/main_menu.ogg");
+	mus_set = App->audio->LoadMus("Sound/Music/settings_mus.ogg");
+	mus_cred = App->audio->LoadMus("Sound/Music/credits_mus.ogg");
 
 	if (active_menu == Active_Menu::MAIN) {
-
-		mus = App->audio->LoadMus("Sound/Music/main_menu.ogg");
 		App->audio->PlayMus(mus);
 	}
 
 	else if (active_menu == Active_Menu::SETTINGS) {
-
-		mus_set = App->audio->LoadMus("Sound/Music/settings_mus.ogg");
 		App->audio->PlayMus(mus_set);
 	}
 
 	else if (active_menu == Active_Menu::CREDITS) {
-
-		mus_cred = App->audio->LoadMus("Sound/Music/credits_mus.ogg");
 		App->audio->PlayMus(mus_cred);
 	}
 

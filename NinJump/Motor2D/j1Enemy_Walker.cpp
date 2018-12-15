@@ -80,9 +80,11 @@ bool j1Enemy_Walker::Update(float dt) {
 		Move(dt);
 	}
 
-	collider->SetPos(position.x, position.y);
-	Set_Anim();
+	
+		collider->SetPos(position.x, position.y); 
 
+	Set_Anim();
+	
 
 	return ret;
 }
