@@ -237,8 +237,10 @@ bool j1Scene::Update(float dt)
 		}
 
 		// draw everything
-
-		App->map->Draw();
+		if (Map_Loaded) {
+			App->map->Draw();
+		}
+		
 
 		App->entity_manager->Draw();
 
