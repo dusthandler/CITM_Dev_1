@@ -226,8 +226,8 @@ private:
 	iPoint capture_mouse_pos; 
 	iPoint last_mouse_pos;
 	uint frame_count = 0; 
-    
 	uint cleaned_times = 0; 
+	bool clicked_in_this_frame = false; 
 public: 
 	// bool create_menu_GUI = true; 
 	create_menu_GUI create_menu_GUI; 

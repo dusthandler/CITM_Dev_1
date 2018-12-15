@@ -49,15 +49,7 @@ bool j1Main_Menu::Start()
 	return true;
 }
 
-bool j1Main_Menu::Update(float dt) {
 
-	if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
-		App->audio->Change_Mus_Volume(100); 
-
-	}
-	return true; 
-		
-}
 
 // Called before quitting
 bool j1Main_Menu::CleanUp()

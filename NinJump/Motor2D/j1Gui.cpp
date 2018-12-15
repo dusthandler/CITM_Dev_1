@@ -55,7 +55,7 @@ bool j1Gui::Start()
 	
 
 
-	/*FILE *f = fopen("gui/prueba.txt", "r");
+    /*FILE *f = fopen("gui/prueba.txt", "r");
 
     char line[666]; 
 	char* result[50]; 
@@ -577,9 +577,9 @@ void j1Gui::Select_Clicked_Object() {
 
 				case Hover_State::CLICK:
 
-					if (!reset_child_search) {
+				/*	if (!reset_child_search) {
 
-						/*for (item_c = objects.start; item_c != NULL; item_c = item_c->next)
+						for (item_c = objects.start; item_c != NULL; item_c = item_c->next)
 						{
 
 							if (item_c->data->parent == clicked_object) {
@@ -588,10 +588,11 @@ void j1Gui::Select_Clicked_Object() {
 								child_count++;
 							}
 
-						}*/
+						}
 						reset_child_search = true;
-					}
+					}*/
 
+					clicked_in_this_frame = true; 
 
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
 						item->data->hover_state = Hover_State::HOVER;
@@ -612,18 +613,16 @@ void j1Gui::Select_Clicked_Object() {
 					}
 
 
-					/*move_object = true;
-*/
-/*if (App->main_menu->active_menu == Active_Menu::SETTINGS && settings_from_level && item->data->menu_level == Menu_Level::Level) { // do not select an active level object when you are in settings){
-	continue;
-}*/
+					/*move_object = true;*/
+
 					if (item->data != nullptr) {
 						clicked_object = item->data;
 					}
+					
 
 				// 	if (clicked_object->menu_level != Menu_Level::Level /*&& clicked_object->draggable*/) {
 
-					if(clicked_object != nullptr && clicked_object->draggable && clicked_object->type) // != GUI_TYPE::Slider)
+					if(clicked_object != nullptr && clicked_object->draggable) //&& clicked_object->type != GUI_TYPE::Slider)
 					Move_Clicked_Object(clicked_object);
 
 					//}
@@ -637,7 +636,27 @@ void j1Gui::Select_Clicked_Object() {
 			}
 
 		}
-		
+		 
+	
+
+		if (clicked_object != nullptr){ 
+
+		   p2List_item<j1Gui_Object*>* item;
+
+			for (item = objects.start; item != NULL; item = item->next) {
+
+				if (item->data->parent == clicked_object && item->data->type == GUI_TYPE::Slider) { // move slider if slider bar was clicked
+
+					if(clicked_in_this_frame)
+					Move_Slider(item->data, iPoint(x,y));
+
+				}
+
+		    }
+
+        }
+
+		clicked_in_this_frame = false; 
 
 		/*if (clicked_object != nullptr && clicked_object->draggable && clicked_object->type == GUI_TYPE::Slider)
 			Move_Clicked_Object(clicked_object);*/
@@ -744,11 +763,11 @@ void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 	end_pos = obj->parent->pos.x + obj->parent->rect.w - right_offset; 
 
 	uint total_range = end_pos - start_pos;
-	uint range_volume_factor = total_range / 128; // note 128 is max volume
-
+	uint range_volume_factor = total_range / SDL_MIX_MAXVOLUME; 
 
 	uint volume = (obj->pos.x - obj->initial_pos.x) / range_volume_factor; 
 
+	
 	// music volume
 
 	if (obj->ID == "mus_slider") {
@@ -757,6 +776,7 @@ void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 
 	}
 
+	LOG("VOLUME is ------------------------------------------------>>>>> %i", volume);
 }
 
 
@@ -826,5 +846,5 @@ const SDL_Texture* j1Gui::GetAtlas() const
 	return atlas;
 }
 
-// class Gui ---------------------------------------------------
+
 

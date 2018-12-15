@@ -31,7 +31,7 @@ public:
 	// Called before the first frame
 	bool Start();
 
-	bool Update(float dt); 
+	
 	// Called before quitting
 	bool CleanUp();
 
