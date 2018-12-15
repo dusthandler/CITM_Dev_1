@@ -161,6 +161,8 @@ private:
 	j1Gui_Image* UI_lives = nullptr;
 	j1Gui_Label* live_count = nullptr;
 
+	j1Gui_Label* time_count = nullptr;
+
 	// main menu objects 
 	j1Gui_Label* game_title = nullptr;
 

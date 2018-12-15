@@ -5,6 +5,7 @@
 #include "j1Module.h"
 #include "p2List.h"
 #include "p2Point.h"
+#include "j1Timer.h"
 
 enum class Type
 {
@@ -75,6 +76,8 @@ protected:
 public: 
 	
 	uint player_live_count = 3; 
+	j1Timer player_startup_time;
+	
 	
 }; 
 

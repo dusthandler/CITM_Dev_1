@@ -5,7 +5,7 @@
 #include "Animation.h"  
 #include "j1Collision.h"
 #include "j1Entity.h"
-
+#include "j1Timer.h"
 
 #define PLAYER_WIDTH 35
 #define PLAYER_HEIGHT 45
@@ -91,7 +91,6 @@ public:
 	
 	bool Level_Win = false;
 	bool Respawning = true;
-
 
 	
 

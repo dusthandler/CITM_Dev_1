@@ -110,7 +110,7 @@ bool j1Gui::PreUpdate()
 bool j1Gui::Update(float dt) {
 
 	
-	LOG(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,                     actual DT               ,,,,,,  %f", dt); 
+	LOG("                                                          actual DT                   %f", dt); 
 	LOG(" 888888888888888888888888888888888888888888888888888888     CREATED LEVEL ----> %i times", creation_level_times);
 	LOG(" 888888888888888888888888888888888888888888888888888888     CLEANED LEVEL ----> %i times", cleaned_level_times); 
 
@@ -281,6 +281,13 @@ void j1Gui::Generate_Level_GUI() {
 
 	ID = "life_count";
 	live_count = Create_Label(iPoint(980, 30), standard_font, "X3", ID, Menu_Level::Level);
+
+
+	// UI TIME 
+	ID = "time_count";
+	r = { 50, 0, 36, 32 };
+	time_count = Create_Label(iPoint(30, 30), standard_font, "time: 0", ID, Menu_Level::Level);
+
 
 	if(create_level_GUI)
 	create_level_GUI = false; 

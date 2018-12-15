@@ -58,6 +58,14 @@ void j1Gui_Label::Blit() {
 		text = buffer;
 		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 	}
+	else if (ID == "time_count") {
+		char buffer[200];
+		snprintf(buffer, sizeof(buffer), "time: %i", App->entity_manager->player_startup_time.Read());
+		text = buffer;
+		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
+	}
+
+
 
 	if (!has_button) {
 		App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
@@ -66,7 +74,9 @@ void j1Gui_Label::Blit() {
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f); 
 	
 
-	if (ID == "coin_score" || ID == "life_count") {
+
+
+	if (ID == "coin_score" || ID == "life_count" || ID ==  "time_count") {
 
 		App->tex->UnLoad(tex); 
 		tex = nullptr; 

@@ -28,7 +28,7 @@ j1Entity_Manager::~j1Entity_Manager()
 
 bool j1Entity_Manager::Start(){
 	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::Brown);
-
+	player_startup_time.Start();
 
 
 	srand(time(NULL));
