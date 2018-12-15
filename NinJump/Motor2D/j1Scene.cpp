@@ -148,11 +148,15 @@ bool j1Scene::Update(float dt)
 	PERF_START(ptimer); 
 
 	if (dt != 0) {
-		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {  // f5
 			App->LoadGame("save_game.xml");
+			LOG("::::::::::::::::::::::::   Game loaded");
+		}
 
-		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) { // f6
 			App->SaveGame("save_game.xml");
+			LOG("::::::::::::::::::::::::   Game saved");
+		}
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			App->render->camera.y += 40;
@@ -209,11 +213,12 @@ bool j1Scene::Update(float dt)
 
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
+		else if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN || App->entity_manager->player_live_count == 0) {
 			MapSwap(2);
+		    App->entity_manager->player_live_count = 3;
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN /*|| App->entity_manager->player_live_count == 0*/) {
+		else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN ) {
 
 			if (!App->gui->create_menu_GUI.Do)
 				App->gui->create_menu_GUI.Do = true;
@@ -297,8 +302,8 @@ bool j1Scene::PostUpdate()
 	Player_act_pos = App->entity_manager->GetPlayerPos();
 
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+/*	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;*/
 
 	return ret;
 }

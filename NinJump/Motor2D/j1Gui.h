@@ -145,9 +145,7 @@ private:
 
 	// getting credits txt 
 
-/*	char* val1; 
-	char* val2; 
-	char line[50];*/
+
 
 	// fonts
 

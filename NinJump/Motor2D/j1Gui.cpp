@@ -53,32 +53,26 @@ bool j1Gui::Start()
 	
 	
 
-/*
-// 	char c;
-	char text[5]; 
-	FILE *f;
-	f = fopen("gui/prueba.txt", "r");
-	
 
-	/*while ((c = fgetc(f)) != EOF) {
-		LOG("Charging credtis text character ... ... ... "); 
+	/*FILE *f = fopen("gui/prueba.txt", "r");
 
-	}
-	// char line[50]; 
-
+    char line[666]; 
+	char* result[50]; 
+	uint i = 0; 
 	while ((fgets(line, sizeof(line), f) != NULL)) {
+		char buffer[sizeof(line)];
+		char* val1 = strtok(line, ",");
+		char* val2 = strtok(NULL, ",");
+		strcpy(buffer, val1);
+		result[i] = buffer; 
+		LOG("line is ----------------------------------> %s", result[i]);
 
-		 val1 = strtok(line, ",");
-		 val2 = strtok(NULL, ",");
-
+		i++; 
 	}
-		// puts (text);
+		
+	LOG("file is ----------------------------------> %s", result);
 
-
-	
-
-	fclose(f);  */
-
+	fclose(f); */
 	
 	
 

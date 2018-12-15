@@ -7,13 +7,18 @@
 	<map />
 	<pathfinding />
 	<scene>
-		<Scene_vars Switch="0" Alive="true" Win="false" />
+		<Scene_vars Switch="1" Alive="true" Win="false" />
 	</scene>
+	<main menu />
 	<fadeToBlack />
 	<:anonymous />
 	<fonts />
 	<gui />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-320" y="-320" />
 	</renderer>
+	<Entity_Manager>
+		<Player_Entity x="620" y="851" xv="0" yv="0" Cont="621" Cont_X="25.2000027" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
+		<State collider_type="collider_player" />
+	</Entity_Manager>
 </game_state>

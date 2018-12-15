@@ -58,19 +58,19 @@ bool j1Entity_Manager::Start(){
 	Pos.x = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").attribute("value").as_uint();
 	Pos.y = InitPos.child("tileset").child("terraintypes").child("terrain").child("properties").child("property").next_sibling("property").attribute("value").as_uint();
 
-   CreateEntity(Type::PLAYER, Pos, 0);
+	CreateEntity(Type::PLAYER, Pos); // , 0);
 
 
-   CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
-   CreateEntity(Type::COIN, iPoint(450, 870),3);
-   CreateEntity(Type::COIN, iPoint(550, 870),2);
-   CreateEntity(Type::COIN, iPoint(650, 870),1);
+  /* CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
+   CreateEntity(Type::COIN, iPoint(450, 870));
+   CreateEntity(Type::COIN, iPoint(550, 870));
+   CreateEntity(Type::COIN, iPoint(650, 870));
 
 
 
-	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90),17);
-	//CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
-	/*CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
+	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
+	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200));*/
   
 
@@ -117,12 +117,12 @@ void j1Entity_Manager::Draw() {
 			if (item->data->active) {
 				switch (item->data->type) {
 				case Type::PLAYER:
-					if (Get_Gravity_Reverse()) {
+				/*	if (Get_Gravity_Reverse()) {
 						App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
 					}
-					else {
+					else {*/
 						App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-					}
+					//}
 					break;
 				case Type::COIN:
 					App->render->Blit(coin_tex, item->data->position.x, item->data->position.y, &Rect, 1);
