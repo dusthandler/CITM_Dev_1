@@ -61,14 +61,28 @@ bool j1Entity_Manager::Start(){
 	CreateEntity(Type::PLAYER, Pos); // , 0);
 
 
-  /* CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
-   CreateEntity(Type::COIN, iPoint(450, 870));
-   CreateEntity(Type::COIN, iPoint(550, 870));
-   CreateEntity(Type::COIN, iPoint(650, 870));
+	if (App->scene->map_active == 0) {
+		CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
+
+		for (int i = 1; i < 10; ++i) {
+			CreateEntity(Type::COIN, iPoint(450 + i*coin_dist, 870));
+		}
+
+	}
+
+	else {
+		CreateEntity(Type::SHURIKEN, iPoint(740, 520));       // after player !
+
+
+		for (int i = 1; i < 6; ++i) {
+			CreateEntity(Type::COIN, iPoint(150 + i * coin_dist, 870));
+		}
+
+	}
 
 
 
-	CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
+	/*CreateEntity(Type::ENEMY_FLYING, iPoint(370, 90));
 	CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200));
 	CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 	CreateEntity(Type::ENEMY_LAND, iPoint(250, 200));*/
@@ -114,15 +128,18 @@ void j1Entity_Manager::Draw() {
 		{
 
 			Rect = item->data->animation->GetCurrentFrame();
-			if (item->data->active) {
+			if (!item->data->active) {
+				Rect = { 0, 0, 0, 0 }; 
+			}
+			// if (item->data->active) {
 				switch (item->data->type) {
 				case Type::PLAYER:
-				/*	if (Get_Gravity_Reverse()) {
+					if (Get_Gravity_Reverse()) {
 						App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1, "player");
 					}
-					else {*/
+					else {
 						App->render->Blit(player_tex, item->data->position.x, item->data->position.y, &Rect, 1);
-					//}
+					}
 					break;
 				case Type::COIN:
 					App->render->Blit(coin_tex, item->data->position.x, item->data->position.y, &Rect, 1);
@@ -137,7 +154,7 @@ void j1Entity_Manager::Draw() {
 					App->render->Blit(shuriken_tex, item->data->position.x, item->data->position.y, &Rect, 1);
 					break;
 				}
-			}
+			// }
 		}
 	// }
 
@@ -243,8 +260,10 @@ void j1Entity_Manager::DestroyEntity(j1Entity* entity) {
 	for (item = entities.start; item != NULL && ret == true; item = item->next)
 	{
 		if(item->data == entity){
-		ret = item->data->CleanUp();
-		delete item->data;
+
+	    
+		// ret = item->data->CleanUp();    // in the entity clean up, we already call destroy
+		delete item->data;                 // so destroy must not call clean up; 
 		item->data = nullptr;
 		entities.del(item);
 		}

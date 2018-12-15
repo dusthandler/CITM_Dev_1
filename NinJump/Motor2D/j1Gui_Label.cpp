@@ -60,7 +60,7 @@ void j1Gui_Label::Blit() {
 	}
 	else if (ID == "time_count") {
 		char buffer[200];
-		snprintf(buffer, sizeof(buffer), "time: %i", App->entity_manager->player_startup_time.Read());
+		snprintf(buffer, sizeof(buffer), "GO! %.0f", App->entity_manager->player_startup_time.ReadSec());
 		text = buffer;
 		tex = App->font->Print(text, SDL_Color{ 0, 0, 0, 255 }, font);
 	}

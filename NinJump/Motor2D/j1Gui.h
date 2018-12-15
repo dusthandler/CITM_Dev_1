@@ -58,7 +58,7 @@ enum Hover_State {
 struct Hover_Anim {
 	SDL_Rect a_Idle;
 	SDL_Rect a_Hover;
-	SDL_Rect a_Click;
+	SDL_Rect a_Hover_light;
 };
 
 enum Hierarchy {

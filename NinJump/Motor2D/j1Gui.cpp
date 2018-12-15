@@ -175,8 +175,9 @@ void j1Gui::Generate_Menu_GUI() {
 
 	Hover_Anim anim_rects;
 	anim_rects.a_Idle = { 1, 39, 70, 88 };
+	anim_rects.a_Hover_light = { 525, 33, 129, 155 };
 	anim_rects.a_Hover = { 71, 31, 180, 115 };
-	anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
+
 
 	if (create_menu_GUI.next_menu == Next_Menu::MAIN_NEXT) {
 
@@ -194,8 +195,9 @@ void j1Gui::Generate_Menu_GUI() {
 		settings_button = Create_Button(anim_rects, atlas, iPoint(570, 220), "settings_button", Menu_Level::Main_Menu, menu_label);
 
 		anim_rects.a_Idle = { 252, 71, 111, 76 };
+		anim_rects.a_Hover_light = { 680, 20, 219, 161 };
 		anim_rects.a_Hover = { 364, 41, 113, 111 };
-		anim_rects.a_Click = { 1000, 1000, 1000, 1000 };
+		
 
 		credits_button = Create_Button(anim_rects, atlas, iPoint(850, 600), "credits_button", Menu_Level::Main_Menu);
 		exit_button = Create_Button(anim_rects, atlas, iPoint(20, 600), "exit_button", Menu_Level::Main_Menu);
@@ -286,7 +288,7 @@ void j1Gui::Generate_Level_GUI() {
 	// UI TIME 
 	ID = "time_count";
 	r = { 50, 0, 36, 32 };
-	time_count = Create_Label(iPoint(30, 30), standard_font, "time: 0", ID, Menu_Level::Level);
+	time_count = Create_Label(iPoint(30, 30), standard_font, "GO! 0", ID, Menu_Level::Level);
 
 
 	if(create_level_GUI)

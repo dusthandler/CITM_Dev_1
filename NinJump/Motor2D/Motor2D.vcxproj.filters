@@ -196,7 +196,7 @@
       <Filter>GUI\Menu</Filter>
     </ClInclude>
     <ClInclude Include="j1Fonts.h">
-      <Filter>GUI\help</Filter>
+      <Filter>GUI\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

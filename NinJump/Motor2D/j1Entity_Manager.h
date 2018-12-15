@@ -62,7 +62,7 @@ private:
 	float accumulated_time = 0.0f; 
 	float update_ms_cycle = 0.0f;  
 	bool do_logic = false; 
-
+	uint coin_dist = 100; 
 	SDL_Texture* path_tex = nullptr;
 protected: 
 

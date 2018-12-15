@@ -73,10 +73,10 @@ j1Collision::j1Collision()
 	matrix[COLLIDER_COIN][COLLIDER_GOD] = true;
 	matrix[COLLIDER_COIN][COLLIDER_WALL] = false;
 	matrix[COLLIDER_COIN][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_COIN][COLLIDER_SHOT] = false;
+	matrix[COLLIDER_COIN][COLLIDER_SHOT] = true;
 
 	matrix[COLLIDER_SHOT][COLLIDER_SHOT] = false;
-	matrix[COLLIDER_SHOT][COLLIDER_COIN] = false;
+	matrix[COLLIDER_SHOT][COLLIDER_COIN] = true;
 	matrix[COLLIDER_SHOT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_SHOT][COLLIDER_WIN] = false;
 	matrix[COLLIDER_SHOT][COLLIDER_DEATH] = false;
