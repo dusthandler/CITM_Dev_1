@@ -88,6 +88,9 @@
     <ClCompile Include="j1Fonts.cpp">
       <Filter>GUI\help</Filter>
     </ClCompile>
+    <ClCompile Include="j1Gui_Slider.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Audio.h">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="j1Fonts.h">
       <Filter>GUI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui_Slider.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

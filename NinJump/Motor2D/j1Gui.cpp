@@ -10,6 +10,7 @@
 #include "j1Gui_Image.h"
 #include "j1Gui_Object.h"
 #include "j1Gui_Button.h"
+#include "j1Gui_Slider.h"
 #include "j1Main_Menu.h"
 #include "j1Scene.h"
 #include "j1FadeBlack.h"
@@ -221,6 +222,11 @@ void j1Gui::Generate_Menu_GUI() {
 
 		// images
 		settings_image = Create_Image(settings_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 817 }, NULL, Menu_Level::Settings_Menu);
+
+		settings_mus_bar = Create_Image(atlas, iPoint(20, 200), SDL_Rect{ 564, 186, 383, 64 }, NULL, Menu_Level::Settings_Menu);
+		settings_mus_slider = Create_Slider(atlas, iPoint(25, 210), SDL_Rect{ 563, 256, 45, 38 }, settings_mus_bar, "mus_slider");
+
+
 		
 		if (!settings_from_level) {
 			// buttons
@@ -487,6 +493,21 @@ j1Gui_Button* j1Gui::Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iP
 
 }; 
 
+
+j1Gui_Slider* j1Gui::Create_Slider(SDL_Texture* tex, iPoint pos, SDL_Rect rect, j1Gui_Object* parent, char* ID, Menu_Level menu_level, bool draggable) {
+
+
+	j1Gui_Slider* ret = new j1Gui_Slider(tex, pos, rect, parent, ID, menu_level, draggable);
+
+	if (ret != nullptr)
+		objects.add(ret);
+
+
+	return ret;
+
+
+}
+
 void j1Gui::Select_Clicked_Object() {
 
 	int x, y; 
@@ -656,19 +677,6 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 
 	LOG(" *******************************   moving obj   *******************************"); 
 
-
-	//App->input->GetMousePosition(obj->pos.x, obj->pos.y);
-
-//	App->input->GetMousePosition(obj->pos.x, obj->pos.y);
-
-
-	/*p2List_item<j1Gui_Object*>* item_c;
-	for (item_c = childs.start; item_c != NULL; item_c = item_c->next)
-	{
-		App->input->GetMousePosition(item_c->data->pos.x, item_c->data->pos.y);
-	}; */
-	
-
 	frame_count++; 
 
 	if (frame_count == 5) {
@@ -694,28 +702,32 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { //, p2List<j1Gui_Object*> c
 		new_pos.x = (mouse_pos.x) - (dist.x) + dist_last_frame_mouse.x;
 		new_pos.y = (mouse_pos.y) - (dist.y) + dist_last_frame_mouse.y;
 
-		obj->Set_Pos(new_pos.x, new_pos.y);
 
+		if (obj->type == GUI_TYPE::Slider) {
+
+			Move_Slider(obj, new_pos); 
+			
+		}
+		else {
+			obj->Set_Pos(new_pos.x, new_pos.y);
+		}
 
 		
-		LOG("mouse pos ________________________________________________________ %i %i", mouse_pos.x, mouse_pos.y);
-		LOG("obj pos ________________________________________________________ %i %i", obj_pos.x, obj_pos.y);
-		LOG("New object pos ________________________________________________________ %i %i", new_pos.x, new_pos.y);
-
 
 	}
-
-	LOG("mouse pos ________________________________________________________ %i %i", mouse_pos.x, mouse_pos.y);
-	LOG("last mouse pos ________________________________________________________ %i %i", last_mouse_pos.x, last_mouse_pos.y);
-	LOG("frame count ________________________________________________________ %i", frame_count);
-
-
-
 
 
 }
 
+void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 
+	// bool move_x = true; 
+
+	if (new_pos.x >= obj->parent->pos.x && new_pos.x <= obj->parent->pos.x + obj->parent->rect.w) {
+		obj->pos.x = new_pos.x; 
+	}
+
+}
 
 
 /*

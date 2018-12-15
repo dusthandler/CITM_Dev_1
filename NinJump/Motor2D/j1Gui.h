@@ -15,6 +15,7 @@ class j1Gui_Object;
 class j1Gui_Image; 
 class j1Gui_Label; 
 class j1Gui_Button;
+class j1Gui_Slider;
 struct SDL_Texture; 
 struct SDL_Rect; 
 struct SDL_Color;
@@ -44,7 +45,8 @@ enum GUI_TYPE {
 	Button,
 	Input_Text,
 	Image,
-	Checkbox
+	Checkbox,
+	Slider
 }; 
 
 enum Hover_State {
@@ -119,13 +121,14 @@ public:
 
 	j1Gui_Button* Create_Button(Hover_Anim& hover_rects, SDL_Texture* tex, iPoint pos, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, j1Gui_Object* parent = nullptr, bool draggable = true);
 
+	j1Gui_Slider* Create_Slider(SDL_Texture* tex, iPoint pos, SDL_Rect rect, j1Gui_Object* parent, char* ID = nullptr, Menu_Level menu_level = Menu_Level::Level, bool draggable = true);
 	
 
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 
 //	void Get_Clicked_Object_Children(); 
 	void Move_Clicked_Object(j1Gui_Object*); // , p2List<j1Gui_Object*> childs);
-
+	void Move_Slider(j1Gui_Object*, iPoint dest_pos);
 	
 
 	virtual void Blit();
@@ -205,6 +208,10 @@ private:
 
 	j1Gui_Button* settings_to_level_button = nullptr;
 	j1Gui_Label* settings_to_level_label = nullptr;
+
+
+	j1Gui_Image* settings_mus_bar = nullptr;  
+	j1Gui_Slider* settings_mus_slider = nullptr; 
 
 	// hovering and clicking
 
