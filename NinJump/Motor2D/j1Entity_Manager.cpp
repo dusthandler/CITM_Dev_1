@@ -61,11 +61,18 @@ bool j1Entity_Manager::Start(){
 	CreateEntity(Type::PLAYER, Pos); // , 0);
 
 
+
+
+
 	if (App->scene->map_active == 0) {
 		CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
 
-		for (int i = 1; i < 10; ++i) {
+		for (int i = 1; i < 9; ++i) {
 			CreateEntity(Type::COIN, iPoint(450 + i*coin_dist, 870));
+		}
+
+		for (int i = 1; i < 3; ++i) {
+			CreateEntity(Type::COIN, iPoint(1000 + i * coin_dist, 870));
 		}
 
 	}
@@ -78,6 +85,22 @@ bool j1Entity_Manager::Start(){
 			CreateEntity(Type::COIN, iPoint(150 + i * coin_dist, 870));
 		}
 
+		CreateEntity(Type::COIN, iPoint(1090, 870));
+		CreateEntity(Type::COIN, iPoint(1250, 800));
+		CreateEntity(Type::COIN, iPoint(1410, 740));
+		CreateEntity(Type::COIN, iPoint(1480, 580));
+		CreateEntity(Type::COIN, iPoint(1600, 700));
+		CreateEntity(Type::COIN, iPoint(1635, 510));
+	
+
+		for (int i = 1; i < 6; ++i) {
+			CreateEntity(Type::COIN, iPoint(2300 + i * coin_dist, 580));
+		}
+
+		// enemies
+
+		CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 500));
+		CreateEntity(Type::ENEMY_LAND, iPoint(2600, 500));
 	}
 
 

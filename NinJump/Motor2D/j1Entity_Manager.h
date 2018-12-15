@@ -72,7 +72,6 @@ protected:
 	SDL_Texture* coin_tex = nullptr;
 	SDL_Texture* shuriken_tex = nullptr;
 
-
 public: 
 	
 	uint player_live_count = 3; 
