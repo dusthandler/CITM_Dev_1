@@ -223,8 +223,17 @@ void j1Gui::Generate_Menu_GUI() {
 		// images
 		settings_image = Create_Image(settings_image_tex, iPoint(0, 0), SDL_Rect{ 0, 0, 1050, 817 }, NULL, Menu_Level::Settings_Menu);
 
-		settings_mus_bar = Create_Image(atlas, iPoint(20, 200), SDL_Rect{ 594, 188, 376, 54 }, NULL, Menu_Level::Settings_Menu);
-		settings_mus_slider = Create_Slider(atlas, iPoint(27, 208), SDL_Rect{ 593, 256, 45, 38 }, settings_mus_bar, "mus_slider");
+		Create_Image(atlas, iPoint(10, 205), SDL_Rect{ 658, 300, 40, 37 }, NULL, Menu_Level::Settings_Menu);
+		Create_Image(atlas, iPoint(450, 205), SDL_Rect{ 657, 259, 41, 38 }, NULL, Menu_Level::Settings_Menu);
+
+		settings_mus_bar = Create_Image(atlas, iPoint(60, 200), SDL_Rect{ 594, 188, 376, 54 }, NULL, Menu_Level::Settings_Menu);
+		settings_mus_slider = Create_Slider(atlas, iPoint(67, 208), SDL_Rect{ 593, 256, 45, 38 }, settings_mus_bar, "mus_slider");
+
+		Create_Image(atlas, iPoint(10, 265), SDL_Rect{ 658, 300, 40, 37 }, NULL, Menu_Level::Settings_Menu);
+		Create_Image(atlas, iPoint(450, 265), SDL_Rect{ 657, 259, 41, 38 }, NULL, Menu_Level::Settings_Menu);
+
+		settings_fx_bar = Create_Image(atlas, iPoint(60, 260), SDL_Rect{ 594, 188, 376, 54 }, NULL, Menu_Level::Settings_Menu);
+		settings_fx_slider = Create_Slider(atlas, iPoint(67, 268), SDL_Rect{ 593, 256, 45, 38 }, settings_fx_bar, "fx_slider"); 
 
 
 		
@@ -240,8 +249,13 @@ void j1Gui::Generate_Menu_GUI() {
 			settings_to_level_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "settings_to_level_button", Menu_Level::Settings_Menu);
 
 			// labels
-			settings_to_level_label = Create_Label(iPoint(125, 640), standard_font, "RESUME", NULL, Menu_Level::Settings_Menu, settings_to_level_button);
+			settings_to_level_label = Create_Label(iPoint(110, 640), standard_font, "RESUME", NULL, Menu_Level::Settings_Menu, settings_to_level_button);
 		}
+
+
+		Create_Label(iPoint(485, 210), standard_font, "music", NULL, Menu_Level::Settings_Menu);
+		Create_Label(iPoint(485, 270), standard_font, "fx", NULL, Menu_Level::Settings_Menu);
+
 	}
 
 
@@ -512,6 +526,7 @@ void j1Gui::Select_Clicked_Object() {
 
 	int x, y; 
 
+	bool inside = false; 
 
 	p2List<j1Gui_Object*> selected_objects;
 	
@@ -552,6 +567,8 @@ void j1Gui::Select_Clicked_Object() {
 
 			if (x > obj_r.x && x < obj_r.x + obj_r.w && y > obj_r.y && y < obj_r.y + obj_r.h) {
 
+				inside = true; 
+
 				switch (item->data->hover_state) {
 
 				case Hover_State::OUTSIDE:
@@ -575,7 +592,27 @@ void j1Gui::Select_Clicked_Object() {
 					break;
 
 
-				case Hover_State::CLICK:
+				
+
+				case Hover_State::DRAG:
+
+					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+						item->data->hover_state = Hover_State::HOVER;
+					}
+
+
+
+					if (item->data != nullptr) {
+						clicked_object = item->data;
+					}
+					
+
+					if(clicked_object != nullptr && clicked_object->draggable) 
+					Move_Clicked_Object(clicked_object);
+
+					break; 
+					
+					case Hover_State::CLICK:
 
 
 					clicked_in_this_frame = true; 
@@ -589,31 +626,10 @@ void j1Gui::Select_Clicked_Object() {
 					}
 
 					break;
-
-				case Hover_State::DRAG:
-
-					if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
-						item->data->hover_state = Hover_State::HOVER;
-					}
-
-
-					/*move_object = true;*/
-
-					if (item->data != nullptr) {
-						clicked_object = item->data;
-					}
-					
-
-					if(clicked_object != nullptr && clicked_object->draggable) 
-					Move_Clicked_Object(clicked_object);
-
-				
-
-					break; 
-					
 				}
 			}
 			else {
+				LOG("oooooooooooooooooooooooooooooooooooooooooooooousiiiiiiiiiiiiiiiiiiiiiiiiiiiideeeeeeeeeeee"); 
 				item->data->hover_state = Hover_State::OUTSIDE;
 			}
 
@@ -621,6 +637,7 @@ void j1Gui::Select_Clicked_Object() {
 		 
 	
 		// move slider if slider bar was clicked
+
 		bool do_it = false; 
 
 		if (clicked_object != nullptr){ 
@@ -635,7 +652,7 @@ void j1Gui::Select_Clicked_Object() {
 						do_it = true; 
 					}
 
-					if(clicked_in_this_frame && do_it)
+					if(clicked_in_this_frame && do_it && item->data->parent)
 					Move_Slider(item->data, iPoint(x,y));
 
 				}
@@ -645,6 +662,25 @@ void j1Gui::Select_Clicked_Object() {
         }
 
 		clicked_in_this_frame = false; 
+
+
+		// move slider even if mouse is out of range
+
+		if (clicked_object && clicked_object->type == GUI_TYPE::Slider) {
+
+			if (clicked_object->hover_state == Hover_State::DRAG) {
+
+				LOG(" .............................................................. moving slider even if mouse is outside"); 
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) != KEY_UP) {
+
+					Move_Clicked_Object(clicked_object);
+
+				}
+
+			}
+		}
+
+
 
 
 		// move children
@@ -718,9 +754,10 @@ void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 	uint start_pos;
 	uint end_pos;
 
-
-	if (new_pos.x >= obj->parent->pos.x + left_offset && new_pos.x <= obj->parent->pos.x + obj->parent->rect.w - right_offset) {
-		obj->pos.x = new_pos.x; 
+	if (obj->parent != nullptr) {
+		if (new_pos.x >= obj->parent->pos.x + left_offset && new_pos.x <= obj->parent->pos.x + obj->parent->rect.w - right_offset) {
+			obj->pos.x = new_pos.x;
+		}
 	}
 
 	start_pos = obj->parent->pos.x + left_offset; 
@@ -738,6 +775,11 @@ void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 
 		App->audio->Change_Mus_Volume(volume); 
 
+	}
+
+	else if (obj->ID == "fx_slider") {
+
+		App->audio->Change_Fx_Volume(volume); 
 	}
 
 	LOG("VOLUME is ------------------------------------------------>>>>> %i", volume);

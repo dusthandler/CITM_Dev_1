@@ -212,6 +212,10 @@ private:
 	j1Gui_Image* settings_mus_bar = nullptr;  
 	j1Gui_Slider* settings_mus_slider = nullptr; 
 
+
+	j1Gui_Image* settings_fx_bar = nullptr;
+	j1Gui_Slider* settings_fx_slider = nullptr;
+
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 
