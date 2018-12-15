@@ -9,16 +9,18 @@
 	<scene>
 		<Scene_vars Switch="1" Alive="true" Win="false" />
 	</scene>
-	<main menu />
+	<mainmenu />
 	<fadeToBlack />
 	<:anonymous />
 	<fonts />
 	<gui />
 	<renderer>
-		<camera x="-320" y="-320" />
+		<camera x="-73" y="-320" />
 	</renderer>
 	<Entity_Manager>
-		<Player_Entity x="620" y="851" xv="0" yv="0" Cont="621" Cont_X="25.2000027" Jumping="false" Onplat="false" God_Mode="false" PType="PLAYER" />
+		<Player_Entity x="373" y="653" xv="0" yv="34" Cont="212.199966" Cont_X="-22.2000008" Jumping="true" Onplat="false" God_Mode="false" PType="PLAYER" />
 		<State collider_type="collider_player" />
+		<Enemie_Fliying_0 x="1500" y="500" vx="0" vy="0" ax="0" ay="0" dirx="64553864" diry="64553864" pathx="64553992" pathy="0" dir_m="3" act="false" reached="false" delet="false" foll_pla="false" />
+		<Enemie_Walker_0 x="2600" y="500" vx="0" vy="0" ax="0" ay="0" dirx="0" diry="0" pathx="0" pathy="0" dir_m="1" act="false" reached="false" delet="false" foll_pla="false" />
 	</Entity_Manager>
 </game_state>
