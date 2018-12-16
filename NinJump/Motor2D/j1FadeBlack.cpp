@@ -62,7 +62,7 @@ bool j1FB::Update(float dt)
 	case fade_step::fade_from_black:
 	{
 		normalized = 1.0f - normalized;
-		LOG("FADING_2");
+		//LOG("FADING_2");
 		if (now >= total_time)
 			current_step = fade_step::none;
 	} break;

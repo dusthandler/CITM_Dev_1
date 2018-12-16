@@ -348,7 +348,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 		App->map->Load("Level_1.tmx");
 		map_active = 0; 
 		this->SwitchM = 0;
-		
+	
 		Mus_Id = 1; 
 
 		if (!init) {
@@ -380,7 +380,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 
 		App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT; 
 
-		App->fade->FadeToBlack(this, App->main_menu, 0.5f);
+		App->fade->FadeToBlack(this, App->main_menu, 0.1f);
 		
 
 		App->collision->CleanWallDeath();                           // from level to main menu (press 'M')

@@ -643,7 +643,7 @@ void j1Gui::Select_Clicked_Object() {
 				}
 			}
 			else {
-				LOG("oooooooooooooooooooooooooooooooooooooooooooooousiiiiiiiiiiiiiiiiiiiiiiiiiiiideeeeeeeeeeee"); 
+				//LOG("oooooooooooooooooooooooooooooooooooooooooooooousiiiiiiiiiiiiiiiiiiiiiiiiiiiideeeeeeeeeeee"); 
 				item->data->hover_state = Hover_State::OUTSIDE;
 			}
 
