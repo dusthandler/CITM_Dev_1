@@ -139,6 +139,9 @@ public:
 
 
 public: 
+	bool Main_Created = false;
+	bool Sett_Created = false;
+	bool Cred_Created = false;
 	SDL_Texture* atlas;
 	j1Gui_Button* play_button = nullptr;
 	j1Gui_Label* play_button_label = nullptr;

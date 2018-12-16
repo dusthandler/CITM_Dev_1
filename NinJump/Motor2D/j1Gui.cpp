@@ -211,6 +211,9 @@ void j1Gui::Generate_Menu_GUI() {
 
 		credits_button_label = Create_Label(iPoint(880, 640), menu_font_2, "credits", NULL, Menu_Level::Main_Menu, credits_button);
 		exit_button_label = Create_Label(iPoint(60, 640), menu_font_2, "exit", NULL, Menu_Level::Main_Menu, exit_button);
+		Main_Created = true;
+		Sett_Created = false;
+		Cred_Created = false;
 	}
 
 
@@ -254,6 +257,9 @@ void j1Gui::Generate_Menu_GUI() {
 
 		Create_Label(iPoint(495, 210), standard_font, "music", NULL, Menu_Level::Settings_Menu);
 		Create_Label(iPoint(495, 270), standard_font, "fx", NULL, Menu_Level::Settings_Menu);
+		Main_Created = false;
+		Sett_Created = true;
+		Cred_Created = false;
 
 	}
 
@@ -273,7 +279,9 @@ void j1Gui::Generate_Menu_GUI() {
 		credits_to_main_label = Create_Label(iPoint(125, 640), standard_font, "BACK", NULL, Menu_Level::Credits_Menu, credits_to_main_button);
 		
 		// credits_label = Create_Label(iPoint(125, 100), standard_font, line, NULL, Menu_Level::Credits_Menu);
-
+		Main_Created = false;
+		Sett_Created = false;
+		Cred_Created = true;
 	}
 
 	if(create_menu_GUI.Do)

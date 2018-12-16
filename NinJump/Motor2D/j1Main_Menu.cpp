@@ -61,36 +61,45 @@ bool j1Main_Menu::Update(float dt)
 {
 	
 	bool ret = true;
+	if (App->gui->Main_Created) {
+		App->gui->play_button->ClickFunction = &Clicked_Play;
+		App->gui->continue_button->ClickFunction = &Clicked_Continue;
+		App->gui->exit_button->ClickFunction = &Clicked_Exit;
+		App->gui->settings_button->ClickFunction = &Clicked_Settings;
+		App->gui->credits_button->ClickFunction = &Clicked_Credits;
+	}
+	else if (App->gui->Sett_Created) {
+		if (App->gui->create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
+			if (!App->gui->settings_from_level) {
+				App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
+			}
+			else {
+				App->gui->settings_to_level_button->ClickFunction = &Clicked_Pause;
+			}
+
+			App->gui->settings_fx_slider->MoveSlider = &Move_Slider;
+			App->gui->settings_mus_slider->MoveSlider = &Move_Slider;
+			App->gui->settings_mus_slider->MoveFunction = &Move_Object;
+			App->gui->settings_fx_slider->MoveFunction = &Move_Object;
+		}
+	}
+	else if (App->gui->Cred_Created) {
+		if (App->gui->create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
+
+			App->gui->credits_to_main_button->ClickFunction = &Return_to_Main;
+		}
+		App->gui->menu_label->MoveFunction = &Move_Object;
+	}
+		
 	
+
 	return ret;
 }
 
 
 bool j1Main_Menu::PostUpdate() {
 	bool ret = true;
-	App->gui->play_button->ClickFunction = &Clicked_Play;
-	App->gui->continue_button->ClickFunction = &Clicked_Continue;
-	App->gui->exit_button->ClickFunction = &Clicked_Exit;
-	App->gui->settings_button->ClickFunction = &Clicked_Settings;
-	App->gui->credits_button->ClickFunction = &Clicked_Credits;
-	if (App->gui->create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
-		if (!App->gui->settings_from_level) {
-			App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
-		}
-		else {
-			App->gui->settings_to_level_button->ClickFunction = &Clicked_Pause;
-		}
-
-		App->gui->settings_fx_slider->MoveSlider = &Move_Slider;
-		App->gui->settings_mus_slider->MoveSlider = &Move_Slider;
-		App->gui->settings_mus_slider->MoveFunction = &Move_Object;
-		App->gui->settings_fx_slider->MoveFunction = &Move_Object;
-	}
-	if (App->gui->create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
-
-		App->gui->credits_to_main_button->ClickFunction = &Return_to_Main;
-	}
-	App->gui->menu_label->MoveFunction = &Move_Object;
+	
 	
 
 
