@@ -680,8 +680,8 @@ void j1Gui::Select_Clicked_Object() {
 				LOG(" .............................................................. moving slider even if mouse is outside"); 
 				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) != KEY_UP) {
 
-					Move_Clicked_Object(clicked_object);
-					//clicked_object->MoveFunction(clicked_object);
+					//Move_Clicked_Object(clicked_object);
+					clicked_object->MoveFunction(clicked_object);
 
 				}
 

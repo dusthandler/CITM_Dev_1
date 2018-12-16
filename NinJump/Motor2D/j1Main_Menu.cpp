@@ -78,6 +78,8 @@ bool j1Main_Menu::PostUpdate() {
 		App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
 		App->gui->settings_fx_slider->MoveSlider = &Move_Slider;
 		App->gui->settings_mus_slider->MoveSlider = &Move_Slider;
+		App->gui->settings_mus_slider->MoveFunction = &Move_Object;
+		App->gui->settings_fx_slider->MoveFunction = &Move_Object;
 	}
 	if (App->gui->create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
 
@@ -195,7 +197,7 @@ void Move_Object(j1Gui_Object* obj) {
 
 		if (obj->type == GUI_TYPE::Slider) {
 
-			//Move_Slider(obj, new_pos);
+			Move_Slider(obj, new_pos);
 
 		}
 		else {
