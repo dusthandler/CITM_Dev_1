@@ -152,7 +152,8 @@ public:
 	j1Gui_Button* credits_to_main_button = nullptr;
 	j1Gui_Button* settings_to_main_button = nullptr;
 	j1Gui_Button* settings_to_level_button = nullptr;
-
+	j1Gui_Label* fx_label = nullptr;
+	j1Gui_Label* mus_label = nullptr;
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
 

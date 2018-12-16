@@ -37,7 +37,6 @@ public:
 public:
 	void(*MoveSlider)(j1Gui_Object*, iPoint);
 	void(*ClickFunction)();
-	void(*HoverFunction)(j1Gui_Object*);
 	void(*MoveFunction)(j1Gui_Object*);
 
 	iPoint pos; 

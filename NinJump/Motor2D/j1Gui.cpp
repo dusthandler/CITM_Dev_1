@@ -255,8 +255,8 @@ void j1Gui::Generate_Menu_GUI() {
 		}
 
 
-		Create_Label(iPoint(495, 210), standard_font, "music", NULL, Menu_Level::Settings_Menu);
-		Create_Label(iPoint(495, 270), standard_font, "fx", NULL, Menu_Level::Settings_Menu);
+		mus_label = Create_Label(iPoint(495, 210), standard_font, "music", NULL, Menu_Level::Settings_Menu);
+		fx_label = Create_Label(iPoint(495, 270), standard_font, "fx", NULL, Menu_Level::Settings_Menu);
 		Main_Created = false;
 		Sett_Created = true;
 		Cred_Created = false;
@@ -621,9 +621,13 @@ void j1Gui::Select_Clicked_Object() {
 					}
 					
 
-					if(clicked_object != nullptr && clicked_object->draggable) 
-					Move_Clicked_Object(clicked_object);
-
+					if (clicked_object != nullptr && clicked_object->draggable) {
+						clicked_object->MoveFunction(clicked_object);
+						
+						//Move_Clicked_Object(clicked_object);
+						//clicked_object->text != "BACK" || clicked_object->text != "RESUME" || clicked_object->text != "credits" || clicked_object->text != "exit" || clicked_object->text != "NinJump"
+					}
+					
 					break; 
 					
 					case Hover_State::CLICK:
@@ -689,7 +693,7 @@ void j1Gui::Select_Clicked_Object() {
 				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) != KEY_UP) {
 
 					//Move_Clicked_Object(clicked_object);
-					clicked_object->MoveFunction(clicked_object);
+					
 
 				}
 
@@ -716,9 +720,10 @@ void j1Gui::Select_Clicked_Object() {
 
 						if (item_child->data->parent->hover_state == Hover_State::DRAG) {       // move children
 
-							Move_Clicked_Object(item_child->data);
-
+							//Move_Clicked_Object(item_child->data);
+							item_child->data->MoveFunction(item_child->data);
 							item_child->data->moving_with_parent = true;
+							
 						}
 
 						else {
@@ -730,7 +735,8 @@ void j1Gui::Select_Clicked_Object() {
 
 					else if (item_child->data->parent->moving_with_parent) {        // move children of children
 
-						Move_Clicked_Object(item_child->data);
+						//Move_Clicked_Object(item_child->data);
+						item_child->data->MoveFunction(item_child->data);
 					}
 
 				}
@@ -753,7 +759,7 @@ j1Gui_Object* j1Gui::Get_Clicked_Object() {
 
 void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { 
 
-
+	
 	LOG(" *******************************   moving obj   *******************************"); 
 
 	frame_count++; 

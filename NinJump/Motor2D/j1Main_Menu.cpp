@@ -8,6 +8,7 @@
 #include "j1Gui_Button.h"
 #include "j1Gui_Image.h"
 #include "j1Gui_Slider.h"
+#include "j1Gui_Label.h"
 #include "SDL/include/SDL.h"
 #include "p2Log.h"
 
@@ -67,16 +68,35 @@ bool j1Main_Menu::Update(float dt)
 		App->gui->exit_button->ClickFunction = &Clicked_Exit;
 		App->gui->settings_button->ClickFunction = &Clicked_Settings;
 		App->gui->credits_button->ClickFunction = &Clicked_Credits;
+		App->gui->settings_button->MoveFunction = &Move_Object;
+		App->gui->play_button->MoveFunction = &Move_Object;
+		App->gui->continue_button->MoveFunction = &Move_Object;
+		App->gui->menu_label->MoveFunction = &Move_Object;
+		App->gui->play_button_label->MoveFunction = &Move_Object;
+		App->gui->continue_button_label->MoveFunction = &Move_Object;
+		App->gui->settings_button_label->MoveFunction = &Move_Object;
+		App->gui->credits_button_label->MoveFunction = &Clicked_Label;
+		
+
+		
+		App->gui->exit_button_label->MoveFunction = &Clicked_Label;
+		App->gui->game_title->MoveFunction = &Clicked_Label;
+	
+
 	}
 	else if (App->gui->Sett_Created) {
 		if (App->gui->create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
 			if (!App->gui->settings_from_level) {
 				App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
+				App->gui->settings_to_main_label->MoveFunction = &Clicked_Label;
 			}
 			else {
 				App->gui->settings_to_level_button->ClickFunction = &Clicked_Pause;
+				App->gui->settings_to_level_label->MoveFunction = &Clicked_Label;
 			}
-
+			App->gui->mus_label->MoveFunction = &Clicked_Label;
+			App->gui->fx_label->MoveFunction = &Clicked_Label;
+			
 			App->gui->settings_fx_slider->MoveSlider = &Move_Slider;
 			App->gui->settings_mus_slider->MoveSlider = &Move_Slider;
 			App->gui->settings_mus_slider->MoveFunction = &Move_Object;
@@ -85,10 +105,10 @@ bool j1Main_Menu::Update(float dt)
 	}
 	else if (App->gui->Cred_Created) {
 		if (App->gui->create_menu_GUI.next_menu == Next_Menu::CREDITS_NEXT) {
-
+			App->gui->credits_to_main_label->MoveFunction = &Clicked_Label;
 			App->gui->credits_to_main_button->ClickFunction = &Return_to_Main;
 		}
-		App->gui->menu_label->MoveFunction = &Move_Object;
+		
 	}
 		
 	
@@ -180,14 +200,18 @@ void Clicked_Pause() {
 	App->scene->game_paused = false;
 }
 
+void Clicked_Label(j1Gui_Object* obj) {
+
+}
+
 void Move_Object(j1Gui_Object* obj) {
 	LOG(" *******************************   moving obj   *******************************");
 
 	App->gui->frame_count++;
 
-	if (App->gui->frame_count == 5) {
+	if (App->gui->frame_count == 4) {
 		App->gui->last_mouse_pos = App->gui->mouse_pos;
-		App->gui->frame_count = 0;
+		
 	}
 
 
@@ -221,6 +245,11 @@ void Move_Object(j1Gui_Object* obj) {
 
 
 	}
+
+	if (App->gui->frame_count == 3) {
+		App->gui->frame_count = 0;
+	}
+
 }
 
 void Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
