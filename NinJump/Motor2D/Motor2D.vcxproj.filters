@@ -67,9 +67,6 @@
     <ClCompile Include="j1Shuriken.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="j1Gui.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="j1Gui_Image.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
       <Filter>GUI\help</Filter>
     </ClCompile>
     <ClCompile Include="j1Gui_Slider.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -195,14 +195,14 @@
     <ClInclude Include="j1Gui_Button.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="j1Gui_Slider.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
     <ClInclude Include="j1Main_Menu.h">
       <Filter>GUI\Menu</Filter>
     </ClInclude>
     <ClInclude Include="j1Fonts.h">
-      <Filter>GUI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Gui_Slider.h">
-      <Filter>GUI</Filter>
+      <Filter>GUI\help</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

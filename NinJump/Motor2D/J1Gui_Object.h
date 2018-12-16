@@ -50,6 +50,7 @@ public:
 	char* ID = nullptr;
 	bool moving_with_parent = false; 
 	bool draggable = false; 
+	char* text = nullptr;
 };
 
 

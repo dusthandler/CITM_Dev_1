@@ -18,6 +18,7 @@
 #include "j1Audio.h"
 #include "j1App.h"
 #include "j1Map.h"
+#include "j1Collision.h"
 #include <string.h>
 
 j1Gui::j1Gui() : j1Module()
@@ -246,6 +247,12 @@ void j1Gui::Generate_Menu_GUI() {
 		}
 		else {
 			// buttons
+			settings_to_main_button = Create_Button(anim_rects, atlas, iPoint(500, 600), "settings_to_main_button", Menu_Level::Settings_Menu);
+
+			// labels
+			settings_to_main_label = Create_Label(iPoint(565, 640), standard_font, "START", NULL, Menu_Level::Settings_Menu, settings_to_main_button);
+
+			// buttons
 			settings_to_level_button = Create_Button(anim_rects, atlas, iPoint(50, 600), "settings_to_level_button", Menu_Level::Settings_Menu);
 
 			// labels
@@ -357,8 +364,22 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 	}
 
 	if (object->ID == "play_button") {                                 // go to level
-		create_level_GUI = true; 
-		App->scene->MapSwap(0,first);
+
+		// create_level_GUI = true; // already in scene
+
+		if (settings_from_level) {
+			
+			// App->map->Load("Level_1.tmx");
+			App->scene->Map_Loaded = false; 
+			App->entity_manager->Start(); 
+		    App->fade->FadeToBlack(App->main_menu, App->scene, 0.5f);
+		}
+		 else {
+			App->scene->MapSwap(0, first);
+		}
+		
+		
+
 	}
 
 	else if (object->ID == "continue_button") {
@@ -389,13 +410,33 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 
 		}
 
-		else if (object->ID == "credits_to_main_button" || object->ID == "settings_to_main_button") {                               // go to main from credits
+		else if (object->ID == "credits_to_main_button") {                               // go to main from credits
 			if (!create_menu_GUI.Do)
 				create_menu_GUI.Do = true;
 
 			create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
 			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 		}
+		else if (object->ID == "settings_to_main_button") {                               
+
+		if (settings_to_main_label->text == "START") {        // in game settings to main (cleans scene)  
+
+			// clean scene
+
+			App->collision->CleanWallDeath();
+			// App->scene->CleanUp(); 
+			App->map->CleanUp(); 
+			App->entity_manager->CleanUp(); 
+		}
+
+		if (!create_menu_GUI.Do)
+			create_menu_GUI.Do = true;                                         // settings to main
+
+		create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
+		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
+
+		
+        }
 
 
 		else if (object->ID == "settings_to_level_button") {                               // go to main from credits
@@ -668,7 +709,7 @@ void j1Gui::Select_Clicked_Object() {
 
 		// move slider even if mouse is out of range
 
-		if (clicked_object && clicked_object->type == GUI_TYPE::Slider) {
+	/*	if (clicked_object && clicked_object->type == GUI_TYPE::Slider) {
 
 			if (clicked_object->hover_state == Hover_State::DRAG) {
 
@@ -680,15 +721,49 @@ void j1Gui::Select_Clicked_Object() {
 				}
 
 			}
-		}
+		}*/
 
 
 
 
 		// move children
 
+		if (clicked_object) {
 
+			p2List_item<j1Gui_Object*>* item_child;
 
+			for (item_child = objects.start; item_child != NULL; item_child = item_child->next) {
+
+				if (item_child->data && item_child->data->parent) {
+
+					if (item_child->data->parent == clicked_object) {
+
+						if (item_child->data->parent->hover_state == Hover_State::DRAG) {       // move children
+
+							Move_Clicked_Object(item_child->data);
+							                                                                 
+							item_child->data->moving_with_parent = true;
+						}
+
+						else {
+
+							item_child->data->moving_with_parent = false;
+						}
+
+					}
+					 
+					else if (item_child->data->parent->moving_with_parent) {        // move children of children
+
+						Move_Clicked_Object(item_child->data);
+					}
+
+				}
+
+			}
+
+		}
+
+	
 
 }
 
@@ -706,9 +781,9 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 
 	frame_count++; 
 
-	if (frame_count == 5) {
+	if (frame_count == 4) {
 		last_mouse_pos = mouse_pos; 
-		frame_count = 0; 
+	//	frame_count = 0; 
 	}
 
 	
@@ -743,6 +818,10 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 
 	}
 
+
+	if (frame_count == 3) {
+		frame_count = 0;
+	}
 
 }
 
