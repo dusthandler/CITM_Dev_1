@@ -162,6 +162,7 @@ bool j1Main_Menu::Save(pugi::xml_node& node) const
 void Clicked_Play() {
 	App->gui->create_level_GUI = true;
 	App->scene->MapSwap(0, App->gui->first); 
+	App->scene->game_paused = false;
 }
 
 void Clicked_Continue() {
@@ -194,6 +195,7 @@ void Return_to_Main() {
 	if (!App->gui->create_menu_GUI.Do)
 		App->gui->create_menu_GUI.Do = true;
 
+	
 	App->gui->create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
 	App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 }
