@@ -758,10 +758,11 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 
 	frame_count++; 
 
-	if (frame_count == 5) {
-		last_mouse_pos = mouse_pos; 
-		frame_count = 0; 
+	if (frame_count == 4) {
+		last_mouse_pos = mouse_pos;
+		//	frame_count = 0; 
 	}
+
 
 	
 	if (last_mouse_pos != mouse_pos) {
@@ -794,6 +795,13 @@ void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) {
 		
 
 	}
+
+
+	if (frame_count == 3) {
+		frame_count = 0;
+	}
+
+
 
 
 }
