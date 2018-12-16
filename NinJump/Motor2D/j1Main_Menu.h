@@ -67,7 +67,7 @@ void Clicked_Settings();
 void Clicked_Exit();
 void Clicked_Play();
 void Clicked_Label(j1Gui_Object*);
-void Clicked_Continue();//peta al salir???
+void Clicked_Continue();
 void Move_Object(j1Gui_Object*);
 void Move_Slider(j1Gui_Object*,iPoint);
 #endif // __j1MAIN_MENU_H__
