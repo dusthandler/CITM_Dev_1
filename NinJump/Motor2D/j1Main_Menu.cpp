@@ -94,7 +94,7 @@ bool j1Main_Menu::Update(float dt)
 			else {
 				App->gui->settings_to_level_button->ClickFunction = &Clicked_Pause;
 				App->gui->settings_to_level_label->MoveFunction = &Clicked_Label;
-				App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
+				App->gui->settings_to_main_button->ClickFunction = &Return_to_Main_from_lvl;
 				App->gui->settings_to_main_label->MoveFunction = &Clicked_Label;
 			}
 			App->gui->mus_label->MoveFunction = &Clicked_Label;
