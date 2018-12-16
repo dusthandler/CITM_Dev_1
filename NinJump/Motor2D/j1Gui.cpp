@@ -854,16 +854,25 @@ void j1Gui::Blit(){
 	p2List_item<j1Gui_Object*>* item;
 	item = objects.start;
 
+	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  // change to f8; 
+		debug_ = !debug_;
+	}
+
 
 	for (item = objects.start; item != NULL; item = item->next)
 	{
-	//	if (App->main_menu->active && item->data->menu_level == Menu_Level::Menu) {
 			 item->data->Blit(); 
-		// }
-		//else if (App->scene->active && item->data->menu_level == Menu_Level::Level) {
-		//	item->data->Blit();
-	//	}
-		
+
+			 if (debug_) {
+				 SDL_Rect r;
+				 r.x = item->data->pos.x;
+				 r.y = item->data->pos.y;
+				 r.w = item->data->rect.w;
+				 r.h = item->data->rect.h;
+
+				 App->render->DrawQuad(r, 200, 200, 200, 75, true, false);
+			 }
+
 	}
 
 	

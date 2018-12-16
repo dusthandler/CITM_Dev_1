@@ -248,6 +248,8 @@ public:
 	uint frame_count = 0;
 	uint cleaned_times = 0;
 	bool clicked_in_this_frame = false;
+
+	bool debug_ = false;
 public: 
 	bool first = true;
 	uint coins_collected = 0;                  // Where should this be?
