@@ -349,10 +349,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 		map_active = 0; 
 		this->SwitchM = 0;
 		Mus_Id = 1; 
-		if (!active) {
-			App->scene->Activate();
-		}
-
+		
 		if (!init) {
 			App->entity_manager->restart = true;
 		}
@@ -368,9 +365,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 		map_active = 1;
 		Mus_Id = 2; 
 		this->SwitchM = 1;
-		if (!active) {
-			App->scene->Activate();
-		}
+		
         // App->entity_manager->restart = true;
 
 		if (!init) {
@@ -403,6 +398,9 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 	
 
 	
+	if (!active) {
+		App->scene->Activate();
+	}
 
 
 	return ret;
