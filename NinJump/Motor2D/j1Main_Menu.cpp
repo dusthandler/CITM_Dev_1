@@ -74,8 +74,13 @@ bool j1Main_Menu::PostUpdate() {
 	App->gui->settings_button->ClickFunction = &Clicked_Settings;
 	App->gui->credits_button->ClickFunction = &Clicked_Credits;
 	if (App->gui->create_menu_GUI.next_menu == Next_Menu::SETTINGS_NEXT) {
-		
-		App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
+		if (!App->gui->settings_from_level) {
+			App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
+		}
+		else {
+			App->gui->settings_to_level_button->ClickFunction = &Clicked_Pause;
+		}
+
 		App->gui->settings_fx_slider->MoveSlider = &Move_Slider;
 		App->gui->settings_mus_slider->MoveSlider = &Move_Slider;
 		App->gui->settings_mus_slider->MoveFunction = &Move_Object;
@@ -87,7 +92,7 @@ bool j1Main_Menu::PostUpdate() {
 	}
 	App->gui->menu_label->MoveFunction = &Move_Object;
 	
-	//App->gui->settings_to_level_button->ClickFunction = &Clicked_Pause;
+
 
 	
 	return ret;
