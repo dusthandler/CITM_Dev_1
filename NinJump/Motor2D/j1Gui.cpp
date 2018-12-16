@@ -678,7 +678,7 @@ void j1Gui::Select_Clicked_Object() {
 
 		clicked_in_this_frame = false; 
 
-
+/*
 		// move slider even if mouse is out of range
 
 		if (clicked_object && clicked_object->type == GUI_TYPE::Slider) {
@@ -695,11 +695,49 @@ void j1Gui::Select_Clicked_Object() {
 
 			}
 		}
-
+		*/
 
 
 
 		// move children
+
+
+			// move children
+
+		if (clicked_object) {
+
+			p2List_item<j1Gui_Object*>* item_child;
+
+			for (item_child = objects.start; item_child != NULL; item_child = item_child->next) {
+
+				if (item_child->data && item_child->data->parent) {
+
+					if (item_child->data->parent == clicked_object) {
+
+						if (item_child->data->parent->hover_state == Hover_State::DRAG) {       // move children
+
+							Move_Clicked_Object(item_child->data);
+
+							item_child->data->moving_with_parent = true;
+						}
+
+						else {
+
+							item_child->data->moving_with_parent = false;
+						}
+
+					}
+
+					else if (item_child->data->parent->moving_with_parent) {        // move children of children
+
+						Move_Clicked_Object(item_child->data);
+					}
+
+				}
+
+			}
+
+		}
 
 
 
