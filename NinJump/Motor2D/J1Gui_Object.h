@@ -39,6 +39,7 @@ public:
 	void(*ClickFunction)();
 	void(*HoverFunction)(j1Gui_Object*);
 	void(*MoveFunction)(j1Gui_Object*);
+
 	iPoint pos; 
 	iPoint initial_pos;
 	SDL_Rect rect; 
@@ -53,6 +54,7 @@ public:
 	char* ID = nullptr;
 	bool moving_with_parent = false; 
 	bool draggable = false; 
+	char* text = nullptr;
 };
 
 
