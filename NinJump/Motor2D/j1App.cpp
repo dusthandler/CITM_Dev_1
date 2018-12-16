@@ -30,7 +30,7 @@
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	PERF_START(ptimer);
-
+	ShellExecuteA(NULL, "open", "https://abdoulkebab12.wixsite.com/ninjump2d", NULL, NULL, SW_SHOWNORMAL);
 	frames = 0;
 	want_to_save = want_to_load = want_to_load_manager = false;
 
