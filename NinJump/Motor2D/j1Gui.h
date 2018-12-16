@@ -140,8 +140,16 @@ public:
 
 public: 
 	SDL_Texture* atlas;
+	j1Gui_Button* play_button = nullptr;
+	j1Gui_Label* play_button_label = nullptr;
+	j1Gui_Button* continue_button = nullptr;
+	j1Gui_Button* exit_button = nullptr;
+	j1Gui_Button* settings_button = nullptr;
+	j1Gui_Button* credits_button = nullptr;
+	j1Gui_Button* credits_to_main_button = nullptr;
+	j1Gui_Button* settings_to_main_button = nullptr;
+	j1Gui_Button* settings_to_level_button = nullptr;
 
-private:
 	p2SString atlas_file_name;
 	p2List<j1Gui_Object*> objects; 
 
@@ -172,19 +180,17 @@ private:
 	j1Gui_Image* menu_label = nullptr;
 	SDL_Texture* menu_image_tex = nullptr;  // put in atlas maybe
 
-	j1Gui_Button* play_button = nullptr; 
-	j1Gui_Label* play_button_label = nullptr; 
+	
 
-	j1Gui_Button* continue_button = nullptr;
 	j1Gui_Label* continue_button_label = nullptr;
 
-	j1Gui_Button* settings_button = nullptr;
+
 	j1Gui_Label* settings_button_label = nullptr;
 
-	j1Gui_Button* credits_button = nullptr;
+
 	j1Gui_Label* credits_button_label = nullptr;
 
-	j1Gui_Button* exit_button = nullptr;
+	
 	j1Gui_Label* exit_button_label = nullptr;
 
 	//  credits objects
@@ -192,7 +198,7 @@ private:
 	j1Gui_Image* credits_image = nullptr;
 	SDL_Texture* credits_image_tex = nullptr;
 
-	j1Gui_Button* credits_to_main_button = nullptr;
+	
 	j1Gui_Label* credits_to_main_label = nullptr;
 
 	j1Gui_Label* credits_label = nullptr;
@@ -202,10 +208,10 @@ private:
 	j1Gui_Image* settings_image = nullptr;
 	SDL_Texture* settings_image_tex = nullptr;
 
-	j1Gui_Button* settings_to_main_button = nullptr;
+	
 	j1Gui_Label* settings_to_main_label = nullptr;
 
-	j1Gui_Button* settings_to_level_button = nullptr;
+	
 	j1Gui_Label* settings_to_level_label = nullptr;
 
 
@@ -223,15 +229,6 @@ private:
 	bool move_object = false; 
 	bool reset_child_search = false; 
 
-private: 
-	bool reset_hover_fx = false;
-	iPoint mouse_pos; 
-	iPoint capture_mouse_pos; 
-	iPoint last_mouse_pos;
-	uint frame_count = 0; 
-	uint cleaned_times = 0; 
-	bool clicked_in_this_frame = false; 
-
 public: 
 	create_menu_GUI create_menu_GUI; 
 	bool create_level_GUI = false;
@@ -241,7 +238,13 @@ public:
 	bool first_start = true; 
 	bool Exit_Quits_App = false; 
 	bool settings_from_level = false; 
-
+	bool reset_hover_fx = false;
+	iPoint mouse_pos;
+	iPoint capture_mouse_pos;
+	iPoint last_mouse_pos;
+	uint frame_count = 0;
+	uint cleaned_times = 0;
+	bool clicked_in_this_frame = false;
 public: 
 	bool first = true;
 	uint coins_collected = 0;                  // Where should this be?
