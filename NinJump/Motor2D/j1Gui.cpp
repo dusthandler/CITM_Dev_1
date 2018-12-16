@@ -167,6 +167,7 @@ void j1Gui::Restart_Level_Entities_and_Map() {
 
 	/*App->scene->Map_Loaded = false;        // restart scene map
     App->entity_manager->restart = true;     // restart entities */
+
 	App->entity_manager->Start();      // start entites 
 	
 }
@@ -340,11 +341,7 @@ void j1Gui::Check_Clicked() {
 				Do_Logic_Hovered(item->data); 
 			}
 			else if (item->data->hover_state == Hover_State::CLICK) {
-				if (item->data->type == GUI_TYPE::Button) {
-					App->audio->PlayFx(2, 0);
-					item->data->ClickFunction();
-				}
-				
+				Do_Logic_Clicked(item->data);
 			}
 		 }	
 	}
@@ -354,59 +351,58 @@ void j1Gui::Check_Clicked() {
 void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGERS
 
 	// menu buttons 
-	//if (object->type == GUI_TYPE::Button) {
-	//	LOG("...................................   Clicked button fx   .........");
-	//	
-	//}
-	//
+	if (object->type == GUI_TYPE::Button) {
+		LOG("...................................   Clicked button fx   .........");
+		App->audio->PlayFx(2, 0); 
+	}
 
-	//if (object->ID == "play_button") {                                 // go to level
-	//	create_level_GUI = true; 
-	//	App->scene->MapSwap(0,first);
-	//}
+	if (object->ID == "play_button") {                                 // go to level
+		create_level_GUI = true; 
+		App->scene->MapSwap(0,first);
+	}
 
-	//else if (object->ID == "continue_button") {
-	//	App->LoadGame("save_game.xml");
-	//	create_level_GUI = true;
-	//}
+	else if (object->ID == "continue_button") {
+		App->LoadGame("save_game.xml");
+		create_level_GUI = true;
+	}
 
-	//else if (object->ID == "exit_button") {       // quit game
+	else if (object->ID == "exit_button") {       // quit game
 
-	//	Exit_Quits_App = true;
-	//}
+		Exit_Quits_App = true;
+	}
 
-	//	else if (object->ID == "settings_button") {                                     // go to settings menu
-	//		if (!create_menu_GUI.Do)
-	//			create_menu_GUI.Do = true;
+		else if (object->ID == "settings_button") {                                     // go to settings menu
+			if (!create_menu_GUI.Do)
+				create_menu_GUI.Do = true;
 
-	//		create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
-	//		settings_from_level = false;                         // flag for settings variant 1 
-	//		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
-	//	}
+			create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
+			settings_from_level = false;                         // flag for settings variant 1 
+			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
+		}
 
-	//	else if (object->ID == "credits_button") {                                       // go to credits menu
-	//		if (!create_menu_GUI.Do)
-	//			create_menu_GUI.Do = true;
+		else if (object->ID == "credits_button") {                                       // go to credits menu
+			if (!create_menu_GUI.Do)
+				create_menu_GUI.Do = true;
 
-	//		create_menu_GUI.next_menu = Next_Menu::CREDITS_NEXT;
-	//		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
+			create_menu_GUI.next_menu = Next_Menu::CREDITS_NEXT;
+			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 
-	//	}
+		}
 
-	//	else if (object->ID == "credits_to_main_button" || object->ID == "settings_to_main_button") {                               // go to main from credits
-	//		if (!create_menu_GUI.Do)
-	//			create_menu_GUI.Do = true;
+		else if (object->ID == "credits_to_main_button" || object->ID == "settings_to_main_button") {                               // go to main from credits
+			if (!create_menu_GUI.Do)
+				create_menu_GUI.Do = true;
 
-	//		create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
-	//		App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
-	//	}
+			create_menu_GUI.next_menu = Next_Menu::MAIN_NEXT;
+			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
+		}
 
 
-	//	else if (object->ID == "settings_to_level_button") {                               // go to main from credits
-	//	create_level_GUI = true;
-	//	App->scene->game_paused = false;                                      // restart dt 
+		else if (object->ID == "settings_to_level_button") {                               // go to main from credits
+		create_level_GUI = true;
+		App->scene->game_paused = false;                                      // restart dt 
 
-	//}
+	}
 
 	
 
@@ -659,8 +655,7 @@ void j1Gui::Select_Clicked_Object() {
 					}
 
 					if(clicked_in_this_frame && do_it && item->data->parent)
-					//Move_Slider(item->data, iPoint(x,y));
-					item->data->MoveSlider(item->data, iPoint(x, y));
+					Move_Slider(item->data, iPoint(x,y));
 
 				}
 
@@ -681,7 +676,6 @@ void j1Gui::Select_Clicked_Object() {
 				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) != KEY_UP) {
 
 					Move_Clicked_Object(clicked_object);
-					//clicked_object->MoveFunction(clicked_object);
 
 				}
 

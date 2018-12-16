@@ -22,7 +22,6 @@ public:
 	void Blit();
 
 
-
 private:
 	_TTF_Font* font;
 	char* text = nullptr;
