@@ -198,7 +198,7 @@ bool j1Scene::Update(float dt)
 
 		}
 
-
+		
 		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || Player_Win) {
 			/*Disable();*/
 			/*App->player->Disable(); */          // disable player before swapping maps
@@ -341,7 +341,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 	bool should_i_change = false;
 	if (Mapsw == 0)                                           
 	{
-		App->fade->FadeToBlack(this, this, 0.5f);
+		App->fade->FadeToBlack(this, this, 2.5f);
 		App->collision->CleanWallDeath();
 		App->map->CleanUp();
 	
@@ -353,6 +353,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 		if (!init) {
 			App->entity_manager->restart = true;
 		}
+		
 		// App->entity_manager->restart = true;
 	}
 	else if (Mapsw == 1)
@@ -371,6 +372,7 @@ bool j1Scene::MapSwap(int Mapsw,bool init)                        // Method to h
 		if (!init) {
 			App->entity_manager->restart = true;
 		}
+		
 	}
 
 	else if (Mapsw == 2) {     

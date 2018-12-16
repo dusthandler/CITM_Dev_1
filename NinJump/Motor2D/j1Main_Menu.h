@@ -70,4 +70,5 @@ void Clicked_Label(j1Gui_Object*);
 void Clicked_Continue();//peta al salir???
 void Move_Object(j1Gui_Object*);
 void Move_Slider(j1Gui_Object*,iPoint);
+void Return_to_Main_from_lvl();
 #endif // __j1MAIN_MENU_H__

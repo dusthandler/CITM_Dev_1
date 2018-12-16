@@ -252,6 +252,10 @@ void j1Gui::Generate_Menu_GUI() {
 
 			// labels
 			settings_to_level_label = Create_Label(iPoint(110, 640), standard_font, "RESUME", NULL, Menu_Level::Settings_Menu, settings_to_level_button);
+			settings_to_main_button = Create_Button(anim_rects, atlas, iPoint(500, 600), "settings_to_main_button", Menu_Level::Settings_Menu);
+
+			// labels
+			settings_to_main_label = Create_Label(iPoint(565, 640), standard_font, "START", NULL, Menu_Level::Settings_Menu, settings_to_main_button);
 		}
 
 
@@ -754,103 +758,6 @@ void j1Gui::Select_Clicked_Object() {
 j1Gui_Object* j1Gui::Get_Clicked_Object() {
 
 	return clicked_object;
-}
-
-
-void j1Gui::Move_Clicked_Object(j1Gui_Object* obj) { 
-
-	
-	LOG(" *******************************   moving obj   *******************************"); 
-
-	frame_count++; 
-
-	if (frame_count == 4) {
-		last_mouse_pos = mouse_pos;
-		//	frame_count = 0; 
-	}
-
-
-	
-	if (last_mouse_pos != mouse_pos) {
-
-		iPoint obj_pos = obj->Get_Pos();
-		mouse_pos = App->input->GetActualMousePosition();
-
-		iPoint dist;
-		dist.x = mouse_pos.x - obj_pos.x;
-		dist.y = mouse_pos.y - obj_pos.y;
-
-		iPoint dist_last_frame_mouse; 
-		dist_last_frame_mouse.x = mouse_pos.x - last_mouse_pos.x; 
-		dist_last_frame_mouse.y = mouse_pos.y - last_mouse_pos.y;
-
-		iPoint new_pos;
-		new_pos.x = (mouse_pos.x) - (dist.x) + dist_last_frame_mouse.x;
-		new_pos.y = (mouse_pos.y) - (dist.y) + dist_last_frame_mouse.y;
-
-
-		if (obj->type == GUI_TYPE::Slider) {
-
-			Move_Slider(obj, new_pos); 
-			
-		}
-		else {
-			obj->Set_Pos(new_pos.x, new_pos.y);
-		}
-
-		
-
-	}
-
-
-	if (frame_count == 3) {
-		frame_count = 0;
-	}
-
-
-
-
-}
-
-void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
-
-	// bool move_x = true; 
-
-	uint right_offset = 48; 
-	uint left_offset = 5;
-
-	uint start_pos;
-	uint end_pos;
-
-	if (obj->parent != nullptr) {
-		if (new_pos.x >= obj->parent->pos.x + left_offset && new_pos.x <= obj->parent->pos.x + obj->parent->rect.w - right_offset) {
-			obj->pos.x = new_pos.x;
-		}
-	}
-
-	start_pos = obj->parent->pos.x + left_offset; 
-	end_pos = obj->parent->pos.x + obj->parent->rect.w - right_offset; 
-
-	uint total_range = end_pos - start_pos;
-	uint range_volume_factor = total_range / SDL_MIX_MAXVOLUME; 
-
-	uint volume = (obj->pos.x - start_pos) / range_volume_factor;
-
-	
-	// music volume
-
-	if (obj->ID == "mus_slider") {
-
-		App->audio->Change_Mus_Volume(volume); 
-
-	}
-
-	else if (obj->ID == "fx_slider") {
-
-		App->audio->Change_Fx_Volume(volume); 
-	}
-
-	LOG("VOLUME is ------------------------------------------------>>>>> %i", volume);
 }
 
 

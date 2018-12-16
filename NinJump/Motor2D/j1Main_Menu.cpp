@@ -8,6 +8,7 @@
 #include "j1Gui_Button.h"
 #include "j1Gui_Image.h"
 #include "j1Gui_Slider.h"
+#include "j1Entity_Manager.h"
 #include "j1Gui_Label.h"
 #include "SDL/include/SDL.h"
 #include "p2Log.h"
@@ -93,6 +94,8 @@ bool j1Main_Menu::Update(float dt)
 			else {
 				App->gui->settings_to_level_button->ClickFunction = &Clicked_Pause;
 				App->gui->settings_to_level_label->MoveFunction = &Clicked_Label;
+				App->gui->settings_to_main_button->ClickFunction = &Return_to_Main;
+				App->gui->settings_to_main_label->MoveFunction = &Clicked_Label;
 			}
 			App->gui->mus_label->MoveFunction = &Clicked_Label;
 			App->gui->fx_label->MoveFunction = &Clicked_Label;
@@ -158,7 +161,7 @@ bool j1Main_Menu::Save(pugi::xml_node& node) const
 
 void Clicked_Play() {
 	App->gui->create_level_GUI = true;
-	App->scene->MapSwap(0, App->gui->first); //guillem
+	App->scene->MapSwap(0, App->gui->first); 
 }
 
 void Clicked_Continue() {
@@ -288,4 +291,10 @@ void Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 	}
 
 	LOG("VOLUME is ------------------------------------------------>>>>> %i", volume);
+}
+
+void Return_to_Main_from_lvl()
+{
+	App->scene->MapSwap(2);
+	App->entity_manager->player_live_count = 3;
 }

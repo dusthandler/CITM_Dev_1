@@ -126,8 +126,7 @@ public:
 	void Select_Clicked_Object(); 
 	j1Gui_Object* Get_Clicked_Object(); 
 	p2List<j1Gui_Object*> Get_Clicked_Object_Children(j1Gui_Object*);
-	void Move_Clicked_Object(j1Gui_Object*); 
-	void Move_Slider(j1Gui_Object*, iPoint dest_pos);
+	
 	
 
 	virtual void Blit();
