@@ -46,8 +46,6 @@ void j1Gui_Image::Blit() {
 
 	}
 
-	LOG("-----------------------------------------------------------    PLAYER LIVES ----- %i", App->entity_manager->player_live_count); 
-
 	App->render->Blit(tex, pos.x, pos.y, &rect, 0.0f);
 
 }

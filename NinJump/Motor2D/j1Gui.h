@@ -232,6 +232,7 @@ private:
 	uint cleaned_times = 0; 
 	bool clicked_in_this_frame = false; 
 
+	bool debug_ = false; 
 public: 
 	create_menu_GUI create_menu_GUI; 
 	bool create_level_GUI = false;

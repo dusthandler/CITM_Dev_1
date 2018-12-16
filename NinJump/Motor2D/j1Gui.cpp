@@ -139,7 +139,7 @@ void j1Gui::Menu_Level_GUI_Manager() {
 				if (!settings_from_level) {          // when you come from level and go to settings, map must not clean up
 					App->map->CleanUp();
 				}
-					Clean_Level_GUI();    // should this be cleaned ? it mmust preserve the state of the gameplay
+					Clean_Level_GUI();   
 			}
 			else {
 				Clean_Menu_GUI(App->main_menu->active_menu);  // menu to menu
@@ -293,7 +293,10 @@ void j1Gui::Generate_Menu_GUI() {
 void j1Gui::Generate_Level_GUI() {
 	LOG("----------------------------------------------- creating lvl GUI");
 
+	// assingn menu
+	App->main_menu->active_menu = Active_Menu::NONE; 
 	creation_level_times++; 
+
 	// UI COINS                                            // labels should go after images
 	SDL_Rect r = { 0, 0, 32, 32 };
 	UI_coin = Create_Image(atlas, iPoint(820, 25), r, NULL, Menu_Level::Level);
@@ -365,14 +368,15 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 
 	if (object->ID == "play_button") {                                 // go to level
 
-		// create_level_GUI = true; // already in scene
+		create_level_GUI = true; // already in scene
 
 		if (settings_from_level) {
-			
-			// App->map->Load("Level_1.tmx");
-			App->scene->Map_Loaded = false; 
+			LOG("                                                 ***************        From main to level agan !!!!"); 
+			//App->map->Load("Level_1.tmx");
+			/*App->scene->Map_Loaded = false; 
 			App->entity_manager->Start(); 
-		    App->fade->FadeToBlack(App->main_menu, App->scene, 0.5f);
+		    App->fade->FadeToBlack(App->main_menu, App->scene, 0.5f);*/
+			App->scene->MapSwap(0, false);
 		}
 		 else {
 			App->scene->MapSwap(0, first);
@@ -397,7 +401,7 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 				create_menu_GUI.Do = true;
 
 			create_menu_GUI.next_menu = Next_Menu::SETTINGS_NEXT;
-			settings_from_level = false;                         // flag for settings variant 1 
+			settings_from_level = false;                                         // flag for settings variant 1 
 			App->fade->FadeToBlack(App->main_menu, App->main_menu, 1.5f);
 		}
 
@@ -424,9 +428,9 @@ void j1Gui::Do_Logic_Clicked(j1Gui_Object* object) {        // menu swap TRIGGER
 			// clean scene
 
 			App->collision->CleanWallDeath();
-			// App->scene->CleanUp(); 
 			App->map->CleanUp(); 
-			App->entity_manager->CleanUp(); 
+		    App->entity_manager->Disable(); 
+			App->scene->Disable();
 		}
 
 		if (!create_menu_GUI.Do)
@@ -895,16 +899,25 @@ void j1Gui::Blit(){
 	p2List_item<j1Gui_Object*>* item;
 	item = objects.start;
 
+	if (App->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  // change to f8; 
+		debug_ = !debug_; 
+	}
 
 	for (item = objects.start; item != NULL; item = item->next)
 	{
-	//	if (App->main_menu->active && item->data->menu_level == Menu_Level::Menu) {
 			 item->data->Blit(); 
-		// }
-		//else if (App->scene->active && item->data->menu_level == Menu_Level::Level) {
-		//	item->data->Blit();
-	//	}
-		
+	
+			 if (debug_) {
+				 SDL_Rect r; 
+				 r.x = item->data->pos.x; 
+				 r.y = item->data->pos.y;
+				 r.w = item->data->rect.w;
+				 r.h = item->data->rect.h;
+
+				 App->render->DrawQuad(r, 200, 200, 200, 75, true, false); 
+		       }
+
+
 	}
 
 	
