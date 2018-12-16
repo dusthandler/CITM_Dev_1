@@ -42,6 +42,12 @@ https://github.com/dusthandler/CITM_Dev_1/blob/master/Dev_class6_handout/Graphic
 
 The ninja sprites are made by us.
 
+
+############################## WEBSITE ############################
+
+
+[website] (https://abdoulkebab12.wixsite.com/ninjump2d)
+
 ### Link to repository:
 -https://github.com/dusthandler/CITM_Dev_1
 
