@@ -99,13 +99,13 @@ bool j1Scene::Start()
 		RELEASE_ARRAY(data);*/
 	}
 
-
 	int w, h;
 	uchar* data = NULL;
 	if (App->map->CreateWalkabilityMap(w, h, &data))
 		App->pathfinding->SetMap(w, h, data);
 
 	RELEASE_ARRAY(data);
+
 
 	
 	return true;
@@ -157,12 +157,10 @@ bool j1Scene::Update(float dt)
 	if (dt != 0) {
 		if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {  // f5
 			App->LoadGame("save_game.xml");
-			LOG("::::::::::::::::::::::::   Game loaded");
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) { // f6
 			App->SaveGame("save_game.xml");
-			LOG("::::::::::::::::::::::::   Game saved");
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)

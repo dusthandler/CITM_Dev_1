@@ -169,7 +169,7 @@ void j1Enemy_Walker::OnCollision(Collider* c1, Collider* c2) {                  
 
 	BROFILER_CATEGORY("Enemy walker OnCollision", Profiler::Color::Blue);
 
-	// LOG("________________________ An enemy is colliding !!! _____________________________");
+	
 
 	if (c2->type == COLLIDER_WALL) {
 

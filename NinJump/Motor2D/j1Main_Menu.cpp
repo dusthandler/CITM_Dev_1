@@ -210,7 +210,7 @@ void Clicked_Label(j1Gui_Object* obj) {
 }
 
 void Move_Object(j1Gui_Object* obj) {
-	LOG(" *******************************   moving obj   *******************************");
+
 
 	App->gui->frame_count++;
 

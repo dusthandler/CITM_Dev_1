@@ -70,7 +70,7 @@ public:
 	}
 	
 	// Destructor
-	virtual ~p2SString()  // Guillem: Me ha petado una vez en un bucle??
+	virtual ~p2SString() 
 	{
 		if(str != NULL)
 			delete[] str;

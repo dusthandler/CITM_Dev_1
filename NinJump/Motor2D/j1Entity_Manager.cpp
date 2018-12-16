@@ -64,15 +64,21 @@ bool j1Entity_Manager::Start(){
 
 
 
-	/*
+	
 	if (App->scene->map_active == 0) {
 		CreateEntity(Type::SHURIKEN, iPoint(470, 870));       // after player !
 
 		for (int i = 1; i < 9; ++i) {
 			CreateEntity(Type::COIN, iPoint(450 + i*coin_dist, 870));
 		}
-
-
+		CreateEntity(Type::ENEMY_FLYING, iPoint(2500, 150), 4);
+		CreateEntity(Type::ENEMY_FLYING, iPoint(4000, 150), 3);
+		CreateEntity(Type::ENEMY_LAND, iPoint(4500, 400), 1);
+		
+		CreateEntity(Type::COIN, iPoint(2690, 670));
+		CreateEntity(Type::COIN, iPoint(4500, 1000));
+		CreateEntity(Type::COIN, iPoint(4600, 1000));
+		CreateEntity(Type::COIN, iPoint(4550, 1000));
 	}
 
 	else {
@@ -89,27 +95,29 @@ bool j1Entity_Manager::Start(){
 		CreateEntity(Type::COIN, iPoint(1480, 580));
 		CreateEntity(Type::COIN, iPoint(1600, 700));
 		CreateEntity(Type::COIN, iPoint(1635, 510));
-	
+
+
+		CreateEntity(Type::COIN, iPoint(4000, 490));
+		CreateEntity(Type::COIN, iPoint(4400, 290));
+		CreateEntity(Type::COIN, iPoint(3700, 620));
 
 		for (int i = 1; i < 6; ++i) {
 			CreateEntity(Type::COIN, iPoint(2300 + i * coin_dist, 580));
 		}
 
 		// enemies
-
-		CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 500),1);
-		CreateEntity(Type::ENEMY_LAND, iPoint(2600, 500),2);
+	
+		CreateEntity(Type::ENEMY_FLYING, iPoint(4000, 290), 3);
 	}
 
-	*/
+	
 
 	//CreateEntity(Type::ENEMY_LAND, iPoint(350, 200));
 	//CreateEntity(Type::ENEMY_LAND, iPoint(250, 200));*/
   
 
 
-		CreateEntity(Type::ENEMY_FLYING, iPoint(1500, 90),3);
-		CreateEntity(Type::ENEMY_FLYING, iPoint(350, 200),1);
+
 
 
 

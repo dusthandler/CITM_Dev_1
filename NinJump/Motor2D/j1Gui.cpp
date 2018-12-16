@@ -110,10 +110,6 @@ bool j1Gui::PreUpdate()
 
 bool j1Gui::Update(float dt) {
 
-	
-/*	LOG("                                                          actual DT                   %f", dt); 
-	LOG(" 888888888888888888888888888888888888888888888888888888     CREATED LEVEL ----> %i times", creation_level_times);
-	LOG(" 888888888888888888888888888888888888888888888888888888     CLEANED LEVEL ----> %i times", cleaned_level_times); */
 
 	Menu_Level_GUI_Manager(); 
 	Blit(); 
@@ -651,7 +647,7 @@ void j1Gui::Select_Clicked_Object() {
 				}
 			}
 			else {
-				//LOG("oooooooooooooooooooooooooooooooooooooooooooooousiiiiiiiiiiiiiiiiiiiiiiiiiiiideeeeeeeeeeee"); 
+				
 				item->data->hover_state = Hover_State::OUTSIDE;
 			}
 
