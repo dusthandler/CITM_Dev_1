@@ -820,7 +820,7 @@ void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 	uint total_range = end_pos - start_pos;
 	uint range_volume_factor = total_range / SDL_MIX_MAXVOLUME; 
 
-	uint volume = (obj->pos.x - obj->initial_pos.x) / range_volume_factor; 
+	uint volume = (obj->pos.x - start_pos) / range_volume_factor;
 
 	
 	// music volume
