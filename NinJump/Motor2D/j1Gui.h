@@ -216,12 +216,13 @@ private:
 	j1Gui_Image* settings_fx_bar = nullptr;
 	j1Gui_Slider* settings_fx_slider = nullptr;
 
+
 	// hovering and clicking
 
 	uint hover_objects_queue = 0; 
 	j1Gui_Object* clicked_object = nullptr; 
 	bool move_object = false; 
-	bool reset_slider_focus = false; 
+	bool reset_child_search = false; 
 
 private: 
 	bool reset_hover_fx = false;
@@ -232,7 +233,6 @@ private:
 	uint cleaned_times = 0; 
 	bool clicked_in_this_frame = false; 
 
-	bool debug_ = false; 
 public: 
 	create_menu_GUI create_menu_GUI; 
 	bool create_level_GUI = false;
@@ -242,6 +242,8 @@ public:
 	bool first_start = true; 
 	bool Exit_Quits_App = false; 
 	bool settings_from_level = false; 
+	bool to_main_from_in_game_settings = false; 
+	
 
 public: 
 	bool first = true;
