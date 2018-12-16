@@ -221,7 +221,7 @@ private:
 	uint hover_objects_queue = 0; 
 	j1Gui_Object* clicked_object = nullptr; 
 	bool move_object = false; 
-	bool reset_child_search = false; 
+	bool reset_slider_focus = false; 
 
 private: 
 	bool reset_hover_fx = false;

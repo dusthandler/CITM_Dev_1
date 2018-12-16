@@ -629,9 +629,6 @@ void j1Gui::Select_Clicked_Object() {
 						item->data->hover_state = Hover_State::CLICK;
 					}
 
-					if (clicked_object != nullptr) {
-						reset_child_search = false;
-					}
 					break;
 
 
@@ -647,6 +644,10 @@ void j1Gui::Select_Clicked_Object() {
 
 					if (item->data != nullptr) {
 						clicked_object = item->data;
+
+						if (clicked_object->type == GUI_TYPE::Slider) {
+							reset_slider_focus = false; 
+						}
 					}
 					
 
@@ -672,8 +673,12 @@ void j1Gui::Select_Clicked_Object() {
 				}
 			}
 			else {
-				LOG("oooooooooooooooooooooooooooooooooooooooooooooousiiiiiiiiiiiiiiiiiiiiiiiiiiiideeeeeeeeeeee"); 
 				item->data->hover_state = Hover_State::OUTSIDE;
+
+				if (clicked_object && clicked_object->type == GUI_TYPE::Slider) {  // keeps slider as clicked 
+					clicked_object = item->data;
+				}
+
 			}
 
 		}
@@ -707,24 +712,30 @@ void j1Gui::Select_Clicked_Object() {
 		clicked_in_this_frame = false; 
 
 
-		// move slider even if mouse is out of range
+		/*// move slider even if mouse is out of range
 
-	/*	if (clicked_object && clicked_object->type == GUI_TYPE::Slider) {
+		if (!reset_slider_focus) {
 
-			if (clicked_object->hover_state == Hover_State::DRAG) {
+			if (clicked_object && clicked_object->type == GUI_TYPE::Slider) {
 
-				LOG(" .............................................................. moving slider even if mouse is outside"); 
-				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) != KEY_UP) {
+				LOG("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[``        moving slider off focus ]]]]]]]]]]]]]]]");
 
+				bool do_it = true;
+
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+					do_it = false;
+					reset_slider_focus = true; 
+				}
+
+				if (do_it) {
 					Move_Clicked_Object(clicked_object);
-
+				
 				}
 
 			}
+
 		}*/
-
-
-
+		
 
 		// move children
 
@@ -766,6 +777,9 @@ void j1Gui::Select_Clicked_Object() {
 	
 
 }
+
+
+
 
 
 j1Gui_Object* j1Gui::Get_Clicked_Object() {
@@ -847,7 +861,7 @@ void j1Gui::Move_Slider(j1Gui_Object* obj, iPoint new_pos) {
 	uint total_range = end_pos - start_pos;
 	uint range_volume_factor = total_range / SDL_MIX_MAXVOLUME; 
 
-	uint volume = (obj->pos.x - obj->initial_pos.x) / range_volume_factor; 
+	uint volume = (obj->pos.x - start_pos) / range_volume_factor; 
 
 	
 	// music volume
